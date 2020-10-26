@@ -8,24 +8,19 @@
 
   {% render 'eyebrow-text',
               text: { string }
-              text_color: { string } expects text-color class
+              badge_style: { string } expects bootstrap badge class 
+              (i.e. badge-secondary)
   %}
 
 {% endcomment %}
 
 {% comment %} Class defaults {% endcomment %}
-{% assign classes = 'eyebrow'%}
+{% assign classes = 'badge'%}
 
-{% if text_color != blank %}
-  {% assign classes = classes | append: ' ' | append: text_color %}
+{% if badge_style != blank %}
+  {% assign classes = classes | append: ' ' | append: badge_style %}
 {% else %}
-  {% assign classes = classes | append: ' ' | append: 'text-primary' %}
-{% endif %}
-
-{% if text_alignment != blank %}
-  {% assign classes = classes | append: ' ' | append: text_alignment %}
-{% else %}
-  {% assign classes = classes | append: ' ' | append: 'text-left' %}
+  {% assign classes = classes | append: ' ' | append: 'badge-secondary' %}
 {% endif %}
 
 {% comment %} HTML content {% endcomment %}

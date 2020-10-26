@@ -8,3 +8,4 @@
  * @file template.index.js
  *
  */
+console.log('hi')

@@ -1,0 +1,10 @@
+{% assign content_color_value = content_color | remove: 'text-' | strip %}
+
+{% assign pagination_classes = 'slideshow-pagination' %}
+{% if content_color_value != blank %}
+  {% assign pagination_classes = pagination_classes | append: ' slideshow-pagination-' | append: content_color_value %}
+{% else %}
+  {% assign pagination_classes = pagination_classes | append: ' slideshow-pagination-primary' %}
+{% endif %}
+
+<div class="{{ pagination_classes }}" id="slideshow-pagination-{{ slideshow_id }}"></div>

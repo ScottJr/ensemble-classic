@@ -27,7 +27,7 @@
 
 {% comment %} Content Container Settings {% endcomment %}
 {% assign content_order_large = section.settings.content_order_large %}
-{% assign eyebrow_color = section.settings.eyebrow_color %}
+{% assign badge_style = section.settings.badge_style %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign display_style = section.settings.display_style %}
 {% assign display_text = section.settings.display_text %}
@@ -73,6 +73,7 @@
 
 {% comment %} Container Classes {% endcomment %}
 {% assign container_classes = container %}
+{% assign container_classes = container_classes | append: ' py-5'%}
 
 {% comment %} Row Classes {% endcomment %}
 {% assign row_classes = 'row'%}
@@ -146,7 +147,7 @@
         <div class="{{ content_classes }}">
           {% render 'eyebrow-text',
                       text: eyebrow_text,
-                      text_color: eyebrow_color
+                      badge_style: badge_style
           %}
           {% render 'display-text',
                       text: display_text,
