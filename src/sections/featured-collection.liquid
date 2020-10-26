@@ -1,12 +1,12 @@
-{% render 'section-image-content' %}
+{% render 'section-featured-collection' %}
 
 {% schema %}
   {
-    "name": "Image & Content",
+    "name": "Featured collection",
     "settings": [
       {
         "type": "header",
-        "content": "Section Layout"
+        "content": "Layout"
       },
       { 
         "type": "select",
@@ -23,19 +23,8 @@
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-fluid"
-      },      
-      { 
-        "type": "select",
-        "id": "content_order_large",
-        "label": "Content position",
-        "info": "Large devices only. On small devices, image stacks first and is followed by the content.",
-        "options": [
-          { "value": "order-lg-last", "label": "Right"},
-          { "value": "order-lg-first", "label": "Left"}
-        ],
-        "default": "order-lg-last"
-      },
-      {
+      },       
+       {
         "type":   "range",
         "label": "Padding top - small devices",
         "id": "padding_top",
@@ -86,7 +75,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   5,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -97,7 +86,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   5,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -150,38 +139,35 @@
         "type": "image_picker",
         "id": "bg_image_large",
         "label": "Background Image - Medium & Up Devices"
+      },
+      {
+        "type": "header",
+        "content": "Slideshow"
       },      
+      {
+        "type": "checkbox", 
+        "id": "slideshow_autoplay",
+        "label": "Slideshow - autoplay",
+        "default": true 
+      },
+      {
+        "type": "select",
+        "id": "slideshow_delay",
+        "label": "Slideshow - Slide Delay",
+        "options": [
+          { "value": "1000", "label": "1 seconds"},
+          { "value": "2000", "label": "2 seconds"},
+          { "value": "3000", "label": "3 seconds"},
+          { "value": "4000", "label": "4 seconds"},
+          { "value": "5000", "label": "5 seconds"}
+        ],
+        "default": "2000",
+        "info": "Default: 2 seconds"        
+      },           
       {
         "type": "header",
         "content": "Content"
       },
-      {
-        "type": "image_picker",
-        "id": "image",
-        "label": "Image - Small devices"
-      },     
-      {
-        "type": "image_picker",
-        "id": "image_large",
-        "label": "Image - Medium & Up devices"
-      },
-      {
-        "type": "select",
-        "id": "image_aspect_ratio",
-        "label": "Image aspect ratio",
-        "options": [
-          { "value": "21by9", "label": "21x9"},
-          { "value": "1by1", "label": "1x1"},
-          { "value": "4by3", "label": "4x3"},
-          { "value": "16by9", "label": "16x9"}
-        ],
-        "default": "1by1"
-      }, 
-      {
-        "type": "text",
-        "id": "image_alt_text",
-        "label": "Image - Alt Text"
-      },                                
       { 
         "type": "text",
         "id": "eyebrow_text",
@@ -200,13 +186,14 @@
           { "value": "badge-info", "label": "Info"},
           { "value": "badge-light", "label": "Light"}
         ]
-      }, 
+      },      
       {
         "type": "text",
         "id": "display_text",
-        "label": "Header"
+        "label": "Heading",
+        "default": "Featured collection"
       },
-      {
+      { 
         "type": "select",
         "id": "display_style",
         "label": "Display text style",
@@ -224,7 +211,12 @@
         ],
         "default": "display-4",
         "info": "Default: Display 4"             
-      },      
+      },       
+      {
+        "type": "richtext",
+        "id": "paragraph_text",
+        "label": "Paragraph"        
+      },
       {
         "type": "select",
         "id": "content_color",
@@ -244,11 +236,11 @@
           { "value": "text-black-50", "label": "Black 50"},
           { "value": "text-white-50", "label": "White 50"}
         ]
-      },
+      },             
       {
-        "type": "richtext",
-        "id": "paragraph_text",
-        "label": "Paragraph"        
+        "id": "collection",
+        "type": "collection",
+        "label": "Collection"
       },
       {
         "type": "text",
@@ -282,50 +274,15 @@
           { "value": "btn-outline-info", "label": "Info - Outline"},
           { "value": "btn-outline-light", "label": "Light - Outline"},
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
-        ],
-        "default": "btn-secondary"
-      },
-      {
-        "type": "text",
-        "id": "cta_text_2",
-        "label": "CTA Text"
-      },
-      {
-        "type": "url",
-        "id": "cta_url_2",
-        "label": "CTA URL"
-      },
-      {
-        "type": "select",
-        "id": "cta_type_2",
-        "label": "CTA Type",
-        "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
-        ],
-        "default": "btn-secondary"
-      }
+        ]
+      }     
     ],
     "presets": [
       {
-        "name": "Image & Content",
-        "category": "Content"
+        "name": "Featured collection",
+        "category": "Collection"
       }
     ]
   }
-{% endschema %} 
+
+{% endschema %}

@@ -1,0 +1,43 @@
+{% comment %} Defaults {% endcomment %}
+{% assign component_classes = 'slideshow-controls d-flex align-items-center'%}
+{% if layout == 'inline' %}
+  {% assign component_classes = component_classes | append: ' slideshow-controls-inline' %}
+{% endif %}
+
+{% assign btn_prev_classes = 'btn-link btn-prev' %}
+{% assign btn_prev_classes = btn_prev_classes | append: ' ' | append: content_color %}
+{% if layout == 'inline' %}
+  {% assign btn_prev_classes = btn_prev_classes | append: ' p-3' %}
+{% else %}
+  {% assign btn_prev_classes = btn_prev_classes | append: ' mr-3' %}
+{% endif %}
+
+{% assign btn_next_classes = 'btn-link btn-next' %}
+{% assign btn_next_classes = btn_next_classes | append: ' ' | append: content_color %}
+{% if layout == 'inline' %}
+  {% assign btn_next_classes = btn_next_classes | append: ' p-3' %}
+{% else %}
+  {% assign btn_next_classes = btn_next_classes | append: ' ' %}
+{% endif %}
+
+{% comment %} Icon Sizes {% endcomment %}
+{% if layout == 'inline' %}
+  {% capture left_icon %}
+    {% render 'icon-left-carat-primary' %}
+  {% endcapture %}
+  {% capture right_icon %}
+    {% render 'icon-right-carat-primary' %}
+  {% endcapture %}
+{% else %}
+  {% capture left_icon %}
+    {% render 'icon-left-arrow-lg' %}
+  {% endcapture %}
+  {% capture right_icon %}
+    {% render 'icon-right-arrow-lg' %}
+  {% endcapture %}  
+{% endif %}
+
+<div class="{{ component_classes }}" id="slideshow-controls-{{ slideshow_id }}">
+  <div class="{{ btn_prev_classes }}" data-prev-btn>{{ left_icon }}</div>
+  <div class="{{ btn_next_classes }}" data-next-btn>{{ right_icon }}</div>
+</div>
