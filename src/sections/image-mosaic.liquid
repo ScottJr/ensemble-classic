@@ -1,8 +1,8 @@
-{% render 'section-image-content' %}
+{% render 'section-image-mosiac' %}
 
 {% schema %}
   {
-    "name": "Image & Content",
+    "name": "Image Mosiac",
     "settings": [
       {
         "type": "header",
@@ -23,17 +23,6 @@
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl"
-      },      
-      { 
-        "type": "select",
-        "id": "content_order_large",
-        "label": "Content position",
-        "info": "Large devices only. On small devices, image stacks first and is followed by the content.",
-        "options": [
-          { "value": "order-lg-last", "label": "Right"},
-          { "value": "order-lg-first", "label": "Left"}
-        ],
-        "default": "order-lg-last"
       },
       {
         "type":   "range",
@@ -321,9 +310,63 @@
         "default": "btn-secondary"
       }
     ],
+    "blocks": [ 
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 12,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }          
+        ]
+      },
+      {
+        "type": "promo-block",
+        "name": "Promo Block",
+        "limit": 12,
+        "settings": [
+          { 
+            "type": "select",
+            "id": "background_color",
+            "label": "Background color",
+            "options": [
+              { "value": "bg-primary", "label": "Primary" },
+              { "value": "bg-secondary", "label": "Secondary" },
+              { "value": "bg-success", "label": "Success" },
+              { "value": "bg-info", "label": "Info" },          
+              { "value": "bg-warning", "label": "Warning" },          
+              { "value": "bg-danger", "label": "Danger" },
+              { "value": "bg-light", "label": "Light" },
+              { "value": "bg-dark", "label": "Dark" },
+              { "value": "bg-white", "label": "White" }
+            ], 
+            "default": "bg-white",
+            "info": "Default: White"           
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }          
+        ]
+      }
+    ],    
     "presets": [
       {
-        "name": "Image & Content",
+        "name": "Image Mosiac",
         "category": "Content"
       }
     ]
