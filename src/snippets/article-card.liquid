@@ -1,0 +1,41 @@
+{%- comment %} 
+
+  Article Card
+  ------------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'article-card',
+              article: { article }
+              show_excerpt: { boolean } 
+  %}
+
+{% endcomment -%}
+{% if article and article != blank %}
+  <div class="mb-3">
+    {% if article.image %}
+      <div class="mb-4">
+        <a href="{{ article.url }}">
+          {% assign image = article.image.src | img_url: '400x' %}
+          
+          {% render 'image-object'
+                    id: article.id,
+                    image_url_small: image,
+                    image_url_large: image,
+                    image_aspect_ratio: '4by3'
+          %}
+        </a>
+      </div>
+    {% endif %}
+    <div>
+      <a href="{{ article.url }}">
+        <h3 class="mb-0">{{ article.title }}</h3>
+      </a>
+      {% if show_excerpt and article.excerpt != blank %}
+        <div class="rte my-0">
+          {{ article.excerpt }}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endif %}

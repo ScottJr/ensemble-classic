@@ -1,0 +1,41 @@
+{% comment %} 
+
+  -----------------------------------------------------------------------------
+  Eyebrow Text
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'eyebrow-text',
+              text: { string }
+              text_color: { string } expects text-color class
+  %}
+
+{% endcomment %}
+
+{% comment %} Class defaults {% endcomment %}
+{% assign classes = 'eyebrow'%}
+
+{% if text_color != blank %}
+  {% assign classes = classes | append: ' ' | append: text_color %}
+{% else %}
+  {% assign classes = classes | append: ' ' | append: 'text-primary' %}
+{% endif %}
+
+{% if text_alignment != blank %}
+  {% assign classes = classes | append: ' ' | append: text_alignment %}
+{% else %}
+  {% assign classes = classes | append: ' ' | append: 'text-left' %}
+{% endif %}
+
+{% comment %} HTML content {% endcomment %}
+{% capture 'html_content' %}
+  {% if text != blank %}
+    <span class="{{ classes }}">{{ text }}</span>
+  {% endif %}
+{% endcapture %}
+
+{% comment %} Render {% endcomment %}
+{% if html_content != blank %}
+  {{ html_content }}
+{% endif %}

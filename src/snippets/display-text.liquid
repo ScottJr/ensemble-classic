@@ -1,0 +1,49 @@
+{% comment %} 
+
+  -----------------------------------------------------------------------------
+  Display Text
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'display-text',
+              text: { string }
+              display_size: { string } expects display-1,2,3,4
+              text_alignment: { string } 'text-center', 'text-left'
+              text_color: { string } 'text-primary', 'text-secondary'
+  %}
+
+{% endcomment %}
+
+{% comment %} Class defaults {% endcomment %}
+{% assign classes = blank %}
+
+{% if text_color != blank %}
+  {% assign classes = classes | append: text_color %}
+{% else %}
+  {% assign classes = classes | append: 'text-primary' %}
+{% endif %}
+
+{% if text_alignment != blank %}
+  {% assign classes = classes | append: ' ' | append: text_alignment %}
+{% else %}
+  {% assign classes = classes | append: ' ' | append: 'text-left' %}
+{% endif %}
+
+{% if display_size != blank %}
+  {% assign classes = classes | append: ' ' | append: display_size %}
+{% else %}
+  {% assign classes = classes | append: ' ' | append: 'display-2' %}
+{% endif %}
+
+{% comment %} HTML content {% endcomment %}
+{% capture 'html_content' %}
+  {% if text != blank %}
+    <h2 class="{{ classes }}">{{ text }}</h2>
+  {% endif %}
+{% endcapture %}
+
+{% comment %} Render {% endcomment %}
+{% if html_content != blank %}
+  {{ html_content }}
+{% endif %}

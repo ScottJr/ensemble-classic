@@ -1,0 +1,127 @@
+{% comment %} 
+
+  -----------------------------------------------------------------------------
+  CTA Block
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'cta-block',
+              cta_type_1: { string } - optional
+              cta_url_1: { string } - optional
+              cta_text_1: { string } - optional
+              cta_type_2: { string } - optional
+              cta_url_2: { string } - optional
+              cta_text_2: { string } - optional              
+              cta_type_3: { string } - optional
+              cta_url_3: { string } - optional
+              cta_text_4: { string } - optional
+              cta_type_4: { string } - optional
+              cta_url_4: { string } - optional
+              cta_text_4: { string } - optional                            
+  %}
+
+{% endcomment %}
+
+{% comment %} Class defaults {% endcomment %}
+{% assign cta_1_classes = blank %}
+
+{% if cta_type_1 != blank %}
+  {% if cta_type_1 == 'link-underline' %}
+    {% assign cta_1_classes = cta_1_classes | append: ' ' | append: cta_type_1 %}
+  {% else %}
+    {% assign cta_1_classes = cta_1_classes | append: 'btn ' | append: cta_type_1 %}
+  {% endif %}
+{% else %}
+  {% assign cta_1_classes = cta_1_classes | append: ' ' | append: 'btn-primary' %}
+{% endif %}
+{% if cta_class_1 != blank %}
+  {% assign cta_1_classes = cta_1_classes | append: ' ' | append: cta_class_1 %}
+{% endif %}
+
+{% assign cta_2_classes = blank %}
+{% if cta_type_2 != blank %}
+  {% if cta_type_2 == 'link-underline' %}
+    {% assign cta_2_classes = cta_2_classes | append: ' ' | append: cta_type_2 %}
+  {% else %}
+    {% assign cta_2_classes = cta_2_classes | append: 'btn ' | append: cta_type_2 %}
+  {% endif %}
+{% else %}
+  {% assign cta_2_classes = cta_2_classes | append: 'btn ' | append: 'btn-primary' %}
+{% endif %}
+
+{% if cta_class_2 != blank %}
+  {% assign cta_2_classes = cta_2_classes | append: ' ' | append: cta_class_2 %}
+{% endif %}
+
+{% assign cta_3_classes = blank %}
+{% if cta_type_3 != blank %}
+  {% if cta_type_3 == 'link-underline' %}
+    {% assign cta_3_classes = cta_3_classes | append: ' ' | append: cta_type_3 %}
+  {% else %}
+    {% assign cta_3_classes = cta_3_classes | append: 'btn ' | append: cta_type_3 %}
+  {% endif %}
+{% else %}
+  {% assign cta_3_classes = cta_3_classes | append: ' ' | append: 'btn-primary' %}
+{% endif %}
+
+{% if cta_class_3 != blank %}
+  {% assign cta_3_classes = cta_3_classes | append: ' ' | append: cta_class_3 %}
+{% endif %}
+
+{% assign cta_4_classes = blank %}
+{% if cta_type_4 != blank %}
+  {% if cta_type_4 == 'link-underline' %}
+    {% assign cta_4_classes = cta_4_classes | append: ' ' | append: cta_type_4 %}
+  {% else %}
+    {% assign cta_4_classes = cta_4_classes | append: 'btn ' | append: cta_type_4 %}
+  {% endif %}
+{% else %}
+  {% assign cta_4_classes = cta_4_classes | append: ' ' | append: 'btn-primary' %}
+{% endif %}
+
+{% if cta_class_4 != blank %}
+  {% assign cta_4_classes = cta_4_classes | append: ' ' | append: cta_class_4 %}
+{% endif %}
+
+{% comment %} HTML content {% endcomment %}
+{% capture 'cta_1_html_content' %}
+  {% if cta_url_1 != blank and cta_text_1 != blank %}
+    <a href="{{ cta_url_1 }}" class="{{ cta_1_classes }}">{{ cta_text_1 }}</a> 
+  {% endif %}
+{% endcapture %}
+
+{% capture 'cta_2_html_content' %}
+  {% if cta_url_2 != blank and cta_text_2 != blank %}
+    <a href="{{ cta_url_2 }}" class="{{ cta_2_classes }}">{{ cta_text_2 }}</a> 
+  {% endif %}
+{% endcapture %}
+
+{% capture 'cta_3_html_content' %}
+  {% if cta_url_3 != blank and cta_text_3 != blank %}
+    <a href="{{ cta_url_3 }}" class="{{ cta_3_classes }}">{{ cta_text_3 }}</a> 
+  {% endif %}
+{% endcapture %}
+
+{% capture 'cta_4_html_content' %}
+  {% if cta_url_4 != blank and cta_text_4 != blank %}
+    <a href="{{ cta_url_4 }}" class="{{ cta_4_classes }}">{{ cta_text_4 }}</a> 
+  {% endif %}
+{% endcapture %}
+
+{% comment %} Render {% endcomment %}
+{% if cta_1_html_content != blank %}
+  {{ cta_1_html_content }}
+{% endif %}
+
+{% if cta_2_html_content != blank %}
+  {{ cta_2_html_content }}
+{% endif %}
+
+{% if cta_3_html_content != blank %}
+  {{ cta_3_html_content }}
+{% endif %}
+
+{% if cta_4_html_content != blank %}
+  {{ cta_4_html_content }}
+{% endif %}
