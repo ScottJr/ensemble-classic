@@ -1,0 +1,170 @@
+{% comment %} 
+  
+  -----------------------------------------------------------------------------
+  Featured Collection
+  -----------------------------------------------------------------------------  
+  
+  The featured collection section allows for a collection of products to be
+  displayed in a carousel.
+
+  Required Snippets:
+  - product-card.liquid
+
+
+{% endcomment %}
+
+{% comment %} Global Section Settings {% endcomment %}
+{% assign background_color = section.settings.background_color %}
+{% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
+{% if bg_image_url contains 'no-image' %}
+  {% assign bg_image_url = blank %}
+{% endif %}
+{% assign bg_image_url_large = section.settings.bg_image_large | img_url: '1000x' %}
+{% if bg_image_url_large contains 'no-image' %}
+  {% assign bg_image_url_large = blank %}
+{% endif %}
+
+{% comment %} Section Content Settings {% endcomment %}
+{% assign badge_style = section.settings.badge_style %}
+{% assign eyebrow_text = section.settings.eyebrow_text %}
+{% assign display_style = section.settings.display_style %}
+{% assign display_text = section.settings.display_text %}
+{% assign content_color = section.settings.content_color %} 
+{% assign paragraph_text = section.settings.paragraph_text %}
+{% assign cta_text_1 = section.settings.cta_text_1 %}
+{% assign cta_url_1 = section.settings.cta_url_1 %}
+{% assign cta_type_1 = section.settings.cta_type_1 %}
+{% assign featured_collection = collections[section.settings.collection] %}
+{% assign featured_collection_count = featured_collection.products_count | times: 1 %}
+
+{% comment %} Section Layout Settings {% endcomment %}
+{% assign padding_top = section.settings.padding_top %}
+{% assign padding_bottom = section.settings.padding_bottom %}
+{% assign padding_top_md_up = section.settings.padding_top_md_up %}
+{% assign padding_bottom_md_up = section.settings.padding_bottom_md_up %}
+{% assign margin_top = section.settings.margin_top %}
+{% assign margin_bottom = section.settings.margin_bottom %}
+{% assign margin_top_md_up = section.settings.margin_top_md_up %}
+{% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
+ 
+{% comment %} Section Layout Classes {% endcomment %}
+{% assign section_classes =  'position-relative' %}
+{% assign section_classes = section_classes | append: ' ' | append: background_color %}
+{% assign section_classes = section_classes | append: ' pt-' | append: padding_top %}
+{% assign section_classes = section_classes | append: ' pb-' | append: padding_bottom %}
+{% assign section_classes = section_classes | append: ' pt-md-' | append: padding_top_md_up %}
+{% assign section_classes = section_classes | append: ' pb-md-' | append: padding_bottom_md_up %}
+{% assign section_classes = section_classes | append: ' mt-' | append: margin_top %}
+{% assign section_classes = section_classes | append: ' mb-' | append: margin_bottom %}
+{% assign section_classes = section_classes | append: ' mt-md-' | append: margin_top_md_up %}
+{% assign section_classes = section_classes | append: ' mb-md-' | append: margin_bottom_md_up %}
+
+{% comment %} Container Settings {% endcomment %}
+{% assign container = section.settings.container %}
+
+{% comment %} Container Classes {% endcomment %}
+{% assign container_classes = container %}
+{% assign container_classes = container_classes | append: ' py-5'%}
+
+{% comment %} Slideshow Data Attributes {% endcomment %}
+{% assign slideshow_delay = section.settings.slideshow_delay %}
+{% assign slideshow_autoplay = section.settings.slideshow_autoplay %}
+{% assign slideshow_id = section.id %}
+
+{% assign slideshow_data_attrs = 'data-slideshow-autoplay="' | append: slideshow_autoplay | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-delay="' | append: slideshow_delay | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-id="' | append: slideshow_id | append: '"'%}
+
+{% comment %} Slideshow Config {% endcomment %}
+{% if featured_collection.products_count > 3 %}
+  {% assign slideshow_data_attrs = slideshow_data_attrs | prepend: 'data-slideshow ' %}   
+{% else %}
+  {% assign slideshow_data_attrs = blank %}
+{% endif %}
+
+<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="image-mosaic">
+  {% comment %} Background Image {% endcomment %}
+  {% if bg_image_url != blank %}
+    <style>
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+    </style>
+  {% elsif bg_image_url_large != blank %}  
+    <style>
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+    </style>
+  {% endif %}
+
+  {% if bg_image_url_large != blank %}
+    <style>
+      @media (min-width: 992px) {
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+      }
+    </style>
+  {% elsif bg_image_url != blank %}  
+    <style>
+      @media (min-width: 992px) {
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      }
+    </style>
+  {% endif %}
+  <div class="{{ container_classes }}">
+    <div class="row mb-3">
+      <div class="col-12">
+        {% render 'eyebrow-text',
+            text: eyebrow_text,
+            badge_style: badge_style
+        %}
+        {% render 'display-text',
+                    text: display_text,
+                    text_color: content_color,
+                    text_alignment: 'text-left',
+                    display_size: display_style
+        %}
+      </div>
+      <div class="col-12 col-md-4">
+        {% render 'paragraph-text',
+                    text: paragraph_text,
+                    text_color: content_color
+                    text_alignment: 'text-left',
+        %}
+      </div>
+    </div>
+    <div class="row">
+      {% for block in section.blocks %}
+        <div class="col-12 col-md-4 mb-4 mb-md-4">
+          {% if block.type == 'image' %}
+            {% assign featured_image_src = block.settings.image.src | img_url: '600x' %}
+            {% assign featured_image_alt = block.settings.image.alt %}
+            {% render 'image-object',
+                        id: block.id,
+                        image_url_small: featured_image_src,
+                        image_url_large: featured_image_src,
+                        image_alt_text: featured_image_alt,
+                        image_aspect_ratio: '1by1'
+            %}
+          {% elsif block.type == 'promo-block' %}
+            {% assign promo_text = block.settings.text %}
+            {% assign block_background_color = block.settings.background_color %}
+            {% assign responsive_item_classes = 'embed-responsive-item' %}
+            {% assign responsive_item_classes = responsive_item_classes | append: ' ' | append: block_background_color %}
+            {% assign responsive_item_classes = responsive_item_classes | append: ' d-flex flex-column justify-content-center px-4' %}
+            <div class="embed-responsive embed-responsive-1by1">
+              <div class="{{ responsive_item_classes }}">
+                <h3 class="text-center">{{ promo_text }}</h3>
+              </div>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="row">
+      <div class="col-12 text-center my-3 my-md-5">
+          {% render 'cta-block',
+                cta_text_1: cta_text_1,
+                cta_url_1: cta_url_1,
+                cta_type_1: cta_type_1
+          %}
+      </div>
+    </div>
+  </div>  
+</section>
