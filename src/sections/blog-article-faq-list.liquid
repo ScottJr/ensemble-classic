@@ -1,8 +1,8 @@
-{% render 'section-image-content' %}
+{% render 'section-article-faq-list' %}
 
 {% schema %}
   {
-    "name": "Image & Content",
+    "name": "FAQ Articles",
     "settings": [
       {
         "type": "header",
@@ -22,18 +22,7 @@
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
-        "default": "container-xl"
-      },      
-      { 
-        "type": "select",
-        "id": "content_order_large",
-        "label": "Content position",
-        "info": "Large devices only. On small devices, image stacks first and is followed by the content.",
-        "options": [
-          { "value": "order-lg-last", "label": "Right"},
-          { "value": "order-lg-first", "label": "Left"}
-        ],
-        "default": "order-lg-last"
+        "default": "container"
       },
       {
         "type":   "range",
@@ -150,33 +139,16 @@
         "type": "image_picker",
         "id": "bg_image_large",
         "label": "Background Image - Medium & Up Devices"
-      },      
+      }, 
       {
         "type": "header",
         "content": "Content"
       },
       {
-        "type": "image_picker",
-        "id": "image",
-        "label": "Image - Small devices"
-      },     
-      {
-        "type": "image_picker",
-        "id": "image_large",
-        "label": "Image - Medium & Up devices"
-      },
-      {
-        "type": "select",
-        "id": "image_aspect_ratio",
-        "label": "Image aspect ratio",
-        "options": [
-          { "value": "21by9", "label": "21x9"},
-          { "value": "1by1", "label": "1x1"},
-          { "value": "4by3", "label": "4x3"},
-          { "value": "16by9", "label": "16x9"}
-        ],
-        "default": "1by1"
-      },                                 
+        "type":      "blog",
+        "id":        "blog",
+        "label":     "FAQ source blog"        
+      },            
       { 
         "type": "text",
         "id": "eyebrow_text",
@@ -245,7 +217,7 @@
         "id": "paragraph_text",
         "label": "Paragraph"        
       },
-      {
+      { 
         "type": "text",
         "id": "cta_text_1",
         "label": "CTA Text"
@@ -279,48 +251,13 @@
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
         ],
         "default": "btn-secondary"
-      },
-      {
-        "type": "text",
-        "id": "cta_text_2",
-        "label": "CTA Text"
-      },
-      {
-        "type": "url",
-        "id": "cta_url_2",
-        "label": "CTA URL"
-      },
-      {
-        "type": "select",
-        "id": "cta_type_2",
-        "label": "CTA Type",
-        "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
-        ],
-        "default": "btn-secondary"
-      }
+      }    
     ],
     "presets": [
       {
-        "name": "Image & Content",
+        "name": "FAQ Articles",
         "category": "Content"
       }
-    ]
+    ]    
   }
-{% endschema %} 
+{% endschema %}

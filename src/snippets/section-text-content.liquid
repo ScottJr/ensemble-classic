@@ -9,24 +9,7 @@
   {% assign bg_image_url_large = blank %}
 {% endif %}
 
-{% comment %} Image Container Settings {% endcomment %}
-{% assign image_aspect_ratio = section.settings.image_aspect_ratio %}
-{% assign image_alt_text = section.settings.image_alt_text %}
-{% assign image_url = section.settings.image | img_url: '800x' %}
-{% if image_url contains 'no-image' %}
-  {% assign image_url = blank %}
-{% endif %}
-{% assign image_url_large = section.settings.image_large | img_url: '1000x' %}
-{% if image_url_large contains 'no-image' %}
-  {% assign image_url_large = blank %}
-{% endif %}
-
-{% comment %} Image Container Classes {% endcomment %}
-{% assign image_classes = 'col-12 col-md-6' %}
-{% assign image_aspect_ratio_classes = image_aspect_ratio %}
-
 {% comment %} Content Container Settings {% endcomment %}
-{% assign content_order_large = section.settings.content_order_large %}
 {% assign badge_style = section.settings.badge_style %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign display_style = section.settings.display_style %}
@@ -40,13 +23,10 @@
 {% assign cta_url_2 = section.settings.cta_url_2 %}
 {% assign cta_type_2 = section.settings.cta_type_2 %}
 
-{% comment %} Content Container Wrapper Classes {% endcomment %}
-{% assign content_container_wrapper_classes = 'col-12 col-md-6' %} 
-{% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: content_order_large %}
-{% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: 'd-flex align-items-start flex-column justify-content-center' %}
-
 {% comment %} Content Container Classes {% endcomment %}
-{% assign content_classes = 'pr-5' %}
+{% assign content_classes = 'col-12' %} 
+{% assign content_classes = content_classes | append: ' ' | append: 'd-flex align-items-start flex-column justify-content-center' %}
+{% assign content_classes = content_classes | append: ' ' | append: 'py-4 py-sm-0 pr-sm-6' %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign padding_top = section.settings.padding_top %}
@@ -81,11 +61,7 @@
 {% assign row_classes = 'row'%}
 
 {% comment %} Render HTML Content? {% endcomment %}
-{% if image_url != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif image_url_large != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif eyebrow_text != blank %}
+{% if eyebrow_text != blank %}
   {% assign show_rendered_content = true %}  
 {% elsif display_text != blank %}
   {% assign show_rendered_content = true %}
@@ -109,7 +85,7 @@
 
 {% comment %} Render {% endcomment %}
 {% unless show_rendered_content == false %}
-  <section class="{{ section_classes }}" data-section-id="{{ section.id }}" data-section-type="image-content">
+  <section class="{{ section_classes }}" data-section-id="{{ section.id }}">
     {% comment %} Background Image {% endcomment %}
     {% if bg_image_url != blank %}
       <style>
@@ -137,40 +113,29 @@
 
     <div class="{{ container_classes }}">
       <div class="{{ row_classes }}">
-        <div class="{{ image_classes }}">
-          {% render 'image-object'
-                      id: section.id,
-                      image_url_small: image_url,
-                      image_url_large: image_url_large,
-                      image_alt_text: image_alt_text,
-                      image_aspect_ratio: image_aspect_ratio_classes
+        <div class="{{ content_classes }}">
+          {% render 'eyebrow-text',
+                      text: eyebrow_text,
+                      badge_style: badge_style
           %}
-        </div>
-        <div class="{{ content_container_wrapper_classes }}">
-          <div class="{{ content_classes }}">
-            {% render 'eyebrow-text',
-                        text: eyebrow_text,
-                        badge_style: badge_style
+          {% render 'display-text',
+                      text: display_text,
+                      text_color: content_color,
+                      display_size: display_style
+          %}
+          {% render 'paragraph-text',
+                      text: paragraph_text,
+                      text_color: content_color
+          %}
+          <div class="{{ cta_classes }}">
+            {% render 'cta-block',
+                        cta_text_1: cta_text_1,
+                        cta_url_1: cta_url_1,
+                        cta_type_1: cta_type_1,
+                        cta_text_2: cta_text_2,
+                        cta_url_2: cta_url_2,
+                        cta_type_2: cta_type_2
             %}
-            {% render 'display-text',
-                        text: display_text,
-                        text_color: content_color,
-                        display_size: display_style
-            %}
-            {% render 'paragraph-text',
-                        text: paragraph_text,
-                        text_color: content_color
-            %}
-            <div class="{{ cta_classes }}">
-              {% render 'cta-block',
-                          cta_text_1: cta_text_1,
-                          cta_url_1: cta_url_1,
-                          cta_type_1: cta_type_1,
-                          cta_text_2: cta_text_2,
-                          cta_url_2: cta_url_2,
-                          cta_type_2: cta_type_2
-              %}
-            </div>
           </div>
         </div>
       </div>
