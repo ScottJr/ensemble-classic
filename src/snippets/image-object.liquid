@@ -11,10 +11,7 @@
               image_url_small: { string } - expects image url
               image_url_large: { string } - expects image url
               image_aspect_ratio: { string } - utility class
-              image_alt_text: { string } - optional - but should never be omitted
-              rendered_html: { string } - pre-rendered content to inject
-              rounded_circle: { boolean } - defaults to false
-              responsive_item_bg: { string }
+              image_alt_text: { string }
   %}
 
 {% endcomment %} 
@@ -28,13 +25,15 @@
   {% assign classes = classes | append: ' ' | append: 'embed-responsive-4by3' %}
 {% endif %}
 
-{% if rounded_circle == true %}
-  {% assign classes = classes | append: ' ' | append: 'rounded-circle' %}
-{% endif %}
-
 {% assign responsive_item_classes = 'embed-responsive-item' %}
 {% if responsive_item_bg != blank %}
   {% assign responsive_item_classes = responsive_item_classes | append: ' ' | append: responsive_item_bg %}
+{% endif %}
+
+{% if image_cover_style != blank %}
+  {% assign cover_style = image_cover_style %}
+{% else %}
+  {% assign cover_style = 'cover' %}
 {% endif %}
 
 {% comment %} HTML content {% endcomment %}
@@ -48,7 +47,7 @@
       />
       <img src="{{ 'password-holder.jpg' | asset_url }}"
           alt="{{ image_alt_text }}"
-          style="object-fit: cover; height:100%; width:100%;"
+          style="object-fit: {{ cover_style }}; height:100%; width:100%;"
           loading="lazy"
       />
     </picture>

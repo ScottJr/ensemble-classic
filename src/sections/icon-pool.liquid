@@ -1,8 +1,8 @@
-{% render 'section-image-mosaic' %}
+{% render 'section-icon-pool' %} 
 
 {% schema %}
   {
-    "name": "Image Mosaic",
+    "name": "Icon Pool",
     "settings": [
       {
         "type": "header",
@@ -327,46 +327,11 @@
             "label": "URL"
           }          
         ]
-      },
-      {
-        "type": "promo-block",
-        "name": "Promo Block",
-        "limit": 12,
-        "settings": [
-          { 
-            "type": "select",
-            "id": "background_color",
-            "label": "Background color",
-            "options": [
-              { "value": "bg-primary", "label": "Primary" },
-              { "value": "bg-secondary", "label": "Secondary" },
-              { "value": "bg-success", "label": "Success" },
-              { "value": "bg-info", "label": "Info" },          
-              { "value": "bg-warning", "label": "Warning" },          
-              { "value": "bg-danger", "label": "Danger" },
-              { "value": "bg-light", "label": "Light" },
-              { "value": "bg-dark", "label": "Dark" },
-              { "value": "bg-white", "label": "White" }
-            ], 
-            "default": "bg-white",
-            "info": "Default: White"           
-          },
-          {
-            "type": "text",
-            "id": "text",
-            "label": "Text"
-          },
-          {
-            "type": "url",
-            "id": "url",
-            "label": "URL"
-          }          
-        ]
       }
     ],    
     "presets": [
       {
-        "name": "Image Mosaic",
+        "name": "Icon Pool",
         "category": "Content"
       }
     ]

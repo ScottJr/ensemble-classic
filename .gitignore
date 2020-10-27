@@ -7,3 +7,5 @@ config.yml
 /.history
 /dist
 /config.json
+*.zip
+packer.env.json

@@ -1,3 +1,16 @@
+{% comment %} 
+  
+  -----------------------------------------------------------------------------
+  Icon Pool
+  -----------------------------------------------------------------------------  
+  
+  The featured collection section allows for a collection of products to be
+  displayed in a carousel.
+
+  Required Snippets:
+
+{% endcomment %}
+
 {% comment %} Global Section Settings {% endcomment %}
 {% assign background_color = section.settings.background_color %}
 {% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
@@ -9,19 +22,18 @@
   {% assign bg_image_url_large = blank %}
 {% endif %}
 
-{% comment %} Content Settings {% endcomment %}
+{% comment %} Section Content Settings {% endcomment %}
 {% assign badge_style = section.settings.badge_style %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign display_style = section.settings.display_style %}
 {% assign display_text = section.settings.display_text %}
-{% assign content_color = section.settings.content_color %}
+{% assign content_color = section.settings.content_color %} 
 {% assign paragraph_text = section.settings.paragraph_text %}
 {% assign cta_text_1 = section.settings.cta_text_1 %}
 {% assign cta_url_1 = section.settings.cta_url_1 %}
 {% assign cta_type_1 = section.settings.cta_type_1 %}
-{% assign cta_text_2 = section.settings.cta_text_2 %}
-{% assign cta_url_2 = section.settings.cta_url_2 %}
-{% assign cta_type_2 = section.settings.cta_type_2 %}
+{% assign featured_collection = collections[section.settings.collection] %}
+{% assign featured_collection_count = featured_collection.products_count | times: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign padding_top = section.settings.padding_top %}
@@ -32,7 +44,7 @@
 {% assign margin_bottom = section.settings.margin_bottom %}
 {% assign margin_top_md_up = section.settings.margin_top_md_up %}
 {% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
-
+ 
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
 {% assign section_classes = section_classes | append: ' ' | append: background_color %}
@@ -52,24 +64,23 @@
 {% assign container_classes = container %}
 {% assign container_classes = container_classes | append: ' py-5'%}
 
-{% capture article_grid_html %}
-  {% assign featured_blog = blogs[section.settings.blog] %}
-  {% for related_article in featured_blog.articles limit: 5 %}
-    {% if related_article.url != article.url %}
-      <div class="col-12 col-md-4">
-        {% render 'article-card', 
-                    article: related_article,
-                    show_author: false,
-                    show_date: true,
-                    show_tags: true,
-                    show_excerpt: true,
-        %}
-      </div>
-    {% endif %}
-  {% endfor %}
-{% endcapture %}
+{% comment %} Slideshow Data Attributes {% endcomment %}
+{% assign slideshow_delay = section.settings.slideshow_delay %}
+{% assign slideshow_autoplay = section.settings.slideshow_autoplay %}
+{% assign slideshow_id = section.id %}
 
-<section class="{{ section_classes }}" data-section-id="{{ section.id }}" data-section-type="article-list">
+{% assign slideshow_data_attrs = 'data-slideshow-autoplay="' | append: slideshow_autoplay | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-delay="' | append: slideshow_delay | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-id="' | append: slideshow_id | append: '"'%}
+
+{% comment %} Slideshow Config {% endcomment %}
+{% if featured_collection.products_count > 3 %}
+  {% assign slideshow_data_attrs = slideshow_data_attrs | prepend: 'data-slideshow ' %}   
+{% else %}
+  {% assign slideshow_data_attrs = blank %}
+{% endif %}
+
+<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="image-mosaic">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
@@ -93,36 +104,50 @@
         [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
       }
     </style>
-  {% endif %}   
+  {% endif %}
   <div class="{{ container_classes }}">
-    <div class="row">
-      <div class="col-12">
+    <div class="row mb-3">
+      <div class="col-12 text-center">
         {% render 'eyebrow-text',
-                    text: eyebrow_text,
-                    badge_style: badge_style
+            text: eyebrow_text,
+            badge_style: badge_style,
         %}
         {% render 'display-text',
                     text: display_text,
                     text_color: content_color,
+                    text_alignment: 'text-center',
                     display_size: display_style
         %}
+      </div>
+      <div class="col-12 col-md-4">
         {% render 'paragraph-text',
                     text: paragraph_text,
                     text_color: content_color
+                    text_alignment: 'text-center',
         %}
       </div>
-    </div>
+    </div> 
     <div class="row">
-      {{ article_grid_html }}
-    </div>
-    <div class="row">
-      <div class="w-100 text-center">
-        {% render 'cta-block',
-                    cta_text_1: cta_text_1,
-                    cta_url_1: cta_url_1,
-                    cta_type_1: cta_type_1
-        %}
+      <div class="col-12 col-md-8 offset-md-2">
+        <div class="row d-flex justify-content-center">
+          {% for block in section.blocks %}
+            <div class="col-6 col-md-3 mb-5">
+              {% if block.type == 'image' %}
+                {% assign featured_image_src = block.settings.image.src | img_url: '600x' %}
+                {% assign featured_image_alt = block.settings.image.alt %}
+                {% render 'image-object',
+                            id: block.id,
+                            image_url_small: featured_image_src,
+                            image_url_large: featured_image_src,
+                            image_alt_text: featured_image_alt,
+                            image_aspect_ratio: '16by9',
+                            image_cover_style: 'contain'
+                %}
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
     </div>
-  </div>
+  </div>  
 </section>
