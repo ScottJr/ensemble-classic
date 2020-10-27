@@ -1,0 +1,160 @@
+{% comment %} Global Section Settings {% endcomment %}
+{% assign background_color = section.settings.background_color %}
+{% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
+{% if bg_image_url contains 'no-image' %}
+  {% assign bg_image_url = blank %}
+{% endif %}
+{% assign bg_image_url_large = section.settings.bg_image_large | img_url: '1000x' %}
+{% if bg_image_url_large contains 'no-image' %}
+  {% assign bg_image_url_large = blank %}
+{% endif %}
+
+{% comment %} Content Container Settings {% endcomment %}
+{% assign badge_style = section.settings.badge_style %}
+{% assign eyebrow_text = section.settings.eyebrow_text %}
+{% assign display_style = section.settings.display_style %}
+{% assign display_text = section.settings.display_text %}
+{% assign content_color = section.settings.content_color %}
+{% assign paragraph_text = section.settings.paragraph_text %}
+{% assign video_url = section.settings.video_url %}
+{% assign video_aspect_ratio = section.settings.video_aspect_ratio %}
+{% assign cta_text_1 = section.settings.cta_text_1 %}
+{% assign cta_url_1 = section.settings.cta_url_1 %}
+{% assign cta_type_1 = section.settings.cta_type_1 %}
+{% assign cta_text_2 = section.settings.cta_text_2 %}
+{% assign cta_url_2 = section.settings.cta_url_2 %}
+{% assign cta_type_2 = section.settings.cta_type_2 %}
+
+{% comment %} Content Container Classes {% endcomment %}
+{% assign content_classes = 'col-12' %} 
+{% assign content_classes = content_classes | append: ' ' | append: 'd-flex align-items-start flex-column justify-content-center' %}
+{% assign content_classes = content_classes | append: ' ' | append: 'py-4 py-sm-0 pr-sm-6' %}
+
+{% comment %} Section Layout Settings {% endcomment %}
+{% assign padding_top = section.settings.padding_top %}
+{% assign padding_bottom = section.settings.padding_bottom %}
+{% assign padding_top_md_up = section.settings.padding_top_md_up %}
+{% assign padding_bottom_md_up = section.settings.padding_bottom_md_up %}
+{% assign margin_top = section.settings.margin_top %}
+{% assign margin_bottom = section.settings.margin_bottom %}
+{% assign margin_top_md_up = section.settings.margin_top_md_up %}
+{% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
+
+{% comment %} Section Layout Classes {% endcomment %}
+{% assign section_classes =  'position-relative' %}
+{% assign section_classes = section_classes | append: ' ' | append: background_color %}
+{% assign section_classes = section_classes | append: ' pt-' | append: padding_top %}
+{% assign section_classes = section_classes | append: ' pb-' | append: padding_bottom %}
+{% assign section_classes = section_classes | append: ' pt-md-' | append: padding_top_md_up %}
+{% assign section_classes = section_classes | append: ' pb-md-' | append: padding_bottom_md_up %}
+{% assign section_classes = section_classes | append: ' mt-' | append: margin_top %}
+{% assign section_classes = section_classes | append: ' mb-' | append: margin_bottom %}
+{% assign section_classes = section_classes | append: ' mt-md-' | append: margin_top_md_up %}
+{% assign section_classes = section_classes | append: ' mb-md-' | append: margin_bottom_md_up %}
+
+{% comment %} Container Settings {% endcomment %}
+{% assign container = section.settings.container %}
+
+{% comment %} Container Classes {% endcomment %}
+{% assign container_classes = container %}
+{% assign container_classes = container_classes | append: ' py-5'%}
+
+{% comment %} Row Classes {% endcomment %}
+{% assign row_classes = 'row'%}
+
+{% comment %}  {% endcomment %}
+{% assign video_classes = 'col-12 mb-3' %}
+
+{% comment %} Render HTML Content? {% endcomment %}
+{% if eyebrow_text != blank %}
+  {% assign show_rendered_content = true %}  
+{% elsif display_text != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif paragraph_text != blank %}
+  {% assign show_rendered_content = true %}    
+{% elsif video_url != blank %}  
+  {% assign show_rendered_content = true %}    
+{% elsif cta_text_1 != blank %}
+  {% assign show_rendered_content = true %}  
+{% elsif cta_url_1 != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif cta_type_1 != blank %}
+  {% assign show_rendered_content = true %}      
+{% elsif cta_text_2 != blank %}
+  {% assign show_rendered_content = true %}  
+{% elsif cta_url_2 != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif cta_type_2 != blank %}
+  {% assign show_rendered_content = true %}    
+{% else %}
+  {% assign show_rendered_content = false %}
+{% endif %}
+
+{% comment %} Render {% endcomment %}
+{% unless show_rendered_content == false %}
+  <section class="{{ section_classes }}" data-section-id="{{ section.id }}">
+    {% comment %} Background Image {% endcomment %}
+    {% if bg_image_url != blank %}
+      <style>
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      </style>
+    {% elsif bg_image_url_large != blank %}  
+      <style>
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+      </style>
+    {% endif %}
+
+    {% if bg_image_url_large != blank %}
+      <style>
+        @media (min-width: 992px) {
+          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+        }
+      </style>
+    {% elsif bg_image_url != blank %}  
+      <style>
+        @media (min-width: 992px) {
+          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        }
+      </style>
+    {% endif %}    
+
+    <div class="{{ container_classes }}">
+      <div class="{{ row_classes }}">
+        <div class="{{ content_classes }}">
+          {% render 'eyebrow-text',
+                      text: eyebrow_text,
+                      badge_style: badge_style
+          %}
+          {% render 'display-text',
+                      text: display_text,
+                      text_color: content_color,
+                      display_size: display_style
+          %}
+          {% render 'paragraph-text',
+                      text: paragraph_text,
+                      text_color: content_color
+          %}
+        </div>
+      </div>
+      <div class="{{ row_classes }}">
+        <div class="{{ video_classes }}">
+          {% render 'video-object' video_url: video_url, video_aspect_ratio: video_aspect_ratio %}
+        </div>
+      </div>
+      <div class="{{ row_classes }}">
+        <div class="{{ content_classes }}">
+          <div class="{{ cta_classes }}">
+            {% render 'cta-block',
+                        cta_text_1: cta_text_1,
+                        cta_url_1: cta_url_1,
+                        cta_type_1: cta_type_1,
+                        cta_text_2: cta_text_2,
+                        cta_url_2: cta_url_2,
+                        cta_type_2: cta_type_2
+            %}
+          </div>
+        </div>
+      </div>      
+    </div>
+  </section>
+{% endunless %}
