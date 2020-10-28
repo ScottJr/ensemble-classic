@@ -54,8 +54,11 @@
 {% assign container = section.settings.container %}
 
 {% comment %} Container Classes {% endcomment %}
+{% assign vertically_padded_content = section.settings.vertically_padded_content %}
 {% assign container_classes = container %}
-{% assign container_classes = container_classes | append: ' py-5'%}
+{% if vertically_padded_content %}
+  {% assign container_classes = container_classes | append: ' py-5'%}
+{% endif %}
 
 {% comment %} Row Classes {% endcomment %}
 {% assign row_classes = 'row'%}
