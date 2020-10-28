@@ -23,17 +23,23 @@
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl"
-      },      
+      },  
+      {
+        "type": "checkbox",
+        "id": "vertically_padded_content",
+        "label": "Define if content will be vertically flush or have padding (5rem)",
+        "default": true
+      },             
       { 
         "type": "select",
         "id": "content_order_large",
         "label": "Content position",
         "info": "Large devices only. On small devices, image stacks first and is followed by the content.",
         "options": [
-          { "value": "order-lg-last", "label": "Right"},
-          { "value": "order-lg-first", "label": "Left"}
+          { "value": "order-md-last", "label": "Right"},
+          { "value": "order-md-first", "label": "Left"}
         ],
-        "default": "order-lg-last"
+        "default": "order-md-last"
       },
       {
         "type":   "range",
