@@ -1,8 +1,8 @@
-{% render 'section-icon-pool' %} 
+{% render 'section-video-player' %}
 
 {% schema %}
   {
-    "name": "Icon Pool",
+    "name": "Video Player",
     "settings": [
       {
         "type": "header",
@@ -143,7 +143,7 @@
       {
         "type": "header",
         "content": "Content"
-      },
+      },                            
       { 
         "type": "text",
         "id": "eyebrow_text",
@@ -211,6 +211,25 @@
         "type": "richtext",
         "id": "paragraph_text",
         "label": "Paragraph"        
+      },
+      {
+        "id": "video_url",
+        "type": "video_url",
+        "label": "Video URL",
+        "accept": ["youtube", "vimeo"],
+        "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
+      },
+      {
+        "type": "select",
+        "id": "video_aspect_ratio",
+        "label": "Video aspect ratio",
+        "options": [
+          { "value": "21by9", "label": "21x9"},
+          { "value": "1by1", "label": "1x1"},
+          { "value": "4by3", "label": "4x3"},
+          { "value": "16by9", "label": "16x9"}
+        ],
+        "default": "16by9"
       },
       {
         "type": "text",
@@ -283,28 +302,9 @@
         "default": "btn-secondary"
       }
     ],
-    "blocks": [ 
-      {
-        "type": "image",
-        "name": "Image",
-        "limit": 12,
-        "settings": [
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-          },
-          {
-            "type": "url",
-            "id": "url",
-            "label": "URL"
-          }          
-        ]
-      }
-    ],    
     "presets": [
       {
-        "name": "Icon Pool",
+        "name": "Video Player",
         "category": "Content"
       }
     ]
