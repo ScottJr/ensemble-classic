@@ -1,5 +1,6 @@
 {% comment %} Global Section Settings {% endcomment %}
 {% assign background_color = section.settings.background_color %}
+{% assign justify_content_large = section.settings.justify_content_large %}
 {% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
@@ -9,9 +10,43 @@
   {% assign bg_image_url_large = blank %}
 {% endif %}
 
-{% comment %} Image Container Settings {% endcomment %}
+{% comment %} Media Container Settings {% endcomment %}
+{% for block in section.blocks limit:1 %}
+  {% capture rendered_media %}
+    {% if block.type == 'video' %}
+      {% assign video_url = block.settings.video_url %}
+      {% assign video_aspect_ratio = block.settings.video_aspect_ratio %}
+      {% render 'video-object'
+                  video_url: video_url
+                  video_aspect_ratio: video_aspect_ratio
+      %}
+    {% elsif block.type == 'image' %}
+      {% assign image_url = block.settings.image.src | img_url: '600x' %}
+      {% assign image_url_large = block.settings.image_large.src | img_url: '800x' %}
+      {% assign image_aspect_ratio = block.settings.image_aspect_ratio %}
+      {% if block.settings.image_large.alt != blank%}
+        {% assign image_alt_text = block.settings.image_large.alt %}
+      {% elsif block.settings.image.alt != blank %}
+        {% assign image_alt_text = block.settings.image.alt %}
+      {% endif %}
+      {% render 'image-object',
+                  image_url_small: image_url,
+                  image_url_large: image_url_large,
+                  image_alt_text: image_alt_text
+                  image_aspect_ratio: image_aspect_ratio
+      %}    
+    {% endif %}
+  {% endcapture %}
+{% endfor %}
+
+{% comment %} Media Container Classes {% endcomment %}
+{% assign media_classes = 'col-12 col-md-8 mb-3 mb-md-0 d-flex align-items-start flex-column' %}
+{% assign media_classes = media_classes | append: ' ' | append: justify_content_large %}
+
+{% comment %} Image Content Container Settings {% endcomment %}
 {% assign image_aspect_ratio = section.settings.image_aspect_ratio %}
-{% assign image_alt_text = section.settings.image.alt %}
+{% assign image_aspect_ratio_classes = image_aspect_ratio %}
+{% assign image_alt_text = section.settings.image_alt_text %}
 {% assign image_url = section.settings.image | img_url: '800x' %}
 {% if image_url contains 'no-image' %}
   {% assign image_url = blank %}
@@ -21,9 +56,8 @@
   {% assign image_url_large = blank %}
 {% endif %}
 
-{% comment %} Image Container Classes {% endcomment %}
-{% assign image_classes = 'col-12 col-md-6' %}
-{% assign image_aspect_ratio_classes = image_aspect_ratio %}
+{% comment %} Image Class Container Settings {% endcomment %}
+{% assign image_classes = 'mb-4' %}
 
 {% comment %} Content Container Settings {% endcomment %}
 {% assign content_order_large = section.settings.content_order_large %}
@@ -41,12 +75,14 @@
 {% assign cta_type_2 = section.settings.cta_type_2 %}
 
 {% comment %} Content Container Wrapper Classes {% endcomment %}
-{% assign content_container_wrapper_classes = 'col-12 col-md-6' %} 
+{% assign content_container_wrapper_classes = 'col-12 col-md-4' %} 
 {% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: content_order_large %}
-{% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: 'd-flex align-items-start flex-column justify-content-center' %}
+{% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: 'd-flex align-items-start flex-column' %}
+{% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: justify_content_large %}
+
 
 {% comment %} Content Container Classes {% endcomment %}
-{% assign content_classes = 'pr-5' %}
+{% assign content_classes = 'pr-5 my-3' %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign padding_top = section.settings.padding_top %}
@@ -137,15 +173,18 @@
 
     <div class="{{ container_classes }}">
       <div class="{{ row_classes }}">
-        <div class="{{ image_classes }}">
-          {% render 'image-object'
-                      image_url_small: image_url,
-                      image_url_large: image_url_large,
-                      image_alt_text: image_alt_text,
-                      image_aspect_ratio: image_aspect_ratio_classes
-          %}
+        <div class="{{ media_classes }}"> 
+          {{ rendered_media }}
         </div>
         <div class="{{ content_container_wrapper_classes }}">
+          {% if image_url != blank or image_url_large != blank %}
+            {% render 'image-object'
+                        image_url_small: image_url,
+                        image_url_large: image_url_large,
+                        image_alt_text: image_alt_text,
+                        image_aspect_ratio: image_aspect_ratio_classes
+            %}
+          {% endif %}
           <div class="{{ content_classes }}">
             {% render 'eyebrow-text',
                         text: eyebrow_text,

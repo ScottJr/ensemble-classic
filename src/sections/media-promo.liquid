@@ -1,8 +1,9 @@
-{% render 'section-image-content' %}
+{% render 'section-media-promo' %}
 
 {% schema %}
   {
-    "name": "Image & Content",
+    "name": "Media Promo",
+    "max_blocks": 1,
     "settings": [
       {
         "type": "header",
@@ -35,6 +36,18 @@
         ],
         "default": "order-md-last"
       },
+      {
+        "type": "select",
+        "id": "justify_content_large",
+        "label": "Vertical alignment of section content - Medium & Large devices",
+        "options": [
+          { "value": "justify-content-md-start", "label": "Top"},
+          { "value": "justify-content-md-center", "label": "Center"},
+          { "value": "justify-content-md-end", "label": "Bottom"}
+        ],
+        "default":   "justify-content-md-center",
+        "info":      "Default: Center"
+      },      
       {
         "type":   "range",
         "label": "Padding top - small devices",
@@ -86,7 +99,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -97,7 +110,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -159,7 +172,7 @@
         "type": "image_picker",
         "id": "image",
         "label": "Image - Small devices"
-      },     
+      },  
       {
         "type": "image_picker",
         "id": "image_large",
@@ -176,7 +189,7 @@
           { "value": "16by9", "label": "16x9"}
         ],
         "default": "1by1"
-      },                                 
+      },         
       { 
         "type": "text",
         "id": "eyebrow_text",
@@ -316,9 +329,64 @@
         "default": "btn-secondary"
       }
     ],
+    "blocks": [ 
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image - Small devices"
+          },     
+          {
+            "type": "image_picker",
+            "id": "image_large",
+            "label": "Image - Medium & Up devices"
+          },
+          {
+            "type": "select",
+            "id": "image_aspect_ratio",
+            "label": "Image aspect ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"}
+            ],
+            "default": "1by1"
+          }
+        ]
+      },
+      {
+        "type": "video",
+        "name": "Video",
+        "settings": [
+          {
+            "id": "video_url",
+            "type": "video_url",
+            "label": "Video URL",
+            "accept": ["youtube", "vimeo"],
+            "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
+          },
+          {
+            "type": "select",
+            "id": "video_aspect_ratio",
+            "label": "Video aspect ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"}
+            ],
+            "default": "16by9"
+          }
+        ]
+      }      
+    ],        
     "presets": [
       {
-        "name": "Image & Content",
+        "name": "Media Promo",
         "category": "Content"
       }
     ]

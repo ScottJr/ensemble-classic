@@ -134,7 +134,6 @@
             {% assign featured_image_src = block.settings.image.src | img_url: '600x' %}
             {% assign featured_image_alt = block.settings.image.alt %}
             {% render 'image-object',
-                        id: block.id,
                         image_url_small: featured_image_src,
                         image_url_large: featured_image_src,
                         image_alt_text: featured_image_alt,
