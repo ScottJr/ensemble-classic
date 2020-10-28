@@ -1,8 +1,8 @@
-{% render 'section-video-player' %}
+{% render 'section-category-grid' %} 
 
 {% schema %}
   {
-    "name": "Video Player",
+    "name": "Category Grid",
     "settings": [
       {
         "type": "header",
@@ -29,7 +29,7 @@
         "id": "vertically_padded_content",
         "label": "Define if content will be vertically flush or have padding (5rem)",
         "default": true
-      },   
+      },      
       {
         "type":   "range",
         "label": "Padding top - small devices",
@@ -149,7 +149,7 @@
       {
         "type": "header",
         "content": "Content"
-      },                            
+      },
       { 
         "type": "text",
         "id": "eyebrow_text",
@@ -220,25 +220,6 @@
         "label": "Paragraph"        
       },
       {
-        "id": "video_url",
-        "type": "video_url",
-        "label": "Video URL",
-        "accept": ["youtube", "vimeo"],
-        "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
-      },
-      {
-        "type": "select",
-        "id": "video_aspect_ratio",
-        "label": "Video aspect ratio",
-        "options": [
-          { "value": "21by9", "label": "21x9"},
-          { "value": "1by1", "label": "1x1"},
-          { "value": "4by3", "label": "4x3"},
-          { "value": "16by9", "label": "16x9"}
-        ],
-        "default": "16by9"
-      },
-      {
         "type": "text",
         "id": "cta_text_1",
         "label": "CTA Text"
@@ -307,11 +288,53 @@
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
         ],
         "default": "btn-secondary"
-      }
+      } 
     ],
+    "blocks": [ 
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 12,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          { 
+            "type": "select",
+            "id": "background_color",
+            "label": "Background color",
+            "options": [
+              { "value": "bg-primary", "label": "Primary" },
+              { "value": "bg-secondary", "label": "Secondary" },
+              { "value": "bg-success", "label": "Success" },
+              { "value": "bg-info", "label": "Info" },          
+              { "value": "bg-warning", "label": "Warning" },          
+              { "value": "bg-danger", "label": "Danger" },
+              { "value": "bg-light", "label": "Light" },
+              { "value": "bg-dark", "label": "Dark" },
+              { "value": "bg-white", "label": "White" }
+            ], 
+            "default": "bg-light",
+            "info": "Default: Light"
+          },          
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          }          
+        ]
+      }
+    ],    
     "presets": [
       {
-        "name": "Video Player",
+        "name": "Category Grid",
         "category": "Content"
       }
     ]
