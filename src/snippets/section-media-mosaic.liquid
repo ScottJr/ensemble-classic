@@ -1,12 +1,10 @@
 {% comment %} 
   
   -----------------------------------------------------------------------------
-  Featured Collection
+  Content Mosaic
   -----------------------------------------------------------------------------  
   
-  The featured collection section allows for a collection of products to be
-  displayed in a carousel.
-
+  TODO Clean this up
   Required Snippets:
   - product-card.liquid
 
@@ -153,6 +151,10 @@
                 <h3 class="text-center">{{ promo_text }}</h3>
               </div>
             </div>
+          {% elsif block.type == 'video-block' %}
+            {% assign video_url = block.settings.video_url %}
+            {% assign video_aspect_ratio = block.settings.video_aspect_ratio %}
+            {% render 'video-object' video_url: video_url, video_aspect_ratio: video_aspect_ratio %}            
           {% endif %}
         </div>
       {% endfor %}

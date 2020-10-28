@@ -2,7 +2,7 @@
 
 {% schema %}
   {
-    "name": "Image Mosaic",
+    "name": "Media Mosaic",
     "settings": [
       {
         "type": "header",
@@ -329,6 +329,32 @@
         ]
       },
       {
+        "type": "video-block",
+        "name": "Video Block",
+        "limit": 12,
+        "settings": [
+          {
+            "id": "video_url",
+            "type": "video_url",
+            "label": "Video URL",
+            "accept": ["youtube", "vimeo"],
+            "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
+          },
+          {
+            "type": "select",
+            "id": "video_aspect_ratio",
+            "label": "Video aspect ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"}
+            ],
+            "default": "16by9"
+          }
+        ]
+      },      
+      {
         "type": "promo-block",
         "name": "Promo Block",
         "limit": 12,
@@ -366,7 +392,7 @@
     ],    
     "presets": [
       {
-        "name": "Image Mosaic",
+        "name": "Media Mosaic",
         "category": "Content"
       }
     ]
