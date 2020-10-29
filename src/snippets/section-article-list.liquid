@@ -67,7 +67,7 @@
   {% assign featured_blog = blogs[section.settings.blog] %}
   {% for related_article in featured_blog.articles limit: 5 %}
     {% if related_article.url != article.url %}
-      <div class="col-12 col-md-4">
+      <div class="col-12 col-md-3">
         {% render 'article-card', 
                     article: related_article,
                     show_author: false,
@@ -124,7 +124,7 @@
         %}
       </div>
     </div>
-    <div class="row">
+    <div class="row justify-content-center">
       {{ article_grid_html }}
     </div>
     <div class="row">

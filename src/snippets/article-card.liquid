@@ -29,10 +29,10 @@
     {% endif %}
     <div>
       <a href="{{ article.url }}">
-        <h3 class="mb-0 h5 text-body">{{ article.title }}</h3>
+        <h3 class="mb-0 h6 text-body">{{ article.title }}</h3>
       </a>
       {% if show_excerpt and article.excerpt != blank %}
-        <div class="rte my-0 text-body">
+        <div class="rte my-0 text-body small">
           {{ article.excerpt }}
         </div>
       {% endif %}

@@ -293,12 +293,20 @@
         "label": "Paragraph"        
       },
       {
+        "type": "header",
+        "content": "Video Content"
+      },           
+      {
         "id": "video_url",
         "type": "video_url",
         "label": "Video URL",
         "accept": ["youtube", "vimeo"],
         "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
       },
+      {
+        "type": "header",
+        "content": "Video Layout"
+      },        
       {
         "type": "select",
         "id": "video_aspect_ratio",
@@ -312,6 +320,54 @@
         "default": "16by9"
       },
       {
+        "type": "range",
+        "id": "video_container_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Video Container Columns - Small Devices",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "video_container_col_large",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Video Container Columns - Medium & Up Devices",
+        "default": 8
+      },
+      {
+        "type": "select",
+        "id": "video_container_justify_container",
+        "label": "Justify video container - Small devices",
+        "options": [
+          { "value": "justify-content-start", "label": "Left"},
+          { "value": "justify-content-center", "label": "Center"},
+          { "value": "justify-content-end", "label": "Right"}
+        ],
+        "default":   "justify-content-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "video_container_justify_container_large",
+        "label": "Justify video container - Medium & Large devices",
+        "options": [
+          { "value": "justify-content-md-start", "label": "Left"},
+          { "value": "justify-content-md-center", "label": "Center"},
+          { "value": "justify-content-md-end", "label": "Right"}
+        ],
+        "default":   "justify-content-md-center",
+        "info":      "Default: Center"
+      },      
+      {
+        "type": "header",
+        "content": "Footer Content"
+      },        
+      {
         "type": "text",
         "id": "cta_text_1",
         "label": "CTA Text"
@@ -324,41 +380,6 @@
       {
         "type": "select",
         "id": "cta_type_1",
-        "label": "CTA Type",
-        "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
-        ],
-        "default": "btn-secondary"
-      },
-      {
-        "type": "text",
-        "id": "cta_text_2",
-        "label": "CTA Text"
-      },
-      {
-        "type": "url",
-        "id": "cta_url_2",
-        "label": "CTA URL"
-      },
-      {
-        "type": "select",
-        "id": "cta_type_2",
         "label": "CTA Type",
         "options": [
           { "value": "btn-primary", "label": "Primary"},
