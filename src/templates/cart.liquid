@@ -1,0 +1,109 @@
+<div class="container py-5">
+  {% if cart.item_count > 0 %}
+    <h2 class="mb-0">{{ 'cart.general.title' | t }}</h2>
+
+    <form action="/cart" method="post" novalidate>
+      <table class="table table-sm table-striped">
+        <thead>
+          <tr>
+            <th class="text-left border-none" colspan="2">{{ 'cart.label.product' | t }}</th>
+            <th class="text-left border-none">{{ 'cart.label.price' | t }}</th>
+            <th class="text-left border-none">{{ 'cart.label.quantity' | t }}</th>
+            <th class="text-right border-none">{{ 'cart.label.total' | t }}</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          {% for item in cart.items %}
+
+          {% comment %}
+
+          Cart Item Template
+          =====================
+          The data-label attributes on <td> elements are mobile-friendly
+          helpers used for responsive-table labels
+          {% endcomment %}
+
+          {% comment %} We have to render this twice {% endcomment %}
+          {% capture product_description_html %}
+            <a href="{{ item.url }}"  class="h4">{{ item.product.title }}</a>
+            {% unless item.product.has_only_default_variant %}
+              <p class="h4">{{ item.variant.title }}</p>
+            {% endunless %}
+            {{ item.product.description }}
+            <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="active">
+              <small>{{ 'cart.general.remove' | t }}</small>
+            </a>
+          {% endcapture %}
+
+            <tr>
+              <td class="py-5 px-0" data-label="{{ 'customer.order.product' | t }}">
+                {% if item.image != blank %}
+                  <a href="{{ item.url | within: collections.all }}">
+                    <img class="img-responsive" src="{{ item | img_url: '200x' }}" alt="{{ item.title }}">
+                  </a>
+                {% endif %}
+                <div class="d-md-none">
+                  {{ product_description_html }}
+                </div>
+              </td>
+              <td class="py-5 pl-3 pr-0">
+                <div class="d-none d-md-block">
+                  {{ product_description_html }}
+                </div>
+              </td>
+              <td class="py-5 px-0" data-label="{{ 'cart.label.price' | t }}">
+                {% if item.original_line_price != item.line_price %}
+                  <span class="sr-only">{{ 'cart.label.discounted_price' | t }}</span>
+                  {{ item.price | money_without_trailing_zeros }}
+                  <span class="sr-only">{{ 'cart.label.original_price' | t }}</span>
+                  <s>{{ item.original_price | money_without_trailing_zeros }}</s>
+                {% else %}
+                  {{ item.price | money_without_trailing_zeros }}
+                {% endif %}
+              </td>
+              <td class="py-5 px-0" data-label="{{ 'cart.label.quantity' | t }}">
+                <div class="form-group form-group-sm mb-0">
+                  <input type="number"
+                        name="updates[]"
+                        id="updates_{{ item.key }}"
+                        class="form-control"
+                        value="{{ item.quantity }}"
+                        min="0"
+                        aria-label="{{ 'cart.general.item_quantity' | t }}">
+                </div>
+              </td>
+              <td class="py-5" data-label="{{ 'cart.label.total' | t }}">
+                <div class="text-right">{{ item.line_price | money_without_trailing_zeros }}</div>
+              </td>
+            </tr>
+
+          {% endfor %}
+        </tbody>
+      </table>
+      <div class="col-12 col-md-4 offset-md-8">
+        <div class="d-flex flex-column">
+          <div class="d-flex justify-content-between mb-3">
+            <p><b>{{ 'cart.general.subtotal' | t }}</b></p>
+            <p><b>{{ cart.total_price | money_without_trailing_zeros }}</b></p>
+          </div>
+          {% if cart.total_discounts > 0 %}
+            <p>{{ 'cart.general.savings' | t }} {{ cart.total_discounts | money_without_trailing_zeros }}</p>
+          {% endif %}
+          <p>{{ 'cart.general.shipping_at_checkout' | t }}</p>
+          <input type="submit" name="update" value="{{ 'cart.general.update' | t }}" class="btn btn-outline-primary btn-block mb-3 mb-mb-0">
+          <input type="submit" name="checkout" class="btn btn-danger btn-block mb-3 mb-mb-0" value="{{ 'cart.general.checkout' | t }}">
+        </div>
+      </div>
+    </form>
+  {% else %}
+    <h2 class="text-center">{{ 'cart.general.title' | t }}</h2>
+    {% comment %}
+    Cart empty state
+    {% endcomment %}
+    <div class="d-flex align-items-center flex-column">
+      <p class="paragraph-3">{{ 'cart.general.empty' | t }}</p>
+    </div>
+  {% endif %}
+</div>
+
