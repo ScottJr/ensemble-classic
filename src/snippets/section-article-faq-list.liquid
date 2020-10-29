@@ -106,15 +106,18 @@
       <div class="col-12 col-md-10 offset-md-1 mb-3">
         {% render 'eyebrow-text',
                     text: eyebrow_text,
-                    badge_style: badge_style
+                    badge_style: badge_style,
+                    text_alignment: 'text-center'
         %}
         {% render 'display-text',
                     text: display_text,
                     text_color: content_color,
+                    text_alignment: 'text-center',
                     display_size: display_style
         %}
         {% render 'paragraph-text',
                     text: paragraph_text,
+                    text_alignment: 'text-center',
                     text_color: content_color
         %}
       </div>

@@ -12,6 +12,7 @@
 {% endcomment %}
 
 {% comment %} Global Section Settings {% endcomment %}
+{% assign section_type = 'category-grid' %}
 {% assign background_color = section.settings.background_color %}
 {% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
@@ -83,7 +84,7 @@
   {% assign slideshow_data_attrs = blank %}
 {% endif %}
 
-<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="image-mosaic">
+<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="{{ section_type }}">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
@@ -109,7 +110,7 @@
     </style>
   {% endif %}
   <div class="{{ container_classes }}">
-    <div class="row mb-3">
+    <div class="row mb-4">
       <div class="col-12 text-center">
         {% render 'eyebrow-text',
             text: eyebrow_text,
