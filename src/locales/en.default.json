@@ -1,1 +1,38 @@
-{}
+{
+  "cart": {
+    "general": {
+      "title": "Shopping Cart",
+      "remove": "Remove",
+      "note": "Special instructions for seller",
+      "subtotal": "Subtotal",
+      "shipping_at_checkout": "Shipping & taxes calculated at checkout",
+      "update": "Update Cart",
+      "checkout": "Check Out",
+      "empty": "Your cart is currently empty.",
+      "cookies_required": "Enable cookies to use the shopping cart",
+      "continue_browsing_html": "Continue browsing <a href=\"/collections/all\">here</a>.",
+      "item_quantity": "Item quantity",
+      "savings": "You're saving"
+    },
+    "label": {
+      "product": "Product",
+      "price": "Price",
+      "quantity": "Quantity",
+      "total": "Total",
+      "discounted_price": "Discounted price",
+      "original_price": "Original price"
+    }
+  },
+  "products": {
+    "product": {
+      "regular_price": "Regular price",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "on_sale": "On Sale",
+      "on_sale_from_html": "On Sale from ",
+      "from_text_html": "From ",
+      "quantity": "Quantity",
+      "add_to_cart": "Add to Cart"
+    }
+  }
+}

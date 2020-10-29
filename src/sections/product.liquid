@@ -1,0 +1,66 @@
+<section data-section-id="{{ section.id }}" data-section-type="product" data-enable-history-state="true" itemscope itemtype="http://schema.org/Product">
+  {% assign current_variant = product.selected_or_first_available_variant %}
+  {% assign featured_image = product.featured_image %}
+  {% assign product_note = section.settings.product_note %}
+
+  <meta itemprop="name" content="{{ product.title }}{% unless product.has_only_default_variant %} - {{ current_variant.title }}{% endunless %}">
+  <meta itemprop="url" content="{{ shop.url }}{{ current_variant.url }}">
+  <meta itemprop="brand" content="{{ product.vendor }}">
+  <meta itemprop="image" content="{{ featured_image | img_url: '600x600' }}">
+  <meta itemprop="description" content="{{ product.description | strip_html | escape }}">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <div class="row">
+          {% for image in product.images %}
+            {% assign image_src = image.src | img_url: '800x' %}
+            {% assign image_alt_text = featured_image.alt | escape %}
+            <div class="col-12">
+              {% render 'image-object',
+                          image_url_small: image_src,
+                          image_url_large: image_src,
+                          image_alt_text: image_alt_text,
+                          image_aspect_ratio: '1by1'
+              %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        {% render 'product-title' product: product%}
+        {% render 'product-price' product: product, current_variant: current_variant %}
+        {% render 'product-description' product: product %}
+        {% render 'product-categories' product: product %}
+        {% render 'product-form' product: product, current_variant: current_variant %}
+        {% render 'product-note' product_note: product_note %}
+      </div>
+    </div>
+  </div>
+
+    {% unless product == empty %}
+      <script type="application/json" data-product-json>
+        {{ product | json }}
+      </script>
+    {% endunless %}  
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Product pages",
+    "settings": [
+      {
+        "type": "text",
+        "id": "shipping",
+        "label": "Shipping message",
+        "default": "Shipping message for purchasing over $XX.XX"
+      },
+      {
+        "type": "text",
+        "id": "product_note",
+        "label": "Product Note",
+        "default": "This is a global note for your product"
+      }      
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,65 @@
+{% assign content_color = 'text-primary' %}
+
+{% paginate collection.products by 12 %}
+<div class="container mt-5">
+  <header role="banner">
+    <div class="mb-4 my-md-7">
+      {% render 'display-text',
+                  text: collection.title,
+                  text_color: content_color,
+                  text_alignment: 'text-left',
+                  display_size: 'display-3'
+      %}
+      {% render 'paragraph-text',
+                  text: collection.description,
+                  text_color: content_color
+                  text_alignment: 'text-left',
+      %}
+    </div>
+  </header>
+
+  <div class="row">
+    {% for product in collection.products %}
+      <div class="col-12 col-md-6">
+        {% assign featured_image = product.featured_image.src | img_url: '600x' %}
+        {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
+        {% render 'product-card'
+                    featured_image: featured_image, 
+                    id: product.id,
+                    title: product.title,
+                    excerpt: product_excerpt,
+                    url: product.url,
+                    compare_at_price: product.compare_at_price,
+                    price_varies: product.price_varies,
+                    price: product.price
+        %}
+      </div>
+
+    {% else %}
+      {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
+        {% for i in (1..8) %}
+          <a href="#">
+            {% capture current %}{% cycle 1, 2, 3, 4, 5, 6 %}{% endcapture %}
+            {{ 'product-' | append: current | placeholder_svg_tag: 'placeholder-svg placeholder-svg--small' }}
+          </a>
+
+          <p>
+            <a href="#">{{ 'homepage.onboarding.product_title' | t }}</a>
+          </p>
+
+          <p>
+            {{ 1999 | money }}
+          </p>
+        {% endfor %}
+      {% else %}
+        <p>{{ 'collections.general.no_matches' | t }}</p>
+      {% endif %}
+
+    {% endfor %}
+  </div>
+</div>
+
+  {% if paginate.pages > 1 %}
+    {% render 'pagination' %}
+  {% endif %}
+{% endpaginate %}

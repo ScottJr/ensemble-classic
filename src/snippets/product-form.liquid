@@ -1,0 +1,66 @@
+<div class="mb-5 mb-md-3" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+  <meta itemprop="priceCurrency" content="{{ shop.currency }}">
+  <meta itemprop="price" content="{{ current_variant.price | divided_by: 100.00 }}">
+  <link itemprop="availability" href="http://schema.org/{% if current_variant.available %}InStock{% else %}OutOfStock{% endif %}">
+
+  <form action="/cart/add" method="post" enctype="multipart/form-data">
+    {% unless product.has_only_default_variant %}
+      {% for option in product.options_with_values %}
+        <div class="selector-wrapper js form-group">
+          <label for="SingleOptionSelector-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+
+          <select
+            class="form-control"
+            id="SingleOptionSelector-{{ forloop.index0 }}"
+            data-single-option-selector
+            data-index="option{{ option.position }}">
+            {% for value in option.values %}
+              <option
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}selected="selected"{% endif %}>
+                  {{ value }}
+              </option>
+            {% endfor %}
+          </select>
+        </div>
+      {% endfor %}
+    {% endunless %}
+    
+      <div class="form-group{% if product.options.size <= 1 %} d-none{% endif %}">
+        <select name="id" class="no-js form-control" data-product-select>
+          {% for variant in product.variants %}
+            <option
+              {% if variant == current_variant %}selected="selected"{% endif %}
+              {% unless variant.available %}disabled="disabled"{% endunless %}
+              value="{{ variant.id }}">
+                {{ variant.title }}
+            </option>
+          {% endfor %}
+        </select>
+      </div>
+    
+    <div class="form-group d-none">
+      <label for="Quantity">{{ 'products.product.quantity' | t }}</label>
+      <input class="form-control" type="number" id="Quantity" name="quantity" value="1" min="1">
+    </div>
+    
+    <p class="mb-2"><img src="{{ 'icon-truck.svg' | asset_url }}" alt="Shipping icon" style="width:20px;" class="mr-2"><small>{{ section.settings.shipping }}</small></p>
+    <button
+      type="submit"
+      class="btn btn-success btn-block"
+      name="add"
+      data-add-to-cart
+      {% unless current_variant.available %}disabled="disabled"{% endunless %}>
+        <span data-add-to-cart-text>
+          {% if current_variant.available %}
+            {{ 'products.product.add_to_cart' | t }}
+          {% else %}
+            {{ 'products.product.sold_out' | t }}
+          {% endif %}
+        </span>
+    </button>
+  </form>
+</div> 
+      
