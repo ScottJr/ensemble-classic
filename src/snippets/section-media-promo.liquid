@@ -10,6 +10,14 @@
   {% assign bg_image_url_large = blank %}
 {% endif %}
 
+{% comment %} Header Settings {% endcomment %}
+{% assign header_container_col = section.settings.header_container_col %}
+{% assign header_container_col_large = section.settings.header_container_col_large  %}
+{% assign header_container_justify_container = section.settings.header_container_justify_container %}
+{% assign header_container_justify_container_large = section.settings.header_container_justify_container_large %}
+{% assign header_container_text_alignment = section.settings.header_container_text_alignment %}
+{% assign header_container_text_alignment_large = section.settings.header_container_text_alignment_large %}
+
 {% comment %} Media Container Settings {% endcomment %}
 {% for block in section.blocks limit:1 %}
   {% capture rendered_media %}
@@ -189,29 +197,20 @@
             %}
           {% endif %}
           <div class="{{ content_classes }}">
-            {% render 'eyebrow-text',
-                        text: eyebrow_text,
-                        badge_style: badge_style
+            {% render 'section-header' 
+                    eyebrow_text: eyebrow_text, 
+                    badge_style: badge_style,
+                    content_color: content_color,
+                    display_text: display_text,
+                    display_style: display_style,
+                    paragraph_text: paragraph_text,
+                    col: header_container_col,
+                    col_large: header_container_col_large,
+                    justify_container: header_container_justify_container,
+                    justify_container_large: header_container_justify_container_large,
+                    text_alignment: header_container_text_alignment,
+                    text_alignment_large: header_container_text_alignment_large
             %}
-            {% render 'display-text',
-                        text: display_text,
-                        text_color: content_color,
-                        display_size: display_style
-            %}
-            {% render 'paragraph-text',
-                        text: paragraph_text,
-                        text_color: content_color
-            %}
-            <div class="{{ cta_classes }}">
-              {% render 'cta-block',
-                          cta_text_1: cta_text_1,
-                          cta_url_1: cta_url_1,
-                          cta_type_1: cta_type_1,
-                          cta_text_2: cta_text_2,
-                          cta_url_2: cta_url_2,
-                          cta_type_2: cta_type_2
-              %}
-            </div>
           </div>
         </div>
       </div>

@@ -145,7 +145,79 @@
         "type": "image_picker",
         "id": "bg_image_large",
         "label": "Background Image - Medium & Up Devices"
-      },      
+      }, 
+      { 
+        "type": "header",
+        "content": "Content Layout"
+      },   
+      {
+        "type": "range",
+        "id": "header_container_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Small Devices",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "header_container_col_large",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Medium & Up Devices",
+        "default": 8
+      },
+      {
+        "type": "select",
+        "id": "header_container_justify_container",
+        "label": "Justify content container - Small devices",
+        "options": [
+          { "value": "justify-content-start", "label": "Left"},
+          { "value": "justify-content-center", "label": "Center"},
+          { "value": "justify-content-end", "label": "Right"}
+        ],
+        "default":   "justify-content-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "header_container_justify_container_large",
+        "label": "Justify content container - Medium & Large devices",
+        "options": [
+          { "value": "justify-content-md-start", "label": "Left"},
+          { "value": "justify-content-md-center", "label": "Center"},
+          { "value": "justify-content-md-end", "label": "Right"}
+        ],
+        "default":   "justify-content-md-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "header_container_text_alignment",
+        "label": "Text alignment - Small devices",
+        "options": [
+          { "value": "text-left", "label": "Left"},
+          { "value": "text-center", "label": "Center"},
+          { "value": "text-right", "label": "Right"}
+        ],
+        "default":   "text-center",
+        "info":      "Default: Center"
+      }, 
+      {
+        "type": "select",
+        "id": "header_container_text_alignment_large",
+        "label": "Text alignment - Medium & Large devices",
+        "options": [
+          { "value": "text-md-left", "label": "Left"},
+          { "value": "text-md-center", "label": "Center"},
+          { "value": "text-md-right", "label": "Right"}
+        ],
+        "default":   "text-md-center",
+        "info":      "Default: Center"
+      },            
       {
         "type": "header",
         "content": "Content"
@@ -212,7 +284,8 @@
           { "value": "text-white", "label": "White"},
           { "value": "text-black-50", "label": "Black 50"},
           { "value": "text-white-50", "label": "White 50"}
-        ]
+        ],
+        "default": "text-body"
       },
       {
         "type": "richtext",

@@ -1,0 +1,69 @@
+        
+{% if col != blank %}
+  {% assign col = col %}
+{% else %}
+  {% assign col = '12' %}
+{% endif %}
+
+{% if col_large != blank %}
+  {% assign col_large = col_large %}
+{% else %}
+  {% assign col_large = '8' %}
+{% endif %}
+
+{% assign container_col_classes =  'col-' | append: col %}
+{% assign container_col_classes =  container_col_classes | append: ' col-md-' | append: col_large %}
+
+{% if justify_container != blank %}
+  {% assign justify_container = justify_container %}
+{% else %}
+  {% assign justify_container = 'justify-content-center' %}
+{% endif %}
+
+{% if justify_container_large != blank %}
+  {% assign justify_container_large = justify_container_large %}
+{% else %}
+  {% assign justify_container_large = 'justify-content-md-center' %}
+{% endif %}
+
+{% assign container_classes = 'd-flex' %}
+{% assign container_classes = container_classes | append: ' ' | append: justify_container %}
+{% assign container_classes = container_classes | append: ' ' | append: justify_container_large %}
+
+{% if text_alignment != blank %}
+  {% assign text_alignment = text_alignment %}
+{% else %}
+  {% assign text_alignment = 'text-center' %}
+{% endif %}
+
+{% if text_alignment_large != blank %}
+  {% assign text_alignment_large = text_alignment_large %}
+{% else %} 
+  {% assign text_alignment_large = 'text-md-center' %}
+{% endif %}
+
+{% assign text_alignment_classes = text_alignment | append: ' ' | append: text_alignment_large %}
+
+<div class="{{ container_classes }}"> 
+  <div class="{{ container_col_classes }}">
+    {% render 'eyebrow-text', 
+              text: eyebrow_text,
+              text_alignment: text_alignment_classes,
+              badge_style: badge_style,
+    %}
+
+    {% render 'display-text',
+              text: display_text,
+              text_color: content_color,
+              text_alignment: text_alignment_classes,
+              display_size: display_style
+    %}
+
+    {% render 'paragraph-text',
+              text: paragraph_text,
+              text_color: content_color,
+              text_alignment: text_alignment_classes
+    %}
+  </div>
+</div>
+

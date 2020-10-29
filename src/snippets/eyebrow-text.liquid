@@ -9,24 +9,38 @@
   {% render 'eyebrow-text',
               text: { string }
               badge_style: { string } expects bootstrap badge class 
+              text_alignment: { string } - default 'text-left'
               (i.e. badge-secondary)
   %}
 
 {% endcomment %}
 
-{% comment %} Class defaults {% endcomment %}
-{% assign classes = 'mb-1 badge'%}
+{% comment %} Snippet Settings {% endcomment %}
+{% if text_alignment != blank %}
+  {% assign text_alignment =  text_alignment %}
+{% else %}
+  {% assign text_alignment = 'text-left' %}
+{% endif %}
 
 {% if badge_style != blank %}
-  {% assign classes = classes | append: ' ' | append: badge_style %}
+  {% assign badge_style = badge_style %}
 {% else %}
-  {% assign classes = classes | append: ' ' | append: 'badge-secondary' %}
+  {% assign badge_style = 'badge-secondary' %}
 {% endif %}
+
+{% assign classes = 'mb-1' %}
+{% assign classes = classes | append: ' ' | append: text_alignment %}
+
+{% comment %} Badge Element Classes {% endcomment %}
+{% assign badge_classes = 'badge'%}
+{% assign badge_classes = badge_classes | append: ' ' | append: badge_style %}
 
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}
   {% if text != blank %}
-    <span class="{{ classes }}">{{ text }}</span>
+  <div class="{{ classes }}">
+    <span class="{{ badge_classes }}">{{ text }}</span>
+  </div>
   {% endif %}
 {% endcapture %}
 

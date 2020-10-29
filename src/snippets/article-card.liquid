@@ -14,7 +14,7 @@
 {% if article and article != blank %}
   <div class="mb-3">
     {% if article.image %}
-      <div class="mb-4 mb-md-0">
+      <div class="mb-4">
         <a href="{{ article.url }}">
           {% assign image = article.image.src | img_url: '400x' %}
           {% assign image_alt_text = article.image.alt %}

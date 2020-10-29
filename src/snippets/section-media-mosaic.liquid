@@ -23,6 +23,15 @@
   {% assign bg_image_url_large = blank %}
 {% endif %}
 
+{% comment %} Header Settings {% endcomment %}
+{% assign header_container_col = section.settings.header_container_col %}
+{% assign header_container_col_large = section.settings.header_container_col_large  %}
+{% assign header_container_justify_container = section.settings.header_container_justify_container %}
+{% assign header_container_justify_container_large = section.settings.header_container_justify_container_large %}
+{% assign header_container_text_alignment = section.settings.header_container_text_alignment %}
+{% assign header_container_text_alignment_large = section.settings.header_container_text_alignment_large %}
+
+
 {% comment %} Section Content Settings {% endcomment %}
 {% assign badge_style = section.settings.badge_style %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
@@ -112,22 +121,19 @@
   <div class="{{ container_classes }}">
     <div class="row mb-3">
       <div class="col-12">
-        {% render 'eyebrow-text',
-            text: eyebrow_text,
-            badge_style: badge_style
-        %}
-        {% render 'display-text',
-                    text: display_text,
-                    text_color: content_color,
-                    text_alignment: 'text-left',
-                    display_size: display_style
-        %}
-      </div>
-      <div class="col-12 col-md-4">
-        {% render 'paragraph-text',
-                    text: paragraph_text,
-                    text_color: content_color
-                    text_alignment: 'text-left',
+        {% render 'section-header' 
+                    eyebrow_text: eyebrow_text, 
+                    badge_style: badge_style,
+                    content_color: content_color,
+                    display_text: display_text,
+                    display_style: display_style,
+                    paragraph_text: paragraph_text,
+                    col: header_container_col,
+                    col_large: header_container_col_large,
+                    justify_container: header_container_justify_container,
+                    justify_container_large: header_container_justify_container_large,
+                    text_alignment: header_container_text_alignment,
+                    text_alignment_large: header_container_text_alignment_large
         %}
       </div>
     </div>
@@ -163,7 +169,7 @@
       {% endfor %}
     </div>
     <div class="row">
-      <div class="col-12 text-center my-3 my-md-5">
+      <div class="w-100 text-center">
           {% render 'cta-block',
                 cta_text_1: cta_text_1,
                 cta_url_1: cta_url_1,
