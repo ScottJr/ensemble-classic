@@ -1,0 +1,526 @@
+{% render 'section-media-overlay-grid' %}
+
+{% schema %}
+  {
+    "name": "Media Overlay Grid",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Section Layout"
+      },
+      { 
+        "type": "select",
+        "id": "container",
+        "label": "Container",
+        "info": "Define what container will the section content be confined to.",
+        "options": [
+          { "value": "container", "label": "Contained at all breakpoints"},
+          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
+          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
+          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          { "value": "w-100", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "w-100"
+      },
+      {
+        "type": "checkbox",
+        "id": "vertically_padded_content",
+        "label": "Define if content will be vertically flush or have padding (5rem)",
+        "default": true
+      },      
+      {
+        "type": "checkbox",
+        "id": "gutters",
+        "label": "Define if gutters will be between grid items",
+        "default": true
+      },
+      {
+        "type":   "range",
+        "label": "Padding top - small devices",
+        "id": "padding_top",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths less than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Padding bottom - small devices",
+        "id": "padding_bottom",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths less than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Margin top - small devices",
+        "id": "margin_top",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths less than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Margin bottom - small devices",
+        "id": "margin_bottom",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths less than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Padding top - medium & up devices",
+        "id": "padding_top_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths greater than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Padding bottom - medium & up devices",
+        "id": "padding_bottom_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths greater than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Margin top - medium & up devices",
+        "id": "margin_top_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths greater than 768px"  
+      },
+      {
+        "type":   "range",
+        "label": "Margin bottom - medium & up devices",
+        "id": "margin_bottom_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%",
+        "info": "For devices with screen widths greater than 768px"  
+      },
+      { 
+        "type": "select",
+        "id": "background_color",
+        "label": "Background color",
+        "options": [
+          { "value": "bg-primary", "label": "Primary" },
+          { "value": "bg-secondary", "label": "Secondary" },
+          { "value": "bg-success", "label": "Success" },
+          { "value": "bg-info", "label": "Info" },          
+          { "value": "bg-warning", "label": "Warning" },          
+          { "value": "bg-danger", "label": "Danger" },
+          { "value": "bg-light", "label": "Light" },
+          { "value": "bg-dark", "label": "Dark" },
+          { "value": "bg-white", "label": "White" }
+        ], 
+        "default": "bg-white",
+        "info": "Default: White"           
+      },
+      { 
+        "type": "image_picker",
+        "id": "bg_image",
+        "label": "Background Image - Small Devices"
+      },
+      {
+        "type": "image_picker",
+        "id": "bg_image_large",
+        "label": "Background Image - Medium & Up Devices"
+      },  
+      { 
+        "type": "header",
+        "content": "Content Layout"
+      },   
+      {
+        "type": "range",
+        "id": "header_container_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Small Devices",
+        "default": 12 
+      },
+      {
+        "type": "range",
+        "id": "header_container_col_large",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Medium & Up Devices",
+        "default": 8
+      },
+      {
+        "type": "select",
+        "id": "header_container_justify_container",
+        "label": "Justify content container - Small devices",
+        "options": [
+          { "value": "justify-content-start", "label": "Left"},
+          { "value": "justify-content-center", "label": "Center"},
+          { "value": "justify-content-end", "label": "Right"}
+        ],
+        "default":   "justify-content-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "header_container_justify_container_large",
+        "label": "Justify content container - Medium & Large devices",
+        "options": [
+          { "value": "justify-content-md-start", "label": "Left"},
+          { "value": "justify-content-md-center", "label": "Center"},
+          { "value": "justify-content-md-end", "label": "Right"}
+        ],
+        "default":   "justify-content-md-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "header_container_text_alignment",
+        "label": "Text alignment - Small devices",
+        "options": [
+          { "value": "text-left", "label": "Left"},
+          { "value": "text-center", "label": "Center"},
+          { "value": "text-right", "label": "Right"}
+        ],
+        "default":   "text-center",
+        "info":      "Default: Center"
+      }, 
+      {
+        "type": "select",
+        "id": "header_container_text_alignment_large",
+        "label": "Text alignment - Medium & Large devices",
+        "options": [
+          { "value": "text-md-left", "label": "Left"},
+          { "value": "text-md-center", "label": "Center"},
+          { "value": "text-md-right", "label": "Right"}
+        ],
+        "default":   "text-md-center",
+        "info":      "Default: Center"
+      },           
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image - Small devices"
+      },     
+      {
+        "type": "image_picker",
+        "id": "image_large",
+        "label": "Image - Medium & Up devices"
+      },
+      {
+        "type": "select",
+        "id": "image_aspect_ratio",
+        "label": "Image aspect ratio",
+        "options": [
+          { "value": "21by9", "label": "21x9"},
+          { "value": "1by1", "label": "1x1"},
+          { "value": "4by3", "label": "4x3"},
+          { "value": "16by9", "label": "16x9"}
+        ],
+        "default": "1by1"
+      },                        
+      { 
+        "type": "text",
+        "id": "eyebrow_text",
+        "label": "Eyebrow"
+      },
+      {
+        "type": "select",
+        "id": "badge_style",
+        "label": "Eyebrow style",
+        "options": [
+          { "value": "badge-primary", "label": "Primary"},
+          { "value": "badge-secondary", "label": "Secondary"},
+          { "value": "badge-success", "label": "Success"},
+          { "value": "badge-danger", "label": "Danger"},
+          { "value": "badge-warning", "label": "Warning"},
+          { "value": "badge-info", "label": "Info"},
+          { "value": "badge-light", "label": "Light"},
+          { "value": "badge-dark", "label": "Dark"}
+        ]
+      }, 
+      {
+        "type": "text",
+        "id": "display_text",
+        "label": "Header"
+      },
+      {
+        "type": "select",
+        "id": "display_style",
+        "label": "Display text style",
+        "options": [
+          { "value": "display-1", "label": "Display 1"},
+          { "value": "display-2", "label": "Display 2"},
+          { "value": "display-3", "label": "Display 3"},
+          { "value": "display-4", "label": "Display 4"},
+          { "value": "h1", "label": "H1"},
+          { "value": "h2", "label": "H2"},
+          { "value": "h3", "label": "H3"},
+          { "value": "h4", "label": "H4"},
+          { "value": "h5", "label": "H5"},
+          { "value": "h6", "label": "H6"}
+        ],
+        "default": "display-4",
+        "info": "Default: Display 4"             
+      },      
+      {
+        "type": "select",
+        "id": "content_color",
+        "label": "Content color",
+        "options": [
+          { "value": "text-primary", "label": "Primary"},
+          { "value": "text-secondary", "label": "Secondary"},
+          { "value": "text-success", "label": "Success"},
+          { "value": "text-danger", "label": "Danger"},
+          { "value": "text-warning", "label": "Warning"},
+          { "value": "text-info", "label": "Info"},
+          { "value": "text-light", "label": "Light"},
+          { "value": "text-dark", "label": "Dark"},
+          { "value": "text-body", "label": "Body"},
+          { "value": "text-muted", "label": "Muted"},
+          { "value": "text-white", "label": "White"},
+          { "value": "text-black-50", "label": "Black 50"},
+          { "value": "text-white-50", "label": "White 50"}
+        ],
+        "default": "text-body"
+      },
+      {
+        "type": "richtext",
+        "id": "paragraph_text",
+        "label": "Paragraph"        
+      },
+      {
+        "type": "header",
+        "content": "Footer Content"
+      },      
+      {
+        "type": "text",
+        "id": "cta_text_1",
+        "label": "CTA Text"
+      },
+      {
+        "type": "url",
+        "id": "cta_url_1",
+        "label": "CTA URL"
+      },
+      {
+        "type": "select",
+        "id": "cta_type_1",
+        "label": "CTA Type",
+        "options": [
+          { "value": "btn-primary", "label": "Primary"},
+          { "value": "btn-secondary", "label": "Secondary"},
+          { "value": "btn-success", "label": "Success"},
+          { "value": "btn-danger", "label": "Danger"},
+          { "value": "btn-warning", "label": "Warning"},
+          { "value": "btn-info", "label": "Info"},
+          { "value": "btn-light", "label": "Light"},
+          { "value": "btn-dark", "label": "Dark"},
+          { "value": "btn-link", "label": "Link"},
+          { "value": "btn-outline-primary", "label": "Primary - Outline"},
+          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
+          { "value": "btn-outline-success", "label": "Success - Outline"},
+          { "value": "btn-outline-danger", "label": "Danger - Outline"},
+          { "value": "btn-outline-warning", "label": "Warning - Outline"},
+          { "value": "btn-outline-info", "label": "Info - Outline"},
+          { "value": "btn-outline-light", "label": "Light - Outline"},
+          { "value": "btn-outline-dark", "label": "Dark - Outline"}
+        ],
+        "default": "btn-secondary"
+      }
+    ],
+    "blocks": [ 
+      {
+        "type": "image",
+        "name": "Image",
+        "limit": 12,
+        "settings": [
+          { 
+            "type": "header",
+            "content": "Block Content"
+          },   
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          },
+          { 
+            "type": "header",
+            "content": "Block Layout"
+          },   
+          {
+            "type": "range",
+            "id": "block_container_col",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Small Devices",
+            "default": 12 
+          },
+          {
+            "type": "range",
+            "id": "block_container_col_large",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Medium & Up Devices",
+            "default": 6
+          }      
+        ]
+      },
+      {
+        "type": "video-block",
+        "name": "Video Block",
+        "limit": 12,
+        "settings": [
+          { 
+            "type": "header",
+            "content": "Block Content"
+          },   
+          {
+            "id": "video_url",
+            "type": "video_url",
+            "label": "Video URL",
+            "accept": ["youtube", "vimeo"],
+            "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
+          },
+          {
+            "type": "select",
+            "id": "video_aspect_ratio",
+            "label": "Video aspect ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"}
+            ],
+            "default": "16by9"
+          },   
+          {
+            "type": "range",
+            "id": "block_container_col",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Small Devices",
+            "default": 12 
+          },
+          {
+            "type": "range",
+            "id": "block_container_col_large",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Medium & Up Devices",
+            "default": 6
+          }
+        ]
+      },      
+      {
+        "type": "promo-block",
+        "name": "Promo Block",
+        "limit": 12,
+        "settings": [
+          { 
+            "type": "header",
+            "content": "Block Content"
+          }, 
+          { 
+            "type": "select",
+            "id": "background_color",
+            "label": "Background color",
+            "options": [
+              { "value": "bg-primary", "label": "Primary" },
+              { "value": "bg-secondary", "label": "Secondary" },
+              { "value": "bg-success", "label": "Success" },
+              { "value": "bg-info", "label": "Info" },          
+              { "value": "bg-warning", "label": "Warning" },          
+              { "value": "bg-danger", "label": "Danger" },
+              { "value": "bg-light", "label": "Light" },
+              { "value": "bg-dark", "label": "Dark" },
+              { "value": "bg-white", "label": "White" }
+            ], 
+            "default": "bg-white",
+            "info": "Default: White"           
+          },
+          {
+            "type": "text",
+            "id": "text",
+            "label": "Text"
+          },
+          {
+            "type": "url",
+            "id": "url",
+            "label": "URL"
+          },   
+          {
+            "type": "range",
+            "id": "block_container_col",
+            "min": 1, 
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Small Devices",
+            "default": 12 
+          },
+          {
+            "type": "range",
+            "id": "block_container_col_large",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Medium & Up Devices",
+            "default": 6
+          }         
+        ]
+      }
+    ],    
+    "presets": [
+      {
+        "name": "Media Overlay Grid",
+        "category": "Content"
+      }
+    ]
+  }
+{% endschema %} 
