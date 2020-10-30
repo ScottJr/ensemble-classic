@@ -19,15 +19,6 @@
 
 {% comment %} Image Container Settings {% endcomment %}
 {% assign image_aspect_ratio = section.settings.image_aspect_ratio %}
-{% assign image_alt_text = section.settings.image.alt %}
-{% assign image_url = section.settings.image | img_url: '800x' %}
-{% if image_url contains 'no-image' %}
-  {% assign image_url = blank %}
-{% endif %}
-{% assign image_url_large = section.settings.image_large | img_url: '1000x' %}
-{% if image_url_large contains 'no-image' %}
-  {% assign image_url_large = blank %}
-{% endif %}
 
 {% comment %} Image Container Classes {% endcomment %}
 {% assign image_classes = 'col-12 col-md-6' %}
@@ -36,17 +27,8 @@
 {% comment %} Content Container Settings {% endcomment %}
 {% assign content_order_large = section.settings.content_order_large %}
 {% assign badge_style = section.settings.badge_style %}
-{% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign display_style = section.settings.display_style %}
-{% assign display_text = section.settings.display_text %}
 {% assign content_color = section.settings.content_color %}
-{% assign paragraph_text = section.settings.paragraph_text %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
-{% assign cta_text_2 = section.settings.cta_text_2 %}
-{% assign cta_url_2 = section.settings.cta_url_2 %}
-{% assign cta_type_2 = section.settings.cta_type_2 %}
 
 {% comment %} Content Container Wrapper Classes {% endcomment %}
 {% assign content_container_wrapper_classes = 'col-12 col-md-6' %} 
@@ -54,7 +36,7 @@
 {% assign content_container_wrapper_classes = content_container_wrapper_classes | append: ' ' | append: 'd-flex align-items-start flex-column justify-content-center' %}
 
 {% comment %} Content Container Classes {% endcomment %}
-{% assign content_classes = 'pr-5' %}
+{% assign content_classes = '' %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign padding_top = section.settings.padding_top %}
@@ -91,90 +73,60 @@
 {% comment %} Row Classes {% endcomment %}
 {% assign row_classes = 'row'%}
 
-{% comment %} Render HTML Content? {% endcomment %}
-{% if image_url != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif image_url_large != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif eyebrow_text != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif display_text != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = true %}    
-{% elsif cta_text_1 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_1 != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif cta_type_1 != blank %}
-  {% assign show_rendered_content = true %}      
-{% elsif cta_text_2 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_2 != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif cta_type_2 != blank %}
-  {% assign show_rendered_content = true %}    
-{% else %}
-  {% assign show_rendered_content = false %}
-{% endif %}
+<section class="{{ section_classes }}" data-section-id="{{ section.id }}" data-section-type="image-content">
+  {% comment %} Background Image {% endcomment %}
+  {% if bg_image_url != blank %}
+    <style>
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+    </style>
+  {% elsif bg_image_url_large != blank %}  
+    <style>
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+    </style>
+  {% endif %}
 
-{% comment %} Render {% endcomment %}
-{% unless show_rendered_content == false %}
-  <section class="{{ section_classes }}" data-section-id="{{ section.id }}" data-section-type="image-content">
-    {% comment %} Background Image {% endcomment %}
-    {% if bg_image_url != blank %}
-      <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
-      </style>
-    {% elsif bg_image_url_large != blank %}  
-      <style>
+  {% if bg_image_url_large != blank %}
+    <style>
+      @media (min-width: 992px) {
         [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
-      </style>
-    {% endif %}
+      }
+    </style>
+  {% elsif bg_image_url != blank %}  
+    <style>
+      @media (min-width: 992px) {
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      }
+    </style>
+  {% endif %}    
 
-    {% if bg_image_url_large != blank %}
-      <style>
-        @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
-        }
-      </style>
-    {% elsif bg_image_url != blank %}  
-      <style>
-        @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
-        }
-      </style>
-    {% endif %}    
-
-    <div class="{{ container_classes }}">
-      <div class="{{ row_classes }}">
-        <div class="{{ image_classes }}">
-          {% render 'image-object'
-                      image_url_small: image_url,
-                      image_url_large: image_url_large,
-                      image_alt_text: image_alt_text,
-                      image_aspect_ratio: image_aspect_ratio_classes
+  <div class="{{ container_classes }}">
+    <div class="{{ row_classes }}">
+      <div class="{{ image_classes }}">
+        {% render 'image-object'
+                    image_url_small: image_url,
+                    image_url_large: image_url_large,
+                    image_alt_text: image_alt_text,
+                    image_aspect_ratio: image_aspect_ratio_classes
+        %}
+      </div>
+      <div class="{{ content_container_wrapper_classes }}">
+        <div class="{{ content_classes }}">
+          {% render 'content-object' 
+                  eyebrow_text: eyebrow_text, 
+                  badge_style: badge_style,
+                  content_color: content_color,
+                  display_text: display_text,
+                  display_style: display_style,
+                  paragraph_text: paragraph_text,
+                  col: header_container_col,
+                  col_large: header_container_col_large,
+                  justify_container: header_container_justify_container,
+                  justify_container_large: header_container_justify_container_large,
+                  text_alignment: header_container_text_alignment,
+                  text_alignment_large: header_container_text_alignment_large
           %}
-        </div>
-        <div class="{{ content_container_wrapper_classes }}">
-          <div class="{{ content_classes }}">
-            {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    badge_style: badge_style,
-                    content_color: content_color,
-                    display_text: display_text,
-                    display_style: display_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_large: header_container_col_large,
-                    justify_container: header_container_justify_container,
-                    justify_container_large: header_container_justify_container_large,
-                    text_alignment: header_container_text_alignment,
-                    text_alignment_large: header_container_text_alignment_large
-            %}
-          </div>
         </div>
       </div>
     </div>
-  </section>
-{% endunless %}
+  </div>
+</section>

@@ -3,6 +3,7 @@
 {% assign display_text = section.settings.display_text %}
 {% assign paragraph_text = section.settings.paragraph_text %}
 
+{% comment %} Product-specific Data {% endcomment %}
 {% if product.metafields.custom_fields.meta_title_primary != blank %}
   {% assign meta_title_primary = product.metafields.custom_fields.meta_title_primary %}
 {% endif %}
