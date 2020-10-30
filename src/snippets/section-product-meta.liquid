@@ -19,17 +19,11 @@
 
 {% comment %} Content Container Settings {% endcomment %}
 {% assign badge_style = section.settings.badge_style %}
-{% assign eyebrow_text = section.settings.eyebrow_text %}
+
 {% assign display_style = section.settings.display_style %}
-{% assign display_text = section.settings.display_text %}
+
 {% assign content_color = section.settings.content_color %}
-{% assign paragraph_text = section.settings.paragraph_text %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
-{% assign cta_text_2 = section.settings.cta_text_2 %}
-{% assign cta_url_2 = section.settings.cta_url_2 %}
-{% assign cta_type_2 = section.settings.cta_type_2 %}
+
 
 {% comment %} Video Container Settings {% endcomment %}
 {% assign video_url = section.settings.video_url %}
@@ -83,108 +77,114 @@
 {% comment %}  {% endcomment %}
 {% assign meta_content_classes = 'col-12 col-md-10 offset-md-1 mb-3' %}
 
-{% comment %} Render HTML Content? {% endcomment %}
-{% if eyebrow_text != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif display_text != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = true %}    
-{% elsif video_url != blank %}  
-  {% assign show_rendered_content = true %}    
-{% elsif cta_text_1 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_1 != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif cta_type_1 != blank %}
-  {% assign show_rendered_content = true %}      
-{% elsif cta_text_2 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_2 != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif cta_type_2 != blank %}
-  {% assign show_rendered_content = true %}    
-{% else %}
-  {% assign show_rendered_content = false %}
-{% endif %}
-
-{% comment %} Render {% endcomment %}
-{% unless show_rendered_content == false %}
-  <section class="{{ section_classes }}" data-section-id="{{ section.id }}">
-    {% comment %} Background Image {% endcomment %}
-    {% if bg_image_url != blank %}
-      <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
-      </style>
+<section class="{{ section_classes }}" data-section-id="{{ section.id }}">
+  {% comment %} Background Image {% endcomment %}
+  {% if bg_image_url != blank %}
+    <style>
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+    </style>
+  {% elsif bg_image_url_large != blank %}  
     {% elsif bg_image_url_large != blank %}  
-      <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
-      </style>
-    {% endif %}
+  {% elsif bg_image_url_large != blank %}  
+    {% elsif bg_image_url_large != blank %}  
+  {% elsif bg_image_url_large != blank %}  
+    <style>
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+    </style>
+  {% endif %}
 
-    {% if bg_image_url_large != blank %}
-      <style>
-        @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
-        }
-      </style>
+  {% if bg_image_url_large != blank %}
+    <style>
+      @media (min-width: 992px) {
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+      }
+    </style>
+  {% elsif bg_image_url != blank %}  
     {% elsif bg_image_url != blank %}  
-      <style>
-        @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
-        }
-      </style>
+  {% elsif bg_image_url != blank %}  
+    {% elsif bg_image_url != blank %}  
+  {% elsif bg_image_url != blank %}  
+    <style>
+      @media (min-width: 992px) {
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      }
+    </style>
+  {% endif %}    
     {% endif %}    
- 
-    <div class="{{ container_classes }}">
-      <div class="{{ row_classes }}">
-        <div class="{{ content_classes }}">
-          {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    badge_style: badge_style,
-                    content_color: content_color,
-                    display_text: display_text,
-                    display_style: display_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_large: header_container_col_large,
-                    justify_container: header_container_justify_container,
-                    justify_container_large: header_container_justify_container_large,
-                    text_alignment: header_container_text_alignment,
-                    text_alignment_large: header_container_text_alignment_large
-          %}
-        </div>
+  {% endif %}    
+    {% endif %}    
+  {% endif %}    
+
+  <div class="{{ container_classes }}">
+    <div class="{{ row_classes }}">
+      <div class="{{ content_classes }}">
+        {% render 'content-object' 
+                  eyebrow_text: eyebrow_text, 
+                  badge_style: badge_style,
+                  content_color: content_color,
+                  display_text: display_text,
+                  display_style: display_style,
+                  paragraph_text: paragraph_text,
+                  col: header_container_col,
+                  col_large: header_container_col_large,
+                  justify_container: header_container_justify_container,
+                  justify_container_large: header_container_justify_container_large,
+                  text_alignment: header_container_text_alignment,
+                  text_alignment_large: header_container_text_alignment_large
+        %}
       </div>
-      <div class="{{ row_classes }}">
-        <div class="{{ meta_content_classes }}">
-          <div class="row">
-            <div class="col-12 col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{ product.metafields.global.meta_title_primary }}</h5>
-                  <p class="card-text">{{ product.metafields.global.meta_content_primary }}</p>
-                </div>
+    </div>
+    <div class="{{ row_classes }}">
+      <div class="{{ meta_content_classes }}">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ meta_title_primary }}</h5>
+                <p class="card-text">{{ meta_content_primary }}</p>
               </div>
             </div>
-            <div class="col-12 col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{ product.metafields.global.meta_title_secondary }}</h5>
-                  <p class="card-text">{{ product.metafields.global.meta_content_secondary }}</p>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ meta_title_secondary }}</h5>
+                <p class="card-text">{{ meta_content_secondary }}</p>
+              </div>
+            </div>
+          </div>            
                 </div>
+          </div>            
+            </div>            
               </div>
             </div>            
-            <div class="col-12 col-md-4">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title">{{ product.metafields.global.meta_title_tertiary }}</h5>
-                  <p class="card-text">{{ product.metafields.global.meta_content_tertiary }}</p>
-                </div>
+          </div>            
+            </div>            
+          </div>            
+          <div class="col-12 col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">{{ meta_title_tertiary }}</h5>
+                <p class="card-text">{{ meta_content_tertiary }}</p>
               </div>
+            </div>
+          </div>                        
             </div>                        
+          </div>                        
+                </div>
+          </div>                        
+        </div>
+      </div>
+            </div>                        
+      </div>
+    </div>      
           </div>
+    </div>      
+      </div>      
         </div>
       </div>      
-    </div>
-  </section>
-{% endunless %}
+    </div>      
+      </div>      
+    </div>      
+  </div>
+</section>
