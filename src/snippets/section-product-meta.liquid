@@ -6,7 +6,7 @@
 {% endif %}
 {% assign bg_image_url_large = section.settings.bg_image_large | img_url: '1000x' %}
 {% if bg_image_url_large contains 'no-image' %}
-  {% assign bg_image_url_large = blank %}
+  {% assign bg_image_url_large = blank %} 
 {% endif %}
 
 {% comment %} Header Settings {% endcomment %}
@@ -31,9 +31,19 @@
 {% assign cta_url_2 = section.settings.cta_url_2 %}
 {% assign cta_type_2 = section.settings.cta_type_2 %}
 
+{% comment %} Video Container Settings {% endcomment %}
+{% assign video_url = section.settings.video_url %}
+{% assign video_aspect_ratio = section.settings.video_aspect_ratio %}
+{% assign video_container_col = section.settings.header_container_col %}
+{% assign video_container_col_large = section.settings.video_container_col_large  %}
+{% assign video_container_justify_container = section.settings.video_container_justify_container %}
+{% assign video_container_justify_container_large = section.settings.video_container_justify_container_large %}
+{% assign video_container_text_alignment = section.settings.video_container_text_alignment %}
+{% assign video_container_text_alignment_large = section.settings.video_container_text_alignment_large %}
+
 {% comment %} Content Container Classes {% endcomment %}
 {% assign content_classes = 'col-12' %} 
-{% assign content_classes = content_classes | append: ' ' | append: 'py-4 py-sm-0 pr-sm-6' %}
+{% assign content_classes = content_classes | append: ' ' | append: 'py-4 py-sm-0 mb-4' %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign padding_top = section.settings.padding_top %}
@@ -70,12 +80,17 @@
 {% comment %} Row Classes {% endcomment %}
 {% assign row_classes = 'row'%}
 
+{% comment %}  {% endcomment %}
+{% assign meta_content_classes = 'col-12 col-md-10 offset-md-1 mb-3' %}
+
 {% comment %} Render HTML Content? {% endcomment %}
 {% if eyebrow_text != blank %}
   {% assign show_rendered_content = true %}  
 {% elsif display_text != blank %}
   {% assign show_rendered_content = true %}
 {% elsif paragraph_text != blank %}
+  {% assign show_rendered_content = true %}    
+{% elsif video_url != blank %}  
   {% assign show_rendered_content = true %}    
 {% elsif cta_text_1 != blank %}
   {% assign show_rendered_content = true %}  
@@ -120,36 +135,56 @@
         }
       </style>
     {% endif %}    
-
+ 
     <div class="{{ container_classes }}">
       <div class="{{ row_classes }}">
         <div class="{{ content_classes }}">
           {% render 'content-object' 
-                      eyebrow_text: eyebrow_text, 
-                      badge_style: badge_style,
-                      content_color: content_color,
-                      display_text: display_text,
-                      display_style: display_style,
-                      paragraph_text: paragraph_text,
-                      col: header_container_col,
-                      col_large: header_container_col_large,
-                      justify_container: header_container_justify_container,
-                      justify_container_large: header_container_justify_container_large,
-                      text_alignment: header_container_text_alignment,
-                      text_alignment_large: header_container_text_alignment_large
+                    eyebrow_text: eyebrow_text, 
+                    badge_style: badge_style,
+                    content_color: content_color,
+                    display_text: display_text,
+                    display_style: display_style,
+                    paragraph_text: paragraph_text,
+                    col: header_container_col,
+                    col_large: header_container_col_large,
+                    justify_container: header_container_justify_container,
+                    justify_container_large: header_container_justify_container_large,
+                    text_alignment: header_container_text_alignment,
+                    text_alignment_large: header_container_text_alignment_large
           %}
-          <div class="{{ header_container_text_alignment }} {{ header_container_text_alignment_large }}">
-            {% render 'cta-block',
-                        cta_text_1: cta_text_1,
-                        cta_url_1: cta_url_1,
-                        cta_type_1: cta_type_1,
-                        cta_text_2: cta_text_2,
-                        cta_url_2: cta_url_2,
-                        cta_type_2: cta_type_2
-            %}
-          </div>
         </div>
       </div>
+      <div class="{{ row_classes }}">
+        <div class="{{ meta_content_classes }}">
+          <div class="row">
+            <div class="col-12 col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.metafields.global.meta_title_primary }}</h5>
+                  <p class="card-text">{{ product.metafields.global.meta_content_primary }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.metafields.global.meta_title_secondary }}</h5>
+                  <p class="card-text">{{ product.metafields.global.meta_content_secondary }}</p>
+                </div>
+              </div>
+            </div>            
+            <div class="col-12 col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">{{ product.metafields.global.meta_title_tertiary }}</h5>
+                  <p class="card-text">{{ product.metafields.global.meta_content_tertiary }}</p>
+                </div>
+              </div>
+            </div>                        
+          </div>
+        </div>
+      </div>      
     </div>
   </section>
 {% endunless %}
