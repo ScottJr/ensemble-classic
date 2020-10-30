@@ -1,22 +1,40 @@
 {% comment %} Content {% endcomment %}
 {% assign image_alt_text = section.settings.image.alt %}
-{% assign image_url = section.settings.image | img_url: '800x' %}
+{% if product.metafields.custom_fields.s_img_content_img != blank %}
+  {% assign image_url = product.metafields.custom_fields.s_img_content_img %}
+{% else %}
+  {% assign image_url = section.settings.image | img_url: '800x' %}
+{% endif %}
 {% if image_url contains 'no-image' %}
   {% assign image_url = blank %}
 {% endif %}
-{% assign image_url_large = section.settings.image_large | img_url: '1000x' %}
+
+{% if product.metafields.custom_fields.s_img_content_img_lg != blank %}
+  {% assign image_url_large = product.metafields.custom_fields.s_img_content_img_lg %}
+{% else %}
+  {% assign image_url_large = section.settings.image_large | img_url: '1000x' %}
+{% endif %}
 {% if image_url_large contains 'no-image' %}
   {% assign image_url_large = blank %}
 {% endif %}
-{% assign eyebrow_text = section.settings.eyebrow_text %}
-{% assign paragraph_text = section.settings.paragraph_text %}
-{% assign display_text = section.settings.display_text %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
-{% assign cta_text_2 = section.settings.cta_text_2 %}
-{% assign cta_url_2 = section.settings.cta_url_2 %}
-{% assign cta_type_2 = section.settings.cta_type_2 %}
+
+{% if product.metafields.custom_fields.s_img_content_eyebrow_txt != blank %}
+  {% assign eyebrow_text = product.metafields.custom_fields.s_img_content_eyebrow_txt %}
+{% else %}
+  {% assign eyebrow_text = section.settings.eyebrow_text %}
+{% endif %}
+
+{% if product.metafields.custom_fields.s_img_content_para_txt != blank %}
+  {% assign paragraph_text = product.metafields.custom_fields.s_img_content_para_txt %}
+{% else%}
+  {% assign paragraph_text = section.settings.paragraph_text %}
+{% endif %}
+
+{% if product.metafields.custom_fields.s_img_content_disp_txt != blank %}
+  {% assign display_text = product.metafields.custom_fields.s_img_content_disp_txt %}
+{% else %}
+  {% assign display_text = section.settings.display_text %}
+{% endif %}
 
 {% comment %} Render HTML Content? {% endcomment %}
 {% if image_url != blank %}
@@ -28,19 +46,7 @@
 {% elsif display_text != blank %}
   {% assign show_rendered_content = true %}
 {% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = true %}    
-{% elsif cta_text_1 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_1 != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif cta_type_1 != blank %}
-  {% assign show_rendered_content = true %}      
-{% elsif cta_text_2 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_2 != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif cta_type_2 != blank %}
-  {% assign show_rendered_content = true %}    
+  {% assign show_rendered_content = true %} 
 {% else %}
   {% assign show_rendered_content = false %}
 {% endif %}
@@ -51,13 +57,7 @@
               image_url_large: image_url_large,
               eyebrow_text: eyebrow_text,
               display_text: display_text,
-              paragraph_text: paragraph_text,
-              cta_text_1: cta_text_1,
-              cta_url_1:cta_url_1,
-              cta_type_1:cta_type_1,
-              cta_text_2:cta_text_2,
-              cta_url_2:cta_url_2,
-              cta_type_2:cta_type_2
+              paragraph_text: paragraph_text
   %}
 {% endif %}
 
