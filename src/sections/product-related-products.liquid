@@ -1,30 +1,23 @@
-{% comment %} Content Container Settings {% endcomment %}
-{% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign display_text = section.settings.display_text %}
 {% assign paragraph_text = section.settings.paragraph_text %}
 
-{% comment %} Render Section? {% endcomment %}
-{% if eyebrow_text != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif display_text != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = false %}
-{% endif %}
+{% assign cta_text_1 = section.settings.cta_text_1 %}
+{% assign cta_url_1 = section.settings.cta_url_1 %}
+{% assign cta_type_1 = section.settings.cta_type_1 %}
 
-{% if show_rendered_content == true %}
-  {% render 'section-text-content'
-              eyebrow_text: eyebrow_text,
-              display_text: display_text,
-              paragraph_text: paragraph_text
-  %}
-{% endif %}
+{% render 'section-product-related-products',
+            paragraph_text: paragraph_text,
+            display_text: display_text,
+            cta_text_1: cta_text_1,
+            cta_url_1: cta_url_1,
+            cta_type_1: cta_type_1
+%} 
 
 {% schema %}
   {
-    "name": "Text Content",
+    "name": "Related products",
     "settings": [
-      {
+     {
         "type": "header",
         "content": "Section Layout"
       },
@@ -101,7 +94,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   5,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -112,7 +105,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -312,7 +305,11 @@
         "id": "paragraph_text",
         "label": "Paragraph"        
       },
-      {
+      { 
+        "type": "header",
+        "content": "Footer Content"
+      },
+      { 
         "type": "text",
         "id": "cta_text_1",
         "label": "CTA Text"
@@ -346,48 +343,7 @@
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
         ],
         "default": "btn-secondary"
-      },
-      {
-        "type": "text",
-        "id": "cta_text_2",
-        "label": "CTA Text"
-      },
-      {
-        "type": "url",
-        "id": "cta_url_2",
-        "label": "CTA URL"
-      },
-      {
-        "type": "select",
-        "id": "cta_type_2",
-        "label": "CTA Type",
-        "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
-        ],
-        "default": "btn-secondary"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Text Content",
-        "category": "Content"
-      }
-    ]
+      }          
+    ]  
   }
-{% endschema %} 
+{% endschema %}

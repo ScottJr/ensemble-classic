@@ -7,6 +7,7 @@
   Usage:
 
   {% render 'cta-block',
+              text_alignment: { string } - optional
               cta_type_1: { string } - optional
               cta_url_1: { string } - optional
               cta_text_1: { string } - optional
@@ -24,6 +25,12 @@
 {% endcomment %}
 
 {% comment %} Class defaults {% endcomment %}
+{% if text_alignment != blank %}
+  {% assign text_alignment = text_alignment %}
+{% else %}
+  {% assign text_alignment = 'text-left' %}
+{% endif %}
+
 {% assign cta_1_classes = blank %}
 
 {% if cta_type_1 != blank %}
@@ -110,6 +117,7 @@
 {% endcapture %}
 
 {% comment %} Render {% endcomment %}
+<div class="{{ text_alignment }}">
 {% if cta_1_html_content != blank %}
   {{ cta_1_html_content }}
 {% endif %}
@@ -125,3 +133,4 @@
 {% if cta_4_html_content != blank %}
   {{ cta_4_html_content }}
 {% endif %}
+</div>
