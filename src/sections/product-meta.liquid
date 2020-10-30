@@ -1,4 +1,57 @@
-{% render 'section-product-meta' %}
+{% comment %} Content Container Settings {% endcomment %}
+{% assign eyebrow_text = section.settings.eyebrow_text %}
+{% assign display_text = section.settings.display_text %}
+{% assign paragraph_text = section.settings.paragraph_text %}
+
+{% if product.metafields.custom_fields.meta_title_primary != blank %}
+  {% assign meta_title_primary = product.metafields.custom_fields.meta_title_primary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_content_primary != blank %}
+  {% assign meta_content_primary = product.metafields.custom_fields.meta_content_primary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_title_secondary != blank %}
+  {% assign meta_title_secondary = product.metafields.custom_fields.meta_title_secondary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_content_secondary != blank %}
+  {% assign meta_content_secondary = product.metafields.custom_fields.meta_content_secondary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_content_tertiary != blank %}
+  {% assign meta_content_tertiary = product.metafields.custom_fields.meta_content_tertiary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_title_tertiary != blank %}
+  {% assign meta_title_tertiary = product.metafields.custom_fields.meta_title_tertiary %} 
+{% endif %}
+
+{% comment %} Render Section? {% endcomment %}
+{% if meta_title_primary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_content_primary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_title_secondary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_content_secondary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_title_tertiary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_content_tertiary != blank %}
+  {% assign show_rendered_content = true %}
+{% else %}
+  {% assign show_rendered_content = false %}
+{% endif %}
+
+{% if show_rendered_content == true %}
+  {% render 'section-product-meta',
+              meta_title_primary: meta_title_primary,
+              meta_content_primary: meta_content_primary,
+              meta_title_secondary: meta_title_secondary,
+              meta_content_secondary: meta_content_secondary,
+              meta_title_tertiary: meta_title_tertiary,
+              meta_content_tertiary: meta_content_tertiary
+              eyebrow_text: eyebrow_text,
+              display_text: display_text,
+              paragraph_text: paragraph_text
+  %}
+{% endif %}
 
 {% schema %}
   {

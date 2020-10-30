@@ -1,62 +1,87 @@
-<div data-price-wrapper class="mb-2 d-none d-md-block">
-        <span class="display-4" data-product-price>
-          {{ current_variant.price | money_without_trailing_zeros }}
-        </span>
 
-        {% if product.compare_at_price_max > product.price %}
-          <span class="sr-only" data-compare-text>{{ 'products.product.regular_price' | t }}</span>
-          <s class="display-4" data-compare-price>
-            {% if current_variant.compare_at_price > current_variant.price %}
-              {{ current_variant.compare_at_price | money_without_trailing_zeros }}
-            {% endif %}
-          </s>
-        {% endif %}
+
+{% if product.metafields.custom_fields.meta_title_primary != blank %}
+  {% assign meta_title_primary = product.metafields.custom_fields.meta_title_primary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_content_primary != blank %}
+  {% assign meta_content_primary = product.metafields.custom_fields.meta_content_primary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_title_secondary != blank %}
+  {% assign meta_title_secondary = product.metafields.custom_fields.meta_title_secondary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_content_secondary != blank %}
+  {% assign meta_content_secondary = product.metafields.custom_fields.meta_content_secondary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_content_tertiary != blank %}
+  {% assign meta_content_tertiary = product.metafields.custom_fields.meta_content_tertiary %}
+{% endif %}
+{% if product.metafields.custom_fields.meta_title_tertiary != blank %}
+  {% assign meta_title_tertiary = product.metafields.custom_fields.meta_title_tertiary %} 
+{% endif %}
+
+{% comment %} Render Section? {% endcomment %}
+{% if meta_title_primary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_content_primary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_title_secondary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_content_secondary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_title_tertiary != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif meta_content_tertiary != blank %}
+  {% assign show_rendered_content = true %}
+{% else %}
+  {% assign show_rendered_content = false %}
+{% endif %}
+
+{% if show_rendered_content == true %}
+  <ul class="list-unstyled">
+    <li class="mb-4">
+      <div class="row">
+        <div class="col">
+          <p class="h4 border-bottom">{{ meta_title_primary }}</p>
+        </div>
       </div>
-      <div class="sr-only">{{ product.description }}</div>       
-      <ul class="list-unstyled">
-        <li class="mb-4">
-          <div class="row">
-            <div class="col">
-              <p class="h4 border-bottom">{{ product.metafields.global.meta_title_primary }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-1">
-              <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Check icon">
-            </div>
-            <div class="col-8">
-              <span class="small">{{ product.metafields.global.meta_content_primary }}</span>
-            </div>
-          </div>           
-        </li>      
-        <li class="mb-4">
-          <div class="row">
-            <div class="col">
-              <p class="h4 border-bottom">{{ product.metafields.global.meta_title_secondary }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-1">
-              <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Size icon">
-            </div>
-            <div class="col-8">
-              <span class="small">{{ product.metafields.global.meta_content_secondary }}</span>
-            </div>
-          </div>              
-        </li>      
-        <li class="mb-4">
-          <div class="row">
-            <div class="col">
-              <p class="h4 border-bottom">{{ product.metafields.global.meta_title_tertiary }}</p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-1">
-              <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Light Required icon">
-            </div>
-            <div class="col-8">
-              <span class="small">{{ product.metafields.global.meta_content_tertiary }}</span>
-            </div>
-          </div>              
-        </li>
-      </ul>
+      <div class="row">
+        <div class="col-1">
+          <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Check icon">
+        </div>
+        <div class="col-8">
+          <span class="small">{{ meta_content_primary }}</span>
+        </div>
+      </div>           
+    </li>      
+    <li class="mb-4">
+      <div class="row">
+        <div class="col">
+          <p class="h4 border-bottom">{{ meta_title_secondary }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1">
+          <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Size icon">
+        </div>
+        <div class="col-8">
+          <span class="small">{{ meta_content_secondary }}</span>
+        </div>
+      </div>              
+    </li>      
+    <li class="mb-4">
+      <div class="row">
+        <div class="col">
+          <p class="h4 border-bottom">{{ meta_title_tertiary }}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-1">
+          <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Light Required icon">
+        </div>
+        <div class="col-8">
+          <span class="small">{{ meta_content_tertiary }}</span>
+        </div>
+      </div>              
+    </li>
+  </ul>
+{% endif %}

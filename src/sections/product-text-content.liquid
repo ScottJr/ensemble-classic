@@ -1,7 +1,21 @@
 {% comment %} Content Container Settings {% endcomment %}
-{% assign eyebrow_text = section.settings.eyebrow_text %}
-{% assign display_text = section.settings.display_text %}
-{% assign paragraph_text = section.settings.paragraph_text %}
+{% if product.metafields.custom_fields.s_text_content_eyebrow_text != blank %}
+  {% assign eyebrow_text = product.metafields.custom_fields.s_text_content_eyebrow_text %}
+{% elsif section.settings.eyebrow_text != blank %}
+  {% assign eyebrow_text = section.settings.eyebrow_text %}
+{% endif %}
+
+{% if product.metafields.custom_fields.s_text_content_display_text != blank %}
+  {% assign display_text = product.metafields.custom_fields.s_text_content_display_text %}
+{% elsif section.settings.display_text != blank %}
+  {% assign display_text = section.settings.display_text %}
+{% endif %}
+
+{% if product.metafields.custom_fields.s_text_content_para_text != blank %}
+  {% assign paragraph_text = product.metafields.custom_fields.s_text_content_para_text %}
+{% elsif section.settings.paragraph_text != blank %}
+  {% assign paragraph_text = section.settings.paragraph_text %}
+{% endif %}
 
 {% comment %} Render Section? {% endcomment %}
 {% if eyebrow_text != blank %}
@@ -9,14 +23,18 @@
 {% elsif display_text != blank %}
   {% assign show_rendered_content = true %}
 {% elsif paragraph_text != blank %}
+  {% assign show_rendered_content = true %}
+{% else %}
   {% assign show_rendered_content = false %}
 {% endif %}
 
-{% render 'section-text-content'
-            eyebrow_text: eyebrow_text,
-            display_text: display_text,
-            paragraph_text: paragraph_text
-%}
+{% if show_rendered_content == true %}
+  {% render 'section-text-content'
+              eyebrow_text: eyebrow_text,
+              display_text: display_text,
+              paragraph_text: paragraph_text
+  %}
+{% endif %}
 
 {% schema %}
   {
