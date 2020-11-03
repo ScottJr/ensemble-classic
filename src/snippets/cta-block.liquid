@@ -94,43 +94,46 @@
 {% comment %} HTML content {% endcomment %}
 {% capture 'cta_1_html_content' %}
   {% if cta_url_1 != blank and cta_text_1 != blank %}
-    <a href="{{ cta_url_1 }}" class="{{ cta_1_classes }}">{{ cta_text_1 }}</a> 
+    <a href="{{ cta_url_1 }}" class="{{ cta_1_classes }} mb-2">{{ cta_text_1 }}</a> 
   {% endif %}
 {% endcapture %}
 
 {% capture 'cta_2_html_content' %}
   {% if cta_url_2 != blank and cta_text_2 != blank %}
-    <a href="{{ cta_url_2 }}" class="{{ cta_2_classes }}">{{ cta_text_2 }}</a> 
+    <a href="{{ cta_url_2 }}" class="{{ cta_2_classes }} mb-2">{{ cta_text_2 }}</a> 
   {% endif %}
 {% endcapture %}
 
 {% capture 'cta_3_html_content' %}
   {% if cta_url_3 != blank and cta_text_3 != blank %}
-    <a href="{{ cta_url_3 }}" class="{{ cta_3_classes }}">{{ cta_text_3 }}</a> 
+    <a href="{{ cta_url_3 }}" class="{{ cta_3_classes }} mb-2">{{ cta_text_3 }}</a> 
   {% endif %}
 {% endcapture %}
 
 {% capture 'cta_4_html_content' %}
   {% if cta_url_4 != blank and cta_text_4 != blank %}
-    <a href="{{ cta_url_4 }}" class="{{ cta_4_classes }}">{{ cta_text_4 }}</a> 
+    <a href="{{ cta_url_4 }}" class="{{ cta_4_classes }} mb-2">{{ cta_text_4 }}</a> 
   {% endif %}
 {% endcapture %}
+  
+{% if cta_1_html_content != blank %}
+  {% assign render_cta_block = true %}
+{% elsif cta_2_html_content != blank %}
+  {% assign render_cta_block = true %}
+{% elsif cta_3_html_content != blank %}
+  {% assign render_cta_block = true %}
+{% elsif cta_4_html_content != blank %}
+  {% assign render_cta_block = true %}
+{% else %}
+  {% assign render_cta_block = false %}
+{% endif %}
 
 {% comment %} Render {% endcomment %}
-<div class="{{ text_alignment }}">
-{% if cta_1_html_content != blank %}
-  {{ cta_1_html_content }}
+{% if render_cta_block == true %}
+  <div class="{{ text_alignment }}">
+    {{ cta_1_html_content }}
+    {{ cta_2_html_content }}
+    {{ cta_3_html_content }}
+    {{ cta_4_html_content }}
+  </div>
 {% endif %}
-
-{% if cta_2_html_content != blank %}
-  {{ cta_2_html_content }}
-{% endif %}
-
-{% if cta_3_html_content != blank %}
-  {{ cta_3_html_content }}
-{% endif %}
-
-{% if cta_4_html_content != blank %}
-  {{ cta_4_html_content }}
-{% endif %}
-</div>

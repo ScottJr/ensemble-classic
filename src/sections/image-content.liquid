@@ -1,4 +1,4 @@
-{% comment %} Content {% endcomment %}
+{% comment %} Image Object Data {% endcomment %}
 {% assign image_alt_text = section.settings.image.alt %}
 {% assign image_url = section.settings.image | img_url: '800x' %}
 {% if image_url contains 'no-image' %}
@@ -8,6 +8,8 @@
 {% if image_url_large contains 'no-image' %}
   {% assign image_url_large = blank %}
 {% endif %}
+
+{% comment %} Content Object Data {% endcomment %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign paragraph_text = section.settings.paragraph_text %}
 {% assign display_text = section.settings.display_text %}
@@ -68,22 +70,6 @@
       {
         "type": "header",
         "content": "Section Layout"
-      },
-      { 
-        "type": "select",
-        "id": "container",
-        "label": "Container",
-        "info": "Define what container will the section content be confined to.",
-        "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "default": "container-xl"
       },  
       {
         "type": "checkbox",
@@ -221,7 +207,23 @@
       { 
         "type": "header",
         "content": "Content Layout"
-      },   
+      },
+      { 
+        "type": "select",
+        "id": "header_container",
+        "label": "Container",
+        "info": "Define what container will the header content be confined to.",
+        "options": [
+          { "value": "container", "label": "Contained at all breakpoints"},
+          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
+          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
+          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          { "value": "", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "container-xl"
+      },      
       {
         "type": "range",
         "id": "header_container_col",
