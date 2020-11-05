@@ -1,34 +1,59 @@
         
-{% if col != blank %}
-  {% assign col = col %}
+{% comment %} 
+
+  -----------------------------------------------------------------------------
+  Content Object
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'content-object',
+              id: { string } - required only if using background image
+              block_bg_image_url: { string } - optional
+              block_bg_image_url_large: { string } - optional
+              text_alignment: { string } - optional
+              cta_type_1: { string } - optional
+              cta_url_1: { string } - optional
+              cta_text_1: { string } - optional
+              cta_type_2: { string } - optional
+              cta_url_2: { string } - optional
+              cta_text_2: { string } - optional              
+              cta_type_3: { string } - optional
+              cta_url_3: { string } - optional
+              cta_text_4: { string } - optional
+              cta_type_4: { string } - optional
+              cta_url_4: { string } - optional
+              cta_text_4: { string } - optional                            
+  %}
+
+{% endcomment %}
+
+{% comment %} Content Settings {% endcomment %}
+{% if id != blank %}
+  {% assign id = id %}
 {% else %}
-  {% assign col = '12' %}
+  {% assign id = false %}
 {% endif %}
 
-{% if col_large != blank %}
-  {% assign col_large = col_large %}
+{% if bg_image_url != blank %}
+  {% if bg_image_url contains 'no-image' %}
+    {% assign bg_image_url = false %}
+  {% else %}
+    {% assign bg_image_url = bg_image_url %}
+  {% endif %}
 {% else %}
-  {% assign col_large = '8' %}
+  {% assign bg_image_url = false %}
 {% endif %}
 
-{% assign container_col_classes =  'col-' | append: col %}
-{% assign container_col_classes =  container_col_classes | append: ' col-md-' | append: col_large %}
-
-{% if justify_container != blank %}
-  {% assign justify_container = justify_container %}
+{% if bg_image_url_large != blank %}
+  {% if bg_image_url_large contains 'no-image' %}
+    {% assign bg_image_url_large = false %}
+  {% else %}
+    {% assign bg_image_url_large = bg_image_url_large %}
+  {% endif %}
 {% else %}
-  {% assign justify_container = 'justify-content-center' %}
+  {% assign bg_image_url_large = false %}
 {% endif %}
-
-{% if justify_container_large != blank %}
-  {% assign justify_container_large = justify_container_large %}
-{% else %}
-  {% assign justify_container_large = 'justify-content-md-center' %}
-{% endif %}
-
-{% assign container_classes = 'd-flex' %}
-{% assign container_classes = container_classes | append: ' ' | append: justify_container %}
-{% assign container_classes = container_classes | append: ' ' | append: justify_container_large %}
 
 {% if text_alignment != blank %}
   {% assign text_alignment = text_alignment %}
@@ -44,14 +69,61 @@
 
 {% assign text_alignment_classes = text_alignment | append: ' ' | append: text_alignment_large %}
 
-<div class="{{ container_classes }}"> 
-  <div class="{{ container_col_classes }}">
+{% comment %} Object Classes {% endcomment %}
+{% assign block_classes = block_classes %}
+{% if bg_image_url %}
+  {% assign block_classes = block_classes | append: ' h-100' %}
+{% endif %}
+
+{% comment %} Render {% endcomment %}
+{% if eyebrow_text != blank %}
+  {% assign render_content = true %}
+{% elsif display_text != blank %}
+  {% assign render_content = true %}
+{% elsif paragraph_text != blank %}
+  {% assign render_content = true %}  
+{% elsif cta_url_1 != blank %}
+  {% assign render_content = true %}   
+{% elsif cta_url_2 != blank %}
+  {% assign render_content = true %}     
+{% else %}
+  {% assign render_content = false %}
+{% endif %}
+
+{% if render_content == true %}
+  {% comment %} TODO: This is still rendering all 0 value classes {% endcomment %}  
+  <div class="{{ block_classes }}" {% if id != blank %}id="content-object-{{ id }}{% endif %}">
+
+    {% comment %} Background Image {% endcomment %}
+    {% if bg_image_url %}
+      <style>
+        #content-object-{{ id }} { background-image: url({{ bg_image_url }}); background-size: cover; }
+      </style>
+    {% elsif bg_image_url_large %}
+      <style>
+        #content-object-{{ id }} { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+      </style>
+    {% endif %}
+
+    {% if bg_image_url_large %}
+      <style>
+        @media (min-width: 992px) {
+          #content-object-{{ id }} { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+        }
+      </style>
+    {% elsif bg_image_url %}  
+      <style>
+        @media (min-width: 992px) {
+          #content-object-{{ id }} { background-image: url({{ bg_image_url }}); background-size: cover; }
+        }
+      </style>
+    {% endif %}  
+  
     {% render 'eyebrow-text', 
               text: eyebrow_text,
               text_alignment: text_alignment_classes,
               badge_style: badge_style,
-    %}
-
+    %} 
     {% render 'display-text',
               text: display_text,
               text_color: content_color,
@@ -64,6 +136,17 @@
               text_color: content_color,
               text_alignment: text_alignment_classes
     %}
-  </div>
-</div>
+    {% render 'cta-block',
+                text_alignment: text_alignment_classes,
+                cta_text_1: cta_text_1,
+                cta_url_1: cta_url_1,
+                cta_type_1: cta_type_1,
+                cta_text_2: cta_text_2,
+                cta_url_2: cta_url_2,
+                cta_type_2: cta_type_2,
+    %}
+  {% if block_classes != blank %}
+    </div>
+  {% endif %}
+{% endif %}
 

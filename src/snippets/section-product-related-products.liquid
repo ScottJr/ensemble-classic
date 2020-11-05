@@ -1,4 +1,5 @@
 {% comment %} Global Section Settings {% endcomment %}
+{% assign section_type = 'related-products' %}
 {% assign background_color = section.settings.background_color %}
 {% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
@@ -61,7 +62,56 @@
 {% comment %} Row Classes {% endcomment %}
 {% assign row_classes = 'row'%}
 
-<section class="{{ section_classes }}" data-section-id="{{ section.id }}">
+{% capture related_items %}
+  {% if request.path contains 'collections' %}
+    {% for collection in product.collections %}
+      {% if request.path contains collection.handle %}
+        {% assign related_product_count = 0 %}
+        {% for related_product in collection.products limit: 5 %}
+          {% if product.handle != related_product.handle %}
+            {% assign related_product_count = related_product_count | plus: 1 %}
+            {% assign featured_image = related_product.featured_image.src | img_url: '480x480' %}
+            {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
+            {% if related_product_count <= 4 %}
+              <div class="col-6 col-sm-3">
+                {% render 'product-card'
+                            featured_image: featured_image, 
+                            id: related_product.id,
+                            title: related_product.title,
+                            excerpt: product_excerpt,
+                            url: related_product.url,
+                            compare_at_price: related_product.compare_at_price,
+                            price_varies: related_product.price_varies,
+                            price: related_product.price
+                %}            
+              </div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %} 
+    {% endfor %}
+  {% else %}
+    {% for block in section.blocks %}
+      {% assign related_product = all_products[block.settings.product] %}
+      {% if product.handle != related_product.handle %}
+        {% assign featured_image = related_product.featured_image.src | img_url: '600x' %}
+        <div class="col-6 col-sm-3">
+          {% render 'product-card'
+                      featured_image: featured_image, 
+                      id: related_product.id,
+                      title: related_product.title,
+                      url: related_product.url,
+                      compare_at_price: related_product.compare_at_price,
+                      price_varies: related_product.price_varies,
+                      price: related_product.price
+          %}            
+        </div>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endcapture%}
+
+<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="{{ section_type }}">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
@@ -85,8 +135,7 @@
         [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
       }
     </style>
-  {% endif %}    
-
+  {% endif %}   
   <div class="{{ container_classes }}">
     <div class="{{ row_classes }}">
       <div class="{{ content_classes }}">
@@ -104,17 +153,25 @@
                     text_alignment: header_container_text_alignment,
                     text_alignment_large: header_container_text_alignment_large
         %}
-        <div class="{{ header_container_text_alignment }} {{ header_container_text_alignment_large }}">
-          {% render 'cta-block',
-                      cta_text_1: cta_text_1,
-                      cta_url_1: cta_url_1,
-                      cta_type_1: cta_type_1,
-                      cta_text_2: cta_text_2,
-                      cta_url_2: cta_url_2,
-                      cta_type_2: cta_type_2
-          %}
-        </div>
       </div>
     </div>
-  </div>
+    <div class="{{ row_classes }}">
+      {{ related_items }}
+    </div>
+    <div class="{{ row_classes }}">
+      <div class="{{ content_classes }}">
+        {% render 'content-object' 
+                    cta_text_1: cta_text_1,
+                    cta_url_1: cta_url_1,
+                    cta_type_1: cta_type_1,
+                    col: header_container_col,
+                    col_large: header_container_col_large,
+                    justify_container: header_container_justify_container,
+                    justify_container_large: header_container_justify_container_large,
+                    text_alignment: header_container_text_alignment,
+                    text_alignment_large: header_container_text_alignment_large
+        %}
+      </div>
+    </div>    
+  </div>   
 </section>

@@ -34,15 +34,8 @@
 
 {% comment %} Section Content Settings {% endcomment %}
 {% assign badge_style = section.settings.badge_style %}
-{% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign display_style = section.settings.display_style %}
-{% assign display_text = section.settings.display_text %}
 {% assign content_color = section.settings.content_color %} 
-{% assign paragraph_text = section.settings.paragraph_text %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
-{% assign featured_collection = collections[section.settings.collection] %}
 {% assign featured_collection_count = featured_collection.products_count | times: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
@@ -56,7 +49,7 @@
 {% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
  
 {% comment %} Section Layout Classes {% endcomment %}
-{% assign section_classes =  'position-relative' %}
+{% assign section_classes = 'position-relative' %}
 {% assign section_classes = section_classes | append: ' ' | append: background_color %}
 {% assign section_classes = section_classes | append: ' pt-' | append: padding_top %}
 {% assign section_classes = section_classes | append: ' pb-' | append: padding_bottom %}
@@ -172,11 +165,11 @@
     </div>
     <div class="row">
       <div class="w-100 text-center">
-          {% render 'cta-block',
-                cta_text_1: cta_text_1,
-                cta_url_1: cta_url_1,
-                cta_type_1: cta_type_1
-          %}
+        {% render 'cta-block',
+              cta_text_1: cta_text_1,
+              cta_url_1: cta_url_1,
+              cta_type_1: cta_type_1
+        %}
       </div>
     </div>
   </div>  

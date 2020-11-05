@@ -1,4 +1,17 @@
-{% render 'section-featured-collection' %}
+{% assign display_text = section.settings.display_text %}
+{% assign paragraph_text = section.settings.paragraph_text %}
+
+{% assign cta_text_1 = section.settings.cta_text_1 %}
+{% assign cta_url_1 = section.settings.cta_url_1 %}
+{% assign cta_type_1 = section.settings.cta_type_1 %}
+
+{% render 'section-featured-collection',
+            paragraph_text: paragraph_text,
+            display_text: display_text,
+            cta_text_1: cta_text_1,
+            cta_url_1: cta_url_1,
+            cta_type_1: cta_type_1
+%}
 
 {% schema %}
   {

@@ -1,71 +1,23 @@
-{% comment %} Content {% endcomment %}
-{% assign image_alt_text = section.settings.image.alt %}
-{% if product.metafields.custom_fields.s_img_content_img != blank %}
-  {% assign image_url = product.metafields.custom_fields.s_img_content_img %}
-{% else %}
-  {% assign image_url = section.settings.image | img_url: '800x' %}
-{% endif %}
-{% if image_url contains 'no-image' %}
-  {% assign image_url = blank %}
-{% endif %}
+{% assign display_text = section.settings.display_text %}
+{% assign paragraph_text = section.settings.paragraph_text %}
 
-{% if product.metafields.custom_fields.s_img_content_img_lg != blank %}
-  {% assign image_url_large = product.metafields.custom_fields.s_img_content_img_lg %}
-{% else %}
-  {% assign image_url_large = section.settings.image_large | img_url: '1000x' %}
-{% endif %}
-{% if image_url_large contains 'no-image' %}
-  {% assign image_url_large = blank %}
-{% endif %}
+{% assign cta_text_1 = section.settings.cta_text_1 %}
+{% assign cta_url_1 = section.settings.cta_url_1 %}
+{% assign cta_type_1 = section.settings.cta_type_1 %}
 
-{% if product.metafields.custom_fields.s_img_content_eyebrow_txt != blank %}
-  {% assign eyebrow_text = product.metafields.custom_fields.s_img_content_eyebrow_txt %}
-{% else %}
-  {% assign eyebrow_text = section.settings.eyebrow_text %}
-{% endif %}
-
-{% if product.metafields.custom_fields.s_img_content_para_txt != blank %}
-  {% assign paragraph_text = product.metafields.custom_fields.s_img_content_para_txt %}
-{% else%}
-  {% assign paragraph_text = section.settings.paragraph_text %}
-{% endif %}
-
-{% if product.metafields.custom_fields.s_img_content_disp_txt != blank %}
-  {% assign display_text = product.metafields.custom_fields.s_img_content_disp_txt %}
-{% else %}
-  {% assign display_text = section.settings.display_text %}
-{% endif %}
-
-{% comment %} Render HTML Content? {% endcomment %}
-{% if image_url != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif image_url_large != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif eyebrow_text != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif display_text != blank %}
-  {% assign show_rendered_content = true %}
-{% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = true %} 
-{% else %}
-  {% assign show_rendered_content = false %}
-{% endif %}
-
-{% if show_rendered_content == true %}
-  {% render 'section-image-content',
-              image_url: image_url,
-              image_url_large: image_url_large,
-              eyebrow_text: eyebrow_text,
-              display_text: display_text,
-              paragraph_text: paragraph_text
-  %}
-{% endif %}
+{% render 'section-product-related-products',
+            paragraph_text: paragraph_text,
+            display_text: display_text,
+            cta_text_1: cta_text_1,
+            cta_url_1: cta_url_1,
+            cta_type_1: cta_type_1
+%} 
 
 {% schema %}
   {
-    "name": "Image & Content",
+    "name": "Related products",
     "settings": [
-      {
+     {
         "type": "header",
         "content": "Section Layout"
       },
@@ -84,24 +36,13 @@
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl"
-      },  
+      },
       {
         "type": "checkbox",
         "id": "vertically_padded_content",
         "label": "Define if content will be vertically flush or have padding (5rem)",
         "default": true
-      },             
-      { 
-        "type": "select",
-        "id": "content_order_large",
-        "label": "Content position",
-        "info": "Large devices only. On small devices, image stacks first and is followed by the content.",
-        "options": [
-          { "value": "order-md-last", "label": "Right"},
-          { "value": "order-md-first", "label": "Left"}
-        ],
-        "default": "order-md-last"
-      },
+      },        
       {
         "type":   "range",
         "label": "Padding top - small devices",
@@ -153,7 +94,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   5,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -164,7 +105,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%",
         "info": "For devices with screen widths greater than 768px"  
       },
@@ -217,7 +158,7 @@
         "type": "image_picker",
         "id": "bg_image_large",
         "label": "Background Image - Medium & Up Devices"
-      },      
+      },
       { 
         "type": "header",
         "content": "Content Layout"
@@ -289,33 +230,11 @@
         ],
         "default":   "text-md-center",
         "info":      "Default: Center"
-      },       
+      },            
       {
         "type": "header",
         "content": "Content"
-      },
-      {
-        "type": "image_picker",
-        "id": "image",
-        "label": "Image - Small devices"
-      },     
-      {
-        "type": "image_picker",
-        "id": "image_large",
-        "label": "Image - Medium & Up devices"
-      },
-      {
-        "type": "select",
-        "id": "image_aspect_ratio",
-        "label": "Image aspect ratio",
-        "options": [
-          { "value": "21by9", "label": "21x9"},
-          { "value": "1by1", "label": "1x1"},
-          { "value": "4by3", "label": "4x3"},
-          { "value": "16by9", "label": "16x9"}
-        ],
-        "default": "1by1"
-      },                                 
+      },                            
       { 
         "type": "text",
         "id": "eyebrow_text",
@@ -386,7 +305,11 @@
         "id": "paragraph_text",
         "label": "Paragraph"        
       },
-      {
+      { 
+        "type": "header",
+        "content": "Footer Content"
+      },
+      { 
         "type": "text",
         "id": "cta_text_1",
         "label": "CTA Text"
@@ -420,42 +343,7 @@
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
         ],
         "default": "btn-secondary"
-      },
-      {
-        "type": "text",
-        "id": "cta_text_2",
-        "label": "CTA Text"
-      },
-      {
-        "type": "url",
-        "id": "cta_url_2",
-        "label": "CTA URL"
-      },
-      {
-        "type": "select",
-        "id": "cta_type_2",
-        "label": "CTA Type",
-        "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
-        ],
-        "default": "btn-secondary"
-      }
-    ]
+      }          
+    ]  
   }
-{% endschema %} 
+{% endschema %}
