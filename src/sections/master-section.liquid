@@ -30,100 +30,17 @@
 {% assign section_bg_image_url = section.settings.section_bg_image 
   | img_url: '1000x' %}
 
-{% comment %} Section Classes {% endcomment %}
-{% if section_pt != 0 %}
-  {% assign section_classes = section_classes
-    | append: ' pt-'
-    | append: section_pt %}
-{% endif %}
-
-{% if section_pb != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' pb-'
-  | append: section_pb %}
-{% endif %}
-
-{% if section_pt_md_up != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' pt-md-'
-  | append: section_pt_md_up %}
-{% endif %}
-
-{% if section_pb_md_up != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' pb-md-'
-  | append: section_pb_md_up %}
-{% endif %}
-
-{% if section_mt != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' mt-'
-  | append: section_mt %}
-{% endif %}
-
-{% if section_mb != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' mb-'
-  | append: section_mb %}
-{% endif %}
-
-{% if section_mt_md_up != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' mt-md-'
-  | append: section_mt_md_up %}
-{% endif %}
-
-{% if section_mb_md_up != 0 %}
-  {% assign section_classes = section_classes
-  | append: ' mb-md-'
-  | append: section_mb_md_up %}
-{% endif %}
-
 {% comment %} END - Section Settings {% endcomment %}
 
-{% assign style_prop = 'style="background-color: '
-  | append: section_bg_color
-  | append: ';"' %}
-
-<h1>{{ style_prop }}</h1>
-{% if section_bg_color_alpha != 'disabled' %}
-{% endif %}
-
-{% capture background_image %}
-
-
-{% assign section_bg_color_computed = section_bg_color
-  | remove: '#'%}
-
-{% assign section_bg_color_computed = section_bg_color_computed 
-  | append: section_bg_color_alpha %}
-
-{% assign section_bg_color_computed = section_bg_color_computed 
-  | prepend: '#' %}
-{{ section_bg_color_computed }};"
-
-      <div
-        class="position-absolute h-100 w-100"
-        style="background-color: {{ bg_color_computed }};"></div>
-{% endcapture %}
-
-{% comment %} START - Header {% endcomment %}
-{% comment %} Header Container Settings {% endcomment %}
+{% comment %} START - Content Header {% endcomment %}
+{% comment %} Content Header Settings {% endcomment %}
 {% assign header_container = section.settings.header_container %}
 
-{% comment %} Header Container Classes {% endcomment %}
-{% assign header_container_classes = header_container %}
-
-{% comment %} Header Row Classes {% endcomment %}
-{% assign header_row_classes = 'row' %}
-
-{% comment %} Header Column Settings {% endcomment %}
 {% assign header_col = section.settings.header_col %}
 {% assign header_col_offset = section.settings.header_col_offset %}
 {% assign header_col_lg = section.settings.header_col_lg  %}
 {% assign header_col_offset_lg = section.settings.header_col_offset_lg  %}
 
-{% comment %} Header Content Settings {% endcomment %}
 {% assign header_pt = section.settings.header_pt %}
 {% assign header_pb = section.settings.header_pb %}
 {% assign header_pt_md_up = section.settings.header_pt_md_up %}
@@ -153,20 +70,14 @@
 {% assign header_link_url = section.settings.header_link_url %}
 {% assign header_link_style = section.settings.header_link_style %}
 
-{% comment %} Header Content {% endcomment %}
-{% capture header_content %}
-  {% render 'content-object'
-    content_color: header_content_color,
-    eyebrow_style: header_eyebrow_style,
-    eyebrow_text: header_eyebrow_text,
-    heading_style: header_heading_style,
-    heading_text: header_heading_text,
-    paragraph_text: header_paragraph_text,
-    link_text: header_link_text,
-    link_url: header_link_url,
-    link_style: header_link_style,
-    text_align: header_content_align,
-    text_align_lg: header_content_align_lg,
+{% comment %} Content Header Capture {% endcomment %}
+{% capture content_header %}
+  {% render 'content-header'
+    col: header_col,
+    col_offset: header_col_offset,
+    col_lg: header_col_lg,
+    col_offset_lg: header_col_offset_lg
+    container: header_container,
     pt: header_pt,
     pb: header_pb,
     mt: header_mt,
@@ -174,40 +85,28 @@
     pt_md_up: header_pt_md_up,
     pb_md_up: header_pb_md_up,
     mt_md_up: header_mt_md_up,
-    mb_md_up: header_mb_md_up %}
+    mb_md_up: header_mb_md_up,
+    bg_color: header_bg_color,
+    content_color: header_content_color,
+    content_align: header_content_align,
+    content_align_lg: header_content_align_lg,
+    eyebrow_style: header_eyebrow_style,
+    eyebrow_text: header_eyebrow_text,
+    heading_style: header_heading_style,
+    heading_text: header_heading_text,
+    paragraph_text: header_paragraph_text,
+    link_text: header_link_text,
+    link_url: header_link_url,
+    link_style: header_link_style %}
 {% endcapture %}
-
-{% if header_content != blank %}
-  {% capture header_grid_item %}
-    {% render 'grid-item'
-      col: header_col,
-      col_offset: header_col_offset,
-      col_lg: header_col_lg,
-      col_lg_offset: header_col_offset_lg,
-      content: header_content %}
-  {% endcapture %}
-{% endif %}
 {% comment %} END - Header {% endcomment %}
 
 {% comment %} START - Content {% endcomment %}
-{% comment %} Content Container Settings {% endcomment %}
+{% comment %} Content Settings {% endcomment %}
 {% assign content_container = section.settings.content_container %}
 
-{% comment %} Content Container Classes {% endcomment %}
-{% assign content_container_classes = content_container %}
-
-{% comment %} Content Row Settings {% endcomment %}
 {% assign content_row_no_gutters = section.settings.no_gutters %}
 
-{% comment %} Content Row Classes {% endcomment %}
-{% assign content_row_classes = 'row' %}
-{% if content_row_no_gutters == 'no-gutters'%}
-  {% assign content_row_classes = content_row_classes
-  | append: ' '
-  | append: content_row_no_gutters %}
-{% endif %}
-
-{% comment %} Content Container Settings {% endcomment %}
 {% assign content_container_pt = section.settings.content_container_pt %}
 {% assign content_container_pb = section.settings.content_container_pb %}
 {% assign content_container_pt_md_up = section.settings.content_container_pt_md_up %}
@@ -219,37 +118,6 @@
 {% assign content_container_mb_md_up = section.settings.content_container_mb_md_up %}
 
 {% assign content_container_bg_color = section.settings.content_container_bg_color %}
-
-{% comment %} Content Container Classes {% endcomment %}
-{% assign content_container_classes = content_container_classes
-  | append: ' pt-'
-  | append: content_container_pt %}
-{% assign content_container_classes = content_container_classes
-  | append: ' pb-'
-  | append: content_container_pb %}
-{% assign content_container_classes = content_container_classes
-  | append: ' pt-md-'
-  | append: content_container_pt_md_up %}
-{% assign content_container_classes = content_container_classes
-  | append: ' pb-md-'
-  | append: content_container_pb_md_up %}
-
-{% assign content_container_classes = content_container_classes
-  | append: ' mt-'
-  | append: content_container_mt %}
-{% assign content_container_classes = content_container_classes
-  | append: ' mb-'
-  | append: content_container_mb %}
-{% assign content_container_classes = content_container_classes
-  | append: ' mt-md-'
-  | append: content_container_mt_md_up %}
-{% assign content_container_classes = content_container_classes
-  | append: ' mb-md-'
-  | append: content_container_mb_md_up %}
-
-{% assign content_container_classes = content_container_classes
-  | append: ' '
-  | append: content_container_bg_color %}
 
 {% comment %} Content {% endcomment %}
 {% capture section_blocks %}
@@ -319,7 +187,7 @@
 
       {% comment %} Block Content {% endcomment %}
       {% capture content_object %}
-        {% render 'content-object'
+        {% render 'content-object',
           content_color: content_color,
           eyebrow_style: eyebrow_style,
           eyebrow_text: eyebrow_text,
@@ -351,7 +219,7 @@
 
       {% unless aspect_ratio == 'none' %}
         {% capture content %}
-          {% render 'embed-object'
+          {% render 'embed-object',
             content: content_object,
             aspect_ratio: aspect_ratio,
             bg_image_overlay: bg_image_overlay
@@ -390,7 +258,7 @@
 
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
-        {% render 'product-card'
+        {% render 'product-card',
           featured_image: featured_image,
           id: product.id,
           title: product.title,
@@ -415,7 +283,7 @@
 
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
-        {% render 'image-object'
+        {% render 'image-object',
           image_url: image_url,
           image_url_lg: image_url_lg,
           image_alt_text: image_alt_text,
@@ -441,7 +309,7 @@
 
     {% comment %} Render Grid Item With Embedded Content {% endcomment %}
     {% if content != blank %}
-      {% render 'grid-item'
+      {% render 'grid-item',
         col: col,
         col_offset: col_offset,
         col_lg: col_lg,
@@ -451,19 +319,28 @@
     {% endif %}
   {% endfor %}
 {% endcapture %}
+
+{% capture content %}
+  {% render 'content-container',
+    content: section_blocks,
+    container: content_container,
+    row_no_gutters: content_row_no_gutters,
+    pt: content_container_pt,
+    pb: content_container_pb,
+    pt_md_up: content_container_pt_md_up,
+    pb_md_up: content_container_pb_md_up,
+    mt: content_container_mt,
+    mb: content_container_mb,
+    mt_md_up: content_container_mt_md_up,
+    mb_md_up: content_container_mb_md_up,
+    bg_color: content_container_bg_color %}
+{% endcapture %}
 {% comment %} END - Content {% endcomment %}
 
 {% comment %} START - Footer {% endcomment %}
-{% comment %} Footer Container Settings {% endcomment %}
+{% comment %} Content Footer Settings {% endcomment %}
 {% assign footer_container = section.settings.footer_container %}
 
-{% comment %} Footer Container Classes {% endcomment %}
-{% assign footer_container_classes = footer_container %}
-
-{% comment %} Footer Row Classes {% endcomment %}
-{% assign footer_row_classes = 'row' %}
-
-{% comment %} Footer Column Settings {% endcomment %}
 {% assign footer_col = section.settings.footer_col %}
 {% assign footer_col_lg = section.settings.footer_col_lg  %}
 
@@ -479,44 +356,6 @@
 
 {% assign footer_col_bg_color = section.settings.footer_col_bg_color %}
 
-{% comment %} Footer Column Classes {% endcomment %}
-{% assign footer_col_classes =  'col-'
-  | append: footer_col %}
-{% assign footer_col_classes =  footer_col_classes
-  | append: ' col-md-'
-  | append: footer_col_lg %}
-
-{% assign footer_col_classes = footer_col_classes
-  | append: ' pt-'
-  | append: footer_col_pt %}
-{% assign footer_col_classes = footer_col_classes
-  | append: ' pb-'
-  | append: footer_col_pb %}
-{% assign footer_col_classes = footer_col_classes
-  | append: ' pt-md-'
-  | append: footer_col_pt_md_up %}
-{% assign footer_col_classes = footer_col_classes
-  | append: ' pb-md-'
-  | append: footer_col_pb_md_up %}
-
-{% assign footer_col_classes = footer_col_classes
-  | append: ' mt-'
-  | append: footer_col_mt %}
-{% assign footer_col_classes = footer_col_classes
-  | append: ' mb-'
-  | append: footer_col_mb %}
-{% assign footer_col_classes = footer_col_classes
-  | append: ' mt-md-'
-  | append: footer_col_mt_md_up %}
-{% assign footer_col_classes = footer_col_classes
-  | append: ' mb-md-'
-  | append: footer_col_mb_md_up %}
-
-{% assign footer_col_classes = footer_col_classes
-  | append: ' '
-  | append: footer_col_bg_color %}
-
-{% comment %} Footer Content Settings {% endcomment %}
 {% assign footer_content_color = section.settings.footer_content_color %}
 
 {% assign footer_content_align = section.settings.footer_content_align %}
@@ -535,9 +374,25 @@
 {% assign footer_link_style = section.settings.footer_link_style %}
 
 {% comment %} Footer Content {% endcomment %}
-{% capture footer_content %}
-  {% render 'content-object'
+{% capture content_footer %}
+  {% render 'content-footer',
+    col: footer_col,
+    col_offset: footer_col_offset,
+    col_lg: footer_col_lg,
+    col_offset_lg: footer_col_offset_lg
+    container: footer_container,
+    pt: footer_pt,
+    pb: footer_pb,
+    mt: footer_mt,
+    mb: footer_mb,
+    pt_md_up: footer_pt_md_up,
+    pb_md_up: footer_pb_md_up,
+    mt_md_up: footer_mt_md_up,
+    mb_md_up: footer_mb_md_up,
+    bg_color: footer_bg_color,
     content_color: footer_content_color,
+    content_align: footer_content_align,
+    content_align_lg: footer_content_align_lg,
     eyebrow_style: footer_eyebrow_style,
     eyebrow_text: footer_eyebrow_text,
     heading_style: footer_heading_style,
@@ -545,77 +400,28 @@
     paragraph_text: footer_paragraph_text,
     link_text: footer_link_text,
     link_url: footer_link_url,
-    link_style: footer_link_style,
-    text_align: footer_content_align,
-    text_align_lg: footer_content_align_lg %}
+    link_style: footer_link_style %}
 {% endcapture %}
+
 {% comment %} END - Footer {% endcomment %}
 
 {% comment %} Render Section {% endcomment %}
-<section
-  class="{{ section_classes }}"
-  data-section-id="{{ section.id }}"
-  data-section-type="{{ section_type }}">
-  {% comment %} Background Image {% endcomment %}
-  {% unless section_bg_image_url contains 'no-image' %}
-    {% if section_bg_image_url != blank %}
-      {% assign section_bg_image_url = section_bg_image_url %}
-    {% elsif section_bg_image_url_lg != blank %}
-      {% assign section_bg_image_url = section_bg_image_url_lg %}
-    {% endif %}
-
-    {% if section_bg_image_url_lg != blank %}
-      {% assign section_bg_image_url_lg = section_bg_image_url_lg %}
-    {% elsif section_bg_image_url != blank %}
-      {% assign section_bg_image_url_lg = section_bg_image_url %}
-    {% endif %}
-
-    <style>
-      [data-section-id="{{ section.id }}"] {
-        background-image: url({{ section_bg_image_url }});
-        background-size: cover;
-      }
-    </style>
-    <style>
-      @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] {
-          background-image: url({{ section_bg_image_url_lg }});
-          background-size: cover;
-        }
-      }
-    </style>
-  {% endunless %}
-
-  {% comment %} Section Header {% endcomment %}
-  {% if header_content != blank %}
-    <div class="{{ header_container_classes }}">
-      <div class="{{ header_row_classes }}">
-        {{ header_grid_item }}
-      </div>
-    </div>
-  {% endif %}
-
-  {% comment %} Section Content {% endcomment %}
-  {% if section_blocks != blank %}
-    <div class="{{ content_container_classes }}">
-      <div class="{{ content_row_classes }}">
-        {{ section_blocks }}
-      </div>
-    </div>
-  {% endif %}
-
-  {% comment %} Section Header {% endcomment %}
-  {% if footer_content != blank %}
-    <div class="{{ footer_container_classes }}">
-      <div class="{{ footer_row_classes }}">
-        <div class="{{ footer_col_classes }}">
-          {{ footer_content }}
-        </div>
-      </div>
-    </div>
-  {% endif %}
-</section>
-
+{% render 'section',
+  content_header: content_header,
+  content: content,
+  content_footer: content_footer,
+  bg_image_url: section_bg_image_url,
+  bg_image_url_lg: section_bg_image_url_lg,
+  section_type: section_type,
+  section_id: section.id,
+  pt: section_pt,
+  pb: section_pb,
+  pt_md_up: section_pt_md_up,
+  pb_md_up: section_pb_md_up,
+  mt: section_mt,
+  mb: section_mb,
+  mt_md_up: section_mt_md_up,
+  mb_md_up: section_mb_md_up %}
 
 {% schema %}
   {
@@ -1692,7 +1498,7 @@
             "type": "text",
             "id": "heading_text",
             "label": "Heading Text",
-            "default": "All In"
+            "default": "Section Block"
           },
           {
             "type": "select",

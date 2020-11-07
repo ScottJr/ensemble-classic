@@ -1,0 +1,58 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Content Footer
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
+{% comment %} Defaults {% endcomment %}
+
+{% assign row_classes = 'row' %}
+
+{% assign container_classes = container %}
+
+{% comment %} Content {% endcomment %}
+{% capture content %}
+  {% render 'content-object'
+    content_color: content_color,
+    eyebrow_style: eyebrow_style,
+    eyebrow_text: eyebrow_text,
+    heading_style: heading_style,
+    heading_text: heading_text,
+    paragraph_text: paragraph_text,
+    link_text: link_text,
+    link_url: link_url,
+    link_style: link_style,
+    text_align: content_align,
+    text_align_lg: content_align_lg,
+    pt: pt,
+    pb: pb,
+    mt: mt,
+    mb: mb,
+    pt_md_up: pt_md_up,
+    pb_md_up: pb_md_up,
+    mt_md_up: mt_md_up,
+    mb_md_up: mb_md_up %}
+{% endcapture %}
+
+{% comment %} Layout {% endcomment %}
+{% if content != blank %}
+  {% capture grid_item %}
+    {% render 'grid-item'
+      col: col,
+      col_offset: col_offset,
+      col_lg: col_lg,
+      col_lg_offset: col_offset_lg,
+      content: content %}
+  {% endcapture %}
+{% endif %}
+
+{% comment %} Render {% endcomment %}
+{% if grid_item != blank %}
+  <div class="{{ container_classes }}">
+    <div class="{{ row_classes }}">
+      {{ grid_item }}
+    </div>
+  </div>
+{% endif %}
