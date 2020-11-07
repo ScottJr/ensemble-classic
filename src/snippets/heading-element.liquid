@@ -1,15 +1,16 @@
 {% comment %} 
 
   -----------------------------------------------------------------------------
-  Paragraph Text
+  Heading Element
   -----------------------------------------------------------------------------
 
   Usage:
 
-  {% render 'display-text',
-              text: { string } - expects richtext
-              text_color: { string } expects text-color class
-              text_alignment: { string } 'text-center', 'text-left'
+  {% render 'heading-element',
+              text: { string }
+              display_size: { string } expects display-1,2,3,4
+              text_align: { string } 'text-center', 'text-left'
+              text_color: { string } 'text-primary', 'text-secondary'
   %}
 
 {% endcomment %}
@@ -23,16 +24,22 @@
   {% assign classes = classes | append: 'text-primary' %}
 {% endif %}
 
-{% if text_alignment != blank %}
-  {% assign classes = classes | append: ' ' | append: text_alignment %}
+{% if text_align != blank %}
+  {% assign classes = classes | append: ' ' | append: text_align %}
 {% else %}
   {% assign classes = classes | append: ' ' | append: 'text-left' %}
+{% endif %}
+
+{% if display_size != blank %}
+  {% assign classes = classes | append: ' ' | append: display_size %}
+{% else %}
+  {% assign classes = classes | append: ' ' | append: 'display-2' %}
 {% endif %}
 
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}
   {% if text != blank %}
-    <div class="{{ classes }}">{{ text }}</div> 
+    <h2 class="{{ classes }}">{{ text }}</h2>
   {% endif %}
 {% endcapture %}
 

@@ -19,8 +19,8 @@
           {% assign image = article.image.src | img_url: '400x' %}
           {% assign image_alt_text = article.image.alt %}
           {% render 'image-object'
-                    image_url_small: image,
-                    image_url_large: image,
+                    image_url: image,
+                    image_url_lg: image,
                     image_alt_text: image_alt_text,
                     image_aspect_ratio: '1by1'
           %}

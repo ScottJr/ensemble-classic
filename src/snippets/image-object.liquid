@@ -7,53 +7,39 @@
   Usage:
 
   {% render 'image-object',
-              image_url_small: { string } - expects image url
-              image_url_large: { string } - expects image url
-              image_aspect_ratio: { string } - utility class
+              image_url: { string } - expects image url
+              image_url_lg: { string } - expects image url
               image_alt_text: { string }
+              aspect_ratio: { string } - utility class
   %}
 
 {% endcomment %} 
-
-{% comment %} Class defaults {% endcomment %}
-{% assign classes = 'embed-responsive' %}
-
-{% if image_aspect_ratio != blank %}
-  {% assign classes = classes | append: ' embed-responsive-' | append: image_aspect_ratio %}
-{% else %}
-  {% assign classes = classes | append: ' ' | append: 'embed-responsive-4by3' %}
+ 
+{% if image_url contains 'no-image' %}
+  {% assign image_url = false %}
 {% endif %}
 
-{% assign responsive_item_classes = 'embed-responsive-item' %}
-{% if responsive_item_bg != blank %}
-  {% assign responsive_item_classes = responsive_item_classes | append: ' ' | append: responsive_item_bg %}
+{% if image_url_lg contains 'no-image' %}
+  {% assign image_url_lg = false %}
 {% endif %}
 
-{% if image_cover_style != blank %}
-  {% assign cover_style = image_cover_style %}
-{% else %}
-  {% assign cover_style = 'cover' %}
+{% capture content %}
+  <picture class="w-100">
+    <source
+        srcset="{{ image_url_lg }} 1170w,
+                {{ image_url }} 970w"
+        sizes="100vw"
+    />
+    <img src="{{ 'password-holder.jpg' | asset_url }}"
+        alt="{{ image_alt_text }}"
+        style="object-fit: {{ cover_style }}; height:100%; width:100%;"
+        loading="lazy"
+    />
+  </picture>
+{% endcapture %}
+
+{% comment %} Render Image Object {% endcomment %}
+{% if image_url %}
+  {% render 'embed-object' content: content, aspect_ratio: aspect_ratio %}
 {% endif %}
 
-{% comment %} HTML content {% endcomment %}
-<div class="{{ classes }}">
-  <div class="{{ responsive_item_classes }}">
-    <picture>
-      <source
-          srcset="{{image_url_large}} 1170w,
-                  {{ image_url_small }} 970w"
-          sizes="100vw"
-      />
-      <img src="{{ 'password-holder.jpg' | asset_url }}"
-          alt="{{ image_alt_text }}"
-          style="object-fit: {{ cover_style }}; height:100%; width:100%;"
-          loading="lazy"
-      />
-    </picture>
-    {% if rendered_html != blank  %}
-      <div class="absolute-top h-100">
-        {{ rendered_html }}
-      </div>
-    {% endif %}    
-  </div>
-</div>

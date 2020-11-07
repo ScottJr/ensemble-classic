@@ -20,12 +20,12 @@
   correctly (i.e. col-3).
 
 {% endcomment %}
-<div class="product-card mb-4 mb-md-5">
+<div class="mb-4 mb-md-5">
   <div class="mb-3">
     <a href="{{ url | within: collection }}">
       {% render 'image-object',
-                  image_url_small: featured_image,
-                  image_url_large: featured_image,
+                  image_url: featured_image,
+                  image_url_lg: featured_image,
                   image_alt_text: title,
                   image_aspect_ratio: '1by1'
       %}

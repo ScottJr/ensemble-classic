@@ -7,63 +7,41 @@
   Usage:
 
   {% render 'video-object',
-              video_url: { obj } - expects video object from theme settings
+              video_url: { obj } - required - expects video object
               video_aspect_ratio: { string } - i.e. 1by1
   %}
 
 {% endcomment %}
-
-{% comment %} Class defaults {% endcomment %}
-{% if col != blank %}
-  {% assign col = col %}
+{% if video_url != blank %} 
+  {% assign video_url = video_url %}
 {% else %}
-  {% assign col = '12' %}
+  {% assign video_url = false %}
 {% endif %}
 
-{% if col_large != blank %}
-  {% assign col_large = col_large %}
-{% else %}
-  {% assign col_large = '8' %}
-{% endif %}
-
-{% assign container_col_classes =  'col-' | append: col %}
-{% assign container_col_classes =  container_col_classes | append: ' col-md-' | append: col_large %}
-
-{% if justify_container != blank %}
-  {% assign justify_container = justify_container %}
-{% else %}
-  {% assign justify_container = 'justify-content-center' %}
-{% endif %}
-
-{% if justify_container_large != blank %}
-  {% assign justify_container_large = justify_container_large %}
-{% else %}
-  {% assign justify_container_large = 'justify-content-md-center' %}
-{% endif %}
-
-{% assign container_classes = 'd-flex' %}
-{% assign container_classes = container_classes | append: ' ' | append: justify_container %}
-{% assign container_classes = container_classes | append: ' ' | append: justify_container_large %}
-
-{% assign classes = 'embed-responsive' %}
-
+{% comment %} Video Wrapper Classes {% endcomment %}
+{% assign embed_wrapper_classes = 'embed-responsive' %}
 {% if video_aspect_ratio != blank %}
-  {% assign classes = classes | append: ' embed-responsive-' | append: video_aspect_ratio %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes | append: ' embed-responsive-' | append: video_aspect_ratio %}
 {% else %}
-  {% assign classes = classes | append: ' ' | append: 'embed-responsive-4by3' %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes | append: ' ' | append: 'embed-responsive-4by3' %}
 {% endif %}
 
-{% assign responsive_item_classes = 'embed-responsive-item' %}
+{% comment %} Embeded Responsive Item Classes {% endcomment %}
+{% assign embed_responsive_item_classes = 'embed-responsive-item' %}
 
-{% comment %} HTML content {% endcomment %}
-<div class="{{ container_classes }}"> 
-  <div class="{{ container_col_classes }}">
-    <div class="{{ classes }}">
-      {% if video_url.type == 'youtube' %}
-        <iframe class="{{ responsive_item_classes }}" width="560" height="315" src="https://www.youtube.com/embed/{{ video_url.id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      {% elsif video_url.type == 'vimeo' %}    
-        <iframe class="{{ responsive_item_classes }}" src="https://player.vimeo.com/video/{{ video_url.id }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-      {% endif %}
-    </div>
+{% if video_url %} 
+  {% capture content %}
+    {% if video_url.type == 'youtube' %}
+      <iframe class="{{ embed_responsive_item_classes }}" width="560" height="315" src="https://www.youtube.com/embed/{{ video_url.id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    {% elsif video_url.type == 'vimeo' %}    
+      <iframe class="{{ embed_responsive_item_classes }}" src="https://player.vimeo.com/video/{{ video_url.id }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    {% endif %}
+  {% endcapture %}
+{% endif %}
+
+{% comment %} Render Video Object {% endcomment %}
+{% if content %} 
+  <div class="{{ embed_wrapper_classes }}">
+    {{ content }}
   </div>
-</div>
+{% endif %}

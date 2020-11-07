@@ -1,6 +1,6 @@
 {% comment %} Content Container Settings {% endcomment %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
-{% assign display_text = section.settings.display_text %}
+{% assign heading_text = section.settings.heading_text %}
 {% assign paragraph_text = section.settings.paragraph_text %}
 
 {% comment %} Product-specific Data {% endcomment %}
@@ -49,7 +49,7 @@
               meta_title_tertiary: meta_title_tertiary,
               meta_content_tertiary: meta_content_tertiary
               eyebrow_text: eyebrow_text,
-              display_text: display_text,
+              heading_text: heading_text,
               paragraph_text: paragraph_text
   %}
 {% endif %}
@@ -87,90 +87,90 @@
       {
         "type":   "range",
         "label": "Padding top - small devices",
-        "id": "padding_top",
+        "id": "pt",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"  
       },
       {
         "type":   "range",
         "label": "Padding bottom - small devices",
-        "id": "padding_bottom",
+        "id": "pb",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"  
       },
       {
         "type":   "range",
         "label": "Margin top - small devices",
-        "id": "margin_top",
+        "id": "mt",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"  
       },
       {
         "type":   "range",
         "label": "Margin bottom - small devices",
-        "id": "margin_bottom",
+        "id": "mb",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"  
       },
       {
         "type":   "range",
         "label": "Padding top - medium & up devices",
-        "id": "padding_top_md_up",
+        "id": "pt_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"  
       },
       {
         "type":   "range",
         "label": "Padding bottom - medium & up devices",
-        "id": "padding_bottom_md_up",
+        "id": "pb_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"  
       },
       {
         "type":   "range",
         "label": "Margin top - medium & up devices",
-        "id": "margin_top_md_up",
+        "id": "mt_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"  
       },
       {
         "type":   "range",
         "label": "Margin bottom - medium & up devices",
-        "id": "margin_bottom_md_up",
+        "id": "mb_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"  
       },
       { 
         "type": "select",
@@ -197,7 +197,7 @@
       },
       {
         "type": "image_picker",
-        "id": "bg_image_large",
+        "id": "bg_image_lg",
         "label": "Background Image - Medium & Up Devices"
       },   
       { 
@@ -216,7 +216,7 @@
       },
       {
         "type": "range",
-        "id": "header_container_col_large",
+        "id": "header_container_col_lg",
         "min": 1,
         "max": 12,
         "step": 1,
@@ -238,7 +238,7 @@
       },
       {
         "type": "select",
-        "id": "header_container_justify_container_large",
+        "id": "header_container_justify_container_lg",
         "label": "Justify content container - Medium & Large devices",
         "options": [
           { "value": "justify-content-md-start", "label": "Left"},
@@ -250,7 +250,7 @@
       },
       {
         "type": "select",
-        "id": "header_container_text_alignment",
+        "id": "header_container_text_align",
         "label": "Text alignment - Small devices",
         "options": [
           { "value": "text-left", "label": "Left"},
@@ -262,7 +262,7 @@
       }, 
       {
         "type": "select",
-        "id": "header_container_text_alignment_large",
+        "id": "header_container_text_align_lg",
         "label": "Text alignment - Medium & Large devices",
         "options": [
           { "value": "text-md-left", "label": "Left"},
@@ -283,7 +283,7 @@
       },
       {
         "type": "select",
-        "id": "badge_style",
+        "id": "eyebrow_style",
         "label": "Eyebrow style",
         "options": [
           { "value": "badge-primary", "label": "Primary"},
@@ -294,17 +294,18 @@
           { "value": "badge-info", "label": "Info"},
           { "value": "badge-light", "label": "Light"},
           { "value": "badge-dark", "label": "Dark"}
-        ]
+        ],
+        "default": "badge-dark"
       }, 
       {
         "type": "text",
-        "id": "display_text",
-        "label": "Header"
+        "id": "heading_text",
+        "label": "Heading Text"
       },
       {
         "type": "select",
-        "id": "display_style",
-        "label": "Display text style",
+        "id": "heading_style",
+        "label": "Heading Text Style",
         "options": [
           { "value": "display-1", "label": "Display 1"},
           { "value": "display-2", "label": "Display 2"},

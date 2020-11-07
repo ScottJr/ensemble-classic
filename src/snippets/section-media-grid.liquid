@@ -19,53 +19,53 @@
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
-{% assign bg_image_url_large = section.settings.bg_image_large | img_url: '1000x' %}
-{% if bg_image_url_large contains 'no-image' %}
-  {% assign bg_image_url_large = blank %}
+{% assign bg_image_url_lg = section.settings.bg_image_lg | img_url: '1000x' %}
+{% if bg_image_url_lg contains 'no-image' %}
+  {% assign bg_image_url_lg = blank %}
 {% endif %}
 
 {% comment %} Header Settings {% endcomment %}
 {% assign header_container_col = section.settings.header_container_col %}
-{% assign header_container_col_large = section.settings.header_container_col_large  %}
+{% assign header_container_col_lg = section.settings.header_container_col_lg  %}
 {% assign header_container_justify_container = section.settings.header_container_justify_container %}
-{% assign header_container_justify_container_large = section.settings.header_container_justify_container_large %}
-{% assign header_container_text_alignment = section.settings.header_container_text_alignment %}
-{% assign header_container_text_alignment_large = section.settings.header_container_text_alignment_large %}
+{% assign header_container_justify_container_lg = section.settings.header_container_justify_container_lg %}
+{% assign header_container_text_align = section.settings.header_container_text_align %}
+{% assign header_container_text_align_lg = section.settings.header_container_text_align_lg %}
 
 {% comment %} Section Content Settings {% endcomment %}
-{% assign badge_style = section.settings.badge_style %}
+{% assign eyebrow_style = section.settings.eyebrow_style %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
-{% assign display_style = section.settings.display_style %}
-{% assign display_text = section.settings.display_text %}
+{% assign heading_style = section.settings.heading_style %}
+{% assign heading_text = section.settings.heading_text %}
 {% assign content_color = section.settings.content_color %} 
 {% assign paragraph_text = section.settings.paragraph_text %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
+{% assign link_text = section.settings.link_text %}
+{% assign link_url = section.settings.link_url %}
+{% assign link_style = section.settings.link_style %}
 {% assign featured_collection = collections[section.settings.collection] %}
 {% assign featured_collection_count = featured_collection.products_count | times: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
-{% assign padding_top = section.settings.padding_top %}
-{% assign padding_bottom = section.settings.padding_bottom %}
-{% assign padding_top_md_up = section.settings.padding_top_md_up %}
-{% assign padding_bottom_md_up = section.settings.padding_bottom_md_up %}
-{% assign margin_top = section.settings.margin_top %}
-{% assign margin_bottom = section.settings.margin_bottom %}
-{% assign margin_top_md_up = section.settings.margin_top_md_up %}
-{% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
+{% assign pt = section.settings.pt %}
+{% assign pb = section.settings.pb %}
+{% assign pt_md_up = section.settings.pt_md_up %}
+{% assign pb_md_up = section.settings.pb_md_up %}
+{% assign mt = section.settings.mt %}
+{% assign mb = section.settings.mb %}
+{% assign mt_md_up = section.settings.mt_md_up %}
+{% assign mb_md_up = section.settings.mb_md_up %}
  
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
 {% assign section_classes = section_classes | append: ' ' | append: background_color %}
-{% assign section_classes = section_classes | append: ' pt-' | append: padding_top %}
-{% assign section_classes = section_classes | append: ' pb-' | append: padding_bottom %}
-{% assign section_classes = section_classes | append: ' pt-md-' | append: padding_top_md_up %}
-{% assign section_classes = section_classes | append: ' pb-md-' | append: padding_bottom_md_up %}
-{% assign section_classes = section_classes | append: ' mt-' | append: margin_top %}
-{% assign section_classes = section_classes | append: ' mb-' | append: margin_bottom %}
-{% assign section_classes = section_classes | append: ' mt-md-' | append: margin_top_md_up %}
-{% assign section_classes = section_classes | append: ' mb-md-' | append: margin_bottom_md_up %}
+{% assign section_classes = section_classes | append: ' pt-' | append: pt %}
+{% assign section_classes = section_classes | append: ' pb-' | append: pb %}
+{% assign section_classes = section_classes | append: ' pt-md-' | append: pt_md_up %}
+{% assign section_classes = section_classes | append: ' pb-md-' | append: pb_md_up %}
+{% assign section_classes = section_classes | append: ' mt-' | append: mt %}
+{% assign section_classes = section_classes | append: ' mb-' | append: mb %}
+{% assign section_classes = section_classes | append: ' mt-md-' | append: mt_md_up %}
+{% assign section_classes = section_classes | append: ' mb-md-' | append: mb_md_up %}
 
 {% comment %} Container Settings {% endcomment %}
 {% assign container = section.settings.container %}
@@ -99,16 +99,16 @@
     <style>
       [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
     </style>
-  {% elsif bg_image_url_large != blank %}  
+  {% elsif bg_image_url_lg != blank %}  
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
     </style>
   {% endif %}
 
-  {% if bg_image_url_large != blank %}
+  {% if bg_image_url_lg != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
       }
     </style>
   {% elsif bg_image_url != blank %}  
@@ -124,17 +124,17 @@
       <div class="col-12">
         {% render 'content-object' 
                     eyebrow_text: eyebrow_text, 
-                    badge_style: badge_style,
+                    eyebrow_style: eyebrow_style,
                     content_color: content_color,
-                    display_text: display_text,
-                    display_style: display_style,
+                    heading_text: heading_text,
+                    heading_style: heading_style,
                     paragraph_text: paragraph_text,
                     col: header_container_col,
-                    col_large: header_container_col_large,
+                    col_lg: header_container_col_lg,
                     justify_container: header_container_justify_container,
-                    justify_container_large: header_container_justify_container_large,
-                    text_alignment: header_container_text_alignment,
-                    text_alignment_large: header_container_text_alignment_large
+                    justify_container_lg: header_container_justify_container_lg,
+                    text_align: header_container_text_align,
+                    text_align_lg: header_container_text_align_lg
         %}
       </div>
     </div>
@@ -145,29 +145,29 @@
     <div class="{{ row_classes }}">
       {% for block in section.blocks %}
         {% assign block_container_col = block.settings.block_container_col %}
-        {% assign block_container_col_large = block.settings.block_container_col_large %}
+        {% assign block_container_col_lg = block.settings.block_container_col_lg %}
         {% if block_container_col != blank %}
           {% assign block_container_col = block_container_col %}
         {% else %}
           {% assign block_container_col = '12' %}
         {% endif %}
 
-        {% if block_container_col_large != blank %}
-          {% assign block_container_col_large = block_container_col_large %}
+        {% if block_container_col_lg != blank %}
+          {% assign block_container_col_lg = block_container_col_lg %}
         {% else %}
-          {% assign block_container_col_large = '8' %}
+          {% assign block_container_col_lg = '8' %}
         {% endif %}
 
         {% assign block_row_classes =  'col-' | append: block_container_col %}
-        {% assign block_row_classes =  block_row_classes | append: ' col-md-' | append: block_container_col_large %}
+        {% assign block_row_classes =  block_row_classes | append: ' col-md-' | append: block_container_col_lg %}
 
         <div class="{{ block_row_classes }}">
           {% if block.type == 'image' %}
             {% assign featured_image_src = block.settings.image.src | img_url: '600x' %}
             {% assign featured_image_alt = block.settings.image.alt %}
             {% render 'image-object',
-                        image_url_small: featured_image_src,
-                        image_url_large: featured_image_src,
+                        image_url: featured_image_src,
+                        image_url_lg: featured_image_src,
                         image_alt_text: featured_image_alt,
                         image_aspect_ratio: '1by1'
             %}
@@ -205,10 +205,10 @@
     </div>
     <div class="row">
       <div class="w-100 text-center">
-          {% render 'cta-block',
-                cta_text_1: cta_text_1,
-                cta_url_1: cta_url_1,
-                cta_type_1: cta_type_1
+          {% render 'link-element',
+                link_text: link_text,
+                link_url: link_url,
+                link_style: link_style
           %}
       </div>
     </div>

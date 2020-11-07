@@ -6,34 +6,34 @@
 
   Usage:
 
-  {% render 'eyebrow-text',
+  {% render 'eyebrow-element',
               text: { string }
-              badge_style: { string } expects bootstrap badge class 
-              text_alignment: { string } - default 'text-left'
+              eyebrow_style: { string } expects bootstrap badge class 
+              text_align: { string } - default 'text-left'
               (i.e. badge-secondary)
   %}
 
 {% endcomment %}
 
 {% comment %} Snippet Settings {% endcomment %}
-{% if text_alignment != blank %}
-  {% assign text_alignment =  text_alignment %}
+{% if text_align != blank %}
+  {% assign text_align =  text_align %}
 {% else %}
-  {% assign text_alignment = 'text-left' %}
+  {% assign text_align = 'text-left' %}
 {% endif %}
 
-{% if badge_style != blank %}
-  {% assign badge_style = badge_style %}
+{% if eyebrow_style != blank %}
+  {% assign eyebrow_style = eyebrow_style %}
 {% else %}
-  {% assign badge_style = 'badge-secondary' %}
+  {% assign eyebrow_style = 'badge-secondary' %}
 {% endif %}
 
 {% assign classes = 'mb-1' %}
-{% assign classes = classes | append: ' ' | append: text_alignment %}
+{% assign classes = classes | append: ' ' | append: text_align %}
 
 {% comment %} Badge Element Classes {% endcomment %}
 {% assign badge_classes = 'badge'%}
-{% assign badge_classes = badge_classes | append: ' ' | append: badge_style %}
+{% assign badge_classes = badge_classes | append: ' ' | append: eyebrow_style %}
 
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}
