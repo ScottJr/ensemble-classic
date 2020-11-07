@@ -1,41 +1,48 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Product Featured Collection Section
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
 {% assign eyebrow_text = section.settings.eyebrow_text %}
-{% assign display_text = section.settings.display_text %}
+{% assign heading_text = section.settings.heading_text %}
 {% assign paragraph_text = section.settings.paragraph_text %}
 {% assign featured_collection = collections[section.settings.collection] %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
+{% assign link_text = section.settings.link_text %}
+{% assign link_url = section.settings.link_url %}
+{% assign link_style = section.settings.link_style %}
 
 {% comment %} Render HTML Content? {% endcomment %}
 {% if eyebrow_text != blank %}
   {% assign show_rendered_content = true %}
-{% elsif display_text != blank %}
+{% elsif heading_text != blank %}
   {% assign show_rendered_content = true %}
 {% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = true %}  
+  {% assign show_rendered_content = true %}
 {% elsif featured_collection != blank %}
   {% assign show_rendered_content = true %}
-{% elsif cta_text_1 != blank %}
-  {% assign show_rendered_content = true %}    
-{% elsif cta_url_1 != blank %}
-  {% assign show_rendered_content = true %}  
-{% elsif cta_url_1 != blank %}
+{% elsif link_text != blank %}
   {% assign show_rendered_content = true %}
-{% elsif cta_type_1 != blank %}
-  {% assign show_rendered_content = true %}      
+{% elsif link_url != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif link_url != blank %}
+  {% assign show_rendered_content = true %}
+{% elsif link_style != blank %}
+  {% assign show_rendered_content = true %}
 {% else %}
   {% assign show_rendered_content = false %}
 {% endif %}
 
 {% if show_rendered_content == true %}
   {% render 'section-featured-collection'
-              paragraph_text: paragraph_text,
-              display_text: display_text,
-              cta_text_1: cta_text_1,
-              cta_url_1: cta_url_1,
-              cta_type_1: cta_type_1,
-              featured_collection: featured_collection
-  %}
+    paragraph_text: paragraph_text,
+    heading_text: heading_text,
+    link_text: link_text,
+    link_url: link_url,
+    link_style: link_style,
+    featured_collection: featured_collection %}
 {% endif %}
 
 {% schema %}
@@ -46,7 +53,7 @@
         "type": "header",
         "content": "Layout"
       },
-      { 
+      {
         "type": "select",
         "id": "container",
         "label": "Container",
@@ -56,143 +63,130 @@
           { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
           { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
           { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl"
-      },       
+      },
       {
         "type": "checkbox",
         "id": "vertically_padded_content",
         "label": "Define if content will be vertically flush or have padding (5rem)",
         "default": true
-      },          
+      },
       {
         "type":   "range",
         "label": "Padding top - small devices",
-        "id": "padding_top",
+        "id": "pt",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
         "label": "Padding bottom - small devices",
-        "id": "padding_bottom",
+        "id": "pb",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
         "label": "Margin top - small devices",
-        "id": "margin_top",
+        "id": "mt",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
         "label": "Margin bottom - small devices",
-        "id": "margin_bottom",
+        "id": "mb",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths less than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
         "label": "Padding top - medium & up devices",
-        "id": "padding_top_md_up",
+        "id": "pt_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   5,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
       {
         "type":   "range",
         "label": "Padding bottom - medium & up devices",
-        "id": "padding_bottom_md_up",
+        "id": "pb_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   5,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
       {
         "type":   "range",
         "label": "Margin top - medium & up devices",
-        "id": "margin_top_md_up",
+        "id": "mt_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
       {
         "type":   "range",
         "label": "Margin bottom - medium & up devices",
-        "id": "margin_bottom_md_up",
+        "id": "mb_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with screen widths greater than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
-      { 
-        "type": "select",
-        "id": "background_color",
-        "label": "Background color",
-        "options": [
-          { "value": "bg-primary", "label": "Primary" },
-          { "value": "bg-secondary", "label": "Secondary" },
-          { "value": "bg-success", "label": "Success" },
-          { "value": "bg-info", "label": "Info" },          
-          { "value": "bg-warning", "label": "Warning" },          
-          { "value": "bg-danger", "label": "Danger" },
-          { "value": "bg-light", "label": "Light" },
-          { "value": "bg-dark", "label": "Dark" },
-          { "value": "bg-white", "label": "White" }
-        ], 
-        "default": "bg-white",
-        "info": "Default: White"           
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color"
       },
-      { 
+      {
         "type": "image_picker",
         "id": "bg_image",
         "label": "Background Image - Small Devices"
       },
       {
         "type": "image_picker",
-        "id": "bg_image_large",
+        "id": "bg_image_lg",
         "label": "Background Image - Medium & Up Devices"
       },
       {
         "type": "header",
         "content": "Slideshow"
-      },      
+      },
       {
-        "type": "checkbox", 
+        "type": "checkbox",
         "id": "slideshow_autoplay",
         "label": "Slideshow - autoplay",
-        "default": true 
+        "default": true
       },
       {
         "type": "select",
@@ -206,12 +200,12 @@
           { "value": "5000", "label": "5 seconds"}
         ],
         "default": "2000",
-        "info": "Default: 2 seconds"        
-      },       
-      { 
+        "info": "Default: 2 seconds"
+      },
+      {
         "type": "header",
         "content": "Content Layout"
-      },   
+      },
       {
         "type": "range",
         "id": "header_container_col",
@@ -224,7 +218,7 @@
       },
        {
         "type": "range",
-        "id": "header_container_col_large",
+        "id": "header_container_col_lg",
         "min": 1,
         "max": 12,
         "step": 1,
@@ -246,7 +240,7 @@
       },
       {
         "type": "select",
-        "id": "header_container_justify_container_large",
+        "id": "header_container_justify_container_lg",
         "label": "Justify content container - Medium & Large devices",
         "options": [
           { "value": "justify-content-md-start", "label": "Left"},
@@ -258,7 +252,7 @@
       },
       {
         "type": "select",
-        "id": "header_container_text_alignment",
+        "id": "header_container_text_align",
         "label": "Text alignment - Small devices",
         "options": [
           { "value": "text-left", "label": "Left"},
@@ -267,10 +261,10 @@
         ],
         "default":   "text-center",
         "info":      "Default: Center"
-      }, 
+      },
       {
         "type": "select",
-        "id": "header_container_text_alignment_large",
+        "id": "header_container_text_align_lg",
         "label": "Text alignment - Medium & Large devices",
         "options": [
           { "value": "text-md-left", "label": "Left"},
@@ -279,19 +273,19 @@
         ],
         "default":   "text-md-center",
         "info":      "Default: Center"
-      },              
+      },
       {
         "type": "header",
         "content": "Content"
       },
-      { 
+      {
         "type": "text",
         "id": "eyebrow_text",
         "label": "Eyebrow"
       },
       {
         "type": "select",
-        "id": "badge_style",
+        "id": "eyebrow_style",
         "label": "Eyebrow style",
         "options": [
           { "value": "badge-primary", "label": "Primary"},
@@ -302,18 +296,19 @@
           { "value": "badge-info", "label": "Info"},
           { "value": "badge-light", "label": "Light"},
           { "value": "badge-dark", "label": "Dark"}
-        ]
-      }, 
+        ],
+        "default": "badge-dark"
+      },
       {
         "type": "text",
-        "id": "display_text",
+        "id": "heading_text",
         "label": "Heading",
         "default": "Featured collection"
       },
-      { 
+      {
         "type": "select",
-        "id": "display_style",
-        "label": "Display text style",
+        "id": "heading_style",
+        "label": "Heading Text Style",
         "options": [
           { "value": "display-1", "label": "Display 1"},
           { "value": "display-2", "label": "Display 2"},
@@ -327,12 +322,12 @@
           { "value": "h6", "label": "H6"}
         ],
         "default": "display-4",
-        "info": "Default: Display 4"             
-      },       
+        "info": "Default: Display 4"
+      },
       {
         "type": "richtext",
         "id": "paragraph_text",
-        "label": "Paragraph"        
+        "label": "Paragraph"
       },
       {
         "type": "select",
@@ -354,7 +349,7 @@
           { "value": "text-white-50", "label": "White 50"}
         ],
         "default": "text-body"
-      },             
+      },
       {
         "id": "collection",
         "type": "collection",
@@ -362,18 +357,18 @@
       },
       {
         "type": "text",
-        "id": "cta_text_1",
-        "label": "CTA Text"
+        "id": "link_text",
+        "label": "Link Text"
       },
       {
         "type": "url",
-        "id": "cta_url_1",
-        "label": "CTA URL"
+        "id": "link_url",
+        "label": "Link Destination"
       },
       {
         "type": "select",
-        "id": "cta_type_1",
-        "label": "CTA Type",
+        "id": "link_style",
+        "label": "Link Style",
         "options": [
           { "value": "btn-primary", "label": "Primary"},
           { "value": "btn-secondary", "label": "Secondary"},
@@ -393,7 +388,7 @@
           { "value": "btn-outline-light", "label": "Light - Outline"},
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
         ]
-      }     
+      }
     ]
   }
 

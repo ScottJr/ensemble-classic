@@ -4,16 +4,16 @@
 <div class="container mt-5">
   <header role="banner">
     <div class="mb-4 my-md-7">
-      {% render 'display-text',
+      {% render 'heading-element',
                   text: collection.title,
                   text_color: content_color,
-                  text_alignment: 'text-left',
+                  text_align: 'text-left',
                   display_size: 'display-3'
       %}
-      {% render 'paragraph-text',
+      {% render 'paragraph-element',
                   text: collection.description,
                   text_color: content_color
-                  text_alignment: 'text-left',
+                  text_align: 'text-left',
       %}
     </div>
   </header>

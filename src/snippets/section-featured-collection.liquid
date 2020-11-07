@@ -1,64 +1,86 @@
-{% comment %} 
-  
+{% comment %}
+
   -----------------------------------------------------------------------------
   Featured Collection
-  -----------------------------------------------------------------------------  
-  
+  -----------------------------------------------------------------------------
+
   The featured collection section allows for a collection of products to be
   displayed in a carousel.
 
   Required Snippets:
   - product-card.liquid
 
-
 {% endcomment %}
 
 {% comment %} Global Section Settings {% endcomment %}
-{% assign background_color = section.settings.background_color %}
-{% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
+{% assign bg_color = section.settings.bg_color %}
+{% assign bg_image_url = section.settings.bg_image
+  | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
-{% assign bg_image_url_large = section.settings.bg_image_large | img_url: '1000x' %}
-{% if bg_image_url_large contains 'no-image' %}
-  {% assign bg_image_url_large = blank %}
+{% assign bg_image_url_lg = section.settings.bg_image_lg
+  | img_url: '1000x' %}
+{% if bg_image_url_lg contains 'no-image' %}
+  {% assign bg_image_url_lg = blank %}
 {% endif %}
 
 {% comment %} Header Settings {% endcomment %}
 {% assign header_container_col = section.settings.header_container_col %}
-{% assign header_container_col_large = section.settings.header_container_col_large  %}
+{% assign header_container_col_lg = section.settings.header_container_col_lg  %}
 {% assign header_container_justify_container = section.settings.header_container_justify_container %}
-{% assign header_container_justify_container_large = section.settings.header_container_justify_container_large %}
-{% assign header_container_text_alignment = section.settings.header_container_text_alignment %}
-{% assign header_container_text_alignment_large = section.settings.header_container_text_alignment_large %}
+{% assign header_container_justify_container_lg = section.settings.header_container_justify_container_lg %}
+{% assign header_container_text_align = section.settings.header_container_text_align %}
+{% assign header_container_text_align_lg = section.settings.header_container_text_align_lg %}
 
 {% comment %} Section Content Settings {% endcomment %}
-{% assign badge_style = section.settings.badge_style %}
-{% assign display_style = section.settings.display_style %}
-{% assign content_color = section.settings.content_color %} 
-{% assign featured_collection_count = featured_collection.products_count | times: 1 %}
+{% assign eyebrow_style = section.settings.eyebrow_style %}
+{% assign heading_style = section.settings.heading_style %}
+{% assign content_color = section.settings.content_color %}
+{% assign featured_collection_count = featured_collection.products_count
+
+  | tim
+  s: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
-{% assign padding_top = section.settings.padding_top %}
-{% assign padding_bottom = section.settings.padding_bottom %}
-{% assign padding_top_md_up = section.settings.padding_top_md_up %}
-{% assign padding_bottom_md_up = section.settings.padding_bottom_md_up %}
-{% assign margin_top = section.settings.margin_top %}
-{% assign margin_bottom = section.settings.margin_bottom %}
-{% assign margin_top_md_up = section.settings.margin_top_md_up %}
-{% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
- 
+{% assign pt = section.settings.pt %}
+{% assign pb = section.settings.pb %}
+{% assign pt_md_up = section.settings.pt_md_up %}
+{% assign pb_md_up = section.settings.pb_md_up %}
+{% assign mt = section.settings.mt %}
+{% assign mb = section.settings.mb %}
+{% assign mt_md_up = section.settings.mt_md_up %}
+{% assign mb_md_up = section.settings.mb_md_up %}
+
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes = 'position-relative' %}
-{% assign section_classes = section_classes | append: ' ' | append: background_color %}
-{% assign section_classes = section_classes | append: ' pt-' | append: padding_top %}
-{% assign section_classes = section_classes | append: ' pb-' | append: padding_bottom %}
-{% assign section_classes = section_classes | append: ' pt-md-' | append: padding_top_md_up %}
-{% assign section_classes = section_classes | append: ' pb-md-' | append: padding_bottom_md_up %}
-{% assign section_classes = section_classes | append: ' mt-' | append: margin_top %}
-{% assign section_classes = section_classes | append: ' mb-' | append: margin_bottom %}
-{% assign section_classes = section_classes | append: ' mt-md-' | append: margin_top_md_up %}
-{% assign section_classes = section_classes | append: ' mb-md-' | append: margin_bottom_md_up %}
+{% assign section_classes = section_classes
+  | append: ' '
+  | append: bg_color %}
+{% assign section_classes = section_classes
+  | append: ' pt-'
+  | append: pt %}
+{% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: pb %}
+{% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: pt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: pb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: mt %}
+{% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: mb %}
+{% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: mt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: mb_md_up %}
 
 {% comment %} Container Settings {% endcomment %}
 {% assign container = section.settings.container %}
@@ -67,7 +89,8 @@
 {% assign vertically_padded_content = section.settings.vertically_padded_content %}
 {% assign container_classes = container %}
 {% if vertically_padded_content %}
-  {% assign container_classes = container_classes | append: ' py-5'%}
+  {% assign container_classes = container_classes
+    | append: ' py-5'%}
 {% endif %}
 
 {% comment %} Slideshow Data Attributes {% endcomment %}
@@ -75,59 +98,81 @@
 {% assign slideshow_autoplay = section.settings.slideshow_autoplay %}
 {% assign slideshow_id = section.id %}
 
-{% assign slideshow_data_attrs = 'data-slideshow-autoplay="' | append: slideshow_autoplay | append: '" '%}
-{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-delay="' | append: slideshow_delay | append: '" '%}
-{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-id="' | append: slideshow_id | append: '"'%}
+{% assign slideshow_data_attrs = 'data-slideshow-autoplay="'
+  | append: slideshow_autoplay | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs
+  | append: 'data-slideshow-delay="'
+  | append: slideshow_delay
+  | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs
+  | append: 'data-slideshow-id="'
+  | append: slideshow_id
+  | append: '"'%}
 
 {% comment %} Slideshow Config {% endcomment %}
 {% if featured_collection.products_count > 3 %}
-  {% assign slideshow_data_attrs = slideshow_data_attrs | prepend: 'data-slideshow ' %}   
+  {% assign slideshow_data_attrs = slideshow_data_attrs
+  | prepend: 'data-slideshow ' %}
 {% else %}
   {% assign slideshow_data_attrs = blank %}
 {% endif %}
 
-<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="featured-collection">
+<section
+  data-section-id="{{ section.id }}"
+  class="{{ section_classes }}"
+  data-section-type="featured-collection">
     {% comment %} Background Image {% endcomment %}
     {% if bg_image_url != blank %}
       <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
       </style>
-    {% elsif bg_image_url_large != blank %}  
+    {% elsif bg_image_url_lg != blank %}
       <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
       </style>
     {% endif %}
 
-    {% if bg_image_url_large != blank %}
+    {% if bg_image_url_lg != blank %}
       <style>
         @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+          [data-section-id="{{ section.id }}"] {
+            background-image: url({{ bg_image_url_lg }});
+            background-size: cover;
+          }
         }
       </style>
-    {% elsif bg_image_url != blank %}  
+    {% elsif bg_image_url != blank %}
       <style>
         @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+          [data-section-id="{{ section.id }}"] {
+            background-image: url({{ bg_image_url }});
+            background-size: cover;
+          }
         }
       </style>
-    {% endif %}  
+    {% endif %}
   <div class="{{ container_classes }}">
     <div class="row">
       <div class="col-12">
-        {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    badge_style: badge_style,
-                    content_color: content_color,
-                    display_text: display_text,
-                    display_style: display_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_large: header_container_col_large,
-                    justify_container: header_container_justify_container,
-                    justify_container_large: header_container_justify_container_large,
-                    text_alignment: header_container_text_alignment,
-                    text_alignment_large: header_container_text_alignment_large
-        %}
+        {% render 'content-object'
+          eyebrow_text: eyebrow_text,
+          eyebrow_style: eyebrow_style,
+          content_color: content_color,
+          heading_text: heading_text,
+          heading_style: heading_style,
+          paragraph_text: paragraph_text,
+          col: header_container_col,
+          col_lg: header_container_col_lg,
+          justify_container: header_container_justify_container,
+          justify_container_lg: header_container_justify_container_lg,
+          text_align: header_container_text_align,
+          text_align_lg: header_container_text_align_lg %}
         {% comment %} {% if featured_collection_count > 3 %}
           <div class="slideshow-controls">
             <div class="{% if content_order_sm_up == 'order-sm-first' %}pl-sm-5 {% else %}px-0 {% endif %}d-none d-sm-flex mt-3">
@@ -140,37 +185,41 @@
     <div class="swiper-container" {{ slideshow_data_attrs }}>
       <div class="swiper-wrapper row">
         {% for product in featured_collection.products limit: 6 %}
-          <div class="col-6 col-md-3 swiper-slide" data-slide-theme="{{ content_color }}" data-slide-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
-            {% assign featured_image = product.featured_image.src | img_url: '600x' %}
+          <div
+            class="col-6 col-md-3 swiper-slide"
+            data-slide-theme="{{ content_color }}"
+            data-slide-index="{{ forloop.index0 }}"
+            {{ block.shopify_attributes }}>
+            {% assign featured_image = product.featured_image.src
+              | img_url: '600x' %}
             {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
-            {% assign product_url_collection = product.url | within: featured_collection %}
+            {% assign product_url_collection = product.url
+              | within: featured_collection %}
             {% render 'product-card'
-                        featured_image: featured_image, 
-                        id: product.id,
-                        title: product.title,
-                        excerpt: product_excerpt,
-                        url: product_url_collection,
-                        compare_at_price: product.compare_at_price,
-                        price_varies: product.price_varies,
-                        price: product.price
-            %}
+              featured_image: featured_image,
+              id: product.id,
+              title: product.title,
+              excerpt: product_excerpt,
+              url: product_url_collection,
+              compare_at_price: product.compare_at_price,
+              price_varies: product.price_varies,
+              price: product.price %}
           </div>
         {% endfor %}
       </div>
     </div>
     <div class="row">
-      <div class="col-12 mb-3 d-flex d-sm-none justify-content-center">                
+      <div class="col-12 mb-3 d-flex d-sm-none justify-content-center">
         {% render 'slideshow-pagination' slideshow_id: slideshow_id %}
       </div>
     </div>
     <div class="row">
       <div class="w-100 text-center">
-        {% render 'cta-block',
-              cta_text_1: cta_text_1,
-              cta_url_1: cta_url_1,
-              cta_type_1: cta_type_1
-        %}
+        {% render 'link-element',
+          link_text: link_text,
+          link_url: link_url,
+          link_style: link_style %}
       </div>
     </div>
-  </div>  
+  </div>
 </section>

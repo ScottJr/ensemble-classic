@@ -1,0 +1,64 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Link Element
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'link-element',
+    text_align: { string } - optional
+    link_style: { string } - optional
+    link_url: { string } - optional
+    link_text: { string } - optional %}
+
+{% endcomment %}
+
+{% comment %} Element Settings {% endcomment %}
+{% if text_align != blank %}
+  {% assign text_align = text_align %}
+{% else %}
+  {% assign text_align = 'text-left' %}
+{% endif %}
+
+{% comment %} Element Wrapper Classes {% endcomment %}
+{% assign el_wrapper_classes = text_align %}
+
+{% comment %} Link Classes {% endcomment %}
+{% assign link_classes = blank %}
+
+{% if link_style != blank %}
+  {% if link_style == 'link-underline' %}
+    {% assign link_classes = link_classes
+      | append: ' '
+      | append: link_style %}
+  {% else %}
+    {% assign link_classes = link_classes
+      | append: 'btn '
+      | append: link_style %}
+  {% endif %}
+{% else %}
+  {% assign link_classes = link_classes
+    | append: ' '
+    | append: 'btn-primary' %}
+{% endif %}
+{% if link_class != blank %}
+  {% assign link_classes = link_classes
+    | append: ' '
+    | append: link_class %}
+{% endif %}
+
+{% comment %} Link Element {% endcomment %}
+{% capture link_element %}
+  {% if link_url != blank and link_text != blank %}
+    <a href="{{ link_url }}"
+      class="{{ link_classes }} mb-2">{{ link_text }}</a>
+  {% endif %}
+{% endcapture %}
+
+{% comment %} Render Link Element {% endcomment %}
+{% if link_element != blank %}
+  <div class="{{ el_wrapper_classes }}">
+    {{ link_element }}
+  </div>
+{% endif %}

@@ -1,0 +1,79 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Content Container
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
+{% comment %} Content Container Classes {% endcomment %}
+{% assign container_classes = content_container %}
+
+{% comment %} Content Row Classes {% endcomment %}
+{% assign row_classes = 'row' %}
+{% if content_row_no_gutters == 'no-gutters'%}
+  {% assign row_classes = row_classes
+  | append: ' '
+  | append: row_no_gutters %}
+{% endif %}
+
+{% comment %} Content Container Classes {% endcomment %}
+{% if pt != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' pt-'
+    | append: pt %}
+{% endif %}
+
+{% if pb != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' pb-'
+    | append: pb %}
+{% endif %}
+
+{% if pt_md_up != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' pt-md-'
+    | append: pt_md_up %}
+{% endif %}
+
+{% if pb_md_up != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' pb-md-'
+    | append: pb_md_up %}
+{% endif %}
+
+{% if mt != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' mt-'
+    | append: mt %}
+{% endif %}
+
+{% if mb != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' mb-'
+    | append: mb %}
+{% endif %}
+
+{% if mt_md_up != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' mt-md-'
+    | append: mt_md_up %}
+{% endif %}
+
+{% if mb_md_up != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' mb-md-'
+    | append: mb_md_up %}
+{% endif %}
+
+{% if bg_color != 0 %}
+  {% assign container_classes = container_classes
+    | append: ' '
+    | append: bg_color %}
+{% endif %}
+
+  <div class="{{ container_classes }}">
+    <div class="{{ row_classes }}">
+      {{ content }}
+    </div>
+  </div>

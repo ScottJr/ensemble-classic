@@ -1,0 +1,106 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Section Wrapper
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
+{% comment %} Section Classes {% endcomment %}
+{% if pt != 0 %}
+  {% assign section_classes = section_classes
+    | append: ' pt-'
+    | append: pt %}
+{% endif %}
+
+{% if pb != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: pb %}
+{% endif %}
+
+{% if pt_md_up != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: pt_md_up %}
+{% endif %}
+
+{% if pb_md_up != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: pb_md_up %}
+{% endif %}
+
+{% if mt != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: mt %}
+{% endif %}
+
+{% if mb != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: mb %}
+{% endif %}
+
+{% if mt_md_up != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: mt_md_up %}
+{% endif %}
+
+{% if mb_md_up != 0 %}
+  {% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: mb_md_up %}
+{% endif %}
+
+<section
+  class="{{ section_classes }}"
+  data-section-id="{{ section_id }}"
+  data-section-type="{{ section_type }}">
+  {% comment %} Background Image {% endcomment %}
+  {% unless bg_image_url contains 'no-image' %}
+    {% if bg_image_url != blank %}
+      {% assign bg_image_url = bg_image_url %}
+    {% elsif bg_image_url_lg != blank %}
+      {% assign bg_image_url = bg_image_url_lg %}
+    {% endif %}
+
+    {% if bg_image_url_lg != blank %}
+      {% assign bg_image_url_lg = bg_image_url_lg %}
+    {% elsif bg_image_url != blank %}
+      {% assign bg_image_url_lg = bg_image_url %}
+    {% endif %}
+
+    <style>
+      [data-section-id="{{ section_id }}"] {
+        background-image: url({{ bg_image_url }});
+        background-size: cover;
+      }
+    </style>
+    <style>
+      @media (min-width: 992px) {
+        [data-section-id="{{ section_id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
+      }
+    </style>
+  {% endunless %}
+
+    {% comment %} Content Header {% endcomment %}
+  {% if content_header != blank %}
+    {{ content_header }}
+  {% endif %}
+
+  {% comment %} Content {% endcomment %}
+  {% if content != blank %}
+    {{ content }}
+  {% endif %}
+
+  {% comment %} Content Footer {% endcomment %}
+  {% if content_footer != blank %}
+    {{ content_footer }}
+  {% endif %}
+</section>

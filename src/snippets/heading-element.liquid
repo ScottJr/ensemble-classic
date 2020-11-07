@@ -1,17 +1,16 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
-  Display Text
+  Heading Element
   -----------------------------------------------------------------------------
 
   Usage:
 
-  {% render 'display-text',
-              text: { string }
-              display_size: { string } expects display-1,2,3,4
-              text_alignment: { string } 'text-center', 'text-left'
-              text_color: { string } 'text-primary', 'text-secondary'
-  %}
+  {% render 'heading-element',
+    text: { string }
+    display_size: { string } expects display-1,2,3,4
+    text_align: { string } 'text-center', 'text-left'
+    text_color: { string } 'text-primary', 'text-secondary' %}
 
 {% endcomment %}
 
@@ -24,8 +23,8 @@
   {% assign classes = classes | append: 'text-primary' %}
 {% endif %}
 
-{% if text_alignment != blank %}
-  {% assign classes = classes | append: ' ' | append: text_alignment %}
+{% if text_align != blank %}
+  {% assign classes = classes | append: ' ' | append: text_align %}
 {% else %}
   {% assign classes = classes | append: ' ' | append: 'text-left' %}
 {% endif %}

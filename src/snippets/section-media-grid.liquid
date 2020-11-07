@@ -1,9 +1,9 @@
-{% comment %} 
-  
+{% comment %}
+
   -----------------------------------------------------------------------------
-  Content Mosaic
-  -----------------------------------------------------------------------------  
-  
+  Media Grid
+  -----------------------------------------------------------------------------
+
   TODO Clean this up
   Required Snippets:
   - product-card.liquid
@@ -13,59 +13,80 @@
 
 {% comment %} Global Section Settings {% endcomment %}
 {% assign section_type = 'media-overlay-grid' %}
-{% assign background_color = section.settings.background_color %}
-{% assign gutters = section.settings.gutters %} 
-{% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
+{% assign bg_color = section.settings.bg_color %}
+{% assign gutters = section.settings.gutters %}
+{% assign bg_image_url = section.settings.bg_image
+  | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
-{% assign bg_image_url_large = section.settings.bg_image_large | img_url: '1000x' %}
-{% if bg_image_url_large contains 'no-image' %}
-  {% assign bg_image_url_large = blank %}
+{% assign bg_image_url_lg = section.settings.bg_image_lg
+  | img_url: '1000x' %}
+{% if bg_image_url_lg contains 'no-image' %}
+  {% assign bg_image_url_lg = blank %}
 {% endif %}
 
 {% comment %} Header Settings {% endcomment %}
 {% assign header_container_col = section.settings.header_container_col %}
-{% assign header_container_col_large = section.settings.header_container_col_large  %}
+{% assign header_container_col_lg = section.settings.header_container_col_lg  %}
 {% assign header_container_justify_container = section.settings.header_container_justify_container %}
-{% assign header_container_justify_container_large = section.settings.header_container_justify_container_large %}
-{% assign header_container_text_alignment = section.settings.header_container_text_alignment %}
-{% assign header_container_text_alignment_large = section.settings.header_container_text_alignment_large %}
+{% assign header_container_justify_container_lg = section.settings.header_container_justify_container_lg %}
+{% assign header_container_text_align = section.settings.header_container_text_align %}
+{% assign header_container_text_align_lg = section.settings.header_container_text_align_lg %}
 
 {% comment %} Section Content Settings {% endcomment %}
-{% assign badge_style = section.settings.badge_style %}
+{% assign eyebrow_style = section.settings.eyebrow_style %}
 {% assign eyebrow_text = section.settings.eyebrow_text %}
-{% assign display_style = section.settings.display_style %}
-{% assign display_text = section.settings.display_text %}
-{% assign content_color = section.settings.content_color %} 
+{% assign heading_style = section.settings.heading_style %}
+{% assign heading_text = section.settings.heading_text %}
+{% assign content_color = section.settings.content_color %}
 {% assign paragraph_text = section.settings.paragraph_text %}
-{% assign cta_text_1 = section.settings.cta_text_1 %}
-{% assign cta_url_1 = section.settings.cta_url_1 %}
-{% assign cta_type_1 = section.settings.cta_type_1 %}
+{% assign link_text = section.settings.link_text %}
+{% assign link_url = section.settings.link_url %}
+{% assign link_style = section.settings.link_style %}
 {% assign featured_collection = collections[section.settings.collection] %}
-{% assign featured_collection_count = featured_collection.products_count | times: 1 %}
+{% assign featured_collection_count = featured_collection.products_count
+  | times: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
-{% assign padding_top = section.settings.padding_top %}
-{% assign padding_bottom = section.settings.padding_bottom %}
-{% assign padding_top_md_up = section.settings.padding_top_md_up %}
-{% assign padding_bottom_md_up = section.settings.padding_bottom_md_up %}
-{% assign margin_top = section.settings.margin_top %}
-{% assign margin_bottom = section.settings.margin_bottom %}
-{% assign margin_top_md_up = section.settings.margin_top_md_up %}
-{% assign margin_bottom_md_up = section.settings.margin_bottom_md_up %}
- 
+{% assign pt = section.settings.pt %}
+{% assign pb = section.settings.pb %}
+{% assign pt_md_up = section.settings.pt_md_up %}
+{% assign pb_md_up = section.settings.pb_md_up %}
+{% assign mt = section.settings.mt %}
+{% assign mb = section.settings.mb %}
+{% assign mt_md_up = section.settings.mt_md_up %}
+{% assign mb_md_up = section.settings.mb_md_up %}
+
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
-{% assign section_classes = section_classes | append: ' ' | append: background_color %}
-{% assign section_classes = section_classes | append: ' pt-' | append: padding_top %}
-{% assign section_classes = section_classes | append: ' pb-' | append: padding_bottom %}
-{% assign section_classes = section_classes | append: ' pt-md-' | append: padding_top_md_up %}
-{% assign section_classes = section_classes | append: ' pb-md-' | append: padding_bottom_md_up %}
-{% assign section_classes = section_classes | append: ' mt-' | append: margin_top %}
-{% assign section_classes = section_classes | append: ' mb-' | append: margin_bottom %}
-{% assign section_classes = section_classes | append: ' mt-md-' | append: margin_top_md_up %}
-{% assign section_classes = section_classes | append: ' mb-md-' | append: margin_bottom_md_up %}
+{% assign section_classes = section_classes
+  | append: ' '
+  | append: bg_color %}
+{% assign section_classes = section_classes
+  | append: ' pt-'
+  | append: pt %}
+{% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: pb %}
+{% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: pt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: pb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: mt %}
+{% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: mb %}
+{% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: mt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: mb_md_up %}
 
 {% comment %} Container Settings {% endcomment %}
 {% assign container = section.settings.container %}
@@ -74,7 +95,8 @@
 {% assign vertically_padded_content = section.settings.vertically_padded_content %}
 {% assign container_classes = container %}
 {% if vertically_padded_content %}
-  {% assign container_classes = container_classes | append: ' py-5'%}
+  {% assign container_classes = container_classes
+    | append: ' py-5' %}
 {% endif %}
 
 {% comment %} Slideshow Data Attributes {% endcomment %}
@@ -82,39 +104,63 @@
 {% assign slideshow_autoplay = section.settings.slideshow_autoplay %}
 {% assign slideshow_id = section.id %}
 
-{% assign slideshow_data_attrs = 'data-slideshow-autoplay="' | append: slideshow_autoplay | append: '" '%}
-{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-delay="' | append: slideshow_delay | append: '" '%}
-{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-id="' | append: slideshow_id | append: '"'%}
+{% assign slideshow_data_attrs = 'data-slideshow-autoplay="'
+  | append: slideshow_autoplay
+  | append: '" ' %}
+{% assign slideshow_data_attrs = slideshow_data_attrs
+  | append: 'data-slideshow-delay="'
+  | append: slideshow_delay
+  | append: '" ' %}
+{% assign slideshow_data_attrs = slideshow_data_attrs
+  | append: 'data-slideshow-id="'
+  | append: slideshow_id
+  | append: '"' %}
 
 {% comment %} Slideshow Config {% endcomment %}
 {% if featured_collection.products_count > 3 %}
-  {% assign slideshow_data_attrs = slideshow_data_attrs | prepend: 'data-slideshow ' %}   
+  {% assign slideshow_data_attrs = slideshow_data_attrs
+    | prepend: 'data-slideshow ' %}
 {% else %}
   {% assign slideshow_data_attrs = blank %}
 {% endif %}
 
-<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="{{ section_type }}">
+<section
+  data-section-id="{{ section.id }}"
+  class="{{ section_classes }}"
+  data-section-type="{{ section_type }}">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url }});
+        background-size: cover;
+      }
     </style>
-  {% elsif bg_image_url_large != blank %}  
+  {% elsif bg_image_url_lg != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url_lg }});
+        background-size: cover;
+      }
     </style>
   {% endif %}
 
-  {% if bg_image_url_large != blank %}
+  {% if bg_image_url_lg != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_large }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
       }
     </style>
-  {% elsif bg_image_url != blank %}  
+  {% elsif bg_image_url != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
       }
     </style>
   {% endif %}
@@ -122,20 +168,19 @@
       {% comment %} TODO - Add render check here {% endcomment %}
     <div class="row mb-3">
       <div class="col-12">
-        {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    badge_style: badge_style,
-                    content_color: content_color,
-                    display_text: display_text,
-                    display_style: display_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_large: header_container_col_large,
-                    justify_container: header_container_justify_container,
-                    justify_container_large: header_container_justify_container_large,
-                    text_alignment: header_container_text_alignment,
-                    text_alignment_large: header_container_text_alignment_large
-        %}
+        {% render 'content-object'
+          eyebrow_text: eyebrow_text,
+          eyebrow_style: eyebrow_style,
+          content_color: content_color,
+          heading_text: heading_text,
+          heading_style: heading_style,
+          paragraph_text: paragraph_text,
+          col: header_container_col,
+          col_lg: header_container_col_lg,
+          justify_container: header_container_justify_container,
+          justify_container_lg: header_container_justify_container_lg,
+          text_align: header_container_text_align,
+          text_align_lg: header_container_text_align_lg %}
       </div>
     </div>
     {% assign row_classes = 'row justify-content-center' %}
@@ -145,38 +190,44 @@
     <div class="{{ row_classes }}">
       {% for block in section.blocks %}
         {% assign block_container_col = block.settings.block_container_col %}
-        {% assign block_container_col_large = block.settings.block_container_col_large %}
+        {% assign block_container_col_lg = block.settings.block_container_col_lg %}
         {% if block_container_col != blank %}
           {% assign block_container_col = block_container_col %}
         {% else %}
           {% assign block_container_col = '12' %}
         {% endif %}
 
-        {% if block_container_col_large != blank %}
-          {% assign block_container_col_large = block_container_col_large %}
+        {% if block_container_col_lg != blank %}
+          {% assign block_container_col_lg = block_container_col_lg %}
         {% else %}
-          {% assign block_container_col_large = '8' %}
+          {% assign block_container_col_lg = '8' %}
         {% endif %}
 
-        {% assign block_row_classes =  'col-' | append: block_container_col %}
-        {% assign block_row_classes =  block_row_classes | append: ' col-md-' | append: block_container_col_large %}
+        {% assign block_row_classes =  'col-'
+          | append: block_container_col %}
+        {% assign block_row_classes =  block_row_classes
+          | append: ' col-md-'
+          | append: block_container_col_lg %}
 
         <div class="{{ block_row_classes }}">
           {% if block.type == 'image' %}
-            {% assign featured_image_src = block.settings.image.src | img_url: '600x' %}
+            {% assign featured_image_src = block.settings.image.src
+              | img_url: '600x' %}
             {% assign featured_image_alt = block.settings.image.alt %}
             {% render 'image-object',
-                        image_url_small: featured_image_src,
-                        image_url_large: featured_image_src,
-                        image_alt_text: featured_image_alt,
-                        image_aspect_ratio: '1by1'
-            %}
+              image_url: featured_image_src,
+              image_url_lg: featured_image_src,
+              image_alt_text: featured_image_alt,
+              image_aspect_ratio: '1by1' %}
           {% elsif block.type == 'promo-block' %}
             {% assign promo_text = block.settings.text %}
-            {% assign block_background_color = block.settings.background_color %}
+            {% assign block_bg_color = block.settings.bg_color %}
             {% assign responsive_item_classes = 'embed-responsive-item' %}
-            {% assign responsive_item_classes = responsive_item_classes | append: ' ' | append: block_background_color %}
-            {% assign responsive_item_classes = responsive_item_classes | append: ' d-flex flex-column justify-content-center px-4' %}
+            {% assign responsive_item_classes = responsive_item_classes
+              | append: ' '
+              | append: block_bg_color %}
+            {% assign responsive_item_classes = responsive_item_classes
+              | append: ' d-flex flex-column justify-content-center px-4' %}
             <div class="embed-responsive embed-responsive-1by1">
               <div class="{{ responsive_item_classes }}">
                 <h3 class="text-center">{{ promo_text }}</h3>
@@ -184,33 +235,35 @@
             </div>
           {% elsif block.type == 'product-block' %}
             {% assign product =  all_products[block.settings.product] %}
-            {% assign featured_image = product.featured_image.src | img_url: '600x' %}
-            {% assign product_url_collection = product.url | within: featured_collection %}
+            {% assign featured_image = product.featured_image.src
+              | img_url: '600x' %}
+            {% assign product_url_collection = product.url
+              | within: featured_collection %}
             {% render 'product-card'
-                        featured_image: featured_image, 
-                        id: product.id,
-                        title: product.title,
-                        url: product_url_collection,
-                        compare_at_price: product.compare_at_price,
-                        price_varies: product.price_varies,
-                        price: product.price
-            %}
+              featured_image: featured_image,
+              id: product.id,
+              title: product.title,
+              url: product_url_collection,
+              compare_at_price: product.compare_at_price,
+              price_varies: product.price_varies,
+              price: product.price %}
           {% elsif block.type == 'video-block' %}
             {% assign video_url = block.settings.video_url %}
             {% assign video_aspect_ratio = block.settings.video_aspect_ratio %}
-            {% render 'video-object' video_url: video_url, video_aspect_ratio: video_aspect_ratio %}            
+            {% render 'video-object'
+              video_url: video_url,
+              video_aspect_ratio: video_aspect_ratio %}
           {% endif %}
         </div>
       {% endfor %}
     </div>
     <div class="row">
       <div class="w-100 text-center">
-          {% render 'cta-block',
-                cta_text_1: cta_text_1,
-                cta_url_1: cta_url_1,
-                cta_type_1: cta_type_1
-          %}
+          {% render 'link-element',
+            link_text: link_text,
+            link_url: link_url,
+            link_style: link_style %}
       </div>
     </div>
-  </div>  
+  </div>
 </section>

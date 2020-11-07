@@ -1,19 +1,34 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Slideshow Controls
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
 {% comment %} Defaults {% endcomment %}
 {% assign component_classes = 'slideshow-controls d-flex align-items-center'%}
 {% if layout == 'inline' %}
-  {% assign component_classes = component_classes | append: ' slideshow-controls-inline' %}
+  {% assign component_classes = component_classes
+    | append: ' slideshow-controls-inline' %}
 {% endif %}
 
 {% assign btn_prev_classes = 'btn-link btn-prev' %}
-{% assign btn_prev_classes = btn_prev_classes | append: ' ' | append: content_color %}
+{% assign btn_prev_classes = btn_prev_classes
+  | append: ' '
+  | append: content_color %}
 {% if layout == 'inline' %}
-  {% assign btn_prev_classes = btn_prev_classes | append: ' p-3' %}
+  {% assign btn_prev_classes = btn_prev_classes
+  | append: ' p-3' %}
 {% else %}
-  {% assign btn_prev_classes = btn_prev_classes | append: ' mr-3' %}
+  {% assign btn_prev_classes = btn_prev_classes
+  | append: ' mr-3' %}
 {% endif %}
 
 {% assign btn_next_classes = 'btn-link btn-next' %}
-{% assign btn_next_classes = btn_next_classes | append: ' ' | append: content_color %}
+{% assign btn_next_classes = btn_next_classes
+  | append: ' '
+  | append: content_color %}
 {% if layout == 'inline' %}
   {% assign btn_next_classes = btn_next_classes | append: ' p-3' %}
 {% else %}
@@ -34,7 +49,7 @@
   {% endcapture %}
   {% capture right_icon %}
     {% render 'icon-right-arrow-lg' %}
-  {% endcapture %}  
+  {% endcapture %}
 {% endif %}
 
 <div class="{{ component_classes }}" id="slideshow-controls-{{ slideshow_id }}">
