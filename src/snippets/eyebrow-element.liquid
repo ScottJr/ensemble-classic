@@ -1,4 +1,4 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
   Eyebrow Text
@@ -7,11 +7,10 @@
   Usage:
 
   {% render 'eyebrow-element',
-              text: { string }
-              eyebrow_style: { string } expects bootstrap badge class 
-              text_align: { string } - default 'text-left'
-              (i.e. badge-secondary)
-  %}
+    text: { string }
+    eyebrow_style: { string } expects bootstrap badge class
+    text_align: { string } - default 'text-left'
+    (i.e. badge-secondary) %}
 
 {% endcomment %}
 
@@ -33,7 +32,9 @@
 
 {% comment %} Badge Element Classes {% endcomment %}
 {% assign badge_classes = 'badge'%}
-{% assign badge_classes = badge_classes | append: ' ' | append: eyebrow_style %}
+{% assign badge_classes = badge_classes
+  | append: ' '
+  | append: eyebrow_style %}
 
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}

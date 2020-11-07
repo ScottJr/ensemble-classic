@@ -1,4 +1,4 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
   Video Object
@@ -12,7 +12,7 @@
   %}
 
 {% endcomment %}
-{% if video_url != blank %} 
+{% if video_url != blank %}
   {% assign video_url = video_url %}
 {% else %}
   {% assign video_url = false %}
@@ -21,26 +21,44 @@
 {% comment %} Video Wrapper Classes {% endcomment %}
 {% assign embed_wrapper_classes = 'embed-responsive' %}
 {% if video_aspect_ratio != blank %}
-  {% assign embed_wrapper_classes = embed_wrapper_classes | append: ' embed-responsive-' | append: video_aspect_ratio %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes
+    | append: ' embed-responsive-'
+    | append: video_aspect_ratio %}
 {% else %}
-  {% assign embed_wrapper_classes = embed_wrapper_classes | append: ' ' | append: 'embed-responsive-4by3' %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes
+    | append: ' '
+    | append: 'embed-responsive-4by3' %}
 {% endif %}
 
 {% comment %} Embeded Responsive Item Classes {% endcomment %}
 {% assign embed_responsive_item_classes = 'embed-responsive-item' %}
 
-{% if video_url %} 
+{% if video_url %}
   {% capture content %}
     {% if video_url.type == 'youtube' %}
-      <iframe class="{{ embed_responsive_item_classes }}" width="560" height="315" src="https://www.youtube.com/embed/{{ video_url.id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    {% elsif video_url.type == 'vimeo' %}    
-      <iframe class="{{ embed_responsive_item_classes }}" src="https://player.vimeo.com/video/{{ video_url.id }}" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      <iframe
+        class="{{ embed_responsive_item_classes }}"
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/{{ video_url.id }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    {% elsif video_url.type == 'vimeo' %}
+      <iframe
+        class="{{ embed_responsive_item_classes }}"
+        src="https://player.vimeo.com/video/{{ video_url.id }}"
+        width="640"
+        height="360"
+        frameborder="0"
+        allow="autoplay; fullscreen"
+        allowfullscreen></iframe>
     {% endif %}
   {% endcapture %}
 {% endif %}
 
 {% comment %} Render Video Object {% endcomment %}
-{% if content %} 
+{% if content %}
   <div class="{{ embed_wrapper_classes }}">
     {{ content }}
   </div>

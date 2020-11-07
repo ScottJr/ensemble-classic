@@ -1,4 +1,4 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
   Paragraph Element
@@ -7,10 +7,9 @@
   Usage:
 
   {% render 'paragraph-element',
-              text: { string } - expects richtext
-              text_color: { string } expects text-color class
-              text_align: { string } 'text-center', 'text-left'
-  %}
+    text: { string } - expects richtext
+    text_color: { string } expects text-color class
+    text_align: { string } 'text-center', 'text-left' %}
 
 {% endcomment %}
 
@@ -32,7 +31,7 @@
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}
   {% if text != blank %}
-    <div class="{{ classes }}">{{ text }}</div> 
+    <div class="{{ classes }}">{{ text }}</div>
   {% endif %}
 {% endcapture %}
 

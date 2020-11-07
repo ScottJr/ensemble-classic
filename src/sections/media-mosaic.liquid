@@ -1,3 +1,11 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Media Mosaic Sectino
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
 {% render 'section-media-mosaic' %}
 
 {% schema %}
@@ -8,7 +16,7 @@
         "type": "header",
         "content": "Section Layout"
       },
-      { 
+      {
         "type": "select",
         "id": "container",
         "label": "Container",
@@ -18,7 +26,7 @@
           { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
           { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
           { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
@@ -29,7 +37,7 @@
         "id": "vertically_padded_content",
         "label": "Define if content will be vertically flush or have padding (5rem)",
         "default": true
-      },           
+      },
       {
         "type":   "range",
         "label": "Padding top - small devices",
@@ -39,7 +47,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes smaller than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
@@ -50,7 +58,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes smaller than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
@@ -61,7 +69,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes smaller than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
@@ -72,7 +80,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes smaller than 768px"  
+        "info": "For devices with Screen sizes smaller than 768px"
       },
       {
         "type":   "range",
@@ -83,7 +91,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes larger than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
       {
         "type":   "range",
@@ -94,7 +102,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes larger than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
       {
         "type":   "range",
@@ -105,7 +113,7 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes larger than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
       {
         "type":   "range",
@@ -116,27 +124,14 @@
         "step":      1,
         "default":   0,
         "unit": "%",
-        "info": "For devices with Screen sizes larger than 768px"  
+        "info": "For devices with Screen sizes larger than 768px"
       },
-      { 
-        "type": "select",
-        "id": "background_color",
-        "label": "Background color",
-        "options": [
-          { "value": "bg-primary", "label": "Primary" },
-          { "value": "bg-secondary", "label": "Secondary" },
-          { "value": "bg-success", "label": "Success" },
-          { "value": "bg-info", "label": "Info" },          
-          { "value": "bg-warning", "label": "Warning" },          
-          { "value": "bg-danger", "label": "Danger" },
-          { "value": "bg-light", "label": "Light" },
-          { "value": "bg-dark", "label": "Dark" },
-          { "value": "bg-white", "label": "White" }
-        ], 
-        "default": "bg-white",
-        "info": "Default: White"           
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color"
       },
-      { 
+      {
         "type": "image_picker",
         "id": "bg_image",
         "label": "Background Image - Small Devices"
@@ -145,11 +140,11 @@
         "type": "image_picker",
         "id": "bg_image_lg",
         "label": "Background Image - Medium & Up Devices"
-      },  
-      { 
+      },
+      {
         "type": "header",
         "content": "Content Layout"
-      },   
+      },
       {
         "type": "range",
         "id": "header_container_col",
@@ -158,7 +153,7 @@
         "step": 1,
         "unit": "col",
         "label": "Container Columns - Small Devices",
-        "default": 12 
+        "default": 12
       },
       {
         "type": "range",
@@ -205,7 +200,7 @@
         ],
         "default":   "text-center",
         "info":      "Default: Center"
-      }, 
+      },
       {
         "type": "select",
         "id": "header_container_text_align_lg",
@@ -217,7 +212,7 @@
         ],
         "default":   "text-md-center",
         "info":      "Default: Center"
-      },           
+      },
       {
         "type": "header",
         "content": "Content"
@@ -226,7 +221,7 @@
         "type": "image_picker",
         "id": "image",
         "label": "Image - Small devices"
-      },     
+      },
       {
         "type": "image_picker",
         "id": "image_lg",
@@ -243,8 +238,8 @@
           { "value": "16by9", "label": "16x9"}
         ],
         "default": "1by1"
-      },                        
-      { 
+      },
+      {
         "type": "text",
         "id": "eyebrow_text",
         "label": "Eyebrow"
@@ -264,7 +259,7 @@
           { "value": "badge-dark", "label": "Dark"}
         ],
         "default": "badge-dark"
-      }, 
+      },
       {
         "type": "text",
         "id": "heading_text",
@@ -287,8 +282,8 @@
           { "value": "h6", "label": "H6"}
         ],
         "default": "display-4",
-        "info": "Default: Display 4"             
-      },      
+        "info": "Default: Display 4"
+      },
       {
         "type": "select",
         "id": "content_color",
@@ -313,7 +308,7 @@
       {
         "type": "richtext",
         "id": "paragraph_text",
-        "label": "Paragraph"        
+        "label": "Paragraph"
       },
       {
         "type": "text",
@@ -351,7 +346,7 @@
         "default": "btn-outline-dark"
       }
     ],
-    "blocks": [ 
+    "blocks": [
       {
         "type": "image",
         "name": "Image",
@@ -366,7 +361,7 @@
             "type": "url",
             "id": "url",
             "label": "URL"
-          }          
+          }
         ]
       },
       {
@@ -394,29 +389,16 @@
             "default": "16by9"
           }
         ]
-      },      
+      },
       {
         "type": "promo-block",
         "name": "Promo Block",
         "limit": 12,
         "settings": [
-          { 
-            "type": "select",
-            "id": "background_color",
-            "label": "Background color",
-            "options": [
-              { "value": "bg-primary", "label": "Primary" },
-              { "value": "bg-secondary", "label": "Secondary" },
-              { "value": "bg-success", "label": "Success" },
-              { "value": "bg-info", "label": "Info" },          
-              { "value": "bg-warning", "label": "Warning" },          
-              { "value": "bg-danger", "label": "Danger" },
-              { "value": "bg-light", "label": "Light" },
-              { "value": "bg-dark", "label": "Dark" },
-              { "value": "bg-white", "label": "White" }
-            ], 
-            "default": "bg-white",
-            "info": "Default: White"           
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color"
           },
           {
             "type": "text",
@@ -427,10 +409,10 @@
             "type": "url",
             "id": "url",
             "label": "URL"
-          }          
+          }
         ]
       }
-    ],    
+    ],
     "presets": [
       {
         "name": "Media Mosaic",
@@ -438,4 +420,4 @@
       }
     ]
   }
-{% endschema %} 
+{% endschema %}

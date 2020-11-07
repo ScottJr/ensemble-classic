@@ -1,9 +1,9 @@
-{% comment %} 
-  
+{% comment %}
+
   -----------------------------------------------------------------------------
   Content Mosaic
-  -----------------------------------------------------------------------------  
-  
+  -----------------------------------------------------------------------------
+
   TODO Clean this up
   Required Snippets:
   - product-card.liquid
@@ -13,12 +13,14 @@
 
 {% comment %} Global Section Settings {% endcomment %}
 {% assign section_type = 'media-mosaic' %}
-{% assign background_color = section.settings.background_color %}
-{% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
+{% assign bg_color = section.settings.bg_color %}
+{% assign bg_image_url = section.settings.bg_image
+  | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
-{% assign bg_image_url_lg = section.settings.bg_image_lg | img_url: '1000x' %}
+{% assign bg_image_url_lg = section.settings.bg_image_lg
+  | img_url: '1000x' %}
 {% if bg_image_url_lg contains 'no-image' %}
   {% assign bg_image_url_lg = blank %}
 {% endif %}
@@ -37,13 +39,14 @@
 {% assign eyebrow_text = section.settings.eyebrow_text %}
 {% assign heading_style = section.settings.heading_style %}
 {% assign heading_text = section.settings.heading_text %}
-{% assign content_color = section.settings.content_color %} 
+{% assign content_color = section.settings.content_color %}
 {% assign paragraph_text = section.settings.paragraph_text %}
 {% assign link_text = section.settings.link_text %}
 {% assign link_url = section.settings.link_url %}
 {% assign link_style = section.settings.link_style %}
 {% assign featured_collection = collections[section.settings.collection] %}
-{% assign featured_collection_count = featured_collection.products_count | times: 1 %}
+{% assign featured_collection_count = featured_collection.products_count
+  | times: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign pt = section.settings.pt %}
@@ -54,18 +57,36 @@
 {% assign mb = section.settings.mb %}
 {% assign mt_md_up = section.settings.mt_md_up %}
 {% assign mb_md_up = section.settings.mb_md_up %}
- 
+
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
-{% assign section_classes = section_classes | append: ' ' | append: background_color %}
-{% assign section_classes = section_classes | append: ' pt-' | append: pt %}
-{% assign section_classes = section_classes | append: ' pb-' | append: pb %}
-{% assign section_classes = section_classes | append: ' pt-md-' | append: pt_md_up %}
-{% assign section_classes = section_classes | append: ' pb-md-' | append: pb_md_up %}
-{% assign section_classes = section_classes | append: ' mt-' | append: mt %}
-{% assign section_classes = section_classes | append: ' mb-' | append: mb %}
-{% assign section_classes = section_classes | append: ' mt-md-' | append: mt_md_up %}
-{% assign section_classes = section_classes | append: ' mb-md-' | append: mb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' '
+  | append: bg_color %}
+{% assign section_classes = section_classes
+  | append: ' pt-'
+  | append: pt %}
+{% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: pb %}
+{% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: pt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: pb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: mt %}
+{% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: mb %}
+{% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: mt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: mb_md_up %}
 
 {% comment %} Container Settings {% endcomment %}
 {% assign container = section.settings.container %}
@@ -74,7 +95,8 @@
 {% assign vertically_padded_content = section.settings.vertically_padded_content %}
 {% assign container_classes = container %}
 {% if vertically_padded_content %}
-  {% assign container_classes = container_classes | append: ' py-5'%}
+  {% assign container_classes = container_classes
+    | append: ' py-5'%}
 {% endif %}
 
 {% comment %} Slideshow Data Attributes {% endcomment %}
@@ -82,79 +104,106 @@
 {% assign slideshow_autoplay = section.settings.slideshow_autoplay %}
 {% assign slideshow_id = section.id %}
 
-{% assign slideshow_data_attrs = 'data-slideshow-autoplay="' | append: slideshow_autoplay | append: '" '%}
-{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-delay="' | append: slideshow_delay | append: '" '%}
-{% assign slideshow_data_attrs = slideshow_data_attrs | append: 'data-slideshow-id="' | append: slideshow_id | append: '"'%}
+{% assign slideshow_data_attrs = 'data-slideshow-autoplay="'
+  | append: slideshow_autoplay
+  | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs
+  | append: 'data-slideshow-delay="'
+  | append: slideshow_delay
+  | append: '" '%}
+{% assign slideshow_data_attrs = slideshow_data_attrs
+  | append: 'data-slideshow-id="'
+  | append: slideshow_id
+  | append: '"'%}
 
 {% comment %} Slideshow Config {% endcomment %}
 {% if featured_collection.products_count > 3 %}
-  {% assign slideshow_data_attrs = slideshow_data_attrs | prepend: 'data-slideshow ' %}   
+  {% assign slideshow_data_attrs = slideshow_data_attrs
+    | prepend: 'data-slideshow ' %}
 {% else %}
   {% assign slideshow_data_attrs = blank %}
 {% endif %}
 
-<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="{{ section_type }}">
+<section
+  data-section-id="{{ section.id }}"
+  class="{{ section_classes }}"
+  data-section-type="{{ section_type }}">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url }});
+        background-size: cover;
+      }
     </style>
-  {% elsif bg_image_url_lg != blank %}  
+  {% elsif bg_image_url_lg != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url_lg }});
+        background-size: cover;
+      }
     </style>
   {% endif %}
 
   {% if bg_image_url_lg != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
       }
     </style>
-  {% elsif bg_image_url != blank %}  
+  {% elsif bg_image_url != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
       }
     </style>
   {% endif %}
   <div class="{{ container_classes }}">
     <div class="row mb-3">
       <div class="col-12">
-        {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    eyebrow_style: eyebrow_style,
-                    content_color: content_color,
-                    heading_text: heading_text,
-                    heading_style: heading_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_lg: header_container_col_lg,
-                    justify_container: header_container_justify_container,
-                    justify_container_lg: header_container_justify_container_lg,
-                    text_align: header_container_text_align,
-                    text_align_lg: header_container_text_align_lg
-        %}
+        {% render 'content-object'
+          eyebrow_text: eyebrow_text,
+          eyebrow_style: eyebrow_style,
+          content_color: content_color,
+          heading_text: heading_text,
+          heading_style: heading_style,
+          paragraph_text: paragraph_text,
+          col: header_container_col,
+          col_lg: header_container_col_lg,
+          justify_container: header_container_justify_container,
+          justify_container_lg: header_container_justify_container_lg,
+          text_align: header_container_text_align,
+          text_align_lg: header_container_text_align_lg %}
       </div>
     </div>
     <div class="row">
       {% for block in section.blocks %}
         <div class="col-12 col-md-4 mb-4 mb-md-4">
           {% if block.type == 'image' %}
-            {% assign featured_image_src = block.settings.image.src | img_url: '600x' %}
+            {% assign featured_image_src = block.settings.image.src
+              | img_url: '600x' %}
             {% assign featured_image_alt = block.settings.image.alt %}
             {% render 'image-object',
-                        image_url: featured_image_src,
-                        image_url_lg: featured_image_src,
-                        image_alt_text: featured_image_alt,
-                        image_aspect_ratio: '1by1'
+              image_url: featured_image_src,
+              image_url_lg: featured_image_src,
+              image_alt_text: featured_image_alt,
+              image_aspect_ratio: '1by1'
             %}
           {% elsif block.type == 'promo-block' %}
             {% assign promo_text = block.settings.text %}
-            {% assign block_background_color = block.settings.background_color %}
+            {% assign block_bg_color = block.settings.bg_color %}
             {% assign responsive_item_classes = 'embed-responsive-item' %}
-            {% assign responsive_item_classes = responsive_item_classes | append: ' ' | append: block_background_color %}
-            {% assign responsive_item_classes = responsive_item_classes | append: ' d-flex flex-column justify-content-center px-4' %}
+            {% assign responsive_item_classes = responsive_item_classes
+              | append: ' '
+              | append: block_bg_color %}
+            {% assign responsive_item_classes = responsive_item_classes
+              | append: ' d-flex flex-column justify-content-center px-4' %}
             <div class="embed-responsive embed-responsive-1by1">
               <div class="{{ responsive_item_classes }}">
                 <h3 class="text-center">{{ promo_text }}</h3>
@@ -163,7 +212,9 @@
           {% elsif block.type == 'video-block' %}
             {% assign video_url = block.settings.video_url %}
             {% assign video_aspect_ratio = block.settings.video_aspect_ratio %}
-            {% render 'video-object' video_url: video_url, video_aspect_ratio: video_aspect_ratio %}            
+            {% render 'video-object'
+              video_url: video_url,
+              video_aspect_ratio: video_aspect_ratio %}
           {% endif %}
         </div>
       {% endfor %}
@@ -171,11 +222,10 @@
     <div class="row">
       <div class="w-100 text-center">
           {% render 'link-element',
-                link_text: link_text,
-                link_url: link_url,
-                link_style: link_style
-          %}
+            link_text: link_text,
+            link_url: link_url,
+            link_style: link_style %}
       </div>
     </div>
-  </div>  
+  </div>
 </section>

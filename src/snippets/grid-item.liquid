@@ -1,4 +1,4 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
   Grid Item
@@ -7,13 +7,12 @@
   Usage:
 
   {% render 'grid-item',
-              col: { string} - 
-              col_offset: { string} - 
-              col_lg: { string} - 
-              col_lg_offset: { string} - 
-              gutters: { string} - 
-              content: { string} - 
-  %}
+    col: { string} -
+    col_offset: { string} -
+    col_lg: { string} -
+    col_lg_offset: { string} -
+    gutters: { string} -
+    content: { string} - %}
 
 {% endcomment %}
 
@@ -44,9 +43,15 @@
 
 {% comment %} Block Layout Classes {% endcomment %}
 {% assign grid_item_classes =  'col-' | append: col %}
-{% assign grid_item_classes =  grid_item_classes | append: ' offset-' | append: col_offset %}
-{% assign grid_item_classes =  grid_item_classes | append: ' col-md-' | append: col_lg %}
-{% assign grid_item_classes =  grid_item_classes | append: ' offset-md-' | append: col_lg_offset %}
+{% assign grid_item_classes =  grid_item_classes
+  | append: ' offset-'
+  | append: col_offset %}
+{% assign grid_item_classes =  grid_item_classes
+  | append: ' col-md-'
+  | append: col_lg %}
+{% assign grid_item_classes =  grid_item_classes
+  | append: ' offset-md-'
+  | append: col_lg_offset %}
 
 {% comment %} Add margin bottom for gutter-enabled grids {% endcomment %}
 {% if gutters %}

@@ -1,4 +1,10 @@
+{% comment %}
 
+  -----------------------------------------------------------------------------
+  Product Categories
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
 
 {% if product.metafields.custom_fields.meta_title_primary != blank %}
   {% assign meta_title_primary = product.metafields.custom_fields.meta_title_primary %}
@@ -16,7 +22,7 @@
   {% assign meta_content_tertiary = product.metafields.custom_fields.meta_content_tertiary %}
 {% endif %}
 {% if product.metafields.custom_fields.meta_title_tertiary != blank %}
-  {% assign meta_title_tertiary = product.metafields.custom_fields.meta_title_tertiary %} 
+  {% assign meta_title_tertiary = product.metafields.custom_fields.meta_title_tertiary %}
 {% endif %}
 
 {% comment %} Render Section? {% endcomment %}
@@ -46,13 +52,16 @@
       </div>
       <div class="row">
         <div class="col-1">
-          <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Check icon">
+          <img
+            src="{{ 'icon-check.svg' | asset_url }}"
+            style="width:25px;"
+            alt="Check icon">
         </div>
         <div class="col-8">
           <span class="small">{{ meta_content_primary }}</span>
         </div>
-      </div>           
-    </li>      
+      </div>
+    </li>
     <li class="mb-4">
       <div class="row">
         <div class="col">
@@ -61,13 +70,16 @@
       </div>
       <div class="row">
         <div class="col-1">
-          <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Size icon">
+          <img
+            src="{{ 'icon-check.svg' | asset_url }}"
+            style="width:25px;"
+            alt="Size icon">
         </div>
         <div class="col-8">
           <span class="small">{{ meta_content_secondary }}</span>
         </div>
-      </div>              
-    </li>      
+      </div>
+    </li>
     <li class="mb-4">
       <div class="row">
         <div class="col">
@@ -76,12 +88,15 @@
       </div>
       <div class="row">
         <div class="col-1">
-          <img src="{{ 'icon-check.svg' | asset_url }}" style="width:25px;" alt="Light Required icon">
+          <img
+            src="{{ 'icon-check.svg' | asset_url }}"
+            style="width:25px;"
+            alt="Light Required icon">
         </div>
         <div class="col-8">
           <span class="small">{{ meta_content_tertiary }}</span>
         </div>
-      </div>              
+      </div>
     </li>
   </ul>
 {% endif %}

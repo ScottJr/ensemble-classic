@@ -1,15 +1,15 @@
-        
-{% comment %} 
+
+{% comment %}
 
   -----------------------------------------------------------------------------
   Master Section
   -----------------------------------------------------------------------------
 
-  This section contains all
+  This section contains all content objects a lil ole Shopify theme can have.
 
 {% endcomment %}
 
-{% comment %} Stopped at refactoring the padding logic throughout the blocks {% endcomment %}
+{% comment %} Stopped at all sections (header, content, and footer) using color picker and transparency from theme editor {% endcomment %}
 
 {% comment %} START - Section Settings {% endcomment %}
 {% assign section_title = 'master-section' %}
@@ -24,48 +24,88 @@
 {% assign section_mt_md_up = section.settings.section_mt_md_up %}
 {% assign section_mb_md_up = section.settings.section_mb_md_up %}
 
-{% assign section_background_color = section.settings.section_background_color %}
+{% assign section_bg_color = section.settings.section_bg_color %}
+{% assign section_bg_color_alpha = section.settings.section_bg_color_alpha %}
 
-{% assign section_bg_image_url = section.settings.section_bg_image | img_url: '1000x' %}
+{% assign section_bg_image_url = section.settings.section_bg_image 
+  | img_url: '1000x' %}
 
 {% comment %} Section Classes {% endcomment %}
-{% assign section_classes =  'position-relative' %}
-
-{% assign section_classes = section_classes | append: ' ' | append: section_background_color %}
-
 {% if section_pt != 0 %}
-  {% assign section_classes = section_classes | append: ' pt-' | append: section_pt %}
+  {% assign section_classes = section_classes
+    | append: ' pt-'
+    | append: section_pt %}
 {% endif %}
 
 {% if section_pb != 0 %}
-  {% assign section_classes = section_classes | append: ' pb-' | append: section_pb %}
+  {% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: section_pb %}
 {% endif %}
 
 {% if section_pt_md_up != 0 %}
-  {% assign section_classes = section_classes | append: ' pt-md-' | append: section_pt_md_up %}
+  {% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: section_pt_md_up %}
 {% endif %}
 
 {% if section_pb_md_up != 0 %}
-  {% assign section_classes = section_classes | append: ' pb-md-' | append: section_pb_md_up %}
+  {% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: section_pb_md_up %}
 {% endif %}
 
 {% if section_mt != 0 %}
-  {% assign section_classes = section_classes | append: ' mt-' | append: section_mt %}
+  {% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: section_mt %}
 {% endif %}
 
 {% if section_mb != 0 %}
-  {% assign section_classes = section_classes | append: ' mb-' | append: section_mb %}
+  {% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: section_mb %}
 {% endif %}
 
 {% if section_mt_md_up != 0 %}
-  {% assign section_classes = section_classes | append: ' mt-md-' | append: section_mt_md_up %}
+  {% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: section_mt_md_up %}
 {% endif %}
 
 {% if section_mb_md_up != 0 %}
-  {% assign section_classes = section_classes | append: ' mb-md-' | append: section_mb_md_up %}
+  {% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: section_mb_md_up %}
 {% endif %}
 
 {% comment %} END - Section Settings {% endcomment %}
+
+{% assign style_prop = 'style="background-color: '
+  | append: section_bg_color
+  | append: ';"' %}
+
+<h1>{{ style_prop }}</h1>
+{% if section_bg_color_alpha != 'disabled' %}
+{% endif %}
+
+{% capture background_image %}
+
+
+{% assign section_bg_color_computed = section_bg_color
+  | remove: '#'%}
+
+{% assign section_bg_color_computed = section_bg_color_computed 
+  | append: section_bg_color_alpha %}
+
+{% assign section_bg_color_computed = section_bg_color_computed 
+  | prepend: '#' %}
+{{ section_bg_color_computed }};"
+
+      <div
+        class="position-absolute h-100 w-100"
+        style="background-color: {{ bg_color_computed }};"></div>
+{% endcapture %}
 
 {% comment %} START - Header {% endcomment %}
 {% comment %} Header Container Settings {% endcomment %}
@@ -94,7 +134,7 @@
 {% assign header_mt_md_up = section.settings.header_mt_md_up %}
 {% assign header_mb_md_up = section.settings.header_mb_md_up %}
 
-{% assign header_content_background_color = section.settings.header_content_background_color %}
+{% assign header_bg_color = section.settings.header_bg_color %}
 
 {% assign header_content_color = section.settings.header_content_color %}
 
@@ -115,45 +155,43 @@
 
 {% comment %} Header Content {% endcomment %}
 {% capture header_content %}
-  {% render 'content-object' 
-              content_color: header_content_color,
-              eyebrow_style: header_eyebrow_style,
-              eyebrow_text: header_eyebrow_text, 
-              heading_style: header_heading_style,
-              heading_text: header_heading_text,
-              paragraph_text: header_paragraph_text,
-              link_text: header_link_text,
-              link_url: header_link_url,
-              link_style: header_link_style,
-              text_align: header_content_align,
-              text_align_lg: header_content_align_lg,
-              pt: header_pt,
-              pb: header_pb,
-              mt: header_mt,
-              mb: header_mb,
-              pt_md_up: header_pt_md_up,
-              pb_md_up: header_pb_md_up,
-              mt_md_up: header_mt_md_up,
-              mb_md_up: header_mb_md_up,
-  %}
+  {% render 'content-object'
+    content_color: header_content_color,
+    eyebrow_style: header_eyebrow_style,
+    eyebrow_text: header_eyebrow_text,
+    heading_style: header_heading_style,
+    heading_text: header_heading_text,
+    paragraph_text: header_paragraph_text,
+    link_text: header_link_text,
+    link_url: header_link_url,
+    link_style: header_link_style,
+    text_align: header_content_align,
+    text_align_lg: header_content_align_lg,
+    pt: header_pt,
+    pb: header_pb,
+    mt: header_mt,
+    mb: header_mb,
+    pt_md_up: header_pt_md_up,
+    pb_md_up: header_pb_md_up,
+    mt_md_up: header_mt_md_up,
+    mb_md_up: header_mb_md_up %}
 {% endcapture %}
 
 {% if header_content != blank %}
   {% capture header_grid_item %}
     {% render 'grid-item'
-                col: header_col,
-                col_offset: header_col_offset,
-                col_lg: header_col_lg,
-                col_lg_offset: header_col_offset_lg,
-                content: header_content
-    %}  
+      col: header_col,
+      col_offset: header_col_offset,
+      col_lg: header_col_lg,
+      col_lg_offset: header_col_offset_lg,
+      content: header_content %}
   {% endcapture %}
 {% endif %}
 {% comment %} END - Header {% endcomment %}
 
 {% comment %} START - Content {% endcomment %}
 {% comment %} Content Container Settings {% endcomment %}
-{% assign content_container = section.settings.content_container %} 
+{% assign content_container = section.settings.content_container %}
 
 {% comment %} Content Container Classes {% endcomment %}
 {% assign content_container_classes = content_container %}
@@ -164,7 +202,9 @@
 {% comment %} Content Row Classes {% endcomment %}
 {% assign content_row_classes = 'row' %}
 {% if content_row_no_gutters == 'no-gutters'%}
-  {% assign content_row_classes = content_row_classes | append: ' ' | append: content_row_no_gutters %}
+  {% assign content_row_classes = content_row_classes
+  | append: ' '
+  | append: content_row_no_gutters %}
 {% endif %}
 
 {% comment %} Content Container Settings {% endcomment %}
@@ -178,20 +218,38 @@
 {% assign content_container_mt_md_up = section.settings.content_container_mt_md_up %}
 {% assign content_container_mb_md_up = section.settings.content_container_mb_md_up %}
 
-{% assign content_container_background_color = section.settings.content_container_background_color %}
+{% assign content_container_bg_color = section.settings.content_container_bg_color %}
 
 {% comment %} Content Container Classes {% endcomment %}
-{% assign content_container_classes = content_container_classes | append: ' pt-' | append: content_container_pt %}
-{% assign content_container_classes = content_container_classes | append: ' pb-' | append: content_container_pb %}
-{% assign content_container_classes = content_container_classes | append: ' pt-md-' | append: content_container_pt_md_up %}
-{% assign content_container_classes = content_container_classes | append: ' pb-md-' | append: content_container_pb_md_up %}
+{% assign content_container_classes = content_container_classes
+  | append: ' pt-'
+  | append: content_container_pt %}
+{% assign content_container_classes = content_container_classes
+  | append: ' pb-'
+  | append: content_container_pb %}
+{% assign content_container_classes = content_container_classes
+  | append: ' pt-md-'
+  | append: content_container_pt_md_up %}
+{% assign content_container_classes = content_container_classes
+  | append: ' pb-md-'
+  | append: content_container_pb_md_up %}
 
-{% assign content_container_classes = content_container_classes | append: ' mt-' | append: content_container_mt %}
-{% assign content_container_classes = content_container_classes | append: ' mb-' | append: content_container_mb %}
-{% assign content_container_classes = content_container_classes | append: ' mt-md-' | append: content_container_mt_md_up %}
-{% assign content_container_classes = content_container_classes | append: ' mb-md-' | append: content_container_mb_md_up %}
+{% assign content_container_classes = content_container_classes
+  | append: ' mt-'
+  | append: content_container_mt %}
+{% assign content_container_classes = content_container_classes
+  | append: ' mb-'
+  | append: content_container_mb %}
+{% assign content_container_classes = content_container_classes
+  | append: ' mt-md-'
+  | append: content_container_mt_md_up %}
+{% assign content_container_classes = content_container_classes
+  | append: ' mb-md-'
+  | append: content_container_mb_md_up %}
 
-{% assign content_container_classes = content_container_classes | append: ' ' | append: content_container_background_color %}
+{% assign content_container_classes = content_container_classes
+  | append: ' '
+  | append: content_container_bg_color %}
 
 {% comment %} Content {% endcomment %}
 {% capture section_blocks %}
@@ -204,23 +262,26 @@
     {% assign col_offset = block.settings.col_offset %}
     {% assign col_lg = block.settings.col_lg  %}
     {% assign col_lg_offset = block.settings.col_lg_offset  %}
-    
+
     {% if block.type == 'content-object' %}
       {% comment %} START - Content Grid Item {% endcomment %}
-      
+
       {% comment %} Block Settings {% endcomment %}
       {% assign id = block.id %}
-      
+
       {% assign aspect_ratio = block.settings.aspect_ratio %}
-      
-      {% assign background_color = block.settings.background_color %}
-      
-      {% assign bg_image_url = block.settings.bg_image | img_url: '400x'  %}
-      {% assign bg_image_url_lg = block.settings.bg_image_lg | img_url: '400x' %}
+
+      {% assign bg_color = block.settings.bg_color %}
+      {% assign bg_color_alpha = block.settings.bg_color_alpha %}
+
+      {% assign bg_image_url = block.settings.bg_image
+        | img_url: '400x'  %}
+      {% assign bg_image_url_lg = block.settings.bg_image_lg
+        | img_url: '400x' %}
 
       {% assign eyebrow_style = block.settings.eyebrow_style %}
       {% assign eyebrow_text = block.settings.eyebrow_text %}
-      
+
       {% assign heading_style = block.settings.heading_style %}
       {% assign heading_text = block.settings.heading_text %}
 
@@ -229,7 +290,7 @@
       {% assign link_text  = block.settings.link_text %}
       {% assign link_url = block.settings.link_url %}
       {% assign link_style = block.settings.link_style %}
-      
+
       {% assign content_color = block.settings.content_color %}
       {% assign content_align = block.settings.content_align %}
       {% assign content_align_lg = block.settings.content_align_lg %}
@@ -255,67 +316,66 @@
       {% assign mr_md_up = block.settings.mr_md_up %}
       {% assign mb_md_up = block.settings.mb_md_up %}
       {% assign ml_md_up = block.settings.ml_md_up %}
-      
+
       {% comment %} Block Content {% endcomment %}
       {% capture content_object %}
-        {% render 'content-object' 
-                    content_color: content_color,
-                    eyebrow_style: eyebrow_style,
-                    eyebrow_text: eyebrow_text, 
-                    heading_style: heading_style,
-                    heading_text: heading_text,
-                    paragraph_text: paragraph_text,
-                    link_text: link_text,
-                    link_url: link_url,
-                    link_style: link_style,
-                    text_align: content_align, 
-                    text_align_lg: content_align_lg,
-                    pt: pt,
-                    pr: pr,
-                    pb: pb,
-                    pl: pl,
-                    mt: mt,
-                    mr: mr,
-                    mb: mb,
-                    ml: ml,
-                    pt_md_up: pt_md_up,
-                    pr_md_up: pr_md_up,
-                    pb_md_up: pb_md_up,
-                    pl_md_up: pl_md_up,
-                    mt_md_up: mt_md_up,
-                    mr_md_up: mr_md_up,
-                    mb_md_up: mb_md_up,
-                    ml_md_up: ml_md_up
-        %}
+        {% render 'content-object'
+          content_color: content_color,
+          eyebrow_style: eyebrow_style,
+          eyebrow_text: eyebrow_text,
+          heading_style: heading_style,
+          heading_text: heading_text,
+          paragraph_text: paragraph_text,
+          link_text: link_text,
+          link_url: link_url,
+          link_style: link_style,
+          text_align: content_align,
+          text_align_lg: content_align_lg,
+          pt: pt,
+          pr: pr,
+          pb: pb,
+          pl: pl,
+          mt: mt,
+          mr: mr,
+          mb: mb,
+          ml: ml,
+          pt_md_up: pt_md_up,
+          pr_md_up: pr_md_up,
+          pb_md_up: pb_md_up,
+          pl_md_up: pl_md_up,
+          mt_md_up: mt_md_up,
+          mr_md_up: mr_md_up,
+          mb_md_up: mb_md_up,
+          ml_md_up: ml_md_up %}
       {% endcapture %}
 
       {% unless aspect_ratio == 'none' %}
         {% capture content %}
-          {% render 'embed-object' 
-                      content: content_object,
-                      aspect_ratio: aspect_ratio,
-                      background_color: background_color,
-                      id: id,
-                      bg_image_url: bg_image_url,
-                      bg_image_url_lg: bg_image_url_lg,
-                      align_items: align_items
-          %}
+          {% render 'embed-object'
+            content: content_object,
+            aspect_ratio: aspect_ratio,
+            bg_image_overlay: bg_image_overlay
+            bg_color: bg_color,
+            bg_color_alpha: bg_color_alpha,
+            id: id,
+            bg_image_url: bg_image_url,
+            bg_image_url_lg: bg_image_url_lg,
+            align_items: align_items %}
         {% endcapture %}
       {% endunless %}
 
       {% comment %} END - Content Grid Item {% endcomment %}
     {% elsif block.type == 'article-grid-item' %}
       {% comment %} START - Article Grid Item {% endcomment %}
-      
+
       {% comment %} Block Settings {% endcomment %}
       {% assign article =  articles[block.settings.article] %}
-      
+
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
-        {% render 'article-card', 
-                    article: article,
-                    show_excerpt: true
-        %}
+        {% render 'article-card',
+          article: article,
+          show_excerpt: true %}
       {% endcapture %}
 
       {% comment %} END - Article Grid Item {% endcomment %}
@@ -324,21 +384,21 @@
 
       {% comment %} Block Settings {% endcomment %}
       {% assign product = all_products[block.settings.product] %}
-      {% assign featured_image = product.featured_image.src | img_url: '600x' %}
+      {% assign featured_image = product.featured_image.src
+        | img_url: '600x' %}
       {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
-      
+
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
         {% render 'product-card'
-                    featured_image: featured_image, 
-                    id: product.id,
-                    title: product.title,
-                    excerpt: product_excerpt,
-                    url: product.url,
-                    compare_at_price: product.compare_at_price,
-                    price_varies: product.price_varies,
-                    price: product.price
-        %}
+          featured_image: featured_image,
+          id: product.id,
+          title: product.title,
+          excerpt: product_excerpt,
+          url: product.url,
+          compare_at_price: product.compare_at_price,
+          price_varies: product.price_varies,
+          price: product.price %}
       {% endcapture %}
 
       {% comment %} END - Product Grid Item {% endcomment %}
@@ -346,19 +406,20 @@
       {% comment %} START - Image Grid Item {% endcomment %}
 
       {% comment %} Block Settings {% endcomment %}
-      {% assign image_url = block.settings.image.src | img_url: '600x' %}
-      {% assign image_url_lg = block.settings.image_lg | img_url: '1000x' %}
+      {% assign image_url = block.settings.image.src
+        | img_url: '600x' %}
+      {% assign image_url_lg = block.settings.image_lg
+        | img_url: '1000x' %}
       {% assign image_aspect_ratio = block.settings.image_aspect_ratio %}
       {% assign image_alt_text = block.settings.image.alt %}
 
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
         {% render 'image-object'
-                    image_url: image_url,
-                    image_url_lg: image_url_lg,
-                    image_alt_text: image_alt_text,
-                    aspect_ratio: image_aspect_ratio
-        %}
+          image_url: image_url,
+          image_url_lg: image_url_lg,
+          image_alt_text: image_alt_text,
+          aspect_ratio: image_aspect_ratio %}
       {% endcapture %}
       {% comment %} End - Image Grid Item {% endcomment %}
     {% elsif block.type == 'video-grid-item' %}
@@ -367,28 +428,26 @@
       {% comment %} Block Settings {% endcomment %}
       {% assign video_url = block.settings.video_url %}
       {% assign video_aspect_ratio = block.settings.video_aspect_ratio %}
-      
+
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
         {% render 'video-object',
-                    video_url: video_url,
-                    video_aspect_ratio: video_aspect_ratio
-        %}
+          video_url: video_url,
+          video_aspect_ratio: video_aspect_ratio %}
       {% endcapture %}
 
       {% comment %} END - Video Grid Item {% endcomment %}
     {% endif %}
-    
+
     {% comment %} Render Grid Item With Embedded Content {% endcomment %}
     {% if content != blank %}
       {% render 'grid-item'
-                  col: col,
-                  col_offset: col_offset,
-                  col_lg: col_lg,
-                  col_lg_offset: col_lg_offset,
-                  gutters: content_row_no_gutters,
-                  content: content
-      %}  
+        col: col,
+        col_offset: col_offset,
+        col_lg: col_lg,
+        col_lg_offset: col_lg_offset,
+        gutters: content_row_no_gutters,
+        content: content %}
     {% endif %}
   {% endfor %}
 {% endcapture %}
@@ -418,23 +477,44 @@
 {% assign footer_col_mt_md_up = section.settings.footer_col_mt_md_up %}
 {% assign footer_col_mb_md_up = section.settings.footer_col_mb_md_up %}
 
-{% assign footer_col_background_color = section.settings.footer_col_background_color %}
+{% assign footer_col_bg_color = section.settings.footer_col_bg_color %}
 
 {% comment %} Footer Column Classes {% endcomment %}
-{% assign footer_col_classes =  'col-' | append: footer_col %}
-{% assign footer_col_classes =  footer_col_classes | append: ' col-md-' | append: footer_col_lg %}
+{% assign footer_col_classes =  'col-'
+  | append: footer_col %}
+{% assign footer_col_classes =  footer_col_classes
+  | append: ' col-md-'
+  | append: footer_col_lg %}
 
-{% assign footer_col_classes = footer_col_classes | append: ' pt-' | append: footer_col_pt %}
-{% assign footer_col_classes = footer_col_classes | append: ' pb-' | append: footer_col_pb %}
-{% assign footer_col_classes = footer_col_classes | append: ' pt-md-' | append: footer_col_pt_md_up %}
-{% assign footer_col_classes = footer_col_classes | append: ' pb-md-' | append: footer_col_pb_md_up %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' pt-'
+  | append: footer_col_pt %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' pb-'
+  | append: footer_col_pb %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' pt-md-'
+  | append: footer_col_pt_md_up %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' pb-md-'
+  | append: footer_col_pb_md_up %}
 
-{% assign footer_col_classes = footer_col_classes | append: ' mt-' | append: footer_col_mt %}
-{% assign footer_col_classes = footer_col_classes | append: ' mb-' | append: footer_col_mb %}
-{% assign footer_col_classes = footer_col_classes | append: ' mt-md-' | append: footer_col_mt_md_up %}
-{% assign footer_col_classes = footer_col_classes | append: ' mb-md-' | append: footer_col_mb_md_up %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' mt-'
+  | append: footer_col_mt %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' mb-'
+  | append: footer_col_mb %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' mt-md-'
+  | append: footer_col_mt_md_up %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' mb-md-'
+  | append: footer_col_mb_md_up %}
 
-{% assign footer_col_classes = footer_col_classes | append: ' ' | append: footer_col_background_color %}
+{% assign footer_col_classes = footer_col_classes
+  | append: ' '
+  | append: footer_col_bg_color %}
 
 {% comment %} Footer Content Settings {% endcomment %}
 {% assign footer_content_color = section.settings.footer_content_color %}
@@ -455,25 +535,27 @@
 {% assign footer_link_style = section.settings.footer_link_style %}
 
 {% comment %} Footer Content {% endcomment %}
-{% capture footer_content %}    
-  {% render 'content-object' 
-              content_color: footer_content_color,
-              eyebrow_style: footer_eyebrow_style,
-              eyebrow_text: footer_eyebrow_text, 
-              heading_style: footer_heading_style,
-              heading_text: footer_heading_text,
-              paragraph_text: footer_paragraph_text,
-              link_text: footer_link_text,
-              link_url: footer_link_url,
-              link_style: footer_link_style,
-              text_align: footer_content_align,
-              text_align_lg: footer_content_align_lg
-  %}
+{% capture footer_content %}
+  {% render 'content-object'
+    content_color: footer_content_color,
+    eyebrow_style: footer_eyebrow_style,
+    eyebrow_text: footer_eyebrow_text,
+    heading_style: footer_heading_style,
+    heading_text: footer_heading_text,
+    paragraph_text: footer_paragraph_text,
+    link_text: footer_link_text,
+    link_url: footer_link_url,
+    link_style: footer_link_style,
+    text_align: footer_content_align,
+    text_align_lg: footer_content_align_lg %}
 {% endcapture %}
 {% comment %} END - Footer {% endcomment %}
 
 {% comment %} Render Section {% endcomment %}
-<section class="{{ section_classes }}" data-section-id="{{ section.id }}" data-section-type="{{ section_type }}">
+<section
+  class="{{ section_classes }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="{{ section_type }}">
   {% comment %} Background Image {% endcomment %}
   {% unless section_bg_image_url contains 'no-image' %}
     {% if section_bg_image_url != blank %}
@@ -481,7 +563,7 @@
     {% elsif section_bg_image_url_lg != blank %}
       {% assign section_bg_image_url = section_bg_image_url_lg %}
     {% endif %}
-  
+
     {% if section_bg_image_url_lg != blank %}
       {% assign section_bg_image_url_lg = section_bg_image_url_lg %}
     {% elsif section_bg_image_url != blank %}
@@ -489,11 +571,17 @@
     {% endif %}
 
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ section_bg_image_url }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ section_bg_image_url }});
+        background-size: cover;
+      }
     </style>
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ section_bg_image_url_lg }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ section_bg_image_url_lg }});
+          background-size: cover;
+        }
       }
     </style>
   {% endunless %}
@@ -526,43 +614,60 @@
       </div>
     </div>
   {% endif %}
-</section>  
+</section>
 
- 
+
 {% schema %}
   {
     "name": "Master Section",
     "settings": [
-      { 
+      {
+        "type": "color",
+        "id": "section_bg_color",
+        "label": "Background Color"
+      },
+      {
         "type": "select",
-        "id": "section_background_color",
-        "label": "Background Color", 
+        "id": "section_bg_color_alpha",
+        "label": "Background Color Transparency",
         "options": [
-          { "value": "bg-primary", "label": "Primary" },
-          { "value": "bg-secondary", "label": "Secondary" },
-          { "value": "bg-success", "label": "Success" },
-          { "value": "bg-info", "label": "Info" },          
-          { "value": "bg-warning", "label": "Warning" },          
-          { "value": "bg-danger", "label": "Danger" },
-          { "value": "bg-light", "label": "Light" },
-          { "value": "bg-dark", "label": "Dark" },
-          { "value": "bg-white", "label": "White" },
-          { "value": "", "label": "None" }
-        ], 
-        "default": "",
-        "info": "Default: None"
-      },    
-      { 
+          { "value": "disabled", "label": "Transparency Disabled" },
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "disabled",
+        "info": "Default: Transparency Disabled"
+      },
+      {
         "type": "header",
         "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"  
+        "info": "Screen sizes smaller than 768px"
       },
-      { 
+      {
         "type": "image_picker",
         "id": "section_bg_image",
         "label": "Background Image"
-      },      
-      { 
+      },
+      {
         "type": "header",
         "content": "Padding"
       },
@@ -573,7 +678,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   4,
         "unit": "%"
       },
       {
@@ -583,10 +688,10 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   4,
         "unit": "%"
-      },      
-      { 
+      },
+      {
         "type": "header",
         "content": "Margin"
       },
@@ -610,20 +715,20 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"  
+        "info": "Screen sizes larger than 768px"
       },
       {
         "type": "image_picker",
         "id": "section_bg_image_lg",
         "label": "Background Image"
-      },             
-      { 
+      },
+      {
         "type": "header",
         "content": "Padding"
-      },          
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -631,7 +736,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   4,
         "unit": "%"
       },
       {
@@ -641,10 +746,10 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   4,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
       },
@@ -668,11 +773,11 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Header - Content"
       },
-      { 
+      {
         "type": "text",
         "id": "header_eyebrow_text",
         "label": "Eyebrow"
@@ -692,7 +797,7 @@
           { "value": "badge-dark", "label": "Dark"}
         ],
         "default": "badge-dark"
-      }, 
+      },
       {
         "type": "text",
         "id": "header_heading_text",
@@ -716,8 +821,8 @@
           { "value": "h6", "label": "H6"}
         ],
         "default": "display-4",
-        "info": "Default: Display 4"             
-      },      
+        "info": "Default: Display 4"
+      },
       {
         "type": "select",
         "id": "header_content_color",
@@ -736,7 +841,7 @@
           { "value": "text-white", "label": "White"},
           { "value": "text-black-50", "label": "Black 50"},
           { "value": "text-white-50", "label": "White 50"}
-        ], 
+        ],
         "default": "text-body"
       },
       {
@@ -778,31 +883,17 @@
           { "value": "btn-outline-dark", "label": "Dark - Outline"}
         ],
         "default": "btn-outline-dark"
-      },           
+      },
       {
         "type": "header",
         "content": "Header - Settings"
       },
-      { 
-        "type": "select",
-        "id": "header_content_background_color",
-        "label": "Background Color",
-        "options": [
-          { "value": "bg-primary", "label": "Primary" },
-          { "value": "bg-secondary", "label": "Secondary" },
-          { "value": "bg-success", "label": "Success" },
-          { "value": "bg-info", "label": "Info" },          
-          { "value": "bg-warning", "label": "Warning" },          
-          { "value": "bg-danger", "label": "Danger" },
-          { "value": "bg-light", "label": "Light" },
-          { "value": "bg-dark", "label": "Dark" },
-          { "value": "bg-white", "label": "White" },
-          { "value": "", "label": "None" }
-        ], 
-        "default": "",
-        "info": "Default: None"
-      },      
-      { 
+      {
+        "type": "color",
+        "id": "header_bg_color",
+        "label": "Background Color"
+      },
+      {
         "type": "select",
         "id": "header_container",
         "label": "Container",
@@ -811,17 +902,17 @@
           { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
           { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
           { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl"
-      },  
-      { 
+      },
+      {
         "type": "header",
         "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"  
-      },   
+        "info": "Screen sizes smaller than 768px"
+      },
       {
         "type": "select",
         "id": "header_content_align",
@@ -833,11 +924,11 @@
         ],
         "default":   "text-center",
         "info":      "Default: Center"
-      },                  
+      },
       {
         "type": "header",
         "content": "Layout"
-      },      
+      },
       {
         "type": "range",
         "id": "header_col",
@@ -857,11 +948,11 @@
         "unit": "col",
         "label": "Offset Columns",
         "default": 0
-      },   
-      { 
+      },
+      {
         "type": "header",
         "content": "Padding"
-      },        
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -882,10 +973,10 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
-      },           
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -905,12 +996,12 @@
         "step":      1,
         "default":   0,
         "unit": "%"
-      },               
-      { 
+      },
+      {
         "type": "header",
         "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"  
-      },    
+        "info": "Screen sizes larger than 768px"
+      },
       {
         "type": "select",
         "id": "header_content_align_lg",
@@ -922,11 +1013,11 @@
         ],
         "default":   "text-md-center",
         "info":      "Default: Center"
-      }, 
+      },
       {
         "type": "header",
         "content": "Layout"
-      },          
+      },
       {
         "type": "range",
         "id": "header_col_lg",
@@ -946,11 +1037,11 @@
         "unit": "col",
         "label": "Offset Columns",
         "default": 2
-      }, 
-      { 
+      },
+      {
         "type": "header",
         "content": "Padding"
-      },                    
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -971,10 +1062,10 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
-      },      
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -994,31 +1085,17 @@
         "step":      1,
         "default":   0,
         "unit": "%"
-      },                       
-      { 
+      },
+      {
         "type": "header",
         "content": "Content - Settings"
-      }, 
-      { 
-        "type": "select",
-        "id": "content_container_background_color",
-        "label": "Background Color",
-        "options": [
-          { "value": "bg-primary", "label": "Primary" },
-          { "value": "bg-secondary", "label": "Secondary" },
-          { "value": "bg-success", "label": "Success" },
-          { "value": "bg-info", "label": "Info" },          
-          { "value": "bg-warning", "label": "Warning" },          
-          { "value": "bg-danger", "label": "Danger" },
-          { "value": "bg-light", "label": "Light" },
-          { "value": "bg-dark", "label": "Dark" },
-          { "value": "bg-white", "label": "White" },
-          { "value": "", "label": "None" }
-        ], 
-        "default": "bg-white",
-        "info": "Default: White"           
-      },      
-      { 
+      },
+      {
+        "type": "color",
+        "id": "content_container_bg_color",
+        "label": "Background Color"
+      },
+      {
         "type": "select",
         "id": "content_container",
         "label": "Container",
@@ -1027,7 +1104,7 @@
           { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
           { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
           { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
@@ -1043,16 +1120,16 @@
         ],
         "default": "",
         "info": "Will row columns have gutters on all screen sizes?"
-      },       
-      { 
+      },
+      {
         "type": "header",
         "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"  
+        "info": "Screen sizes smaller than 768px"
       },
-      { 
+      {
         "type": "header",
         "content": "Padding"
-      },         
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -1063,7 +1140,7 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type":   "range",
         "label": "Bottom",
         "id": "content_container_pb",
@@ -1073,10 +1150,10 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
-      },         
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -1097,15 +1174,15 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"  
-      }, 
-      { 
+        "info": "Screen sizes larger than 768px"
+      },
+      {
         "type": "header",
         "content": "Padding"
-      },           
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -1126,7 +1203,7 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
       },
@@ -1150,11 +1227,11 @@
         "default":   0,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Footer - Content"
       },
-      { 
+      {
         "type": "text",
         "id": "footer_eyebrow_text",
         "label": "Eyebrow"
@@ -1174,7 +1251,7 @@
           { "value": "badge-dark", "label": "Dark"}
         ],
         "default": "badge-dark"
-      }, 
+      },
       {
         "type": "text",
         "id": "footer_heading_text",
@@ -1197,8 +1274,8 @@
           { "value": "h6", "label": "H6"}
         ],
         "default": "display-4",
-        "info": "Default: Display 4"             
-      },      
+        "info": "Default: Display 4"
+      },
       {
         "type": "select",
         "id": "footer_content_color",
@@ -1223,7 +1300,7 @@
       {
         "type": "richtext",
         "id": "footer_paragraph_text",
-        "label": "Paragraph"        
+        "label": "Paragraph"
       },
       {
         "type": "text",
@@ -1260,30 +1337,16 @@
         ],
         "default": "btn-outline-dark"
       },
-      { 
+      {
         "type": "header",
         "content": "Footer - Settings"
       },
-      { 
-        "type": "select",
-        "id": "footer_col_background_color",
-        "label": "Background color",
-        "options": [
-          { "value": "bg-primary", "label": "Primary" },
-          { "value": "bg-secondary", "label": "Secondary" },
-          { "value": "bg-success", "label": "Success" },
-          { "value": "bg-info", "label": "Info" },          
-          { "value": "bg-warning", "label": "Warning" },          
-          { "value": "bg-danger", "label": "Danger" },
-          { "value": "bg-light", "label": "Light" },
-          { "value": "bg-dark", "label": "Dark" },
-          { "value": "bg-white", "label": "White" },
-          { "value": "", "label": "None" }
-        ], 
-        "default": "",
-        "info": "Default: None"
-      },      
-      { 
+      {
+        "type": "color",
+        "id": "footer_col_bg_color",
+        "label": "Background Color"
+      },
+      {
         "type": "select",
         "id": "footer_container",
         "label": "Container",
@@ -1292,16 +1355,16 @@
           { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
           { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
           { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},                    
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl"
-      },  
-      { 
+      },
+      {
         "type": "header",
         "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"  
+        "info": "Screen sizes smaller than 768px"
       },
       {
         "type": "select",
@@ -1314,7 +1377,7 @@
         ],
         "default":   "text-center",
         "info":      "Default: Center"
-      },       
+      },
       {
         "type": "header",
         "content": "Layout"
@@ -1339,10 +1402,10 @@
         "label": "Container Offset Columns - Small Devices",
         "default": 0
       },
-      { 
+      {
         "type": "header",
         "content": "Padding"
-      },      
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -1350,7 +1413,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%"
       },
       {
@@ -1360,10 +1423,10 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
       },
@@ -1386,12 +1449,12 @@
         "step":      1,
         "default":   0,
         "unit": "%"
-      },      
-      { 
+      },
+      {
         "type": "header",
         "content": "Medium & Up Devices",
-        "info": "Screen sizes smaller than 768px"  
-      },   
+        "info": "Screen sizes smaller than 768px"
+      },
       {
         "type": "select",
         "id": "footer_content_align_lg",
@@ -1403,11 +1466,11 @@
         ],
         "default":   "text-md-center",
         "info":      "Default: Center"
-      }, 
+      },
       {
         "type": "header",
         "content": "Layout"
-      },       
+      },
       {
         "type": "range",
         "id": "footer_col_lg",
@@ -1416,7 +1479,7 @@
         "step": 1,
         "unit": "col",
         "label": "Container Columns ",
-        "default": 8
+        "default": 12
       },
       {
         "type": "range",
@@ -1426,12 +1489,12 @@
         "step": 1,
         "unit": "col",
         "label": "Container Offset Columns",
-        "default": 2
+        "default": 0
       },
-      { 
+      {
         "type": "header",
         "content": "Padding"
-      },            
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -1439,7 +1502,7 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%"
       },
       {
@@ -1449,13 +1512,13 @@
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%"
       },
-      { 
+      {
         "type": "header",
         "content": "Margin"
-      },      
+      },
       {
         "type":   "range",
         "label": "Top",
@@ -1475,9 +1538,9 @@
         "step":      1,
         "default":   0,
         "unit": "%"
-      }             
+      }
     ],
-    "blocks":[    
+    "blocks":[
       {
         "type": "article-grid-item",
         "name": "Article Card",
@@ -1490,8 +1553,8 @@
             "type": "article",
             "id": "article",
             "label": "Article"
-          },          
-          { 
+          },
+          {
             "type": "header",
             "content": "Block Column Layout"
           },
@@ -1549,8 +1612,8 @@
             "type": "product",
             "id": "product",
             "label": "Product"
-          },          
-          { 
+          },
+          {
             "type": "header",
             "content": "Block Column Layout"
           },
@@ -1573,7 +1636,7 @@
             "unit": "col",
             "label": "Container Offset Columns - Small Devices",
             "default": 0
-          },          
+          },
           {
             "type": "range",
             "id": "col_lg",
@@ -1603,8 +1666,8 @@
           {
             "type": "header",
             "content": "Content"
-          },                            
-          { 
+          },
+          {
             "type": "text",
             "id": "eyebrow_text",
             "label": "Eyebrow"
@@ -1624,11 +1687,12 @@
               { "value": "badge-dark", "label": "Dark"}
             ],
             "default": "badge-dark"
-          }, 
+          },
           {
             "type": "text",
             "id": "heading_text",
-            "label": "Heading Text"
+            "label": "Heading Text",
+            "default": "All In"
           },
           {
             "type": "select",
@@ -1647,8 +1711,8 @@
               { "value": "h6", "label": "H6"}
             ],
             "default": "display-4",
-            "info": "Default: Display 4"             
-          },      
+            "info": "Default: Display 4"
+          },
           {
             "type": "select",
             "id": "content_color",
@@ -1673,7 +1737,7 @@
           {
             "type": "richtext",
             "id": "paragraph_text",
-            "label": "Paragraph"        
+            "label": "Paragraph"
           },
           {
             "type": "text",
@@ -1710,7 +1774,7 @@
             ],
             "default": "btn-outline-dark"
           },
-          { 
+          {
             "type": "header",
             "content": "Layout"
           },
@@ -1733,7 +1797,7 @@
             "unit": "col",
             "label": "Container Offset Columns - Small Devices",
             "default": 0
-          },          
+          },
           {
             "type": "range",
             "id": "col_lg",
@@ -1758,26 +1822,42 @@
             "type": "header",
             "content": "Block Background Settings"
           },
-          { 
-            "type": "select",
-            "id": "background_color",
-            "label": "Background color",
-            "options": [
-              { "value": "bg-primary", "label": "Primary" },
-              { "value": "bg-secondary", "label": "Secondary" },
-              { "value": "bg-success", "label": "Success" },
-              { "value": "bg-info", "label": "Info" },          
-              { "value": "bg-warning", "label": "Warning" },          
-              { "value": "bg-danger", "label": "Danger" },
-              { "value": "bg-light", "label": "Light" },
-              { "value": "bg-dark", "label": "Dark" },
-              { "value": "bg-white", "label": "White" },
-              { "value": "", "label": "None" }
-            ], 
-            "default": "",
-            "info": "Default: None"           
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color"
           },
-          { 
+          {
+            "type": "select",
+            "id": "bg_color_alpha",
+            "label": "Background Color Transparency",
+            "options": [
+              { "value": "00", "label": "0%" },
+              { "value": "0D", "label": "5%" },
+              { "value": "1A", "label": "10%" },
+              { "value": "26", "label": "15%" },
+              { "value": "33", "label": "20%" },
+              { "value": "40", "label": "25%" },
+              { "value": "4D", "label": "30%" },
+              { "value": "59", "label": "35%" },
+              { "value": "66", "label": "40%" },
+              { "value": "73", "label": "45%" },
+              { "value": "80", "label": "50%" },
+              { "value": "8C", "label": "55%" },
+              { "value": "99", "label": "60%" },
+              { "value": "A6", "label": "65%" },
+              { "value": "B3", "label": "70%" },
+              { "value": "BF", "label": "75%" },
+              { "value": "CC", "label": "80%" },
+              { "value": "D9", "label": "85%" },
+              { "value": "E6", "label": "90%" },
+              { "value": "F2", "label": "95%" },
+              { "value": "FF", "label": "100%" }
+            ],
+            "default": "00",
+            "info": "Default: 0%"
+          },
+          {
             "type": "image_picker",
             "id": "bg_image",
             "label": "Background Image - Small Devices"
@@ -1786,15 +1866,15 @@
             "type": "image_picker",
             "id": "bg_image_lg",
             "label": "Background Image - Medium & Up Devices"
-          },          
-          { 
+          },
+          {
             "type": "header",
             "content": "Block Content Settings"
           },
           {
             "type": "select",
             "id": "aspect_ratio",
-            "label": "Aspect Ratio", 
+            "label": "Aspect Ratio",
             "options": [
               { "value": "21by9", "label": "21x9"},
               { "value": "1by1", "label": "1x1"},
@@ -1815,7 +1895,7 @@
             ],
             "default":   "align-items-center",
             "info":      "Default: Center"
-          }, 
+          },
           {
             "type": "select",
             "id": "content_align",
@@ -1827,7 +1907,7 @@
             ],
             "default":   "text-left",
             "info":      "Default: Left"
-          }, 
+          },
           {
             "type": "select",
             "id": "content_align_lg",
@@ -1840,10 +1920,10 @@
             "default":   "text-md-left",
             "info":      "Default: Left"
           },
-          { 
+          {
             "type": "header",
             "content": "Padding - Small Devices",
-            "info": "Screen sizes smaller than 768px"  
+            "info": "Screen sizes smaller than 768px"
           },
           {
             "type":   "range",
@@ -1864,7 +1944,7 @@
             "step":      1,
             "default":   4,
             "unit": "%"
-          },          
+          },
           {
             "type":   "range",
             "label": "Bottom",
@@ -1884,12 +1964,12 @@
             "step":      1,
             "default":   4,
             "unit": "%"
-          },   
-          { 
+          },
+          {
             "type": "header",
             "content": "Margin - Small Devices",
-            "info": "Screen sizes smaller than 768px"  
-          },                      
+            "info": "Screen sizes smaller than 768px"
+          },
           {
             "type":   "range",
             "label": "Top",
@@ -1929,12 +2009,12 @@
             "step":      1,
             "default":   0,
             "unit": "%"
-          },    
-          { 
+          },
+          {
             "type": "header",
             "content": "Padding - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"  
-          },                      
+            "info": "Screen sizes larger than 768px"
+          },
           {
             "type":   "range",
             "label": "Top",
@@ -1954,7 +2034,7 @@
             "step":      1,
             "default":   4,
             "unit": "%"
-          },          
+          },
           {
             "type":   "range",
             "label": "Bottom",
@@ -1975,11 +2055,11 @@
             "default":   4,
             "unit": "%"
           },
-          { 
+          {
             "type": "header",
             "content": "Margin - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"  
-          },             
+            "info": "Screen sizes larger than 768px"
+          },
           {
             "type":   "range",
             "label": "Top",
@@ -1999,7 +2079,7 @@
             "step":      1,
             "default":   0,
             "unit": "%"
-          },          
+          },
           {
             "type":   "range",
             "label": "Bottom",
@@ -2019,9 +2099,9 @@
             "step":      1,
             "default":   0,
             "unit": "%"
-          } 
+          }
         ]
-      },      
+      },
       {
         "type": "image-grid-item",
         "name": "Image",
@@ -2030,7 +2110,7 @@
             "type": "header",
             "content": "Content"
           },
-          { 
+          {
             "type": "image_picker",
             "id": "image",
             "label": "Image - Small Devices"
@@ -2051,8 +2131,8 @@
               { "value": "16by9", "label": "16x9"}
             ],
             "default": "1by1"
-          }, 
-          { 
+          },
+          {
             "type": "header",
             "content": "Block Column Layout"
           },
@@ -2075,7 +2155,7 @@
             "unit": "col",
             "label": "Container Offset Columns - Small Devices",
             "default": 0
-          },          
+          },
           {
             "type": "range",
             "id": "col_lg",
@@ -2105,7 +2185,7 @@
           {
             "type": "header",
             "content": "Content"
-          },          
+          },
           {
             "id": "video_url",
             "type": "video_url",
@@ -2124,8 +2204,8 @@
               { "value": "16by9", "label": "16x9"}
             ],
             "default": "16by9"
-          },          
-          { 
+          },
+          {
             "type": "header",
             "content": "Block Column Layout"
           },
@@ -2148,7 +2228,7 @@
             "unit": "col",
             "label": "Container Offset Columns - Small Devices",
             "default": 0
-          },          
+          },
           {
             "type": "range",
             "id": "col_lg",
@@ -2168,7 +2248,7 @@
             "unit": "col",
             "label": "Container Offset Columns - Medium & Up Devices",
             "default": 0
-          }       
+          }
         ]
       }
      ],
@@ -2179,4 +2259,4 @@
       }
     ]
   }
-{% endschema %} 
+{% endschema %}

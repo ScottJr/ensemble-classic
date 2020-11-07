@@ -1,12 +1,20 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Video Player
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
 {% comment %} Global Section Settings {% endcomment %}
-{% assign background_color = section.settings.background_color %}
+{% assign bg_color = section.settings.bg_color %}
 {% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
 {% assign bg_image_url_lg = section.settings.bg_image_lg | img_url: '1000x' %}
 {% if bg_image_url_lg contains 'no-image' %}
-  {% assign bg_image_url_lg = blank %} 
+  {% assign bg_image_url_lg = blank %}
 {% endif %}
 
 {% comment %} Header Settings {% endcomment %}
@@ -39,7 +47,7 @@
 {% assign video_container_text_align_lg = section.settings.video_container_text_align_lg %}
 
 {% comment %} Content Container Classes {% endcomment %}
-{% assign content_classes = 'col-12' %} 
+{% assign content_classes = 'col-12' %}
 {% assign content_classes = content_classes | append: ' ' | append: 'py-4 py-sm-0 mb-4' %}
 
 {% comment %} Section Layout Settings {% endcomment %}
@@ -54,7 +62,7 @@
 
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
-{% assign section_classes = section_classes | append: ' ' | append: background_color %}
+{% assign section_classes = section_classes | append: ' ' | append: bg_color %}
 {% assign section_classes = section_classes | append: ' pt-' | append: pt %}
 {% assign section_classes = section_classes | append: ' pb-' | append: pb %}
 {% assign section_classes = section_classes | append: ' pt-md-' | append: pt_md_up %}
@@ -82,19 +90,19 @@
 
 {% comment %} Render HTML Content? {% endcomment %}
 {% if eyebrow_text != blank %}
-  {% assign show_rendered_content = true %}  
+  {% assign show_rendered_content = true %}
 {% elsif heading_text != blank %}
   {% assign show_rendered_content = true %}
 {% elsif paragraph_text != blank %}
-  {% assign show_rendered_content = true %}    
-{% elsif video_url != blank %}  
-  {% assign show_rendered_content = true %}    
+  {% assign show_rendered_content = true %}
+{% elsif video_url != blank %}
+  {% assign show_rendered_content = true %}
 {% elsif link_text != blank %}
-  {% assign show_rendered_content = true %}  
+  {% assign show_rendered_content = true %}
 {% elsif link_url != blank %}
   {% assign show_rendered_content = true %}
 {% elsif link_style != blank %}
-  {% assign show_rendered_content = true %}      
+  {% assign show_rendered_content = true %}
 {% else %}
   {% assign show_rendered_content = false %}
 {% endif %}
@@ -105,72 +113,81 @@
     {% comment %} Background Image {% endcomment %}
     {% if bg_image_url != blank %}
       <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
       </style>
-    {% elsif bg_image_url_lg != blank %}  
+    {% elsif bg_image_url_lg != blank %}
       <style>
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
       </style>
     {% endif %}
 
     {% if bg_image_url_lg != blank %}
       <style>
         @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+          [data-section-id="{{ section.id }}"] {
+            background-image: url({{ bg_image_url_lg }});
+            background-size: cover;
+          }
         }
       </style>
-    {% elsif bg_image_url != blank %}  
+    {% elsif bg_image_url != blank %}
       <style>
         @media (min-width: 992px) {
-          [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+          [data-section-id="{{ section.id }}"] {
+            background-image: url({{ bg_image_url }});
+            background-size: cover;
+          }
         }
       </style>
-    {% endif %}    
- 
+    {% endif %}
+
     <div class="{{ container_classes }}">
       <div class="{{ row_classes }}">
         <div class="{{ content_classes }}">
-          {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    eyebrow_style: eyebrow_style,
-                    content_color: content_color,
-                    heading_text: heading_text,
-                    heading_style: heading_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_lg: header_container_col_lg,
-                    justify_container: header_container_justify_container,
-                    justify_container_lg: header_container_justify_container_lg,
-                    text_align: header_container_text_align,
-                    text_align_lg: header_container_text_align_lg
-          %}
+          {% render 'content-object'
+            eyebrow_text: eyebrow_text,
+            eyebrow_style: eyebrow_style,
+            content_color: content_color,
+            heading_text: heading_text,
+            heading_style: heading_style,
+            paragraph_text: paragraph_text,
+            col: header_container_col,
+            col_lg: header_container_col_lg,
+            justify_container: header_container_justify_container,
+            justify_container_lg: header_container_justify_container_lg,
+            text_align: header_container_text_align,
+            text_align_lg: header_container_text_align_lg %}
         </div>
       </div>
       <div class="{{ row_classes }}">
         <div class="{{ video_classes }}">
-          {% render 'video-object' 
-                      video_url: video_url, 
-                      video_aspect_ratio: video_aspect_ratio,
-                      col: video_container_col,
-                      col_lg: video_container_col_lg,
-                      justify_container: video_container_justify_container,
-                      justify_container_lg: video_container_justify_container_lg,
-                      text_align: video_container_text_align,
-                      text_align_lg: video_container_text_align_lg
-          %}
+          {% render 'video-object'
+            video_url: video_url,
+            video_aspect_ratio: video_aspect_ratio,
+            col: video_container_col,
+            col_lg: video_container_col_lg,
+            justify_container: video_container_justify_container,
+            justify_container_lg: video_container_justify_container_lg,
+            text_align: video_container_text_align,
+            text_align_lg: video_container_text_align_lg %}
         </div>
       </div>
       <div class="{{ row_classes }}">
         <div class="{{ content_classes }}">
           <div class="w-100 text-center">
             {% render 'link-element',
-                        link_text: link_text,
-                        link_url: link_url,
-                        link_style: link_style
-            %}
+              link_text: link_text,
+              link_url: link_url,
+              link_style: link_style %}
           </div>
         </div>
-      </div>      
+      </div>
     </div>
   </section>
 {% endunless %}

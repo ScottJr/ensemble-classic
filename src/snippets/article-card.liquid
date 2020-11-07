@@ -1,4 +1,4 @@
-{%- comment %} 
+{%- comment %}
 
   Article Card
   ------------------------------------------------------------------------------
@@ -6,9 +6,8 @@
   Usage:
 
   {% render 'article-card',
-              article: { article }
-              show_excerpt: { boolean } 
-  %}
+    article: { article }
+    show_excerpt: { boolean } %}
 
 {% endcomment -%}
 {% if article and article != blank %}
@@ -19,11 +18,10 @@
           {% assign image = article.image.src | img_url: '400x' %}
           {% assign image_alt_text = article.image.alt %}
           {% render 'image-object'
-                    image_url: image,
-                    image_url_lg: image,
-                    image_alt_text: image_alt_text,
-                    image_aspect_ratio: '1by1'
-          %}
+            image_url: image,
+            image_url_lg: image,
+            image_alt_text: image_alt_text,
+            image_aspect_ratio: '1by1' %}
         </a>
       </div>
     {% endif %}

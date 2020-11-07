@@ -1,4 +1,4 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
   Image Object
@@ -7,14 +7,13 @@
   Usage:
 
   {% render 'image-object',
-              image_url: { string } - expects image url
-              image_url_lg: { string } - expects image url
-              image_alt_text: { string }
-              aspect_ratio: { string } - utility class
-  %}
+    image_url: { string } - expects image url
+    image_url_lg: { string } - expects image url
+    image_alt_text: { string }
+    aspect_ratio: { string } - utility class %}
 
-{% endcomment %} 
- 
+{% endcomment %}
+
 {% if image_url contains 'no-image' %}
   {% assign image_url = false %}
 {% endif %}
@@ -26,14 +25,15 @@
 {% capture content %}
   <picture class="w-100">
     <source
-        srcset="{{ image_url_lg }} 1170w,
-                {{ image_url }} 970w"
-        sizes="100vw"
+      srcset="{{ image_url_lg }} 1170w,
+              {{ image_url }} 970w"
+      sizes="100vw"
     />
-    <img src="{{ 'password-holder.jpg' | asset_url }}"
-        alt="{{ image_alt_text }}"
-        style="object-fit: {{ cover_style }}; height:100%; width:100%;"
-        loading="lazy"
+    <img
+      src="{{ 'password-holder.jpg' | asset_url }}"
+      alt="{{ image_alt_text }}"
+      style="object-fit: {{ cover_style }}; height:100%; width:100%;"
+      loading="lazy"
     />
   </picture>
 {% endcapture %}

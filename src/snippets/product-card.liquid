@@ -1,4 +1,4 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
   Product Card
@@ -7,17 +7,13 @@
   Usage:
 
   {% render 'product-card',
-              featured_image: { obj } product image object
-              title: { string }
-              excerpt: { string }
-              url: { string }
-              compare_at_price:  { string }
-              price_varies: { boolean }
-              price: { string } 
-  %}
-
-  The product card requires to have a width set on the parent element to display
-  correctly (i.e. col-3).
+    featured_image: { obj } product image object
+    title: { string }
+    excerpt: { string }
+    url: { string }
+    compare_at_price:  { string }
+    price_varies: { boolean }
+    price: { string } %}
 
 {% endcomment %}
 <div class="mb-4 mb-md-5">
@@ -27,8 +23,7 @@
                   image_url: featured_image,
                   image_url_lg: featured_image,
                   image_alt_text: title,
-                  image_aspect_ratio: '1by1'
-      %}
+                  image_aspect_ratio: '1by1' %}
     </a>
   </div>
   <div class="d-flex flex-column flex-md-row justify-content-between">

@@ -1,19 +1,18 @@
-{% comment %} 
+{% comment %}
 
   -----------------------------------------------------------------------------
-  Image Object
+  Embed Object
   -----------------------------------------------------------------------------
 
   Usage:
 
   {% render 'embed-object',
-              aspect_ratio: { string } - optional - utility class
-              align_items: { string } - optional - utility class
-              background_color: { string } - optional - utility class
-              content: { string } - optional
-  %}
+    aspect_ratio: { string } - optional - utility class
+    align_items: { string } - optional - utility class
+    bg_color: { string } - optional - utility class
+    content: { string } - optional %}
 
-{% endcomment %} 
+{% endcomment %}
 
 {% if id != blank %}
   {% assign id = id %}
@@ -46,57 +45,85 @@
 {% endif %}
 
 {% assign embed_wrapper_classes = 'embed-responsive' %}
- 
+
 {% if aspect_ratio != blank %}
-  {% assign embed_wrapper_classes = embed_wrapper_classes | append: ' embed-responsive-' | append: aspect_ratio %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes
+    | append: ' embed-responsive-'
+    | append: aspect_ratio %}
 {% else %}
-  {% assign embed_wrapper_classes = embed_wrapper_classes | append: ' ' | append: 'embed-responsive-4by3' %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes
+    | append: ' '
+    | append: 'embed-responsive-4by3' %}
 {% endif %}
 
 {% comment %} Embeded Responsive Item Classes {% endcomment %}
 {% assign embed_responsive_item_classes = 'embed-responsive-item' %}
 
-{% if background_color != blank %}
-  {% assign embed_responsive_item_classes = embed_responsive_item_classes | append: ' ' | append: background_color %}
+{% if bg_color != blank %}
+  {% assign embed_responsive_item_classes = embed_responsive_item_classes
+    | append: ' '
+    | append: bg_color %}
 {% endif %}
 
-{% assign embed_responsive_item_classes = embed_responsive_item_classes | append: ' ' | append: 'd-flex' %}
+{% assign embed_responsive_item_classes = embed_responsive_item_classes
+  | append: ' '
+  | append: 'd-flex' %}
 
 {% if align_items != blank %}
-  {% assign embed_responsive_item_classes = embed_responsive_item_classes | append: ' ' | append: align_items %}
+  {% assign embed_responsive_item_classes = embed_responsive_item_classes
+    | append: ' '
+    | append: align_items %}
 {% else %}
-  {% assign embed_responsive_item_classes = embed_responsive_item_classes | append: ' ' | append: 'align-items-center' %}
+  {% assign embed_responsive_item_classes = embed_responsive_item_classes
+    | append: ' '
+    | append: 'align-items-center' %}
 {% endif %}
 
 {% if content != blank %}
   <div class="{{ embed_wrapper_classes }}">
-    <div class="{{ embed_responsive_item_classes }}" {% if id != blank %}id="content-object-{{ id }}{% endif %}">
+    <div
+      class="{{ embed_responsive_item_classes }}"
+      {% if id != blank %}id="embed-object-{{ id }}{% endif %}">
       {% comment %} Background Image {% endcomment %}
-      {% if bg_image_url %}
+      {% unless bg_image_url contains 'no-image' %}
+        {% if bg_image_url != blank %}
+          {% assign bg_image_url = bg_image_url %}
+        {% elsif bg_image_url_lg != blank %}
+          {% assign bg_image_url = bg_image_url_lg %}
+        {% endif %}
         <style>
-          #content-object-{{ id }} { background-image: url({{ bg_image_url }}); background-size: cover; }
-        </style>
-      {% elsif bg_image_url_lg %}
-        <style>
-          #content-object-{{ id }} { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
-        </style>
-      {% endif %}
-
-      {% if bg_image_url_lg %}
-        <style>
-          @media (min-width: 992px) {
-            #content-object-{{ id }} { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+          #embed-object-{{ id }} {
+            background-image: url({{ bg_image_url }});
+            background-size: cover;
           }
         </style>
-      {% elsif bg_image_url %}  
+      {% endunless %}
+
+      {% unless bg_image_url_lg contains 'no-image' %}
+        {% if bg_image_url_lg != blank %}
+          {% assign bg_image_url_lg = bg_image_url_lg %}
+        {% elsif bg_image_url != blank %}
+          {% assign bg_image_url_lg = bg_image_url %}
+        {% endif %}
         <style>
           @media (min-width: 992px) {
-            #content-object-{{ id }} { background-image: url({{ bg_image_url }}); background-size: cover; }
+            #embed-object-{{ id }} {
+              background-image: url({{ bg_image_url_lg }});
+              background-size: cover;
+            }
           }
         </style>
-      {% endif %}  
+      {% endunless %}
+      {% assign bg_color_computed = bg_color  | remove: '#'%}
+      {% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+      {% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+      <div
+        class="position-absolute h-100 w-100"
+        style="background-color: {{ bg_color_computed }};"></div>
 
-      {{ content }}
+      <div class="position-relative w-100" style="z-index: 900;">
+        {{ content }}
+      </div>
     </div>
   </div>
 {% endif %}

@@ -1,11 +1,21 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Product Related Products
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
 {% comment %} Global Section Settings {% endcomment %}
 {% assign section_type = 'related-products' %}
-{% assign background_color = section.settings.background_color %}
-{% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
+{% assign bg_color = section.settings.bg_color %}
+{% assign bg_image_url = section.settings.bg_image
+  | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
-{% assign bg_image_url_lg = section.settings.bg_image_lg | img_url: '1000x' %}
+{% assign bg_image_url_lg = section.settings.bg_image_lg
+  | img_url: '1000x' %}
 {% if bg_image_url_lg contains 'no-image' %}
   {% assign bg_image_url_lg = blank %}
 {% endif %}
@@ -24,8 +34,10 @@
 {% assign content_color = section.settings.content_color %}
 
 {% comment %} Content Container Classes {% endcomment %}
-{% assign content_classes = 'col-12' %} 
-{% assign content_classes = content_classes | append: ' ' | append: 'py-4 py-sm-0 pr-sm-6' %}
+{% assign content_classes = 'col-12' %}
+{% assign content_classes = content_classes
+  | append: ' '
+  | append: 'py-4 py-sm-0 pr-sm-6' %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign pt = section.settings.pt %}
@@ -39,15 +51,33 @@
 
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
-{% assign section_classes = section_classes | append: ' ' | append: background_color %}
-{% assign section_classes = section_classes | append: ' pt-' | append: pt %}
-{% assign section_classes = section_classes | append: ' pb-' | append: pb %}
-{% assign section_classes = section_classes | append: ' pt-md-' | append: pt_md_up %}
-{% assign section_classes = section_classes | append: ' pb-md-' | append: pb_md_up %}
-{% assign section_classes = section_classes | append: ' mt-' | append: mt %}
-{% assign section_classes = section_classes | append: ' mb-' | append: mb %}
-{% assign section_classes = section_classes | append: ' mt-md-' | append: mt_md_up %}
-{% assign section_classes = section_classes | append: ' mb-md-' | append: mb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' '
+  | append: bg_color %}
+{% assign section_classes = section_classes
+  | append: ' pt-'
+  | append: pt %}
+{% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: pb %}
+{% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: pt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: pb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: mt %}
+{% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: mb %}
+{% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: mt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: mb_md_up %}
 
 {% comment %} Container Settings {% endcomment %}
 {% assign container = section.settings.container %}
@@ -56,7 +86,8 @@
 {% assign vertically_padded_content = section.settings.vertically_padded_content %}
 {% assign container_classes = container %}
 {% if vertically_padded_content %}
-  {% assign container_classes = container_classes | append: ' py-5'%}
+  {% assign container_classes = container_classes
+    | append: ' py-5'%}
 {% endif %}
 
 {% comment %} Row Classes {% endcomment %}
@@ -69,90 +100,106 @@
         {% assign related_product_count = 0 %}
         {% for related_product in collection.products limit: 5 %}
           {% if product.handle != related_product.handle %}
-            {% assign related_product_count = related_product_count | plus: 1 %}
-            {% assign featured_image = related_product.featured_image.src | img_url: '480x480' %}
+            {% assign related_product_count = related_product_count
+              | plus: 1 %}
+            {% assign featured_image = related_product.featured_image.src
+              | img_url: '480x480' %}
             {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
             {% if related_product_count <= 4 %}
               <div class="col-6 col-sm-3">
                 {% render 'product-card'
-                            featured_image: featured_image, 
-                            id: related_product.id,
-                            title: related_product.title,
-                            excerpt: product_excerpt,
-                            url: related_product.url,
-                            compare_at_price: related_product.compare_at_price,
-                            price_varies: related_product.price_varies,
-                            price: related_product.price
-                %}            
+                  featured_image: featured_image,
+                  id: related_product.id,
+                  title: related_product.title,
+                  excerpt: product_excerpt,
+                  url: related_product.url,
+                  compare_at_price: related_product.compare_at_price,
+                  price_varies: related_product.price_varies,
+                  price: related_product.price %}
               </div>
             {% endif %}
           {% endif %}
         {% endfor %}
-      {% endif %} 
+      {% endif %}
     {% endfor %}
   {% else %}
     {% for block in section.blocks %}
       {% assign related_product = all_products[block.settings.product] %}
       {% if product.handle != related_product.handle %}
-        {% assign featured_image = related_product.featured_image.src | img_url: '600x' %}
+        {% assign featured_image = related_product.featured_image.src
+          | img_url: '600x' %}
         <div class="col-6 col-sm-3">
           {% render 'product-card'
-                      featured_image: featured_image, 
-                      id: related_product.id,
-                      title: related_product.title,
-                      url: related_product.url,
-                      compare_at_price: related_product.compare_at_price,
-                      price_varies: related_product.price_varies,
-                      price: related_product.price
-          %}            
+            featured_image: featured_image,
+            id: related_product.id,
+            title: related_product.title,
+            url: related_product.url,
+            compare_at_price: related_product.compare_at_price,
+            price_varies: related_product.price_varies,
+            price: related_product.price
+          %}
         </div>
       {% endif %}
     {% endfor %}
   {% endif %}
 {% endcapture%}
 
-<section data-section-id="{{ section.id }}" class="{{ section_classes }}" data-section-type="{{ section_type }}">
+<section
+  data-section-id="{{ section.id }}"
+  class="{{ section_classes }}"
+  data-section-type="{{ section_type }}">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url }});
+        background-size: cover;
+      }
     </style>
-  {% elsif bg_image_url_lg != blank %}  
+  {% elsif bg_image_url_lg != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url_lg }});
+        background-size: cover;
+      }
     </style>
   {% endif %}
 
   {% if bg_image_url_lg != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
       }
     </style>
-  {% elsif bg_image_url != blank %}  
+  {% elsif bg_image_url != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
       }
     </style>
-  {% endif %}   
+  {% endif %}
   <div class="{{ container_classes }}">
     <div class="{{ row_classes }}">
       <div class="{{ content_classes }}">
-        {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    eyebrow_style: eyebrow_style,
-                    content_color: content_color,
-                    heading_text: heading_text,
-                    heading_style: heading_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_lg: header_container_col_lg,
-                    justify_container: header_container_justify_container,
-                    justify_container_lg: header_container_justify_container_lg,
-                    text_align: header_container_text_align,
-                    text_align_lg: header_container_text_align_lg
-        %}
+        {% render 'content-object'
+          eyebrow_text: eyebrow_text,
+          eyebrow_style: eyebrow_style,
+          content_color: content_color,
+          heading_text: heading_text,
+          heading_style: heading_style,
+          paragraph_text: paragraph_text,
+          col: header_container_col,
+          col_lg: header_container_col_lg,
+          justify_container: header_container_justify_container,
+          justify_container_lg: header_container_justify_container_lg,
+          text_align: header_container_text_align,
+          text_align_lg: header_container_text_align_lg %}
       </div>
     </div>
     <div class="{{ row_classes }}">
@@ -160,18 +207,17 @@
     </div>
     <div class="{{ row_classes }}">
       <div class="{{ content_classes }}">
-        {% render 'content-object' 
-                    link_text: link_text,
-                    link_url: link_url,
-                    link_style: link_style,
-                    col: header_container_col,
-                    col_lg: header_container_col_lg,
-                    justify_container: header_container_justify_container,
-                    justify_container_lg: header_container_justify_container_lg,
-                    text_align: header_container_text_align,
-                    text_align_lg: header_container_text_align_lg
-        %}
+        {% render 'content-object'
+          link_text: link_text,
+          link_url: link_url,
+          link_style: link_style,
+          col: header_container_col,
+          col_lg: header_container_col_lg,
+          justify_container: header_container_justify_container,
+          justify_container_lg: header_container_justify_container_lg,
+          text_align: header_container_text_align,
+          text_align_lg: header_container_text_align_lg %}
       </div>
-    </div>    
-  </div>   
+    </div>
+  </div>
 </section>

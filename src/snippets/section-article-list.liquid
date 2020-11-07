@@ -1,5 +1,13 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Article List
+  -----------------------------------------------------------------------------
+
+{% endcomment %}
+
 {% comment %} Global Section Settings {% endcomment %}
-{% assign background_color = section.settings.background_color %}
+{% assign bg_color = section.settings.bg_color %}
 {% assign bg_image_url = section.settings.bg_image | img_url: '1000x' %}
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
@@ -40,15 +48,33 @@
 
 {% comment %} Section Layout Classes {% endcomment %}
 {% assign section_classes =  'position-relative' %}
-{% assign section_classes = section_classes | append: ' ' | append: background_color %}
-{% assign section_classes = section_classes | append: ' pt-' | append: pt %}
-{% assign section_classes = section_classes | append: ' pb-' | append: pb %}
-{% assign section_classes = section_classes | append: ' pt-md-' | append: pt_md_up %}
-{% assign section_classes = section_classes | append: ' pb-md-' | append: pb_md_up %}
-{% assign section_classes = section_classes | append: ' mt-' | append: mt %}
-{% assign section_classes = section_classes | append: ' mb-' | append: mb %}
-{% assign section_classes = section_classes | append: ' mt-md-' | append: mt_md_up %}
-{% assign section_classes = section_classes | append: ' mb-md-' | append: mb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' '
+  | append: bg_color %}
+{% assign section_classes = section_classes
+  | append: ' pt-'
+  | append: pt %}
+{% assign section_classes = section_classes
+  | append: ' pb-'
+  | append: pb %}
+{% assign section_classes = section_classes
+  | append: ' pt-md-'
+  | append: pt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' pb-md-'
+  | append: pb_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mt-'
+  | append: mt %}
+{% assign section_classes = section_classes
+  | append: ' mb-'
+  | append: mb %}
+{% assign section_classes = section_classes
+  | append: ' mt-md-'
+  | append: mt_md_up %}
+{% assign section_classes = section_classes
+  | append: ' mb-md-'
+  | append: mb_md_up %}
 
 {% comment %} Container Settings {% endcomment %}
 {% assign container = section.settings.container %}
@@ -65,60 +91,73 @@
   {% for related_article in featured_blog.articles limit: 5 %}
     {% if related_article.url != article.url %}
       <div class="col-12 col-md-3">
-        {% render 'article-card', 
-                    article: related_article,
-                    show_author: false,
-                    show_date: true,
-                    show_tags: true,
-                    show_excerpt: true,
-        %}
+        {% render 'article-card',
+          article: related_article,
+          show_author: false,
+          show_date: true,
+          show_tags: true,
+          show_excerpt: true %}
       </div>
     {% endif %}
   {% endfor %}
 {% endcapture %}
 
-<section class="{{ section_classes }}" data-section-id="{{ section.id }}" data-section-type="article-list">
+<section
+  class="{{ section_classes }}"
+  data-section-id="{{ section.id }}"
+  data-section-type="article-list">
   {% comment %} Background Image {% endcomment %}
   {% if bg_image_url != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url }});
+        background-size: cover;
+      }
     </style>
-  {% elsif bg_image_url_lg != blank %}  
+  {% elsif bg_image_url_lg != blank %}
     <style>
-      [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+      [data-section-id="{{ section.id }}"] {
+        background-image: url({{ bg_image_url_lg }});
+        background-size: cover;
+      }
     </style>
   {% endif %}
 
   {% if bg_image_url_lg != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url_lg }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
       }
     </style>
-  {% elsif bg_image_url != blank %}  
+  {% elsif bg_image_url != blank %}
     <style>
       @media (min-width: 992px) {
-        [data-section-id="{{ section.id }}"] { background-image: url({{ bg_image_url }}); background-size: cover; }
+        [data-section-id="{{ section.id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
       }
     </style>
-  {% endif %}   
+  {% endif %}
   <div class="{{ container_classes }}">
     <div class="row">
       <div class="col-12">
-        {% render 'content-object' 
-                    eyebrow_text: eyebrow_text, 
-                    eyebrow_style: eyebrow_style,
-                    content_color: content_color,
-                    heading_text: heading_text,
-                    heading_style: heading_style,
-                    paragraph_text: paragraph_text,
-                    col: header_container_col,
-                    col_lg: header_container_col_lg,
-                    justify_container: header_container_justify_container,
-                    justify_container_lg: header_container_justify_container_lg,
-                    text_align: header_container_text_align,
-                    text_align_lg: header_container_text_align_lg
-        %}
+        {% render 'content-object'
+          eyebrow_text: eyebrow_text,
+          eyebrow_style: eyebrow_style,
+          content_color: content_color,
+          heading_text: heading_text,
+          heading_style: heading_style,
+          paragraph_text: paragraph_text,
+          col: header_container_col,
+          col_lg: header_container_col_lg,
+          justify_container: header_container_justify_container,
+          justify_container_lg: header_container_justify_container_lg,
+          text_align: header_container_text_align,
+          text_align_lg: header_container_text_align_lg %}
       </div>
     </div>
     <div class="row justify-content-center">
@@ -127,10 +166,9 @@
     <div class="row">
       <div class="w-100 text-center">
         {% render 'link-element',
-                    link_text: link_text,
-                    link_url: link_url,
-                    link_style: link_style
-        %}
+          link_text: link_text,
+          link_url: link_url,
+          link_style: link_style %}
       </div>
     </div>
   </div>
