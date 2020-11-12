@@ -53,13 +53,6 @@
 {% comment %} Stopped at all sections (header, content, and footer)
 using color picker and transparency from theme editor {% endcomment %}
 
-{% comment %} Stopped @ adding a content wrapper i.e. how all grid items
-  will share same background, padding, etc.
-  I.e. not repeading any of that padding or background logic
-{% endcomment %}
-
-{% comment %} Stopped @ troubleshooting header alignment & padding not working  {% endcomment %}
-
 {% comment %} START - Section Settings {% endcomment %}
 {% assign section_type = 'master-section' %}
 
@@ -101,6 +94,7 @@ using color picker and transparency from theme editor {% endcomment %}
 {% assign header_mb_md_up = section.settings.header_mb_md_up %}
 
 {% assign header_bg_color = section.settings.header_bg_color %}
+{% assign header_bg_color_alpha = section.settings.header_bg_color_alpha %}
 
 {% assign header_content_color = section.settings.header_content_color %}
 
@@ -136,6 +130,7 @@ using color picker and transparency from theme editor {% endcomment %}
     mt_md_up: header_mt_md_up,
     mb_md_up: header_mb_md_up,
     bg_color: header_bg_color,
+    bg_color_alpha: header_bg_color_alpha,
     content_color: header_content_color,
     content_align: header_content_align,
     content_align_lg: header_content_align_lg,
@@ -167,6 +162,7 @@ using color picker and transparency from theme editor {% endcomment %}
 {% assign content_container_mb_md_up = section.settings.content_container_mb_md_up %}
 
 {% assign content_container_bg_color = section.settings.content_container_bg_color %}
+{% assign content_container_bg_color_alpha = section.settings.content_container_bg_color_alpha %}
 
 {% comment %} Content {% endcomment %}
 {% capture section_blocks %}
@@ -477,7 +473,8 @@ using color picker and transparency from theme editor {% endcomment %}
     mb: content_container_mb,
     mt_md_up: content_container_mt_md_up,
     mb_md_up: content_container_mb_md_up,
-    bg_color: content_container_bg_color %}
+    bg_color: content_container_bg_color,
+    bg_color_alpha: content_container_bg_color_alpha %}
 {% endcapture %}
 {% comment %} END - Content {% endcomment %}
 
@@ -499,6 +496,7 @@ using color picker and transparency from theme editor {% endcomment %}
 {% assign footer_mb_md_up = section.settings.footer_mb_md_up %}
 
 {% assign footer_bg_color = section.settings.footer_bg_color %}
+{% assign footer_bg_color_alpha = section.settings.footer_bg_color_alpha %}
 
 {% assign footer_content_color = section.settings.footer_content_color %}
 
@@ -534,6 +532,7 @@ using color picker and transparency from theme editor {% endcomment %}
     mt_md_up: footer_mt_md_up,
     mb_md_up: footer_mb_md_up,
     bg_color: footer_bg_color,
+    bg_color_alpha: footer_bg_color_alpha,
     content_color: footer_content_color,
     content_align: footer_content_align,
     content_align_lg: footer_content_align_lg,
@@ -554,6 +553,8 @@ using color picker and transparency from theme editor {% endcomment %}
   content_header: content_header,
   content: content,
   content_footer: content_footer,
+  bg_color: section_bg_color,
+  bg_color_alpha: section_bg_color_alpha,
   bg_image_url: section_bg_image_url,
   bg_image_url_lg: section_bg_image_url_lg,
   section_type: section_type,
@@ -581,7 +582,6 @@ using color picker and transparency from theme editor {% endcomment %}
         "id": "section_bg_color_alpha",
         "label": "Background Color Transparency",
         "options": [
-          { "value": "disabled", "label": "Transparency Disabled" },
           { "value": "00", "label": "0%" },
           { "value": "0D", "label": "5%" },
           { "value": "1A", "label": "10%" },
@@ -604,7 +604,7 @@ using color picker and transparency from theme editor {% endcomment %}
           { "value": "F2", "label": "95%" },
           { "value": "FF", "label": "100%" }
         ],
-        "default": "disabled",
+        "default": "FF",
         "info": "Default: Transparency Disabled"
       },
       {
@@ -845,6 +845,36 @@ using color picker and transparency from theme editor {% endcomment %}
       },
       {
         "type": "select",
+        "id": "header_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Default: 100%"
+      },
+      {
+        "type": "select",
         "id": "header_container",
         "label": "Container",
         "options": [
@@ -1044,6 +1074,36 @@ using color picker and transparency from theme editor {% endcomment %}
         "type": "color",
         "id": "content_container_bg_color",
         "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "content_container_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Default: 100%"
       },
       {
         "type": "select",
@@ -1293,8 +1353,38 @@ using color picker and transparency from theme editor {% endcomment %}
       },
       {
         "type": "color",
-        "id": "footer_col_bg_color",
+        "id": "footer_bg_color",
         "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "footer_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Default: 100%"
       },
       {
         "type": "select",

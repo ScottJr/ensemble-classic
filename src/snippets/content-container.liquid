@@ -8,12 +8,108 @@
   row_no_gutters: { string }
 
 {% endcomment %}
-
-{% comment %} Content Container Classes {% endcomment %}
-{% assign container_classes = container %}
-
-{% comment %} Content Row Classes {% endcomment %}
+{% comment %} Defaults {% endcomment %}
 {% assign row_classes = 'row' %}
+
+{% assign bg_color_computed = bg_color | remove: '#'%}
+{% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+{% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+
+{% if pt != blank %}
+  {% assign pt = pt %}
+{% else %}
+  {% assign pt = 0 %}
+{% endif %}
+
+{% if pr != blank %}
+  {% assign pr = pr %}
+{% else %}
+  {% assign pr = 0 %}
+{% endif %}
+
+{% if pb != blank %}
+  {% assign pb = pb %}
+{% else %}
+  {% assign pb = 0 %}
+{% endif %}
+
+{% if pl != blank %}
+  {% assign pl = pl %}
+{% else %}
+  {% assign pl = 0 %}
+{% endif %}
+
+{% if mt != blank %}
+  {% assign mt = mt %}
+{% else %}
+  {% assign mt = 0 %}
+{% endif %}
+
+{% if mr != blank %}
+  {% assign mr = mr %}
+{% else %}
+  {% assign mr = 0 %}
+{% endif %}
+
+{% if mb != blank %}
+  {% assign mb = mb %}
+{% else %}
+  {% assign mb = 0 %}
+{% endif %}
+
+{% if ml != blank %}
+  {% assign ml = ml %}
+{% else %}
+  {% assign ml = 0 %}
+{% endif %}
+
+{% if pt_md_up != blank %}
+  {% assign pt_md_up = pt_md_up %}
+{% else %}
+  {% assign pt_md_up = 0 %}
+{% endif %}
+
+{% if pr_md_up != blank %}
+  {% assign pr_md_up = pr_md_up %}
+{% else %}
+  {% assign pr_md_up = 0 %}
+{% endif %}
+
+{% if pb_md_up != blank %}
+  {% assign pb_md_up = pb_md_up %}
+{% else %}
+  {% assign pb_md_up = 0 %}
+{% endif %}
+
+{% if pl_md_up != blank %}
+  {% assign pl_md_up = pl_md_up %}
+{% else %}
+  {% assign pl_md_up = 0 %}
+{% endif %}
+
+{% if mt_md_up != blank %}
+  {% assign mt_md_up = mt_md_up %}
+{% else %}
+  {% assign mt_md_up = 0 %}
+{% endif %}
+
+{% if mr_md_up != blank %}
+  {% assign mr_md_up = mr_md_up %}
+{% else %}
+  {% assign mr_md_up = 0 %}
+{% endif %}
+
+{% if mb_md_up != blank %}
+  {% assign mb_md_up = mb_md_up %}
+{% else %}
+  {% assign mb_md_up = 0 %}
+{% endif %}
+
+{% if ml_md_up != blank %}
+  {% assign ml_md_up = ml_md_up %}
+{% else %}
+  {% assign ml_md_up = 0 %}
+{% endif %}
 
 {% if row_no_gutters == 'no-gutters'%}
   {% assign row_classes = row_classes
@@ -22,6 +118,8 @@
 {% endif %}
 
 {% comment %} Content Container Classes {% endcomment %}
+{% assign container_classes = container %}
+
 {% if pt != 0 %}
   {% assign container_classes = container_classes
     | append: ' pt-'
@@ -70,13 +168,11 @@
     | append: mb_md_up %}
 {% endif %}
 
-{% if bg_color != 0 %}
-  {% assign container_classes = container_classes
-    | append: ' '
-    | append: bg_color %}
-{% endif %}
+{% assign style_tag = 'style="' %}
+{% assign style_tag = style_tag | append: 'background-color: ' | append: bg_color_computed %}
+{% assign style_tag = style_tag | append: '"' %}
 
-<div class="{{ container_classes }}">
+<div class="{{ container_classes }}" {{ style_tag }}>
   <div class="{{ row_classes }}">
     {{ content }}
   </div>

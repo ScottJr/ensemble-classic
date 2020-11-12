@@ -6,6 +6,12 @@
 
 {% endcomment %}
 
+{% assign bg_color_computed = bg_color | remove: '#'%}
+
+{% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+
+{% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+
 {% comment %} Section Classes {% endcomment %}
 {% if pt != 0 %}
   {% assign section_classes = section_classes
@@ -55,10 +61,14 @@
   | append: mb_md_up %}
 {% endif %}
 
+{% assign style_tag = 'style="' %}
+{% assign style_tag = style_tag | append: 'background-color: ' | append: bg_color_computed %}
+{% assign style_tag = style_tag | append: '"' %}
+
 <section
   class="{{ section_classes }}"
   data-section-id="{{ section_id }}"
-  data-section-type="{{ section_type }}">
+  data-section-type="{{ section_type }}" {{ style_tag }}>
   {% comment %} Background Image {% endcomment %}
   {% unless bg_image_url contains 'no-image' %}
     {% if bg_image_url != blank %}
