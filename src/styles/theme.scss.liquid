@@ -5,4 +5,40 @@
  * @import url('./global/form.scss');
  */
 
+{% comment %}
+  If users can change store fonts you must inlcude this snippet.
+
+  This styling is for demo and you should find a way to do this
+  cleaner in your specific implementation (i.e. no !important).
+{% endcomment %}
+
+{% assign header_font = settings.heading_font %}
+{% assign base_font = settings.body_font %}
+
+{{ header_font | font_face }}
+{{ base_font | font_face }}
+
+{%- assign base_font_bold = base_font | font_modify: 'weight', 'bolder' -%}
+{%- assign base_font_italic = base_font | font_modify: 'style', 'italic' -%}
+{%- assign base_font_bold_italic = base_font_bold | font_modify: 'style', 'italic' -%}
+
+{{ base_font_bold | font_face }}
+{{ base_font_italic | font_face }}
+{{ base_font_bold_italic | font_face }}
+
+body {
+  background-color: {{ settings.bg_color }} !important;
+  font-family:  {{ base_font.family }} !important;
+  h1, h2, h3, h4, h5, h6 {
+    font-family: {{ header_font.family }} !important;
+  }
+  {% comment %} .text-body {
+    color: #FAD4C5 !important;
+  } {% endcomment %}
+}
+
+* {
+  border-radius: 0 !important;
+}
+
 

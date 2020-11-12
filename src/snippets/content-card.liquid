@@ -1,0 +1,119 @@
+{%- comment %}
+
+  -----------------------------------------------------------------------------
+  Content Card
+  -----------------------------------------------------------------------------
+
+  Used to display an image over text content on a grid. Useful for content
+  other than blog articles or products.
+
+  Dependencies:
+
+  Liquid:
+
+  - Image Object - `snippets/image-object.liquid`
+  - Eyebrow Element - `snippets/eyebrow-element.liquid`
+  - Heading Element - `snippets/heading-element`
+  - Paragraph Element - `snippets/paragraph-element`
+  - Link Element - `snippets/link-element`
+
+  Styling:
+
+  - Bootstrap
+
+  JavaScript:
+
+  - None
+
+  Usage:
+
+  {% render 'content-card',
+    content_color: { string } - optional
+    content_align: { string } - optional
+    content_align_lg: { string } - optional
+    image_url: { string } - optional
+    image_url_lg: { string } - optional
+    image_alt_text: { string } - optional
+    image_aspect_ratio: { string } - optional
+    eyebrow_text: { string } - optional
+    eyebrow_style: { string } - optional
+    heading_text: { string } - optional
+    heading_size: { string } - optional
+    heading_style: { string } - optional
+    paragraph_text: { string } - optional
+    link_style: { string } - optional
+    link_url: { string } - optional
+    link_text: { string } - optional
+    pt: { string } - optional
+    pr: { string } - optional
+    pb: { string } - optional
+    pl: { string } - optional
+    mt: { string } - optional
+    mr: { string } - optional
+    mb: { string } - optional
+    ml: { string } - optional
+    pt_md_up: { string } - optional
+    pr_md_up: { string } - optional
+    pb_md_up: { string } - optional
+    pl_md_up: { string } - optional
+    mt_md_up: { string } - optional
+    mr_md_up: { string } - optional
+    mb_md_up: { string } - optional
+    ml_md_up: { string } - optional
+    bg_image_url: { string } - optional
+    bg_image_url: { string } - optional
+    bg_image_url: { string } - optional
+    bg_image_ur: { string } - optional
+  %}
+
+{% endcomment -%}
+
+{% capture content %}
+  <div class="mb-2">
+    {% render 'image-object'
+      image_url: image_url,
+      image_url_lg: image_url_lg,
+      image_alt_text: image_alt_text,
+      aspect_ratio: image_aspect_ratio %}
+  </div>
+  {% render 'content-object'
+    content_color: content_color,
+    content_align: content_align,
+    content_align_lg: content_align_lg,
+    eyebrow_style: eyebrow_style,
+    eyebrow_text: eyebrow_text,
+    heading_text: heading_text,
+    heading_size: heading_size,
+    heading_style: heading_style,
+    paragraph_text: paragraph_text,
+    link_style: link_style,
+    link_url: link_url,
+    link_text: link_text
+  %}
+{% endcapture %}
+
+{% comment %} Render {% endcomment %}
+{% if content != blank %}
+  {% render 'content-wrapper'
+    content: content,
+    pt: pt,
+    pr: pr,
+    pb: pb,
+    pl: pl,
+    mt: mt,
+    mr: mr,
+    mb: mb,
+    ml: ml,
+    pt_md_up: pt_md_up,
+    pr_md_up: pr_md_up,
+    pb_md_up: pb_md_up,
+    pl_md_up: pl_md_up,
+    mt_md_up: mt_md_up,
+    mr_md_up: mr_md_up,
+    mb_md_up: mb_md_up,
+    ml_md_up: ml_md_up,
+    bg_image_url: bg_image_url,
+    bg_image_url_lg: bg_image_url_lg,
+    bg_color: bg_color,
+    bg_color_alpha: bg_color_alpha %}
+{% endif %}

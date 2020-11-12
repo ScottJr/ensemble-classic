@@ -7,10 +7,11 @@
   Usage:
 
   {% render 'heading-element',
-    text: { string }
-    display_size: { string } expects display-1,2,3,4
-    text_align: { string } 'text-center', 'text-left'
     text_color: { string } 'text-primary', 'text-secondary' %}
+    text_align: { string } 'text-center', 'text-left'
+    text: { string }
+    heading_size: { string } - h1,h2,h3,h4,h5,h6
+    heading_style: { string } expects display-1,2,3,4
 
 {% endcomment %}
 
@@ -29,16 +30,22 @@
   {% assign classes = classes | append: ' ' | append: 'text-left' %}
 {% endif %}
 
-{% if display_size != blank %}
-  {% assign classes = classes | append: ' ' | append: display_size %}
+{% if heading_style != blank %}
+  {% assign classes = classes | append: ' ' | append: heading_style %}
 {% else %}
   {% assign classes = classes | append: ' ' | append: 'display-2' %}
+{% endif %}
+
+{% if heading_size != blank %}
+  {% assign heading_size = heading_size %}
+{% else %}
+  {% assign heading_size = 'h2' %}
 {% endif %}
 
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}
   {% if text != blank %}
-    <h2 class="{{ classes }}">{{ text }}</h2>
+    <{{ heading_size }} class="{{ classes }}">{{ text }}</{{ heading_size }}>
   {% endif %}
 {% endcapture %}
 

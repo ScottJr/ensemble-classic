@@ -11,8 +11,6 @@
  *
  */
 
-
-
 import "../../styles/theme.scss";
 import "../../styles/theme.scss.liquid";
 import "../../../node_modules/bootstrap/scss/bootstrap.scss";

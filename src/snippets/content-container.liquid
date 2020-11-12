@@ -4,14 +4,18 @@
   Content Container
   -----------------------------------------------------------------------------
 
+  container: { string }
+  row_no_gutters: { string }
+
 {% endcomment %}
 
 {% comment %} Content Container Classes {% endcomment %}
-{% assign container_classes = content_container %}
+{% assign container_classes = container %}
 
 {% comment %} Content Row Classes {% endcomment %}
 {% assign row_classes = 'row' %}
-{% if content_row_no_gutters == 'no-gutters'%}
+
+{% if row_no_gutters == 'no-gutters'%}
   {% assign row_classes = row_classes
   | append: ' '
   | append: row_no_gutters %}
@@ -72,8 +76,8 @@
     | append: bg_color %}
 {% endif %}
 
-  <div class="{{ container_classes }}">
-    <div class="{{ row_classes }}">
-      {{ content }}
-    </div>
+<div class="{{ container_classes }}">
+  <div class="{{ row_classes }}">
+    {{ content }}
   </div>
+</div>

@@ -11,18 +11,12 @@
     col_offset: { string} -
     col_lg: { string} -
     col_lg_offset: { string} -
-    gutters: { string} -
+    gutters: { boolean } -
     content: { string} - %}
 
 {% endcomment %}
 
 {% comment %} Defaults {% endcomment %}
-{% if gutters == 'no-gutters' %}
-  {% assign gutters = false %}
-{% else %}
-  {% assign gutters = true %}
-{% endif %}
-
 {% if content != blank %}
   {% assign content = content %}
 {% else %}
