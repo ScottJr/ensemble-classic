@@ -4,28 +4,57 @@
   Content Header
   -----------------------------------------------------------------------------
 
+  Dependencies:
+
+  Liquid:
+
+  Elements:
+  - Eyebrow Element - `snippets/eyebrow-element.liquid`
+  - Heading Element - `snippets/heading-element`
+  - Paragraph Element - `snippets/paragraph-element`
+  - Link Element - `snippets/link-element`
+
+  Objects:
+  - Content Object - `snippets/content-object.liquid`
+
+  Components:
+  - Grid Item - `snippets/grid-item.liquid`
+
+  Styling:
+
+  - Bootstrap
+
+  JavaScript:
+
+  - None
+
+  container: { string }
+
 {% endcomment %}
 
 {% comment %} Defaults {% endcomment %}
 
-{% assign row_classes = 'row' %}
-
-{% assign container_classes = container %}
-
 {% comment %} Content {% endcomment %}
 {% capture content %}
-  {% render 'content-object'
-    content_color: content_color,
-    eyebrow_style: eyebrow_style,
-    eyebrow_text: eyebrow_text,
-    heading_style: heading_style,
-    heading_text: heading_text,
-    paragraph_text: paragraph_text,
-    link_text: link_text,
-    link_url: link_url,
-    link_style: link_style,
-    text_align: content_align,
-    text_align_lg: content_align_lg,
+  {% capture content_object %}
+    {% render 'content-object'
+      content_color: content_color,
+      eyebrow_style: eyebrow_style,
+      eyebrow_text: eyebrow_text,
+      heading_style: heading_style,
+      heading_text: heading_text,
+      paragraph_text: paragraph_text,
+      link_text: link_text,
+      link_url: link_url,
+      link_style: link_style,
+      content_align: content_align,
+      content_align_lg: content_align_lg %}
+  {% endcapture %}
+
+  {% render 'content-wrapper'
+    content: content_object,
+    bg_color: bg_color,
+    bg_color_alpha: bg_color_alpha,
     pt: pt,
     pb: pb,
     mt: mt,
@@ -36,7 +65,7 @@
     mb_md_up: mb_md_up %}
 {% endcapture %}
 
-{% comment %} Layout {% endcomment %}
+{% comment %} Grid Item {% endcomment %}
 {% if content != blank %}
   {% capture grid_item %}
     {% render 'grid-item'
@@ -48,11 +77,9 @@
   {% endcapture %}
 {% endif %}
 
-{% comment %} Render {% endcomment %}
+{% comment %} Content Container {% endcomment %}
 {% if grid_item != blank %}
-  <div class="{{ container_classes }}">
-    <div class="{{ row_classes }}">
-      {{ grid_item }}
-    </div>
-  </div>
+  {% render 'content-container'
+    container: container,
+    content: grid_item %}
 {% endif %}

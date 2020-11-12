@@ -1,0 +1,20 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Background Color Psuedo Element
+  -----------------------------------------------------------------------------
+
+  Makes it so we can overlay a transparent color background over a background
+  image.
+
+  Usage:
+
+  {% render 'bg-color-element'
+    bg_style_tag: { string } - required - expects hex code %}
+
+{% endcomment %}
+
+{% assign psuedo_style_tag = 'style="' %}
+{% assign psuedo_style_tag = psuedo_style_tag | append: bg_style_tag %}
+{% assign psuedo_style_tag = psuedo_style_tag | append: ' top: 0; right:0; bottom: 0; left: 0;"' %}
+<div class="position-absolute h-100 w-100" {{ psuedo_style_tag }}></div>

@@ -1,0 +1,252 @@
+{% comment %}
+  -----------------------------------------------------------------------------
+  Content Wrapper
+  -----------------------------------------------------------------------------
+
+  - Sets a background image
+  - Sets a background color
+  - Aligns and justifies an object
+  - Renders content in a wrapper
+  - Typically used as the first child in a layout column
+
+  Usage:
+
+  {% render 'content-wrapper'
+    content: { string } - required
+    bg_image_url: { string } - optional
+    bg_image_url_lg: { string } - optional
+    bg_color: { string } - optional
+    bg_color_alpha: { string } - optional
+    pt : { string } - optional
+    pr: { string } - optional
+    pb: { string } - optional
+    pl: { string } - optional
+    mt: { string } - optional
+    mr: { string } - optional
+    mb: { string } - optional
+    ml: { string } - optional
+    pt_md_up: { string } - optional
+    pr_md_up: { string } - optional
+    pb_md_up: { string } - optional
+    pl_md_up: { string } - optional
+    mt_md_up: { string } - optional
+    mr_md_up: { string } - optional
+    mb_md_up: { string } - optional
+    ml_md_up: { string } - optional
+  %}
+
+{% endcomment %}
+
+{% comment %} Defaults {% endcomment %}
+{% if pt != blank %}
+  {% assign pt = pt %}
+{% else %}
+  {% assign pt = 0 %}
+{% endif %}
+
+{% if pr != blank %}
+  {% assign pr = pr %}
+{% else %}
+  {% assign pr = 0 %}
+{% endif %}
+
+{% if pb != blank %}
+  {% assign pb = pb %}
+{% else %}
+  {% assign pb = 0 %}
+{% endif %}
+
+{% if pl != blank %}
+  {% assign pl = pl %}
+{% else %}
+  {% assign pl = 0 %}
+{% endif %}
+
+{% if mt != blank %}
+  {% assign mt = mt %}
+{% else %}
+  {% assign mt = 0 %}
+{% endif %}
+
+{% if mr != blank %}
+  {% assign mr = mr %}
+{% else %}
+  {% assign mr = 0 %}
+{% endif %}
+
+{% if mb != blank %}
+  {% assign mb = mb %}
+{% else %}
+  {% assign mb = 0 %}
+{% endif %}
+
+{% if ml != blank %}
+  {% assign ml = ml %}
+{% else %}
+  {% assign ml = 0 %}
+{% endif %}
+
+{% if pt_md_up != blank %}
+  {% assign pt_md_up = pt_md_up %}
+{% else %}
+  {% assign pt_md_up = 0 %}
+{% endif %}
+
+{% if pr_md_up != blank %}
+  {% assign pr_md_up = pr_md_up %}
+{% else %}
+  {% assign pr_md_up = 0 %}
+{% endif %}
+
+{% if pb_md_up != blank %}
+  {% assign pb_md_up = pb_md_up %}
+{% else %}
+  {% assign pb_md_up = 0 %}
+{% endif %}
+
+{% if pl_md_up != blank %}
+  {% assign pl_md_up = pl_md_up %}
+{% else %}
+  {% assign pl_md_up = 0 %}
+{% endif %}
+
+{% if mt_md_up != blank %}
+  {% assign mt_md_up = mt_md_up %}
+{% else %}
+  {% assign mt_md_up = 0 %}
+{% endif %}
+
+{% if mr_md_up != blank %}
+  {% assign mr_md_up = mr_md_up %}
+{% else %}
+  {% assign mr_md_up = 0 %}
+{% endif %}
+
+{% if mb_md_up != blank %}
+  {% assign mb_md_up = mb_md_up %}
+{% else %}
+  {% assign mb_md_up = 0 %}
+{% endif %}
+
+{% if ml_md_up != blank %}
+  {% assign ml_md_up = ml_md_up %}
+{% else %}
+  {% assign ml_md_up = 0 %}
+{% endif %}
+
+{% comment %} Object Classes {% endcomment %}
+{% assign el_classes = 'w-100' %}
+
+{% if pt != 0 %}
+  {% assign el_classes = el_classes | append: ' pt-' | append: pt %}
+{% endif %}
+
+{% if pr != 0 %}
+  {% assign el_classes = el_classes | append: ' pr-' | append: pr %}
+{% endif %}
+
+{% if pb != 0 %}
+  {% assign el_classes = el_classes | append: ' pb-' | append: pb %}
+{% endif %}
+
+{% if pl != 0 %}
+  {% assign el_classes = el_classes | append: ' pl-' | append: pl %}
+{% endif %}
+
+{% if mt != 0 %}
+  {% assign el_classes = el_classes | append: ' mt-' | append: mt %}
+{% endif %}
+
+{% if mr != 0 %}
+  {% assign el_classes = el_classes | append: ' mr-' | append: mr %}
+{% endif %}
+
+{% if mb != 0 %}
+  {% assign el_classes = el_classes | append: ' mb-' | append: mb %}
+{% endif %}
+
+{% if ml != 0 %}
+  {% assign el_classes = el_classes | append: ' ml-' | append: ml %}
+{% endif %}
+
+{% if pt_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' pt-md-' | append: pt_md_up %}
+{% endif %}
+
+{% if pr_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' pr-md-' | append: pr_md_up %}
+{% endif %}
+
+{% if pb_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' pb-md-' | append: pb_md_up %}
+{% endif %}
+
+{% if pl_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' pl-md-' | append: pl_md_up %}
+{% endif %}
+
+{% if mt_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' mt-md-' | append: mt_md_up %}
+{% endif %}
+
+{% if mr_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' mr-md-' | append: mr_md_up %}
+{% endif %}
+
+{% if mb_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' mb-md-' | append: mb_md_up %}
+{% endif %}
+
+{% if ml_md_up != 0 %}
+  {% assign el_classes = el_classes | append: ' ml-md-' | append: ml_md_up %}
+{% endif %}
+
+{% assign bg_color_computed = bg_color | remove: '#'%}
+
+{% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+
+{% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+
+{% capture background_image %}
+  {% unless bg_image_url contains 'no-image' %}
+      {% if bg_image_url != blank %}
+        {% assign bg_image_url = bg_image_url %}
+      {% elsif bg_image_url_lg != blank %}
+        {% assign bg_image_url = bg_image_url_lg %}
+      {% endif %}
+      <style>
+        #embed-object-{{ id }} {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
+      </style>
+  {% endunless %}
+
+  {% unless bg_image_url_lg contains 'no-image' %}
+    {% if bg_image_url_lg != blank %}
+      {% assign bg_image_url_lg = bg_image_url_lg %}
+    {% elsif bg_image_url != blank %}
+      {% assign bg_image_url_lg = bg_image_url %}
+    {% endif %}
+    <style>
+      @media (min-width: 992px) {
+        #embed-object-{{ id }} {
+          background-image: url({{ bg_image_url_lg }});
+          background-size: cover;
+        }
+      }
+    </style>
+  {% endunless %}
+{% endcapture %}
+
+{% assign style_tag = 'style="' %}
+{% assign style_tag = style_tag | append: 'background-color: ' | append: bg_color_computed %}
+{% assign style_tag = style_tag | append: '"' %}
+
+{% if content != blank %}
+  <div {%if el_classes %}class="{{ el_classes }}"{% endif %} {{ style_tag }}>
+    {{ background_image }}
+
+    {{ content }}
+  </div>
+{% endif %}

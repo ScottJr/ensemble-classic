@@ -6,5 +6,32 @@
     "theme_author": "Shopify",
     "theme_documentation_url": "https://github.com/ScottJr/ensemble-classic",
     "theme_support_url": "https://github.com/ScottJr/ensemble-classic/issues"
+  },
+  {
+    "name": "Design",
+    "settings": [
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "label": "Heading Font",
+        "id": "heading_font",
+        "default": "akko_n3"
+      },
+      {
+        "type": "font_picker",
+        "label": "Body Font",
+        "id": "body_font",
+        "default": "work_sans_n4"
+      }
+    ]
   }
 ]

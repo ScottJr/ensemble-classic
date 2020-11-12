@@ -38,9 +38,7 @@
 {% assign heading_style = section.settings.heading_style %}
 {% assign content_color = section.settings.content_color %}
 {% assign featured_collection_count = featured_collection.products_count
-
-  | tim
-  s: 1 %}
+  | times: 1 %}
 
 {% comment %} Section Layout Settings {% endcomment %}
 {% assign pt = section.settings.pt %}
