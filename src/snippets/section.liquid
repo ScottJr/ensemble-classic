@@ -4,13 +4,94 @@
   Section Wrapper
   -----------------------------------------------------------------------------
 
+  Requires:
+
+  - Background Color Element - `snippets/bg-color-element.liquid`
+
 {% endcomment %}
 
-{% assign bg_color_computed = bg_color | remove: '#'%}
+{% if bg_color_alpha == blank %}
+  {% assign bg_color_alpha = 'FF' %}
+{% endif %}
 
-{% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+{% if bg_color_alpha != 'FF' %}
+  {% comment %} If 100% not transparent add alpha {% endcomment %}
+  {% assign bg_color_computed = bg_color | remove: '#'%}
+  {% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+  {% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+  {% assign bg_color_has_alpha = true %}
+{% else %}
+  {% assign bg_color_computed = bg_color %}
+{% endif %}
 
-{% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+{% if bg_image_url != blank or bg_image_url_lg != blank %}
+  {% unless bg_image_url contains 'no-image'%}
+    {% assign bg_image_url = bg_image_url %}
+  {% else %}
+    {% assign bg_image_url = false %}
+  {% endunless %}
+  {% unless bg_image_url_lg contains 'no-image'%}
+    {% assign bg_image_url_lg = bg_image_url_lg %}
+  {% else %}
+    {% assign bg_image_url_lg = false %}
+  {% endunless %}
+
+  {% if bg_image_url != false and bg_image_url_lg != false %}
+    {% assign bg_image = true %}
+  {% else %}
+    {% assign bg_image = false %}
+  {% endif %}
+{% endif %}
+
+{% if bg_color_has_alpha == true and bg_image == true %}
+  {% assign section_classes = 'position-relative' %}
+{% endif %}
+
+{% assign bg_style_tag = 'background-color: ' | append: bg_color_computed | append: ';' %}
+
+{% capture bg_image_style_tag %}
+  {% if bg_image == true %}
+    {% comment %} Background Image {% endcomment %}
+
+      {% if bg_image_url != blank %}
+        {% assign bg_image_url = bg_image_url %}
+      {% elsif bg_image_url_lg != blank %}
+        {% assign bg_image_url = bg_image_url_lg %}
+      {% endif %}
+
+      {% if bg_image_url_lg != blank %}
+        {% assign bg_image_url_lg = bg_image_url_lg %}
+      {% elsif bg_image_url != blank %}
+        {% assign bg_image_url_lg = bg_image_url %}
+      {% endif %}
+
+      <style>
+        [data-section-id="{{ section_id }}"] {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
+      </style>
+      <style>
+        @media (min-width: 992px) {
+          [data-section-id="{{ section_id }}"] {
+            background-image: url({{ bg_image_url_lg }});
+            background-size: cover;
+          }
+        }
+      </style>
+
+    {% if bg_color_has_alpha == true %}
+      {% render 'bg-color-element' bg_style_tag: bg_style_tag %}
+    {% endif %}
+  {% else %}
+    {% comment %} Only show background color & alpha {% endcomment %}
+    <style>
+      [data-section-id="{{ section_id }}"] {
+        {{ bg_style_tag }}
+      }
+    </style>
+  {% endif %}
+{% endcapture %}
 
 {% comment %} Section Classes {% endcomment %}
 {% if pt != 0 %}
@@ -61,55 +142,20 @@
   | append: mb_md_up %}
 {% endif %}
 
-{% assign style_tag = 'style="' %}
-{% assign style_tag = style_tag | append: 'background-color: ' | append: bg_color_computed %}
-{% assign style_tag = style_tag | append: '"' %}
-
 <section
   class="{{ section_classes }}"
   data-section-id="{{ section_id }}"
-  data-section-type="{{ section_type }}" {{ style_tag }}>
-  {% comment %} Background Image {% endcomment %}
-  {% unless bg_image_url contains 'no-image' %}
-    {% if bg_image_url != blank %}
-      {% assign bg_image_url = bg_image_url %}
-    {% elsif bg_image_url_lg != blank %}
-      {% assign bg_image_url = bg_image_url_lg %}
-    {% endif %}
+  data-section-type="{{ section_type }}">
+  {{ bg_image_style_tag }}
 
-    {% if bg_image_url_lg != blank %}
-      {% assign bg_image_url_lg = bg_image_url_lg %}
-    {% elsif bg_image_url != blank %}
-      {% assign bg_image_url_lg = bg_image_url %}
-    {% endif %}
-
-    <style>
-      [data-section-id="{{ section_id }}"] {
-        background-image: url({{ bg_image_url }});
-        background-size: cover;
-      }
-    </style>
-    <style>
-      @media (min-width: 992px) {
-        [data-section-id="{{ section_id }}"] {
-          background-image: url({{ bg_image_url_lg }});
-          background-size: cover;
-        }
-      }
-    </style>
-  {% endunless %}
-
-    {% comment %} Content Header {% endcomment %}
   {% if content_header != blank %}
     {{ content_header }}
   {% endif %}
 
-  {% comment %} Content {% endcomment %}
   {% if content != blank %}
     {{ content }}
   {% endif %}
 
-  {% comment %} Content Footer {% endcomment %}
   {% if content_footer != blank %}
     {{ content_footer }}
   {% endif %}

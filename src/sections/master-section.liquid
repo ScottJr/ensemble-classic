@@ -49,9 +49,8 @@
   Usage:
 
 {% endcomment %}
-
-{% comment %} Stopped at all sections (header, content, and footer)
-using color picker and transparency from theme editor {% endcomment %}
+{% comment %} Troubleshoot issue with image not showing when one selected {% endcomment %}
+{% comment %} Determine how to have an overlay on the background {% endcomment %}
 
 {% comment %} START - Section Settings {% endcomment %}
 {% assign section_type = 'master-section' %}
@@ -70,7 +69,10 @@ using color picker and transparency from theme editor {% endcomment %}
 {% assign section_bg_color_alpha = section.settings.section_bg_color_alpha %}
 
 {% assign section_bg_image_url = section.settings.section_bg_image
-  | img_url: '1000x' %}
+  | img_url: '800x' %}
+
+{% assign section_bg_image_url_lg = section.settings.section_bg_image_lg
+  | img_url: '1400x' %}  
 
 {% comment %} END - Section Settings {% endcomment %}
 
