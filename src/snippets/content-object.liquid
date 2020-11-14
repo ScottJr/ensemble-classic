@@ -47,7 +47,9 @@
   {% assign content_align_lg = 'text-md-center' %}
 {% endif %}
 
-{% assign content_align_classes = content_align | append: ' ' | append: content_align_lg %}
+{% assign content_align_classes = content_align
+  | append: ' '
+  | append: content_align_lg %}
 
 {% comment %} Render {% endcomment %}
 {% if link_text != blank %}
@@ -63,6 +65,7 @@
 {% endif %}
 
 {% if render_content == true %}
+<div class="w-100">
   {% render 'eyebrow-element',
     text: eyebrow_text,
     text_align: content_align_classes,
@@ -83,6 +86,10 @@
     text_align: content_align_classes,
     link_text: link_text,
     link_url: link_url,
-    link_style: link_style %}
+    link_style: link_style,
+    link_size: link_size,
+    link_block: link_block %}
+</div>
+
 {% endif %}
 

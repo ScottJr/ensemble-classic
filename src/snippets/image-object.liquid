@@ -13,6 +13,11 @@
     aspect_ratio: { string } - utility class %}
 
 {% endcomment %}
+{% if object_fit != blank %}
+  {% assign object_fit = object_fit %}
+{% else %}
+  {% assign object_fit = 'cover' %}
+{% endif %}
 
 {% if image_url contains 'no-image' %}
   {% assign image_url = false %}
@@ -23,16 +28,17 @@
 {% endif %}
 
 {% capture content %}
-  <picture class="w-100">
+  <picture class="w-100 h-100">
     <source
-      srcset="{{ image_url_lg }} 1170w,
-              {{ image_url }} 970w"
-      sizes="100vw"
+      srcset="{{ image_url_lg }} 200w,
+              {{ image_url }} 100w"
+      sizes="(max-width: 768px) 800px,
+      1120px"
     />
     <img
       src="{{ 'password-holder.jpg' | asset_url }}"
       alt="{{ image_alt_text }}"
-      style="object-fit: {{ cover_style }}; height:100%; width:100%;"
+      style="object-fit: {{ object_fit }}; height:100%; width:100%;"
       loading="lazy"
     />
   </picture>
@@ -40,6 +46,8 @@
 
 {% comment %} Render Image Object {% endcomment %}
 {% if image_url %}
-  {% render 'embed-object' content: content, aspect_ratio: aspect_ratio %}
+  {% render 'embed-object'
+    content: content,
+    aspect_ratio: aspect_ratio %}
 {% endif %}
 
