@@ -28,6 +28,7 @@
   Usage:
 
   {% render 'content-card',
+    id: { string } - required for background image & color
     content_color: { string } - optional
     content_align: { string } - optional
     content_align_lg: { string } - optional
@@ -64,38 +65,316 @@
     bg_image_url: { string } - optional
     bg_image_url: { string } - optional
     bg_image_ur: { string } - optional
+    content_pt: { string } - optional
+    content_pr: { string } - optional
+    content_pb: { string } - optional
+    content_pl: { string } - optional
+    content_mt: { string } - optional
+    content_mr: { string } - optional
+    content_mb: { string } - optional
+    content_ml: { string } - optional
+    content_pt_md_up: { string } - optional
+    content_pr_md_up: { string } - optional
+    content_pb_md_up: { string } - optional
+    content_pl_md_up: { string } - optional
+    content_mt_md_up: { string } - optional
+    content_mr_md_up: { string } - optional
+    content_mb_md_up: { string } - optional
+    content_ml_md_up: { string } - optional
+    content_bg_image_url: { string } - optional
+    content_bg_image_url_lg: { string } - optional
+    content_bg_color: { string } - optional
+    content_bg_color_alpha: { string } - optional
+    content_embed: { boolean } - optional
+    content_aspect_ratio: { string } - optional
+    content_position: { string } - optional
+    content_position_lg: { string } - optional
+    content_align_items: { string } - optional
+    content_align_items_lg: { string } - optional
   %}
 
 {% endcomment -%}
+{% comment %} Stopped at figuring out the margin of the content wrapper not working {% endcomment %}
 
-{% capture content %}
-  <div class="mb-2">
-    {% render 'image-object'
-      image_url: image_url,
-      image_url_lg: image_url_lg,
-      image_alt_text: image_alt_text,
-      aspect_ratio: image_aspect_ratio %}
-  </div>
-  {% render 'content-object'
-    content_color: content_color,
-    content_align: content_align,
-    content_align_lg: content_align_lg,
-    eyebrow_style: eyebrow_style,
-    eyebrow_text: eyebrow_text,
-    heading_text: heading_text,
-    heading_size: heading_size,
-    heading_style: heading_style,
-    paragraph_text: paragraph_text,
-    link_style: link_style,
-    link_url: link_url,
-    link_text: link_text
-  %}
+
+{% if content_pt != blank %}
+  {% assign content_pt = content_pt %}
+{% else %}
+  {% assign content_pt = 0 %}
+{% endif %}
+
+{% if content_pr != blank %}
+  {% assign content_pr = content_pr %}
+{% else %}
+  {% assign content_pr = 0 %}
+{% endif %}
+
+{% if content_pb != blank %}
+  {% assign content_pb = content_pb %}
+{% else %}
+  {% assign content_pb = 0 %}
+{% endif %}
+
+{% if content_pl != blank %}
+  {% assign content_pl = content_pl %}
+{% else %}
+  {% assign content_pl = 0 %}
+{% endif %}
+
+{% if content_mt != blank %}
+  {% assign content_mt = content_mt %}
+{% else %}
+  {% assign content_mt = 0 %}
+{% endif %}
+
+{% if content_mr != blank %}
+  {% assign content_mr = content_mr %}
+{% else %}
+  {% assign content_mr = 0 %}
+{% endif %}
+
+{% if content_mb != blank %}
+  {% assign content_mb = content_mb %}
+{% else %}
+  {% assign content_mb = 0 %}
+{% endif %}
+
+{% if content_ml != blank %}
+  {% assign content_ml = content_ml %}
+{% else %}
+  {% assign content_ml = 0 %}
+{% endif %}
+
+{% if content_pt_md_up != blank %}
+  {% assign content_pt_md_up = content_pt_md_up %}
+{% else %}
+  {% assign content_pt_md_up = 0 %}
+{% endif %}
+
+{% if content_pr_md_up != blank %}
+  {% assign content_pr_md_up = content_pr_md_up %}
+{% else %}
+  {% assign content_pr_md_up = 0 %}
+{% endif %}
+
+{% if content_pb_md_up != blank %}
+  {% assign content_pb_md_up = content_pb_md_up %}
+{% else %}
+  {% assign content_pb_md_up = 0 %}
+{% endif %}
+
+{% if content_pl_md_up != blank %}
+  {% assign content_pl_md_up = content_pl_md_up %}
+{% else %}
+  {% assign content_pl_md_up = 0 %}
+{% endif %}
+
+{% if content_mt_md_up != blank %}
+  {% assign content_mt_md_up = content_mt_md_up %}
+{% else %}
+  {% assign content_mt_md_up = 0 %}
+{% endif %}
+
+{% if content_mr_md_up != blank %}
+  {% assign content_mr_md_up = content_mr_md_up %}
+{% else %}
+  {% assign content_mr_md_up = 0 %}
+{% endif %}
+
+{% if content_mb_md_up != blank %}
+  {% assign content_mb_md_up = content_mb_md_up %}
+{% else %}
+  {% assign content_mb_md_up = 0 %}
+{% endif %}
+
+{% if content_ml_md_up != blank %}
+  {% assign content_ml_md_up = content_ml_md_up %}
+{% else%}
+  {% assign content_ml_md_up= 0 %}
+{% endif %}
+
+{% comment %} Abstract All These {% endcomment %}
+{% assign embed_content = true %}
+
+{% comment %} Small Devices {% endcomment %}
+{% if content_position == 'top' %}
+  {% assign flex_classes = 'flex-column-reverse' %}
+  {% assign img_col = 'col-12' %}
+  {% assign content_col = 'col-12' %}
+  {% assign embed_content = true %}
+{% elsif content_position == 'right' %}
+  {% assign flex_classes = 'flex-row' %}
+  {% assign img_col = 'col-6' %}
+  {% assign content_col = 'col-6' %}
+  {% assign embed_content = true %}
+{% elsif content_position == 'bottom' %}
+  {% assign flex_classes = 'flex-column' %}
+  {% assign img_col = 'col-12' %}
+  {% assign content_col = 'col-12' %}
+  {% if embed_content != blank %}
+    {% assign embed_content = embed_content %}
+  {% else %}
+    {% assign embed_content = false %}
+  {% endif %}
+{% elsif content_position == 'left' %}
+  {% assign flex_classes = 'flex-row-reverse' %}
+  {% assign img_col = 'col-6' %}
+  {% assign content_col = 'col-6' %}
+  {% assign embed_content = true %}
+{% endif %}
+
+{% comment %} Large Devices {% endcomment %}
+{% if content_position_lg == 'top' %}
+  {% assign flex_classes_lg = 'flex-md-column-reverse' %}
+  {% assign img_col_lg = 'col-md-12' %}
+  {% assign content_col_lg = 'col-md-12' %}
+  {% assign embed_content_lg = true %}
+{% elsif content_position_lg == 'right' %}
+  {% assign flex_classes_lg = 'flex-md-row' %}
+  {% assign img_col_lg = 'col-md-6' %}
+  {% assign content_col_lg = 'col-md-6' %}
+  {% assign embed_content_lg = true %}
+{% elsif content_position_lg == 'bottom' %}
+  {% assign flex_classes_lg = 'flex-md-column' %}
+  {% assign img_col_lg = 'col-md-12' %}
+  {% assign content_col_lg = 'col-md-12' %}
+  {% if embed_content_lg != blank %}
+    {% assign embed_content_lg = embed_content_lg %}
+  {% else %}
+    {% assign embed_content_lg = false %}
+  {% endif %}
+{% elsif content_position_lg == 'left' %}
+  {% assign flex_classes_lg = 'flex-md-row-reverse' %}
+  {% assign img_col_lg = 'col-md-6' %}
+  {% assign content_col_lg = 'col-md-6' %}
+  {% assign embed_content_lg = true %}
+{% endif %}
+
+{% assign content_classes = 'd-flex' %}
+{% assign content_classes = content_classes
+  | append: ' '
+  | append: flex_classes %}
+
+{% assign content_classes = content_classes
+  | append: ' '
+  | append: flex_classes_lg %}
+
+{% assign img_col_classes = img_col %}
+{% assign img_col_classes = img_col_classes
+  | append: ' '
+  | append: img_col_lg %}
+
+{% assign content_col_classes = content_col %}
+{% assign content_col_classes = content_col_classes
+  | append: ' '
+  | append: content_col_lg %}
+
+{% if content_position == 'bottom' %}
+  {% assign img_col_classes = img_col_classes
+    | append: ' mb-3 px-0' %}
+  {% assign content_col_classes = content_col_classes
+      | append: ' px-0' %}
+{% elsif content_position == 'top' %}
+  {% assign content_col_classes = content_col_classes
+      | append: ' px-0 mb-3 mb-md-0' %}
+{% else %}
+  {% assign img_col_classes = img_col_classes
+  | append: ' mb-0' %}
+{% endif %}
+
+{% if content_position_lg == 'bottom' %}
+  {% assign img_col_classes = img_col_classes
+    | append: ' mb-md-3 px-0' %}
+  {% assign content_col_classes = content_col_classes
+    | append: ' px-md-0' %}
+{% elsif content_position_lg == 'top' %}
+  {% assign img_col_classes = img_col_classes
+    | append: ' mb-md-0' %}
+  {% assign content_col_classes = content_col_classes
+    | append: ' mb-md-3' %}
+{% else %}
+  {% assign img_col_classes = img_col_classes
+    | append: ' mb-md-0' %}
+{% endif %}
+
+{% capture image_object %}
+  {% render 'image-object'
+    image_url: image_url,
+    image_url_lg: image_url_lg,
+    image_alt_text: image_alt_text,
+    aspect_ratio: image_aspect_ratio %}
 {% endcapture %}
 
-{% comment %} Render {% endcomment %}
+{% capture content_object %}
+  {% capture raw_content_object %}
+    {% render 'content-object'
+      content_color: content_color,
+      content_align: content_align,
+      content_align_lg: content_align_lg,
+      eyebrow_style: eyebrow_style,
+      eyebrow_text: eyebrow_text,
+      heading_text: heading_text,
+      heading_size: heading_size,
+      heading_style: heading_style,
+      paragraph_text: paragraph_text,
+      link_style: link_style,
+      link_size: link_size,
+      link_url: link_url,
+      link_text: link_text
+    %}
+  {% endcapture %}
+  {% render 'content-wrapper'
+    content: raw_content_object,
+    pt: content_pt,
+    pr: content_pr,
+    pb: content_pb,
+    pl: content_pl,
+    mt: content_mt,
+    mr: content_mr,
+    mb: content_mb,
+    ml: content_ml,
+    pt_md_up: content_pt_md_up,
+    pr_md_up: content_pr_md_up,
+    pb_md_up: content_pb_md_up,
+    pl_md_up: content_pl_md_up,
+    mt_md_up: content_mt_md_up,
+    mr_md_up: content_mr_md_up,
+    mb_md_up: content_mb_md_up,
+    ml_md_up: content_ml_md_up,
+ %}
+{% endcapture %}
+
+{% capture content %}
+  {% if embed_content == true %}
+    {% render 'embed-object',
+      id: id,
+      aspect_ratio: content_aspect_ratio,
+      content: content_object,
+      align_items: align_items
+      align_items_lg: align_items_lg,
+      bg_image_url: content_bg_image_url,
+      bg_image_url_lg: content_bg_image_url_lg,
+      bg_color: content_bg_color,
+      bg_color_alpha: content_bg_color_alpha %}
+  {% else %}
+    {{ content_object }}
+  {% endif %}
+{% endcapture %}
+
+{% capture composed_content %}
+  <div class="{{ content_classes }}">
+    <div class="{{ img_col_classes }}">
+      {{ image_object }}
+    </div>
+    <div class="{{ content_col_classes }}">
+      {{ content }}
+    </div>
+  </div>
+{% endcapture %}
+
 {% if content != blank %}
   {% render 'content-wrapper'
-    content: content,
+    content: composed_content,
     pt: pt,
     pr: pr,
     pb: pb,

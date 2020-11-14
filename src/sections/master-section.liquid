@@ -49,8 +49,7 @@
   Usage:
 
 {% endcomment %}
-{% comment %} Troubleshoot issue with image not showing when one selected {% endcomment %}
-{% comment %} Determine how to have an overlay on the background {% endcomment %}
+{% comment %} Stopped @ - Troubleshoot issue with image not showing when one selected {% endcomment %}
 
 {% comment %} START - Section Settings {% endcomment %}
 {% assign section_type = 'master-section' %}
@@ -72,7 +71,7 @@
   | img_url: '800x' %}
 
 {% assign section_bg_image_url_lg = section.settings.section_bg_image_lg
-  | img_url: '1400x' %}  
+| img_url: '1400x' %}
 
 {% comment %} END - Section Settings {% endcomment %}
 
@@ -114,6 +113,8 @@
 {% assign header_link_text  = section.settings.header_link_text %}
 {% assign header_link_url = section.settings.header_link_url %}
 {% assign header_link_style = section.settings.header_link_style %}
+{% assign header_link_size = section.settings.header_link_size %}
+{% assign header_link_block = section.settings.header_link_block %}
 
 {% comment %} Content Header Capture {% endcomment %}
 {% capture content_header %}
@@ -143,7 +144,9 @@
     paragraph_text: header_paragraph_text,
     link_text: header_link_text,
     link_url: header_link_url,
-    link_style: header_link_style %}
+    link_style: header_link_style,
+    link_size: header_link_size,
+    link_block: header_link_block %}
 {% endcapture %}
 {% comment %} END - Header {% endcomment %}
 
@@ -182,10 +185,7 @@
       {% comment %} START - Content Grid Item {% endcomment %}
 
       {% comment %} Block Settings {% endcomment %}
-      {% assign id = block.id %}
-
       {% assign aspect_ratio = block.settings.aspect_ratio %}
-      {% assign fill_container = block.settings.fill_container %}
 
       {% assign bg_color = block.settings.bg_color %}
       {% assign bg_color_alpha = block.settings.bg_color_alpha %}
@@ -269,15 +269,7 @@
         {% capture content %}
           {% render 'embed-object',
             content: content_object,
-            aspect_ratio: aspect_ratio,
-            fill_container: fill_container,
-            bg_image_overlay: bg_image_overlay
-            bg_color: bg_color,
-            bg_color_alpha: bg_color_alpha,
-            id: id,
-            bg_image_url: bg_image_url,
-            bg_image_url_lg: bg_image_url_lg,
-            align_items: align_items %}
+            aspect_ratio: aspect_ratio %}
         {% endcapture %}
       {% endunless %}
 
@@ -297,6 +289,7 @@
 
       {% comment %} END - Article Grid Item {% endcomment %}
     {% elsif block.type == 'content-card' %}
+      {% assign block_id = block.id %}
       {% comment %} START - Content Card Grid Item {% endcomment %}
       {% assign content_align = block.settings.content_align %}
       {% assign content_align_lg = block.settings.content_align_lg %}
@@ -314,6 +307,7 @@
       {% assign link_text = block.settings.link_text %}
       {% assign link_url = block.settings.link_url %}
       {% assign link_style = block.settings.link_style %}
+      {% assign link_size = block.settings.link_size %}
 
       {% assign image_url = block.settings.image.src
         | img_url: '600x' %}
@@ -322,6 +316,38 @@
       {% assign image_aspect_ratio = block.settings.aspect_ratio %}
       {% assign image_alt_text = block.settings.image_alt_text %}
 
+      {% comment %} Content Container Layout Settings {% endcomment %}
+      {% assign content_pt = block.settings.content_pt %}
+      {% assign content_pr = block.settings.content_pr %}
+      {% assign content_pb = block.settings.content_pb %}
+      {% assign content_pl = block.settings.content_pl %}
+      {% assign content_mt = block.settings.content_mt %}
+      {% assign content_mr = block.settings.content_mr %}
+      {% assign content_mb = block.settings.content_mb %}
+      {% assign content_ml = block.settings.content_ml %}
+      {% assign content_pt_md_up = block.settings.content_pt_md_up %}
+      {% assign content_pr_md_up = block.settings.content_pr_md_up %}
+      {% assign content_pb_md_up = block.settings.content_pb_md_up %}
+      {% assign content_pl_md_up = block.settings.content_pl_md_up %}
+      {% assign content_mt_md_up = block.settings.content_mt_md_up %}
+      {% assign content_mr_md_up = block.settings.content_mr_md_up %}
+      {% assign content_mb_md_up = block.settings.content_mb_md_up %}
+      {% assign content_ml_md_up = block.settings.content_ml_md_up %}
+      {% assign content_bg_image_url = block.settings.content_bg_image
+        | img_url: '600x' %}
+      {% assign content_bg_image_id = block.settings.content_bg_image.id %}
+      {% assign content_bg_image_url_lg = block.settings.content_bg_image_lg
+        | img_url: '1000x' %}
+      {% assign content_bg_color = block.settings.content_bg_color %}
+      {% assign content_bg_color_alpha = block.settings.content_bg_color_alpha %}
+      {% assign content_aspect_ratio = block.settings.content_aspect_ratio %}
+      {% assign content_embed = block.settings.content_embed %}
+      {% assign content_position = block.settings.content_position %}
+      {% assign content_position_lg = block.settings.content_position_lg %}
+      {% assign content_align_items = block.settings.content_align_items %}
+      {% assign content_align_items_lg = block.settings.content_align_items_lg %}
+{% comment %}TODO  undeclared embed content variable {% endcomment %}
+      {% comment %} Block Layout Settings {% endcomment %}
       {% assign pt = block.settings.pt %}
       {% assign pr = block.settings.pr %}
       {% assign pb = block.settings.pb %}
@@ -350,6 +376,7 @@
 
       {% capture content %}
         {% render 'content-card'
+          id: block_id,
           content_color: content_color,
           content_align: content_align,
           content_align_lg: content_align_lg,
@@ -366,6 +393,7 @@
           link_style: link_style,
           link_url: link_url,
           link_text: link_text,
+          link_size: link_size,
           pt: pt,
           pr: pr,
           pb: pb,
@@ -385,7 +413,33 @@
           bg_image_url: bg_image_url,
           bg_image_url_lg: bg_image_url_lg,
           bg_color: bg_color,
-          bg_color_alpha: bg_color_alpha %}
+          bg_color_alpha: bg_color_alpha,
+          content_pt: content_pt,
+          content_pr: content_pr,
+          content_pb: content_pb,
+          content_pl: content_pl,
+          content_mt: content_mt,
+          content_mr: content_mr,
+          content_mb: content_mb,
+          content_ml: content_ml,
+          content_pt_md_up: content_pt_md_up,
+          content_pr_md_up: content_pr_md_up,
+          content_pb_md_up: content_pb_md_up,
+          content_pl_md_up: content_pl_md_up,
+          content_mt_md_up: content_mt_md_up,
+          content_mr_md_up: content_mr_md_up,
+          content_mb_md_up: content_mb_md_up,
+          content_ml_md_up: content_ml_md_up,
+          content_bg_image_url: content_bg_image_url,
+          content_bg_image_id: content_bg_image_id,
+          content_bg_image_url_lg: content_bg_image_url_lg,
+          content_bg_color: content_bg_color,
+          content_bg_color_alpha: content_bg_color_alpha,
+          content_aspect_ratio: content_aspect_ratio,
+          content_position: content_position,
+          content_position_lg: content_position_lg,
+          content_align_items: content_align_items,
+          content_align_items_lg: content_align_items_lg %}
       {% endcapture %}
 
       {% comment %} END - Content Card Grid Item {% endcomment %}
@@ -485,7 +539,10 @@
 {% assign footer_container = section.settings.footer_container %}
 
 {% assign footer_col = section.settings.footer_col %}
+{% assign footer_col_offset = section.settings.footer_col_offset %}
+
 {% assign footer_col_lg = section.settings.footer_col_lg  %}
+{% assign footer_col_offset_lg = section.settings.footer_col_offset_lg %}
 
 {% assign footer_pt = section.settings.footer_pt %}
 {% assign footer_pb = section.settings.footer_pb %}
@@ -516,6 +573,8 @@
 {% assign footer_link_text  = section.settings.footer_link_text %}
 {% assign footer_link_url = section.settings.footer_link_url %}
 {% assign footer_link_style = section.settings.footer_link_style %}
+{% assign footer_link_size = section.settings.footer_link_size %}
+{% assign footer_link_block = section.settings.footer_link_block %}
 
 {% comment %} Footer Content {% endcomment %}
 {% capture content_footer %}
@@ -545,7 +604,9 @@
     paragraph_text: footer_paragraph_text,
     link_text: footer_link_text,
     link_url: footer_link_url,
-    link_style: footer_link_style %}
+    link_style: footer_link_style,
+    link_size: footer_link_size,
+    link_block: footer_link_block %}
 {% endcapture %}
 
 {% comment %} END - Footer {% endcomment %}
@@ -816,25 +877,121 @@
         "id": "header_link_style",
         "label": "Link Type",
         "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
+          {
+            "group": "Filled Buttons",
+            "value": "btn-primary",
+            "label": "Primary"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-secondary",
+            "label": "Secondary"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-success",
+            "label": "Success"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-danger",
+            "label": "Danger"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-warning",
+            "label": "Warning"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-info",
+            "label": "Info"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-light",
+            "label": "Light"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-dark",
+            "label": "Dark"
+          },
+          {
+            "group": "Links",
+            "value": "btn-link",
+            "label": "Link"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-primary",
+            "label": "Primary - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-secondary",
+            "label": "Secondary - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-success",
+            "label": "Success - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-danger",
+            "label": "Danger - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-warning",
+            "label": "Warning - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-info",
+            "label": "Info - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-light",
+            "label": "Light - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-dark",
+            "label": "Dark - Outline"
+          }
         ],
         "default": "btn-outline-dark"
+      },
+      {
+        "type": "select",
+        "id": "header_link_size",
+        "label": "Link Size",
+        "options": [
+          {
+            "value": "btn-lg",
+            "label": "Large"
+          },
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn-sm",
+            "label": "Small"
+          }
+        ],
+        "default": "",
+        "info": "Default: None"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_link_block",
+        "label": "Enable block button",
+        "default": false,
+        "info": "If enabled button will span entire parent container"
       },
       {
         "type": "header",
@@ -1329,25 +1486,121 @@
         "id": "footer_link_style",
         "label": "Link Type",
         "options": [
-          { "value": "btn-primary", "label": "Primary"},
-          { "value": "btn-secondary", "label": "Secondary"},
-          { "value": "btn-success", "label": "Success"},
-          { "value": "btn-danger", "label": "Danger"},
-          { "value": "btn-warning", "label": "Warning"},
-          { "value": "btn-info", "label": "Info"},
-          { "value": "btn-light", "label": "Light"},
-          { "value": "btn-dark", "label": "Dark"},
-          { "value": "btn-link", "label": "Link"},
-          { "value": "btn-outline-primary", "label": "Primary - Outline"},
-          { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-          { "value": "btn-outline-success", "label": "Success - Outline"},
-          { "value": "btn-outline-danger", "label": "Danger - Outline"},
-          { "value": "btn-outline-warning", "label": "Warning - Outline"},
-          { "value": "btn-outline-info", "label": "Info - Outline"},
-          { "value": "btn-outline-light", "label": "Light - Outline"},
-          { "value": "btn-outline-dark", "label": "Dark - Outline"}
+          {
+            "group": "Filled Buttons",
+            "value": "btn-primary",
+            "label": "Primary"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-secondary",
+            "label": "Secondary"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-success",
+            "label": "Success"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-danger",
+            "label": "Danger"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-warning",
+            "label": "Warning"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-info",
+            "label": "Info"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-light",
+            "label": "Light"
+          },
+          {
+            "group": "Filled Buttons",
+            "value": "btn-dark",
+            "label": "Dark"
+          },
+          {
+            "group": "Links",
+            "value": "btn-link",
+            "label": "Link"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-primary",
+            "label": "Primary - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-secondary",
+            "label": "Secondary - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-success",
+            "label": "Success - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-danger",
+            "label": "Danger - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-warning",
+            "label": "Warning - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-info",
+            "label": "Info - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-light",
+            "label": "Light - Outline"
+          },
+          {
+            "group": "Outline Buttons",
+            "value": "btn-outline-dark",
+            "label": "Dark - Outline"
+          }
         ],
         "default": "btn-outline-dark"
+      },
+      {
+        "type": "select",
+        "id": "footer_link_size",
+        "label": "Link Size",
+        "options": [
+          {
+            "value": "btn-lg",
+            "label": "Large"
+          },
+          {
+            "value": "",
+            "label": "Default"
+          },
+          {
+            "value": "btn-sm",
+            "label": "Small"
+          }
+        ],
+        "default": "",
+        "info": "Default: None"
+      },
+      {
+        "type": "checkbox",
+        "id": "footer_link_block",
+        "label": "Enable block button",
+        "default": false,
+        "info": "If enabled button will span entire parent container"
       },
       {
         "type": "header",
@@ -1806,25 +2059,122 @@
             "id": "link_style",
             "label": "Link Type",
             "options": [
-              { "value": "btn-primary", "label": "Primary"},
-              { "value": "btn-secondary", "label": "Secondary"},
-              { "value": "btn-success", "label": "Success"},
-              { "value": "btn-danger", "label": "Danger"},
-              { "value": "btn-warning", "label": "Warning"},
-              { "value": "btn-info", "label": "Info"},
-              { "value": "btn-light", "label": "Light"},
-              { "value": "btn-dark", "label": "Dark"},
-              { "value": "btn-link", "label": "Link"},
-              { "value": "btn-outline-primary", "label": "Primary - Outline"},
-              { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-              { "value": "btn-outline-success", "label": "Success - Outline"},
-              { "value": "btn-outline-danger", "label": "Danger - Outline"},
-              { "value": "btn-outline-warning", "label": "Warning - Outline"},
-              { "value": "btn-outline-info", "label": "Info - Outline"},
-              { "value": "btn-outline-light", "label": "Light - Outline"},
-              { "value": "btn-outline-dark", "label": "Dark - Outline"}
+              {
+                "group": "Filled Buttons",
+                "value": "btn-primary",
+                "label": "Primary"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-secondary",
+                "label": "Secondary"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-success",
+                "label": "Success"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-danger",
+                "label": "Danger"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-warning",
+                "label": "Warning"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-info",
+                "label": "Info"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-light",
+                "label": "Light"
+              },
+              {
+                "group": "Filled Buttons",
+                "value": "btn-dark",
+                "label": "Dark"
+              },
+              {
+                "group": "Links",
+                "value": "btn-link",
+                "label": "Link"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-primary",
+                "label": "Primary - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-secondary",
+                "label": "Secondary - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-success",
+                "label": "Success - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-danger",
+                "label": "Danger - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-warning",
+                "label": "Warning - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-info",
+                "label": "Info - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-light",
+                "label": "Light - Outline"
+              },
+              {
+                "group": "Outline Buttons",
+                "value": "btn-outline-dark",
+                "label": "Dark - Outline"
+              }
             ],
             "default": "btn-outline-dark"
+          },
+          {
+            "type": "select",
+            "id": "link_size",
+            "label": "Link Size",
+            "options": [
+              {
+              "group": "Test",
+              "value": "btn-block",
+              "label": "Block"
+              },
+              {
+              "group": "Test II",
+              "value": "btn-lg",
+              "label": "Large"
+              },
+              {
+              "group": "Test III",
+              "value": "",
+              "label": "Default"
+              },
+              {
+              "group": "Test III",
+              "value": "btn-sm",
+              "label": "Small"
+              }
+            ],
+            "default": "",
+            "info": "Default: None"
           },
           {
             "type": "header",
@@ -1881,7 +2231,7 @@
           },
           {
             "type": "header",
-            "content": "Block Content Settings"
+            "content": "Block Image Settings"
           },
           {
             "type": "select",
@@ -1896,7 +2246,298 @@
             ],
             "default": "1by1"
           },
-
+          {
+            "type": "header",
+            "content": "Block Content Settings"
+          },
+          {
+            "type": "select",
+            "id": "content_aspect_ratio",
+            "label": "Image Aspect Ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "1by1"
+          },
+          {
+            "type": "header",
+            "content": "Padding - Small Devices",
+            "info": "Screen sizes smaller than 768px"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "content_pt",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "content_pr",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "content_pb",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "content_pl",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Margin - Small Devices",
+            "info": "Screen sizes smaller than 768px"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "content_mt",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "content_mr",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "content_mb",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "content_ml",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Padding - Medium & Up Devices",
+            "info": "Screen sizes larger than 768px"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "content_pt_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "content_pr_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "content_pb_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "content_pl_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Margin - Medium & Up Devices",
+            "info": "Screen sizes larger than 768px"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "content_mt_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "content_mr_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "content_mb_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "content_ml_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "image_picker",
+            "id": "content_bg_image",
+            "label": "Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "content_bg_image_lg",
+            "label": "Background Image - Large"
+          },
+          {
+            "type": "color",
+            "id": "content_bg_color",
+            "label": "Background Color"
+          },
+          {
+            "type": "select",
+            "id": "content_bg_color_alpha",
+            "label": "Background Color Transparency",
+            "options": [
+              { "value": "00", "label": "0%" },
+              { "value": "0D", "label": "5%" },
+              { "value": "1A", "label": "10%" },
+              { "value": "26", "label": "15%" },
+              { "value": "33", "label": "20%" },
+              { "value": "40", "label": "25%" },
+              { "value": "4D", "label": "30%" },
+              { "value": "59", "label": "35%" },
+              { "value": "66", "label": "40%" },
+              { "value": "73", "label": "45%" },
+              { "value": "80", "label": "50%" },
+              { "value": "8C", "label": "55%" },
+              { "value": "99", "label": "60%" },
+              { "value": "A6", "label": "65%" },
+              { "value": "B3", "label": "70%" },
+              { "value": "BF", "label": "75%" },
+              { "value": "CC", "label": "80%" },
+              { "value": "D9", "label": "85%" },
+              { "value": "E6", "label": "90%" },
+              { "value": "F2", "label": "95%" },
+              { "value": "FF", "label": "100%" }
+            ],
+            "default": "FF",
+            "info": "Default: Transparency Disabled"
+          },
+          {
+            "type": "select",
+            "id": "content_position",
+            "label": "Content position - Small devices",
+            "options": [
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
+            ],
+            "default":   "bottom",
+            "info":      "Default: Bottom"
+          },
+          {
+            "type": "select",
+            "id": "content_position_lg",
+            "label": "Content position - Large devices",
+            "options": [
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
+            ],
+            "default":   "bottom",
+            "info":      "Default: Bottom"
+          },
+          {
+            "type": "select",
+            "id": "content_align_items",
+            "label": "Content alignment - Small devices",
+            "options": [
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
+            ],
+            "default":   "center",
+            "info":      "Default: Center"
+          },
+          {
+            "type": "select",
+            "id": "content_align_items_lg",
+            "label": "Content alignment - Large devices",
+            "options": [
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
+            ],
+            "default":   "center",
+            "info":      "Default: Center"
+          },
           {
             "type": "select",
             "id": "content_align",
@@ -1920,6 +2561,10 @@
             ],
             "default":   "text-md-left",
             "info":      "Default: Left"
+          },
+          {
+            "type": "header",
+            "content": "Block Container Settings"
           },
           {
             "type": "header",
@@ -2327,13 +2972,6 @@
               { "value": "none", "label": "None"}
             ],
             "default": "1by1"
-          },
-          {
-            "type": "checkbox",
-            "id": "fill_container",
-            "label": "Fill 100% width and 100% height of row elements",
-            "default": false,
-            "info": "If a content object is next to a taller grid item, it will fill the height of the sibling grid item. Still requires an aspect ratio."
           },
           {
             "type": "select",

@@ -7,53 +7,28 @@
   Usage:
 
   {% render 'embed-object',
+    id: { string } - required for background
     aspect_ratio: { string } - optional - utility class
-    fill_container: { boolean } - optional - Fills the grid item to 100% of
-    the height and 100% width of the row contents. Still requires an aspect 
-    ratio as a fallback to ensure the element always maintains a minimum
-    height.
-    align_items: { string } - optional - utility class
-    bg_color: { string } - optional - utility class
-    content: { string } - optional %}
+    align_items: { string } - optional
+    content: { string } - optional
+    bg_image_url
+    bg_image_url_lg
+    bg_color
+    bg_color_alpha
+     %}
 
 {% endcomment %}
 
-{% if id != blank %}
-  {% assign id = id %}
-{% else %}
-  {% assign id = false %}
-{% endif %}
-
-{% if bg_image_url != blank %}
-  {% if bg_image_url contains 'no-image' %}
-    {% assign bg_image_url = false %}
-  {% else %}
-    {% assign bg_image_url = bg_image_url %}
-  {% endif %}
-{% else %}
-  {% assign bg_image_url = false %}
-{% endif %}
-
-{% if bg_image_url_lg != blank %}
-  {% if bg_image_url_lg contains 'no-image' %}
-    {% assign bg_image_url_lg = false %}
-  {% else %}
-    {% assign bg_image_url_lg = bg_image_url_lg %}
-  {% endif %}
-{% else %}
-  {% assign bg_image_url_lg = false %}
-{% endif %}
-
-{% if bg_image_url %}
-  {% assign block_classes = block_classes | append: ' h-100' %}
-{% endif %}
+{% capture bg_image_style_tag %}
+  {% render 'bg-image-tag'
+    id: id,
+    bg_image_url: bg_image_url,
+    bg_image_url_lg: bg_image_url_lg,
+    bg_color: bg_color,
+    bg_color_alpha: bg_color_alpha %}
+{% endcapture %}
 
 {% assign embed_wrapper_classes = 'embed-responsive' %}
-
-{% if fill_container %}
-  {% assign embed_wrapper_classes = embed_wrapper_classes
-    | append: ' h-100 w-100' %}
-{% endif %}
 
 {% if aspect_ratio != blank %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
@@ -82,22 +57,23 @@
     | append: 'align-items-center' %}
 {% endif %}
 
+{% if align_items_lg != blank %}
+  {% assign embed_responsive_item_classes = embed_responsive_item_classes
+    | append: ' '
+    | append: align_items_lg %}
+{% endif %}
+
+{% if id != blank %}
+  {% assign embed_responsive_item_classes = embed_responsive_item_classes
+    | append: ' bg-image-'
+    | append: id %}
+{% endif %}
+
 {% if content != blank %}
   <div class="{{ embed_wrapper_classes }}">
-    <div
-      class="{{ embed_responsive_item_classes }}"
-      {% if id != blank %}id="embed-object-{{ id }}{% endif %}">
-      {% comment %} Background Image {% endcomment %}
-
-      {% render 'image-object',
-        image_url:bg_image_url,
-        image_url_lg:bg_image_url_lg,
-        image_alt_text: 'alt',
-        aspect_ratio: '1by1' %}
-
-      <div class="position-relative w-100">
-        {{ content }}
-      </div>
+    <div class="{{ embed_responsive_item_classes }}">
+      {{ bg_image_style_tag }}
+      {{ content }}
     </div>
   </div>
 {% endif %}

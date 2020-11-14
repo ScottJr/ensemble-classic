@@ -1,0 +1,105 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Background Image Style Tag
+  -----------------------------------------------------------------------------
+
+  Supports responsive background images including an overlay background filter
+  with transparency
+
+  Usage:
+
+  Render the contents of this snippet inside the container to have a background
+
+  {% render 'bg-image-tag'
+    id: { string } - required,
+    bg_image_url: { string } - required,
+    bg_image_url_lg: { string } - required,
+    bg_color: { string } - optional,
+    bg_color_alpha: { string } - optional %}
+
+  Parent element requires a class to target the element:
+
+  - `.bg-image-{{ id }}`
+
+{% endcomment %}
+{% if bg_color_alpha == blank %}
+  {% assign bg_color_alpha = 'FF' %}
+{% endif %}
+
+{% if bg_color_alpha != 'FF' %}
+  {% comment %} If 100% not transparent add alpha {% endcomment %}
+  {% assign bg_color_computed = bg_color | remove: '#'%}
+  {% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
+  {% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+  {% assign bg_color_has_alpha = true %}
+{% else %}
+  {% assign bg_color_computed = bg_color %}
+{% endif %}
+
+{% if bg_image_url != blank or bg_image_url_lg != blank %}
+  {% unless bg_image_url contains 'no-image'%}
+    {% assign bg_image_url = bg_image_url %}
+  {% else %}
+    {% assign bg_image_url = false %}
+  {% endunless %}
+  {% unless bg_image_url_lg contains 'no-image'%}
+    {% assign bg_image_url_lg = bg_image_url_lg %}
+  {% else %}
+    {% assign bg_image_url_lg = false %}
+  {% endunless %}
+
+  {% if bg_image_url != false and bg_image_url_lg != false %}
+    {% assign bg_image = true %}
+  {% else %}
+    {% assign bg_image = false %}
+  {% endif %}
+{% endif %}
+
+{% if bg_color_has_alpha == true and bg_image == true %}
+  {% assign section_classes = 'position-relative' %}
+{% endif %}
+
+{% assign bg_style_tag = 'background-color: ' | append: bg_color_computed | append: ';' %}
+
+  {% if bg_image == true %}
+    {% comment %} Background Image {% endcomment %}
+
+      {% if bg_image_url != blank %}
+        {% assign bg_image_url = bg_image_url %}
+      {% elsif bg_image_url_lg != blank %}
+        {% assign bg_image_url = bg_image_url_lg %}
+      {% endif %}
+
+      {% if bg_image_url_lg != blank %}
+        {% assign bg_image_url_lg = bg_image_url_lg %}
+      {% elsif bg_image_url != blank %}
+        {% assign bg_image_url_lg = bg_image_url %}
+      {% endif %}
+
+      <style>
+        .bg-image-{{ id }} {
+          background-image: url({{ bg_image_url }});
+          background-size: cover;
+        }
+      </style>
+      <style>
+        @media (min-width: 992px) {
+          .bg-image-{{ id }} {
+            background-image: url({{ bg_image_url_lg }});
+            background-size: cover;
+          }
+        }
+      </style>
+
+    {% if bg_color_has_alpha == true %}
+      {% render 'bg-color-element' bg_style_tag: bg_style_tag %}
+    {% endif %}
+  {% else %}
+    {% comment %} Only show background color & alpha {% endcomment %}
+    <style>
+      .bg-image-{{ id }} {
+        {{ bg_style_tag }}
+      }
+    </style>
+  {% endif %}

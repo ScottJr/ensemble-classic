@@ -10,6 +10,7 @@
     text_align: { string } - optional
     link_style: { string } - optional
     link_url: { string } - optional
+    link_size: { string } - optional
     link_text: { string } - optional %}
 
 {% endcomment %}
@@ -46,6 +47,17 @@
   {% assign link_classes = link_classes
     | append: ' '
     | append: link_class %}
+{% endif %}
+
+{% if link_size != blank %}
+  {% assign link_classes = link_classes
+    | append: ' '
+    | append: link_size %}
+{% endif %}
+
+{% if link_block == true %}
+  {% assign link_classes = link_classes
+    | append: ' btn-block' %}
 {% endif %}
 
 {% comment %} Link Element {% endcomment %}
