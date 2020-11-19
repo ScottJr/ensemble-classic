@@ -49,7 +49,15 @@
   Usage:
 
 {% endcomment %}
-{% comment %} Stopped @ - Troubleshoot issue with image not showing when one selected {% endcomment %}
+{% comment %} TODO - You can add zero as a value for padding and margin,
+this creates a situation where mobile settings overrride desktop and create
+a weird editor feel. i.e. mobile first settings get set and appear to be for desktop
+ {% endcomment %}
+
+{% comment %} TODO - for content that is contained to an aspect ratio, if it breaks it
+we need to figure out what to do. Either get rid of the box or make it overflow
+ {% endcomment %}
+
 
 {% comment %} START - Section Settings {% endcomment %}
 {% assign section_type = 'master-section' %}
@@ -79,6 +87,12 @@
 {% comment %} Content Header Settings {% endcomment %}
 {% assign header_container = section.settings.header_container %}
 
+{% assign header_border_top = section.settings.header_border_top %}
+{% assign header_border_left = section.settings.header_border_left %}
+{% assign header_border_bottom = section.settings.header_border_bottom %}
+{% assign header_border_right = section.settings.header_border_right %}
+{% assign header_border_color = section.settings.header_border_color %}
+
 {% assign header_col = section.settings.header_col %}
 {% assign header_col_offset = section.settings.header_col_offset %}
 {% assign header_col_lg = section.settings.header_col_lg  %}
@@ -104,6 +118,43 @@
 
 {% assign header_eyebrow_style = section.settings.header_eyebrow_style %}
 {% assign header_eyebrow_text = section.settings.header_eyebrow_text %}
+
+{% assign header_image_url = section.settings.header_image | img_url: '400x' %}
+{% assign header_image_aspect_ratio = section.settings.header_image_aspect_ratio %}
+{% assign header_image_bg_color = section.settings.header_image_bg_color %}
+{% assign header_image_bg_color_alpha = section.settings.header_image_bg_color_alpha %}
+{% assign header_image_object_fit = section.settings.header_image_object_fit %}
+
+{% assign header_image_col = section.settings.header_image_col %}
+{% assign header_image_col_offset = section.settings.header_image_col_offset %}
+{% assign header_image_col_lg = section.settings.header_image_col_lg %}
+{% assign header_image_col_lg_offset = section.settings.header_image_col_lg_offset %}
+
+{% assign header_image_pt = section.settings.header_image_pt %}
+{% assign header_image_pr = section.settings.header_image_pr %}
+{% assign header_image_pb = section.settings.header_image_pb %}
+{% assign header_image_pl = section.settings.header_image_pl %}
+
+{% assign header_image_mt = section.settings.header_image_mt %}
+{% assign header_image_mr = section.settings.header_image_mr %}
+{% assign header_image_mb = section.settings.header_image_mb %}
+{% assign header_image_ml = section.settings.header_image_ml %}
+
+{% assign header_image_pt_md_up = section.settings.header_image_pt_md_up %}
+{% assign header_image_pr_md_up = section.settings.header_image_pr_md_up %}
+{% assign header_image_pb_md_up = section.settings.header_image_pb_md_up %}
+{% assign header_image_pl_md_up = section.settings.header_image_pl_md_up %}
+
+{% assign header_image_mt_md_up = section.settings.header_image_mt_md_up %}
+{% assign header_image_mr_md_up = section.settings.header_image_mr_md_up %}
+{% assign header_image_mb_md_up = section.settings.header_image_mb_md_up %}
+{% assign header_image_ml_md_up = section.settings.header_image_ml_md_up %}
+
+{% assign header_image_border_color = section.settings.header_image_border_color %}
+{% assign header_image_border_top = section.settings.header_image_border_top %}
+{% assign header_image_border_right = section.settings.header_image_border_right %}
+{% assign header_image_border_bottom = section.settings.header_image_border_bottom %}
+{% assign header_image_border_left = section.settings.header_image_border_left %}
 
 {% assign header_heading_style = section.settings.header_heading_style %}
 {% assign header_heading_text = section.settings.header_heading_text %}
@@ -138,6 +189,36 @@
     content_align: header_content_align,
     content_align_lg: header_content_align_lg,
     eyebrow_style: header_eyebrow_style,
+    image_url: header_image_url,
+    image_object_fit: header_image_object_fit,
+    aspect_ratio: header_image_aspect_ratio,
+    image_bg_color: header_image_bg_color,
+    image_bg_color_alpha: header_image_bg_color_alpha,
+    image_col: header_image_col,
+    image_col_offset: header_image_col_offset,
+    image_col_lg: header_image_col_lg,
+    image_col_lg_offset: header_image_col_lg_offset,
+    image_pt: header_image_pt,
+    image_pl: header_image_pl,
+    image_pb: header_image_pb,
+    image_pr: header_image_pr,
+    image_mt: header_image_mt,
+    image_ml: header_image_ml,
+    image_mb: header_image_mb,
+    image_mr: header_image_mr,
+    image_pt_md_up: header_image_pt_md_up,
+    image_pl_md_up: header_image_pl_md_up,
+    image_pb_md_up: header_image_pb_md_up,
+    image_pr_md_up: header_image_pr_md_up
+    image_mt_md_up: header_image_mt_md_up,
+    image_ml_md_up: header_image_ml_md_up,
+    image_mb_md_up: header_image_mb_md_up,
+    image_mr_md_up: header_image_mr_md_up,
+    image_border_color: header_image_border_color,
+    image_border_top: header_image_border_top,
+    image_border_right: header_image_border_right,
+    image_border_bottom: header_image_border_bottom,
+    image_border_left: header_image_border_left,
     eyebrow_text: header_eyebrow_text,
     heading_style: header_heading_style,
     heading_text: header_heading_text,
@@ -146,7 +227,12 @@
     link_url: header_link_url,
     link_style: header_link_style,
     link_size: header_link_size,
-    link_block: header_link_block %}
+    link_block: header_link_block,
+    border_top: header_border_top,
+    border_left: header_border_left,
+    border_bottom: header_border_bottom,
+    border_right: header_border_right,
+    border_color: header_border_color %}
 {% endcapture %}
 {% comment %} END - Header {% endcomment %}
 
@@ -158,16 +244,22 @@
 
 {% assign content_container_pt = section.settings.content_container_pt %}
 {% assign content_container_pb = section.settings.content_container_pb %}
-{% assign content_container_pt_md_up = section.settings.content_container_pt_md_up %}
-{% assign content_container_pb_md_up = section.settings.content_container_pb_md_up %}
+{% assign content_container_pt_md_up =
+  section.settings.content_container_pt_md_up %}
+{% assign content_container_pb_md_up =
+  section.settings.content_container_pb_md_up %}
 
 {% assign content_container_mt = section.settings.content_container_mt %}
 {% assign content_container_mb = section.settings.content_container_mb %}
-{% assign content_container_mt_md_up = section.settings.content_container_mt_md_up %}
-{% assign content_container_mb_md_up = section.settings.content_container_mb_md_up %}
+{% assign content_container_mt_md_up =
+  section.settings.content_container_mt_md_up %}
+{% assign content_container_mb_md_up =
+  section.settings.content_container_mb_md_up %}
 
-{% assign content_container_bg_color = section.settings.content_container_bg_color %}
-{% assign content_container_bg_color_alpha = section.settings.content_container_bg_color_alpha %}
+{% assign content_container_bg_color =
+  section.settings.content_container_bg_color %}
+{% assign content_container_bg_color_alpha =
+  section.settings.content_container_bg_color_alpha %}
 
 {% comment %} Content {% endcomment %}
 {% capture section_blocks %}
@@ -315,6 +407,7 @@
         | img_url: '1000x' %}
       {% assign image_aspect_ratio = block.settings.aspect_ratio %}
       {% assign image_alt_text = block.settings.image_alt_text %}
+      {% assign image_object_fit = block.settings.image_object_fit %}
 
       {% comment %} Content Container Layout Settings {% endcomment %}
       {% assign content_pt = block.settings.content_pt %}
@@ -341,12 +434,12 @@
       {% assign content_bg_color = block.settings.content_bg_color %}
       {% assign content_bg_color_alpha = block.settings.content_bg_color_alpha %}
       {% assign content_aspect_ratio = block.settings.content_aspect_ratio %}
-      {% assign content_embed = block.settings.content_embed %}
+      {% assign content_embed_forced = block.settings.content_embed_forced %}
       {% assign content_position = block.settings.content_position %}
       {% assign content_position_lg = block.settings.content_position_lg %}
       {% assign content_align_items = block.settings.content_align_items %}
       {% assign content_align_items_lg = block.settings.content_align_items_lg %}
-{% comment %}TODO  undeclared embed content variable {% endcomment %}
+
       {% comment %} Block Layout Settings {% endcomment %}
       {% assign pt = block.settings.pt %}
       {% assign pr = block.settings.pr %}
@@ -390,6 +483,7 @@
           image_url_lg: image_url_lg,
           image_alt_text: image_alt_text,
           image_aspect_ratio: image_aspect_ratio,
+          image_object_fit: image_object_fit,
           link_style: link_style,
           link_url: link_url,
           link_text: link_text,
@@ -436,6 +530,7 @@
           content_bg_color: content_bg_color,
           content_bg_color_alpha: content_bg_color_alpha,
           content_aspect_ratio: content_aspect_ratio,
+          content_embed_forced: content_embed_forced
           content_position: content_position,
           content_position_lg: content_position_lg,
           content_align_items: content_align_items,
@@ -636,107 +731,13 @@
     "name": "Master Section",
     "settings": [
       {
-        "type": "color",
-        "id": "section_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "select",
-        "id": "section_bg_color_alpha",
-        "label": "Background Color Transparency",
-        "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
-        ],
-        "default": "FF",
-        "info": "Default: Transparency Disabled"
-      },
-      {
         "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "image_picker",
-        "id": "section_bg_image",
-        "label": "Background Image"
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "section_pt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   4,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "section_pb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   4,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "section_mt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "section_mb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
+        "content": "----------- Section Layout -----------"
       },
       {
         "type": "header",
         "content": "Medium & Up Devices",
         "info": "Screen sizes larger than 768px"
-      },
-      {
-        "type": "image_picker",
-        "id": "section_bg_image_lg",
-        "label": "Background Image"
       },
       {
         "type": "header",
@@ -788,12 +789,646 @@
       },
       {
         "type": "header",
-        "content": "Header - Content"
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "section_pt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   4,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "section_pb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   4,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "section_mt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "section_mb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "image_picker",
+        "id": "section_bg_image_lg",
+        "label": "Background Image - Large"
+      },
+      {
+        "type": "image_picker",
+        "id": "section_bg_image",
+        "label": "Background Image - Small"
+      },
+      {
+        "type": "color",
+        "id": "section_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "section_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Default: Transparency Disabled"
+      },
+      {
+        "type": "header",
+        "content": "----------- Header Settings -----------"
+      },
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_pt_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_pb_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_mt_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_mb_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "header_col_lg",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Columns",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "header_col_offset_lg",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Offset Columns",
+        "default": 2
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_pt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_pb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_mt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_mb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "header_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Columns",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "header_col_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Offset Columns",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "header_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "header_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Default: 100%"
+      },
+      {
+        "type": "select",
+        "id": "header_container",
+        "label": "Container",
+        "options": [
+          { "value": "container", "label": "Contained at all breakpoints"},
+          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
+          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
+          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
+          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          { "value": "", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "container-xl"
+      },
+      {
+        "type": "header",
+        "content": "----------- Header Content ----------"
+      },
+      {
+        "type": "image_picker",
+        "id": "header_image",
+        "label": "Image"
+      },
+      {
+        "type": "select",
+        "id": "header_image_aspect_ratio",
+        "label": "Image Aspect Ratio",
+        "options": [
+          { "value": "21by9", "label": "21x9"},
+          { "value": "1by1", "label": "1x1"},
+          { "value": "4by3", "label": "4x3"},
+          { "value": "16by9", "label": "16x9"},
+          { "value": "none", "label": "None"}
+        ],
+        "default": "21by9"
+      },
+      {
+        "type": "select",
+        "id": "header_image_object_fit",
+        "label": "Image Object Fit",
+        "options": [
+          { "value": "fill", "label": "Fill"},
+          { "value": "contain", "label": "Contain"},
+          { "value": "cover", "label": "Cover"},
+          { "value": "scale-down", "label": "Scale Down"},
+          { "value": "none", "label": "None"}
+        ],
+        "default": "cover",
+        "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
+      },
+      {
+        "type": "color",
+        "id": "header_image_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "header_image_border_color",
+        "label": "Border Color",
+        "options": [
+          { "value": "border-primary", "label": "Primary"},
+          { "value": "border-secondary", "label": "Secondary"},
+          { "value": "border-success", "label": "Success"},
+          { "value": "border-danger", "label": "Danger"},
+          { "value": "border-warning", "label": "Warning"},
+          { "value": "border-info", "label": "Info"},
+          { "value": "border-light", "label": "Light"},
+          { "value": "border-dark", "label": "Dark"},
+          { "value": "border-white", "label": "White"}
+        ],
+        "default": "border-dark",
+        "info": "Default: Dark"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_top",
+        "label": "Border Top",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_right",
+        "label": "Border Right",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_bottom",
+        "label": "Border Bottom",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_left",
+        "label": "Border Left",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Padding - Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_pt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_pr",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_pb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_pl",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin - Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_mt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_mr",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_mb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_ml",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Padding - Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_pt_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_pr_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_pb_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_pl_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin - Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_mt_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_mr_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_mb_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_ml_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "header_image_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Small Devices",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Small Devices",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_lg",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Medium & Up Devices",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_lg_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Medium & Up Devices",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "----------- Header Content ----------"
       },
       {
         "type": "text",
         "id": "header_eyebrow_text",
         "label": "Eyebrow"
+      },
+      {
+        "type": "text",
+        "id": "header_heading_text",
+        "label": "Heading Text",
+        "default": "Master Section"
+      },
+      {
+        "type": "richtext",
+        "id": "header_paragraph_text",
+        "label": "Paragraph"
+      },
+      {
+        "type": "text",
+        "id": "header_link_text",
+        "label": "Link Text"
+      },
+      {
+        "type": "url",
+        "id": "header_link_url",
+        "label": "Link Destination"
       },
       {
         "type": "select",
@@ -810,12 +1445,6 @@
           { "value": "badge-dark", "label": "Dark"}
         ],
         "default": "badge-dark"
-      },
-      {
-        "type": "text",
-        "id": "header_heading_text",
-        "label": "Heading Text",
-        "default": "Master Section"
       },
       {
         "type": "select",
@@ -858,19 +1487,28 @@
         "default": "text-body"
       },
       {
-        "type": "richtext",
-        "id": "header_paragraph_text",
-        "label": "Paragraph"
+        "type": "select",
+        "id": "header_content_align",
+        "label": "Text Alignment - Small",
+        "options": [
+          { "value": "text-left", "label": "Left"},
+          { "value": "text-center", "label": "Center"},
+          { "value": "text-right", "label": "Right"}
+        ],
+        "default":   "text-center",
+        "info":      "Default: Center"
       },
       {
-        "type": "text",
-        "id": "header_link_text",
-        "label": "Link Text"
-      },
-      {
-        "type": "url",
-        "id": "header_link_url",
-        "label": "Link Destination"
+        "type": "select",
+        "id": "header_content_align_lg",
+        "label": "Text Alignment - Medium & Up Devices",
+        "options": [
+          { "value": "text-md-left", "label": "Left"},
+          { "value": "text-md-center", "label": "Center"},
+          { "value": "text-md-right", "label": "Right"}
+        ],
+        "default":   "text-md-center",
+        "info":      "Default: Center"
       },
       {
         "type": "select",
@@ -994,147 +1632,50 @@
         "info": "If enabled button will span entire parent container"
       },
       {
-        "type": "header",
-        "content": "Header - Settings"
-      },
-      {
-        "type": "color",
-        "id": "header_bg_color",
-        "label": "Background Color"
-      },
-      {
         "type": "select",
-        "id": "header_bg_color_alpha",
-        "label": "Background Color Transparency",
+        "id": "header_border_color",
+        "label": "Border Color",
         "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
+          { "value": "border-primary", "label": "Primary"},
+          { "value": "border-secondary", "label": "Secondary"},
+          { "value": "border-success", "label": "Success"},
+          { "value": "border-danger", "label": "Danger"},
+          { "value": "border-warning", "label": "Warning"},
+          { "value": "border-info", "label": "Info"},
+          { "value": "border-light", "label": "Light"},
+          { "value": "border-dark", "label": "Dark"},
+          { "value": "border-white", "label": "White"}
         ],
-        "default": "FF",
-        "info": "Default: 100%"
+        "default": "border-dark",
+        "info": "Default: Dark"
       },
       {
-        "type": "select",
-        "id": "header_container",
-        "label": "Container",
-        "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "default": "container-xl"
+        "type": "checkbox",
+        "id": "header_border_top",
+        "label": "Border Top",
+        "default": false
       },
       {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
+        "type": "checkbox",
+        "id": "header_border_right",
+        "label": "Border Right",
+        "default": false
       },
       {
-        "type": "select",
-        "id": "header_content_align",
-        "label": "Text Alignment",
-        "options": [
-          { "value": "text-left", "label": "Left"},
-          { "value": "text-center", "label": "Center"},
-          { "value": "text-right", "label": "Right"}
-        ],
-        "default":   "text-center",
-        "info":      "Default: Center"
+        "type": "checkbox",
+        "id": "header_border_bottom",
+        "label": "Border Bottom",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_border_left",
+        "label": "Border Left",
+        "default": false
       },
       {
         "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "header_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Columns",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "header_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Offset Columns",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_pt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_pb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_mt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_mb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
+        "content": "----------- Content Settings ----------"
       },
       {
         "type": "header",
@@ -1142,49 +1683,13 @@
         "info": "Screen sizes larger than 768px"
       },
       {
-        "type": "select",
-        "id": "header_content_align_lg",
-        "label": "Text Alignment",
-        "options": [
-          { "value": "text-md-left", "label": "Left"},
-          { "value": "text-md-center", "label": "Center"},
-          { "value": "text-md-right", "label": "Right"}
-        ],
-        "default":   "text-md-center",
-        "info":      "Default: Center"
-      },
-      {
-        "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "header_col_lg",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Columns",
-        "default": 8
-      },
-      {
-        "type": "range",
-        "id": "header_col_offset_lg",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Offset Columns",
-        "default": 2
-      },
-      {
         "type": "header",
         "content": "Padding"
       },
       {
         "type":   "range",
         "label": "Top",
-        "id": "header_pt_md_up",
+        "id": "content_container_pt_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
@@ -1194,7 +1699,7 @@
       {
         "type":   "range",
         "label": "Bottom",
-        "id": "header_pb_md_up",
+        "id": "content_container_pb_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
@@ -1208,7 +1713,7 @@
       {
         "type":   "range",
         "label": "Top",
-        "id": "header_mt_md_up",
+        "id": "content_container_mt_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
@@ -1218,7 +1723,7 @@
       {
         "type":   "range",
         "label": "Bottom",
-        "id": "header_mb_md_up",
+        "id": "content_container_mb_md_up",
         "min":       0,
         "max":       5,
         "step":      1,
@@ -1227,7 +1732,56 @@
       },
       {
         "type": "header",
-        "content": "Content - Settings"
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "content_container_pt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "content_container_pb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "content_container_mt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "content_container_mb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
       },
       {
         "type": "color",
@@ -1292,6 +1846,99 @@
       },
       {
         "type": "header",
+        "content": "----------- Footer Settings -----------"
+      },
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "footer_pt_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   3,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "footer_pb_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   3,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "footer_mt_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "footer_mb_md_up",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "footer_col_lg",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns ",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "footer_col_offset_lg",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns",
+        "default": 0
+      },
+      {
+        "type": "select",
+        "id": "footer_content_align_lg",
+        "label": "Text alignment",
+        "options": [
+          { "value": "text-md-left", "label": "Left"},
+          { "value": "text-md-center", "label": "Center"},
+          { "value": "text-md-right", "label": "Right"}
+        ],
+        "default":   "text-md-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "header",
         "content": "Small Devices",
         "info": "Screen sizes smaller than 768px"
       },
@@ -1302,21 +1949,21 @@
       {
         "type":   "range",
         "label": "Top",
-        "id": "content_container_pt",
+        "id": "footer_pt",
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%"
       },
       {
         "type":   "range",
         "label": "Bottom",
-        "id": "content_container_pb",
+        "id": "footer_pb",
         "min":       0,
         "max":       5,
         "step":      1,
-        "default":   0,
+        "default":   3,
         "unit": "%"
       },
       {
@@ -1326,7 +1973,7 @@
       {
         "type":   "range",
         "label": "Top",
-        "id": "content_container_mt",
+        "id": "footer_mt",
         "min":       0,
         "max":       5,
         "step":      1,
@@ -1336,69 +1983,102 @@
       {
         "type":   "range",
         "label": "Bottom",
-        "id": "content_container_mb",
+        "id": "footer_mb",
         "min":       0,
         "max":       5,
         "step":      1,
         "default":   0,
         "unit": "%"
+      },
+      {
+        "type": "select",
+        "id": "footer_content_align",
+        "label": "Text alignment",
+        "options": [
+          { "value": "text-left", "label": "Left"},
+          { "value": "text-center", "label": "Center"},
+          { "value": "text-right", "label": "Right"}
+        ],
+        "default":   "text-center",
+        "info":      "Default: Center"
       },
       {
         "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "footer_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "footer_col_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Small Devices",
+        "default": 0
+      },
+      {
+        "type": "color",
+        "id": "footer_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "footer_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Default: 100%"
+      },
+      {
+        "type": "select",
+        "id": "footer_container",
+        "label": "Container",
+        "options": [
+          { "value": "container", "label": "Contained at all breakpoints"},
+          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
+          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
+          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
+          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          { "value": "", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "container-xl"
       },
       {
         "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "content_container_pt_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "content_container_pb_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "content_container_mt_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "content_container_mb_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Footer - Content"
+        "content": "----------- Footer Content ----------"
       },
       {
         "type": "text",
@@ -1601,238 +2281,6 @@
         "label": "Enable block button",
         "default": false,
         "info": "If enabled button will span entire parent container"
-      },
-      {
-        "type": "header",
-        "content": "Footer - Settings"
-      },
-      {
-        "type": "color",
-        "id": "footer_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "select",
-        "id": "footer_bg_color_alpha",
-        "label": "Background Color Transparency",
-        "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
-        ],
-        "default": "FF",
-        "info": "Default: 100%"
-      },
-      {
-        "type": "select",
-        "id": "footer_container",
-        "label": "Container",
-        "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "default": "container-xl"
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "select",
-        "id": "footer_content_align",
-        "label": "Text alignment",
-        "options": [
-          { "value": "text-left", "label": "Left"},
-          { "value": "text-center", "label": "Center"},
-          { "value": "text-right", "label": "Right"}
-        ],
-        "default":   "text-center",
-        "info":      "Default: Center"
-      },
-      {
-        "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "footer_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "footer_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns - Small Devices",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_pt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_pb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_mt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_mb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "select",
-        "id": "footer_content_align_lg",
-        "label": "Text alignment",
-        "options": [
-          { "value": "text-md-left", "label": "Left"},
-          { "value": "text-md-center", "label": "Center"},
-          { "value": "text-md-right", "label": "Right"}
-        ],
-        "default":   "text-md-center",
-        "info":      "Default: Center"
-      },
-      {
-        "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "footer_col_lg",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns ",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "footer_col_offset_lg",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_pt_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_pb_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_mt_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_mb_md_up",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
       }
     ],
     "blocks":[
@@ -1973,25 +2421,36 @@
             "label": "Image - Medium & Up Devices"
           },
           {
-            "type": "text",
-            "id": "eyebrow_text",
-            "label": "Eyebrow"
+            "type": "select",
+            "id": "aspect_ratio",
+            "label": "Image Aspect Ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "1by1"
           },
           {
             "type": "select",
-            "id": "eyebrow_style",
-            "label": "Eyebrow style",
+            "id": "image_object_fit",
+            "label": "Image Object Fit",
             "options": [
-              { "value": "badge-primary", "label": "Primary"},
-              { "value": "badge-secondary", "label": "Secondary"},
-              { "value": "badge-success", "label": "Success"},
-              { "value": "badge-danger", "label": "Danger"},
-              { "value": "badge-warning", "label": "Warning"},
-              { "value": "badge-info", "label": "Info"},
-              { "value": "badge-light", "label": "Light"},
-              { "value": "badge-dark", "label": "Dark"}
+              { "value": "fill", "label": "Fill"},
+              { "value": "contain", "label": "Contain"},
+              { "value": "cover", "label": "Cover"},
+              { "value": "scale-down", "label": "Scale Down"},
+              { "value": "none", "label": "None"}
             ],
-            "default": "badge-dark"
+            "default": "cover",
+            "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
+          },
+          {
+            "type": "text",
+            "id": "eyebrow_text",
+            "label": "Eyebrow"
           },
           {
             "type": "text",
@@ -2019,6 +2478,42 @@
             "info": "Default: H3"
           },
           {
+            "type": "richtext",
+            "id": "paragraph_text",
+            "label": "Paragraph"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Link Text"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link Destination"
+          },
+          {
+            "type": "header",
+            "content": "Block Content Settings",
+            "info": "These settings only apply to the content"
+          },
+          {
+            "type": "select",
+            "id": "eyebrow_style",
+            "label": "Eyebrow style",
+            "options": [
+              { "value": "badge-primary", "label": "Primary"},
+              { "value": "badge-secondary", "label": "Secondary"},
+              { "value": "badge-success", "label": "Success"},
+              { "value": "badge-danger", "label": "Danger"},
+              { "value": "badge-warning", "label": "Warning"},
+              { "value": "badge-info", "label": "Info"},
+              { "value": "badge-light", "label": "Light"},
+              { "value": "badge-dark", "label": "Dark"}
+            ],
+            "default": "badge-dark"
+          },
+          {
             "type": "select",
             "id": "content_color",
             "label": "Content color",
@@ -2038,21 +2533,6 @@
               { "value": "text-white-50", "label": "White 50"}
             ],
             "default": "text-body"
-          },
-          {
-            "type": "richtext",
-            "id": "paragraph_text",
-            "label": "Paragraph"
-          },
-          {
-            "type": "text",
-            "id": "link_text",
-            "label": "Link Text"
-          },
-          {
-            "type": "url",
-            "id": "link_url",
-            "label": "Link Destination"
           },
           {
             "type": "select",
@@ -2177,91 +2657,148 @@
             "info": "Default: None"
           },
           {
-            "type": "header",
-            "content": "Layout"
+            "type": "select",
+            "id": "content_aspect_ratio",
+            "label": "Content Aspect Ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "none"
           },
           {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
+            "type": "checkbox",
+            "id": "content_embed_forced",
+            "label": "Force content to embedded ratio",
+            "default": false,
+            "info": "If you would like the content to be confined to to an aspect ratio rather than an unconfined block. Useful for alinging a text grid perfectly. Can cause issues if you have an unexpected volume of content."
           },
           {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
+            "type": "select",
+            "id": "content_position",
+            "label": "Content position - Small devices",
+            "options": [
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
+            ],
+            "default":   "bottom",
+            "info":      "Default: Bottom"
           },
           {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
+            "type": "select",
+            "id": "content_position_lg",
+            "label": "Content position - Large devices",
+            "options": [
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
+            ],
+            "default":   "bottom",
+            "info":      "Default: Bottom"
           },
           {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
+            "type": "select",
+            "id": "content_align_items",
+            "label": "Content alignment - Small devices",
+            "options": [
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
+            ],
+            "default":   "center",
+            "info":      "Default: Center"
           },
           {
-            "type": "header",
-            "content": "Block Background Settings"
+            "type": "select",
+            "id": "content_align_items_lg",
+            "label": "Content alignment - Large devices",
+            "options": [
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
+            ],
+            "default":   "center",
+            "info":      "Default: Center"
+          },
+          {
+            "type": "select",
+            "id": "content_align",
+            "label": "Text alignment - Small devices",
+            "options": [
+              { "value": "text-left", "label": "Left"},
+              { "value": "text-center", "label": "Center"},
+              { "value": "text-right", "label": "Right"}
+            ],
+            "default":   "text-left",
+            "info":      "Default: Left"
+          },
+          {
+            "type": "select",
+            "id": "content_align_lg",
+            "label": "Text alignment - Medium & up devices",
+            "options": [
+              { "value": "text-md-left", "label": "Left"},
+              { "value": "text-md-center", "label": "Center"},
+              { "value": "text-md-right", "label": "Right"}
+            ],
+            "default":   "text-md-left",
+            "info":      "Default: Left"
+          },
+          {
+            "type": "image_picker",
+            "id": "content_bg_image",
+            "label": "Background Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "content_bg_image_lg",
+            "label": "Background Image - Large"
           },
           {
             "type": "color",
-            "id": "bg_color",
+            "id": "content_bg_color",
             "label": "Background Color"
           },
           {
-            "type": "header",
-            "content": "Block Image Settings"
-          },
-          {
             "type": "select",
-            "id": "aspect_ratio",
-            "label": "Image Aspect Ratio",
+            "id": "content_bg_color_alpha",
+            "label": "Background Color Transparency",
             "options": [
-              { "value": "21by9", "label": "21x9"},
-              { "value": "1by1", "label": "1x1"},
-              { "value": "4by3", "label": "4x3"},
-              { "value": "16by9", "label": "16x9"},
-              { "value": "none", "label": "None"}
+              { "value": "00", "label": "0%" },
+              { "value": "0D", "label": "5%" },
+              { "value": "1A", "label": "10%" },
+              { "value": "26", "label": "15%" },
+              { "value": "33", "label": "20%" },
+              { "value": "40", "label": "25%" },
+              { "value": "4D", "label": "30%" },
+              { "value": "59", "label": "35%" },
+              { "value": "66", "label": "40%" },
+              { "value": "73", "label": "45%" },
+              { "value": "80", "label": "50%" },
+              { "value": "8C", "label": "55%" },
+              { "value": "99", "label": "60%" },
+              { "value": "A6", "label": "65%" },
+              { "value": "B3", "label": "70%" },
+              { "value": "BF", "label": "75%" },
+              { "value": "CC", "label": "80%" },
+              { "value": "D9", "label": "85%" },
+              { "value": "E6", "label": "90%" },
+              { "value": "F2", "label": "95%" },
+              { "value": "FF", "label": "100%" }
             ],
-            "default": "1by1"
+            "default": "FF",
+            "info": "Default: Transparency Disabled"
           },
           {
             "type": "header",
-            "content": "Block Content Settings"
-          },
-          {
-            "type": "select",
-            "id": "content_aspect_ratio",
-            "label": "Image Aspect Ratio",
-            "options": [
-              { "value": "21by9", "label": "21x9"},
-              { "value": "1by1", "label": "1x1"},
-              { "value": "4by3", "label": "4x3"},
-              { "value": "16by9", "label": "16x9"},
-              { "value": "none", "label": "None"}
-            ],
-            "default": "1by1"
+            "content": "Block Content Layout",
+            "info": "These settings apply just to the content."
           },
           {
             "type": "header",
@@ -2444,127 +2981,58 @@
             "unit": "%"
           },
           {
-            "type": "image_picker",
-            "id": "content_bg_image",
-            "label": "Background Image"
-          },
-          {
-            "type": "image_picker",
-            "id": "content_bg_image_lg",
-            "label": "Background Image - Large"
+            "type": "header",
+            "content": "Block Container Settings",
+            "info": "These settings apply to the entire content card (image & content together)"
           },
           {
             "type": "color",
-            "id": "content_bg_color",
+            "id": "bg_color",
             "label": "Background Color"
           },
           {
-            "type": "select",
-            "id": "content_bg_color_alpha",
-            "label": "Background Color Transparency",
-            "options": [
-              { "value": "00", "label": "0%" },
-              { "value": "0D", "label": "5%" },
-              { "value": "1A", "label": "10%" },
-              { "value": "26", "label": "15%" },
-              { "value": "33", "label": "20%" },
-              { "value": "40", "label": "25%" },
-              { "value": "4D", "label": "30%" },
-              { "value": "59", "label": "35%" },
-              { "value": "66", "label": "40%" },
-              { "value": "73", "label": "45%" },
-              { "value": "80", "label": "50%" },
-              { "value": "8C", "label": "55%" },
-              { "value": "99", "label": "60%" },
-              { "value": "A6", "label": "65%" },
-              { "value": "B3", "label": "70%" },
-              { "value": "BF", "label": "75%" },
-              { "value": "CC", "label": "80%" },
-              { "value": "D9", "label": "85%" },
-              { "value": "E6", "label": "90%" },
-              { "value": "F2", "label": "95%" },
-              { "value": "FF", "label": "100%" }
-            ],
-            "default": "FF",
-            "info": "Default: Transparency Disabled"
-          },
-          {
-            "type": "select",
-            "id": "content_position",
-            "label": "Content position - Small devices",
-            "options": [
-              { "value": "top", "label": "Top"},
-              { "value": "right", "label": "Right"},
-              { "value": "bottom", "label": "Bottom"},
-              { "value": "left", "label": "Left"}
-            ],
-            "default":   "bottom",
-            "info":      "Default: Bottom"
-          },
-          {
-            "type": "select",
-            "id": "content_position_lg",
-            "label": "Content position - Large devices",
-            "options": [
-              { "value": "top", "label": "Top"},
-              { "value": "right", "label": "Right"},
-              { "value": "bottom", "label": "Bottom"},
-              { "value": "left", "label": "Left"}
-            ],
-            "default":   "bottom",
-            "info":      "Default: Bottom"
-          },
-          {
-            "type": "select",
-            "id": "content_align_items",
-            "label": "Content alignment - Small devices",
-            "options": [
-              { "value": "start", "label": "Top"},
-              { "value": "center", "label": "Center"},
-              { "value": "end", "label": "Bottom"}
-            ],
-            "default":   "center",
-            "info":      "Default: Center"
-          },
-          {
-            "type": "select",
-            "id": "content_align_items_lg",
-            "label": "Content alignment - Large devices",
-            "options": [
-              { "value": "start", "label": "Top"},
-              { "value": "center", "label": "Center"},
-              { "value": "end", "label": "Bottom"}
-            ],
-            "default":   "center",
-            "info":      "Default: Center"
-          },
-          {
-            "type": "select",
-            "id": "content_align",
-            "label": "Text alignment - Small devices",
-            "options": [
-              { "value": "text-left", "label": "Left"},
-              { "value": "text-center", "label": "Center"},
-              { "value": "text-right", "label": "Right"}
-            ],
-            "default":   "text-left",
-            "info":      "Default: Left"
-          },
-          {
-            "type": "select",
-            "id": "content_align_lg",
-            "label": "Text alignment - Medium & up devices",
-            "options": [
-              { "value": "text-md-left", "label": "Left"},
-              { "value": "text-md-center", "label": "Center"},
-              { "value": "text-md-right", "label": "Right"}
-            ],
-            "default":   "text-md-left",
-            "info":      "Default: Left"
-          },
-          {
             "type": "header",
-            "content": "Block Container Settings"
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "col",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Small Devices",
+            "default": 12
+          },
+          {
+            "type": "range",
+            "id": "col_offset",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Offset Columns - Small Devices",
+            "default": 0
+          },
+          {
+            "type": "range",
+            "id": "col_lg",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns - Medium & Up Devices",
+            "default": 4
+          },
+          {
+            "type": "range",
+            "id": "col_lg_offset",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Offset Columns - Medium & Up Devices",
+            "default": 0
           },
           {
             "type": "header",
@@ -2978,11 +3446,11 @@
             "id": "align_items",
             "label": "Vertical alignment",
             "options": [
-              { "value": "align-items-start", "label": "Top"},
-              { "value": "align-items-center", "label": "Center"},
-              { "value": "align-items-end", "label": "Bottom"}
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
             ],
-            "default":   "align-items-center",
+            "default":   "center",
             "info":      "Default: Center"
           },
           {
@@ -3220,6 +3688,20 @@
               { "value": "16by9", "label": "16x9"}
             ],
             "default": "1by1"
+          },
+          {
+            "type": "select",
+            "id": "image_object_fit",
+            "label": "Image Object Fit",
+            "options": [
+              { "value": "fill", "label": "Fill"},
+              { "value": "contain", "label": "Contain"},
+              { "value": "cover", "label": "Cover"},
+              { "value": "scale-down", "label": "Scale Down"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "cover",
+            "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
           },
           {
             "type": "header",

@@ -65,31 +65,30 @@
 {% endif %}
 
 {% if render_content == true %}
-<div class="w-100">
-  {% render 'eyebrow-element',
-    text: eyebrow_text,
-    text_align: content_align_classes,
-    eyebrow_style: eyebrow_style %}
+  <div class="w-100">
+    {% render 'eyebrow-element',
+      text: eyebrow_text,
+      text_align: content_align_classes,
+      eyebrow_style: eyebrow_style %}
 
-  {% render 'heading-element',
-    text: heading_text,
-    text_color: content_color,
-    text_align: content_align_classes,
-    heading_style: heading_style %}
+    {% render 'heading-element',
+      text: heading_text,
+      text_color: content_color,
+      text_align: content_align_classes,
+      heading_style: heading_style %}
 
-  {% render 'paragraph-element',
-    text: paragraph_text,
-    text_color: content_color,
-    text_align: content_align_classes %}
+    {% render 'paragraph-element',
+      text: paragraph_text,
+      text_color: content_color,
+      text_align: content_align_classes %}
 
-  {% render 'link-element',
-    text_align: content_align_classes,
-    link_text: link_text,
-    link_url: link_url,
-    link_style: link_style,
-    link_size: link_size,
-    link_block: link_block %}
-</div>
-
+    {% render 'link-element',
+      text_align: content_align_classes,
+      link_text: link_text,
+      link_url: link_url,
+      link_style: link_style,
+      link_size: link_size,
+      link_block: link_block %}
+  </div>
 {% endif %}
 

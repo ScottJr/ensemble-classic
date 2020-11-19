@@ -10,6 +10,7 @@
     image_url: { string } - expects image url
     image_url_lg: { string } - expects image url
     image_alt_text: { string }
+    object_fit: { string } - optional
     aspect_ratio: { string } - utility class %}
 
 {% endcomment %}
@@ -45,7 +46,7 @@
 {% endcapture %}
 
 {% comment %} Render Image Object {% endcomment %}
-{% if image_url %}
+{% if image_url != false %}
   {% render 'embed-object'
     content: content,
     aspect_ratio: aspect_ratio %}

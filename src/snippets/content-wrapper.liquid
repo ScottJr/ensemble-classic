@@ -33,11 +33,46 @@
     mr_md_up: { string } - optional
     mb_md_up: { string } - optional
     ml_md_up: { string } - optional
+    border_top: { string } - optional
+    border_bottom: { string } - optional
   %}
 
 {% endcomment %}
 
 {% comment %} Defaults {% endcomment %}
+{% if border_top != blank or border_top != 'none' %}
+  {% assign border_top = border_top %}
+{% else %}
+    {% assign border_top = false %}
+{% endif %}
+
+{% if border_left != blank or border_left != 'none' %}
+  {% assign border_left = border_left %}
+{% else %}
+    {% assign border_left = false %}
+{% endif %}
+
+{% if border_bottom != blank or border_bottom != 'none' %}
+  {% assign border_bottom = border_bottom %}
+{% else %}
+    {% assign border_bottom = false %}
+{% endif %}
+
+{% if border_right != blank or border_right != 'none' %}
+  {% assign border_right = border_right %}
+{% else %}
+    {% assign border_right = false %}
+{% endif %}
+
+{% if border_top
+  or border_bottom
+  or border_left
+  or border_right  %}
+  {% assign border_color = border_color %}
+{% else %}
+  {% assign border_color = false %}
+{% endif %}
+
 {% if pt != blank %}
   {% assign pt = pt %}
 {% else %}
@@ -199,6 +234,36 @@
 
 {% if ml_md_up != 0 %}
   {% assign el_classes = el_classes | append: ' ml-md-' | append: ml_md_up %}
+{% endif %}
+
+{% if border_color %}
+  {% assign el_classes = el_classes | append: ' ' | append: border_color %}
+{% endif %}
+
+{% if border_top %}
+  {% assign el_classes = el_classes | append: ' border-top' %}
+{% endif %}
+
+{% if border_right %}
+  {% assign el_classes = el_classes | append: ' border-right' %}
+{% endif %}
+
+{% if border_bottom %}
+  {% assign el_classes = el_classes | append: ' border-bottom' %}
+{% endif %}
+
+{% if border_left %}
+  {% assign el_classes = el_classes | append: ' border-left' %}
+{% endif %}
+
+{% if border_bottom %}
+  {% assign el_classes = el_classes
+    | append: ' border-bottom '
+    | append: border_bottom %}
+{% endif %}
+
+{% if border_left %}
+  {% assign el_classes = el_classes | append: ' border-left' %}
 {% endif %}
 
 {% assign bg_color_computed = bg_color | remove: '#'%}

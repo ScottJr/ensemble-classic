@@ -12,7 +12,7 @@
   data-enable-history-state="true"
   itemscope
   itemtype="http://schema.org/Product"
-  class="mb-5">
+  class="py-5 mb-5">
   {% assign current_variant = product.selected_or_first_available_variant %}
   {% assign featured_image = product.featured_image %}
   {% assign product_note = section.settings.product_note %}
@@ -38,12 +38,12 @@
           {% for image in product.images %}
             {% assign image_src = image.src | img_url: '800x' %}
             {% assign image_alt_text = featured_image.alt | escape %}
-            <div class="col-12">
+            <div class="col-12 mb-3">
               {% render 'image-object',
                 image_url: image_src,
                 image_url_lg: image_src,
                 image_alt_text: image_alt_text,
-                image_aspect_ratio: '1by1' %}
+                aspect_ratio: '1by1' %}
             </div>
           {% endfor %}
         </div>

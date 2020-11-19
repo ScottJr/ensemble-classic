@@ -36,6 +36,7 @@
     image_url_lg: { string } - optional
     image_alt_text: { string } - optional
     image_aspect_ratio: { string } - optional
+    image_object_fit: { string} - optional
     eyebrow_text: { string } - optional
     eyebrow_style: { string } - optional
     heading_text: { string } - optional
@@ -87,6 +88,8 @@
     content_bg_color_alpha: { string } - optional
     content_embed: { boolean } - optional
     content_aspect_ratio: { string } - optional
+    content_embed_forced: { string } - optional - If you would like to force
+    the content block to always be enabled
     content_position: { string } - optional
     content_position_lg: { string } - optional
     content_align_items: { string } - optional
@@ -192,10 +195,14 @@
 {% else%}
   {% assign content_ml_md_up= 0 %}
 {% endif %}
+{% comment %} Stopped at figuring out why content card images & blocks dont' respect aspect ratio settings {% endcomment %}
+{% comment %} Also need to copy border settings to content card where applicapble {% endcomment %}
+{% comment %} Copy border settings to section footer {% endcomment %}
+{% comment %} Organize content card settings to be the same as the master section schema {% endcomment %}
+{% comment %} Still can't figure out why image object shows empty image {% endcomment %}
+{% comment %} Add the tag feature to content card {% endcomment %}
 
-{% comment %} Abstract All These {% endcomment %}
-{% assign embed_content = true %}
-
+{% comment %} Position the card based upon content_position {% endcomment %}
 {% comment %} Small Devices {% endcomment %}
 {% if content_position == 'top' %}
   {% assign flex_classes = 'flex-column-reverse' %}
@@ -211,7 +218,7 @@
   {% assign flex_classes = 'flex-column' %}
   {% assign img_col = 'col-12' %}
   {% assign content_col = 'col-12' %}
-  {% if embed_content != blank %}
+  {% if embed_content != blank or embed_content != 'none' %}
     {% assign embed_content = embed_content %}
   {% else %}
     {% assign embed_content = false %}
@@ -228,26 +235,22 @@
   {% assign flex_classes_lg = 'flex-md-column-reverse' %}
   {% assign img_col_lg = 'col-md-12' %}
   {% assign content_col_lg = 'col-md-12' %}
-  {% assign embed_content_lg = true %}
 {% elsif content_position_lg == 'right' %}
   {% assign flex_classes_lg = 'flex-md-row' %}
   {% assign img_col_lg = 'col-md-6' %}
   {% assign content_col_lg = 'col-md-6' %}
-  {% assign embed_content_lg = true %}
 {% elsif content_position_lg == 'bottom' %}
   {% assign flex_classes_lg = 'flex-md-column' %}
   {% assign img_col_lg = 'col-md-12' %}
   {% assign content_col_lg = 'col-md-12' %}
-  {% if embed_content_lg != blank %}
-    {% assign embed_content_lg = embed_content_lg %}
-  {% else %}
-    {% assign embed_content_lg = false %}
-  {% endif %}
 {% elsif content_position_lg == 'left' %}
   {% assign flex_classes_lg = 'flex-md-row-reverse' %}
   {% assign img_col_lg = 'col-md-6' %}
   {% assign content_col_lg = 'col-md-6' %}
-  {% assign embed_content_lg = true %}
+{% endif %}
+
+{% if content_embed_forced == true %}
+  {% assign embed_content = true %}
 {% endif %}
 
 {% assign content_classes = 'd-flex' %}
@@ -276,7 +279,7 @@
       | append: ' px-0' %}
 {% elsif content_position == 'top' %}
   {% assign content_col_classes = content_col_classes
-      | append: ' px-0 mb-3 mb-md-0' %}
+      | append: ' mb-3 mb-md-0' %}
 {% else %}
   {% assign img_col_classes = img_col_classes
   | append: ' mb-0' %}
@@ -302,7 +305,8 @@
     image_url: image_url,
     image_url_lg: image_url_lg,
     image_alt_text: image_alt_text,
-    aspect_ratio: image_aspect_ratio %}
+    aspect_ratio: image_aspect_ratio,
+    object_fit: image_object_fit %}
 {% endcapture %}
 
 {% capture content_object %}
@@ -343,15 +347,14 @@
     ml_md_up: content_ml_md_up,
  %}
 {% endcapture %}
-
 {% capture content %}
-  {% if embed_content == true %}
+  {% if embed_content == true and content_aspect_ratio != 'none' %}
     {% render 'embed-object',
       id: id,
       aspect_ratio: content_aspect_ratio,
       content: content_object,
-      align_items: align_items
-      align_items_lg: align_items_lg,
+      align_items: content_align_items
+      align_items_lg: content_align_items_lg,
       bg_image_url: content_bg_image_url,
       bg_image_url_lg: content_bg_image_url_lg,
       bg_color: content_bg_color,
@@ -363,16 +366,20 @@
 
 {% capture composed_content %}
   <div class="{{ content_classes }}">
-    <div class="{{ img_col_classes }}">
-      {{ image_object }}
-    </div>
-    <div class="{{ content_col_classes }}">
-      {{ content }}
-    </div>
+    {% if image_object != blank %}
+      <div class="{{ img_col_classes }}">
+        {{ image_object }}
+      </div>
+    {% endif %}
+    {% if content != blank %}
+      <div class="{{ content_col_classes }}">
+        {{ content }}
+      </div>
+    {% endif %}
   </div>
 {% endcapture %}
 
-{% if content != blank %}
+{% if content != blank or image_object != blank %}
   {% render 'content-wrapper'
     content: composed_content,
     pt: pt,

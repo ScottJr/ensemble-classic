@@ -30,9 +30,73 @@
 
   container: { string }
 
+  image_object
+image_bg_color
+image_bg_color_alpha
+image_pt
+image_pb
+image_mt
+image_mb
+image_pt_md_up
+image_pb_md_up
+image_mt_md_up
+image_mb_md_up
+image_border_color
+image_border_top
+image_border_right
+image_border_bottom
+image_border_left
+
 {% endcomment %}
 
 {% comment %} Defaults {% endcomment %}
+
+{% comment %} Image {% endcomment %}
+
+{% capture masthead_image_object %}
+  {% capture image_object %}
+    {% render 'image-object',
+      image_url: image_url,
+      image_url_lg: image_url,
+      object_fit: image_object_fit,
+      aspect_ratio: aspect_ratio %}
+  {% endcapture %}
+
+  {% render 'content-wrapper'
+    content: image_object,
+    bg_color: image_bg_color,
+    bg_color_alpha: image_bg_color_alpha,
+    pt: image_pt,
+    pl: image_pl,
+    pb: image_pb,
+    pr: image_pr,
+    mt: image_mt,
+    ml: image_ml,
+    mb: image_mb,
+    mr: image_mr,
+    pt_md_up: image_pt_md_up,
+    pl_md_up: image_pl_md_up,
+    pb_md_up: image_pb_md_up,
+    pr_md_up: image_pr_md_up,
+    mt_md_up: image_mt_md_up,
+    ml_md_up: image_ml_md_up,
+    mb_md_up: image_mb_md_up,
+    mr_md_up: image_mr_md_up,
+    border_color: image_border_color,
+    border_top: image_border_top,
+    border_right: image_border_right,
+    border_bottom: image_border_bottom,
+    border_left: image_border_left %}
+{% endcapture %}
+
+  {% capture masthead_image_grid_item %}
+    {% render 'grid-item'
+      col: image_col,
+      col_offset: image_col_offset,
+      col_lg: image_col_lg,
+      col_lg_offset: image_col_lg_offset,
+      content: masthead_image_object %}
+  {% endcapture %}
 
 {% comment %} Content {% endcomment %}
 {% capture content %}
@@ -50,7 +114,7 @@
       link_size: link_size,
       link_block: link_block,
       content_align: content_align,
-      content_align_lg: content_align_lg %}
+      content_align_lg: content_align_lg  %}
   {% endcapture %}
 
   {% render 'content-wrapper'
@@ -64,7 +128,12 @@
     pt_md_up: pt_md_up,
     pb_md_up: pb_md_up,
     mt_md_up: mt_md_up,
-    mb_md_up: mb_md_up %}
+    mb_md_up: mb_md_up,
+    border_color: border_color,
+    border_top: border_top,
+    border_right: border_right,
+    border_bottom: border_bottom,
+    border_left: border_left %}
 {% endcapture %}
 
 {% comment %} Grid Item {% endcomment %}
@@ -80,6 +149,10 @@
 {% endif %}
 
 {% comment %} Content Container {% endcomment %}
+
+  {% render 'content-container'
+    container: container,
+    content: masthead_image_grid_item %}
 {% if grid_item != blank %}
   {% render 'content-container'
     container: container,
