@@ -1,0 +1,40 @@
+{% assign active_swatch_count = 0 %}
+  {% for variant in product.variants %}
+    {% if variant.available %}
+      {% unless previousVariantOpt1 == variant.option1 %}
+
+        {% assign variant_image = variant.image %}
+        {% assign alt_text_downcase = variant_image.alt | downcase %}
+        {% assign variant_option_1_handle = variant.option1 | handleize %}
+        {% if alt_text_downcase contains 'suit:' %}
+          {% assign swatch_handle =
+            alt_text_downcase
+            | remove: 'suit:'
+            | strip
+            | handleize %}
+          {% if swatch_handle == variant_option_1_handle %}
+            {% assign active_swatch_count = active_swatch_count | plus: 1 %}
+            {% if active_swatch_count <= 4 %}
+              <li class="mr-2 border{% if active_swatch_count == 1 %} border-dark{% else %} border-white{% endif %}" style="width: 50px; height: 50px;">
+                {% assign variant_image_src = variant_image.src | img_url: '50x' %}
+                <span
+                  class=""
+                  data-product-card-swatch="{{ swatch_handle }}"
+                  data-product-card-swatch-variant-id="{{ variant.id }}">
+                    {% render 'image-object',
+                      id: variant_image.id,
+                      image_url: variant_image_src,
+                      image_url_lg: variant_image_src,
+                      image_alt_text: variant_image.alt,
+                      aspect_ratio: '1by1'
+                    %}
+                </span>
+              </li>
+            {% endif %}
+          {% endif %}
+        {% endif %}
+        {% assign previousVariantOpt1 = variant.option1 %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+  {% assign swatch_more_count = active_swatch_count | minus: 4 %} 

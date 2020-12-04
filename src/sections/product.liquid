@@ -6,6 +6,12 @@
 
 {% endcomment %}
 
+{% capture product_image_swatches %}
+  <ul class="list-unstyled mb-2 d-flex" data-product-card-swatches>
+    {% render 'single-variant-product-images' product: product%}
+  </ul>
+{% endcapture %}
+
 <section
   data-section-id="{{ section.id }}"
   data-section-type="product"
@@ -55,6 +61,7 @@
           current_variant: current_variant %}
         {% render 'product-description' product: product %}
         {% render 'product-categories' product: product %}
+        {{ product_image_swatches }}
         {% render 'product-form'
           product: product,
           current_variant: current_variant %}

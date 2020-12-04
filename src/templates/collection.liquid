@@ -21,20 +21,8 @@
   <div class="row">
     {% for product in collection.products %}
       <div class="col-6 col-md-4">
-        {% assign featured_image = product.featured_image.src | img_url: '600x' %}
-        {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
-        {% render 'product-card'
-                    featured_image: featured_image, 
-                    id: product.id,
-                    title: product.title,
-                    excerpt: product_excerpt,
-                    url: product.url,
-                    compare_at_price: product.compare_at_price,
-                    price_varies: product.price_varies,
-                    price: product.price
-        %}
+        {% render 'product-card' product: product %}
       </div>
-
     {% else %}
       {% if collection.handle == 'all' and collection.all_vendors.size == 0 and collection.all_types.size == 0 %}
         {% for i in (1..8) %}

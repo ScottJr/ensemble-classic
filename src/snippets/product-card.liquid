@@ -6,48 +6,74 @@
 
   Usage:
 
-  {% render 'product-card',
-    featured_image: { obj } product image object
-    title: { string }
-    excerpt: { string }
-    url: { string }
-    compare_at_price:  { string }
-    price_varies: { boolean }
-    price: { string } %}
+  {% render 'product-card' product: product %}
 
 {% endcomment %}
+
+{% assign product_featured_image =
+  product.featured_image.src | img_url: '600x' %}
+{% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
+{% assign product_variants = product.variants %}
+{% assign product_images = product.images %}
+{% assign product_url = product.url %}
+{% assign product_title = product.title %}
+{% assign product_compare_at_price = product.compare_at_price %}
+{% assign product_price_varies = product.price_varies %}
+{% assign product_price = product.price %}
+
+{% comment %} Single Variant Swatch Images {% endcomment %}
+{% capture swatch_items %}
+  {% render 'single-variant-product-images' product: product%}
+{% endcapture %}
+
 <div class="mb-4 mb-md-5">
   <div class="mb-3">
-    <a href="{{ url | within: collection }}">
+    <a href="{{ product_url | within: collection }}">
       {% render 'image-object',
-                  image_url: featured_image,
-                  image_url_lg: featured_image,
-                  image_alt_text: title,
-                  image_aspect_ratio: '1by1' %}
+                  image_url: product_featured_image,
+                  image_url_lg: product_featured_image,
+                  image_alt_text: product_title,
+                  aspect_ratio: '1by1' %}
     </a>
   </div>
+  {% if swatch_items != blank %}
+    <div class="d-flex">
+      <ul class="list-unstyled mb-2 d-flex" data-product-card-swatches>
+        {{ swatch_items }}
+      </ul>
+      {% if swatch_more_count >= 1 %}
+        <p class="small">
+          <a
+            class="link-unstyled"
+            href="{{ product_url }}">+ {{  swatch_more_count }} more </a>
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="d-flex flex-column flex-md-row justify-content-between">
-    <a href="{{ url | within: collection }}">
-      <h3 class="h6 mb-0 text-body">{{ title }}</h3>
-      {% if excerpt != blank %}
-        <p class="small text-body">{{ excerpt }}</p>
+    <a href="{{ product_url | within: collection }}">
+      <h3 class="h6 mb-0 text-body">{{ product_title }}</h3>
+      {% if product_excerpt != blank %}
+        <p class="small text-body">{{ product_excerpt }}</p>
       {% endif %}
     </a>
 
     <p class="mb-0 text-body">
-      {% if compare_at_price > price %}
-        {% if price_varies %}
-          {%- assign sale_price = price | money_without_trailing_zeros -%}
+      {% if product_compare_at_price > product_price %}
+        {% if product_price_varies %}
+          {%- assign sale_price = product_price
+            | money_without_trailing_zeros -%}
           {{ sale_price }}
         {% else %}
-          {{ price | money_without_trailing_zeros }}
+          {{ product_price | money_without_trailing_zeros }}
         {% endif %}
       {% else %}
-        {% if price_varies %}
-          {%- assign price_varies = price | money_without_trailing_zeros -%}
-          {{ price_varies}}
+        {% if product_price_varies %}
+          {%- assign price_varies =
+            product_price | money_without_trailing_zeros -%}
+          {{ price_varies }}
         {% else %}
-          {{ price | money_without_trailing_zeros }}
+          {{ product_price | money_without_trailing_zeros }}
         {% endif %}
       {% endif %}
     </p>

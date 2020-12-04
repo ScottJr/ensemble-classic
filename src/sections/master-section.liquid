@@ -273,114 +273,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     {% assign col_lg = block.settings.col_lg  %}
     {% assign col_lg_offset = block.settings.col_lg_offset  %}
 
-    {% if block.type == 'content-object' %}
-      {% comment %} START - Content Grid Item {% endcomment %}
-
-      {% comment %} Block Settings {% endcomment %}
-      {% assign aspect_ratio = block.settings.aspect_ratio %}
-
-      {% assign bg_color = block.settings.bg_color %}
-      {% assign bg_color_alpha = block.settings.bg_color_alpha %}
-
-      {% assign bg_image_url = block.settings.bg_image
-        | img_url: '400x'  %}
-      {% assign bg_image_url_lg = block.settings.bg_image_lg
-        | img_url: '400x' %}
-
-      {% assign eyebrow_style = block.settings.eyebrow_style %}
-      {% assign eyebrow_text = block.settings.eyebrow_text %}
-
-      {% assign heading_style = block.settings.heading_style %}
-      {% assign heading_text = block.settings.heading_text %}
-
-      {% assign paragraph_text = block.settings.paragraph_text %}
-
-      {% assign link_text  = block.settings.link_text %}
-      {% assign link_url = block.settings.link_url %}
-      {% assign link_style = block.settings.link_style %}
-
-      {% assign content_color = block.settings.content_color %}
-      {% assign content_align = block.settings.content_align %}
-      {% assign content_align_lg = block.settings.content_align_lg %}
-
-      {% assign align_items = block.settings.align_items %}
-
-      {% assign pt = block.settings.pt %}
-      {% assign pr = block.settings.pr %}
-      {% assign pb = block.settings.pb %}
-      {% assign pl = block.settings.pl %}
-
-      {% assign mt = block.settings.mt %}
-      {% assign mr = block.settings.mr %}
-      {% assign mb = block.settings.mb %}
-      {% assign ml = block.settings.ml %}
-
-      {% assign pt_md_up = block.settings.pt_md_up %}
-      {% assign pr_md_up = block.settings.pr_md_up %}
-      {% assign pb_md_up = block.settings.pb_md_up %}
-      {% assign pl_md_up = block.settings.pl_md_up %}
-
-      {% assign mt_md_up = block.settings.mt_md_up %}
-      {% assign mr_md_up = block.settings.mr_md_up %}
-      {% assign mb_md_up = block.settings.mb_md_up %}
-      {% assign ml_md_up = block.settings.ml_md_up %}
-
-      {% comment %} Block Content {% endcomment %}
-      {% capture content_object %}
-        {% render 'content-object',
-          content_color: content_color,
-          eyebrow_style: eyebrow_style,
-          eyebrow_text: eyebrow_text,
-          heading_style: heading_style,
-          heading_text: heading_text,
-          paragraph_text: paragraph_text,
-          link_text: link_text,
-          link_url: link_url,
-          link_style: link_style,
-          text_align: content_align,
-          text_align_lg: content_align_lg,
-          pt: pt,
-          pr: pr,
-          pb: pb,
-          pl: pl,
-          mt: mt,
-          mr: mr,
-          mb: mb,
-          ml: ml,
-          pt_md_up: pt_md_up,
-          pr_md_up: pr_md_up,
-          pb_md_up: pb_md_up,
-          pl_md_up: pl_md_up,
-          mt_md_up: mt_md_up,
-          mr_md_up: mr_md_up,
-          mb_md_up: mb_md_up,
-          ml_md_up: ml_md_up %}
-      {% endcapture %}
-
-      {% unless aspect_ratio == 'none' %}
-        {% capture content %}
-          {% render 'embed-object',
-            content: content_object,
-            aspect_ratio: aspect_ratio %}
-        {% endcapture %}
-      {% endunless %}
-
-      {% comment %} END - Content Grid Item {% endcomment %}
-    {% elsif block.type == 'article-grid-item' %}
-      {% comment %} START - Article Grid Item {% endcomment %}
-
-      {% comment %} Block Settings {% endcomment %}
-      {% assign article =  articles[block.settings.article] %}
-
-      {% comment %} Block Content {% endcomment %}
-      {% capture content %}
-        {% render 'article-card',
-          article: article,
-          show_excerpt: true %}
-      {% endcapture %}
-
-      {% comment %} END - Article Grid Item {% endcomment %}
-    {% elsif block.type == 'content-card' %}
+    {% if block.type == 'content-card' %}
       {% assign block_id = block.id %}
       {% comment %} START - Content Card Grid Item {% endcomment %}
       {% assign content_align = block.settings.content_align %}
@@ -414,18 +307,22 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {% assign content_pr = block.settings.content_pr %}
       {% assign content_pb = block.settings.content_pb %}
       {% assign content_pl = block.settings.content_pl %}
+
       {% assign content_mt = block.settings.content_mt %}
       {% assign content_mr = block.settings.content_mr %}
       {% assign content_mb = block.settings.content_mb %}
       {% assign content_ml = block.settings.content_ml %}
+
       {% assign content_pt_md_up = block.settings.content_pt_md_up %}
       {% assign content_pr_md_up = block.settings.content_pr_md_up %}
       {% assign content_pb_md_up = block.settings.content_pb_md_up %}
       {% assign content_pl_md_up = block.settings.content_pl_md_up %}
+
       {% assign content_mt_md_up = block.settings.content_mt_md_up %}
       {% assign content_mr_md_up = block.settings.content_mr_md_up %}
       {% assign content_mb_md_up = block.settings.content_mb_md_up %}
       {% assign content_ml_md_up = block.settings.content_ml_md_up %}
+
       {% assign content_bg_image_url = block.settings.content_bg_image
         | img_url: '600x' %}
       {% assign content_bg_image_id = block.settings.content_bg_image.id %}
@@ -433,6 +330,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         | img_url: '1000x' %}
       {% assign content_bg_color = block.settings.content_bg_color %}
       {% assign content_bg_color_alpha = block.settings.content_bg_color_alpha %}
+
       {% assign content_aspect_ratio = block.settings.content_aspect_ratio %}
       {% assign content_embed_forced = block.settings.content_embed_forced %}
       {% assign content_position = block.settings.content_position %}
@@ -539,7 +437,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 
       {% comment %} END - Content Card Grid Item {% endcomment %}
     {% elsif block.type == 'product-grid-item' %}
-      {% comment %} START - Product Grid Item {% endcomment %}
+      {% comment %} START - Product Card Grid Item {% endcomment %}
 
       {% comment %} Block Settings {% endcomment %}
       {% assign product = all_products[block.settings.product] %}
@@ -560,42 +458,21 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           price: product.price %}
       {% endcapture %}
 
-      {% comment %} END - Product Grid Item {% endcomment %}
-    {% elsif block.type == 'image-grid-item' %}
-      {% comment %} START - Image Grid Item {% endcomment %}
+      {% comment %} END - Product Card Grid Item {% endcomment %}
+    {% elsif block.type == 'article-grid-item' %}
+      {% comment %} START - Article Card Grid Item {% endcomment %}
 
       {% comment %} Block Settings {% endcomment %}
-      {% assign image_url = block.settings.image.src
-        | img_url: '600x' %}
-      {% assign image_url_lg = block.settings.image_lg
-        | img_url: '1000x' %}
-      {% assign image_aspect_ratio = block.settings.image_aspect_ratio %}
-      {% assign image_alt_text = block.settings.image.alt %}
+      {% assign article =  articles[block.settings.article] %}
 
       {% comment %} Block Content {% endcomment %}
       {% capture content %}
-        {% render 'image-object',
-          image_url: image_url,
-          image_url_lg: image_url_lg,
-          image_alt_text: image_alt_text,
-          aspect_ratio: image_aspect_ratio %}
-      {% endcapture %}
-      {% comment %} End - Image Grid Item {% endcomment %}
-    {% elsif block.type == 'video-grid-item' %}
-      {% comment %} START - Video Grid Item {% endcomment %}
-
-      {% comment %} Block Settings {% endcomment %}
-      {% assign video_url = block.settings.video_url %}
-      {% assign video_aspect_ratio = block.settings.video_aspect_ratio %}
-
-      {% comment %} Block Content {% endcomment %}
-      {% capture content %}
-        {% render 'video-object',
-          video_url: video_url,
-          video_aspect_ratio: video_aspect_ratio %}
+        {% render 'article-card',
+          article: article,
+          show_excerpt: true %}
       {% endcapture %}
 
-      {% comment %} END - Video Grid Item {% endcomment %}
+      {% comment %} END - Article Card Grid Item {% endcomment %}
     {% endif %}
 
     {% comment %} Render Grid Item With Embedded Content {% endcomment %}
@@ -732,7 +609,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     "settings": [
       {
         "type": "header",
-        "content": "----------- Section Layout -----------"
+        "content": "------------ Section Layout ------------",
+        "info": "Settings defined here are global for the section and will effect the header, content, and footer."
       },
       {
         "type": "header",
@@ -841,14 +719,36 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "unit": "%"
       },
       {
+        "type": "select",
+        "id": "content_container",
+        "label": "Content Container",
+        "options": [
+          { "value": "container", "label": "Contained at all breakpoints"},
+          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
+          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
+          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
+          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
+          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          { "value": "", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "container-xl",
+        "info": "Determines the width of container that the main content of the section will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths."
+      },
+      {
+        "type": "header",
+        "content": "----- Section Background Image -----"
+      },
+      {
         "type": "image_picker",
         "id": "section_bg_image_lg",
-        "label": "Background Image - Large"
+        "label": "Large Devices",
+        "info": "Screen sizes larger than 768px"
       },
       {
         "type": "image_picker",
         "id": "section_bg_image",
-        "label": "Background Image - Small"
+        "label": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
       },
       {
         "type": "color",
@@ -883,16 +783,51 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "FF", "label": "100%" }
         ],
         "default": "FF",
-        "info": "Default: Transparency Disabled"
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
       },
       {
         "type": "header",
-        "content": "----------- Header Settings -----------"
+        "content": "----------- Section Header ----------",
+        "info": "The section header is located at the top of the section, above the content and footer. The header can display an image, title text, paragraph text, and call-to-action buttons."
+      },
+      {
+        "type": "header",
+        "content": "Layout Settings"
       },
       {
         "type": "header",
         "content": "Medium & Up Devices",
         "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Content Columns",
+        "info": "Defines the width of the content columns on devices larger than 768px. Utilize offsets to align content horizontally. For example: if you want a 6 column container to be centered, offset the column by 3 columns."
+      },
+      {
+        "type": "range",
+        "id": "header_col_lg",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Columns",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "header_col_offset_lg",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Offset Columns",
+        "default": 2
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
       },
       {
         "type": "header",
@@ -944,32 +879,28 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
-        "content": "Layout"
+        "content": "Content Columns",
+        "info": "Defines the width of the content columns on smaller than 768px. Utilize offsets to align content horizontally. For example: if you want a 6 column container to be centered, offset the column by 3 columns."
       },
       {
         "type": "range",
-        "id": "header_col_lg",
+        "id": "header_col",
         "min": 1,
         "max": 12,
         "step": 1,
         "unit": "col",
         "label": "Columns",
-        "default": 8
+        "default": 12
       },
       {
         "type": "range",
-        "id": "header_col_offset_lg",
+        "id": "header_col_offset",
         "min": 0,
         "max": 12,
         "step": 1,
         "unit": "col",
         "label": "Offset Columns",
-        "default": 2
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
+        "default": 0
       },
       {
         "type": "header",
@@ -1021,27 +952,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "header_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Columns",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "header_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Offset Columns",
-        "default": 0
+        "content": "-------- Header Background ---------"
       },
       {
         "type": "color",
@@ -1076,7 +987,11 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "FF", "label": "100%" }
         ],
         "default": "FF",
-        "info": "Default: 100%"
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
+      },
+      {
+        "type": "header",
+        "content": "---------- Header Container -----------"
       },
       {
         "type": "select",
@@ -1091,11 +1006,12 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
+        "info": "Determines the width of container that the header content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths.",
         "default": "container-xl"
       },
       {
         "type": "header",
-        "content": "----------- Header Content ----------"
+        "content": "------------- Header Image -------------"
       },
       {
         "type": "image_picker",
@@ -1105,7 +1021,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {
         "type": "select",
         "id": "header_image_aspect_ratio",
-        "label": "Image Aspect Ratio",
+        "label": "Aspect Ratio",
         "options": [
           { "value": "21by9", "label": "21x9"},
           { "value": "1by1", "label": "1x1"},
@@ -1118,7 +1034,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {
         "type": "select",
         "id": "header_image_object_fit",
-        "label": "Image Object Fit",
+        "label": "Object Fit",
         "options": [
           { "value": "fill", "label": "Fill"},
           { "value": "contain", "label": "Contain"},
@@ -1130,9 +1046,19 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
       },
       {
+        "type": "header",
+        "content": "Header Image - Background",
+        "info": "These settings apply to the header image only."
+      },
+      {
         "type": "color",
         "id": "header_image_bg_color",
         "label": "Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Border",
+        "info": "These settings apply to the header image only."
       },
       {
         "type": "select",
@@ -1149,8 +1075,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "border-dark", "label": "Dark"},
           { "value": "border-white", "label": "White"}
         ],
-        "default": "border-dark",
-        "info": "Default: Dark"
+        "default": "border-dark"
       },
       {
         "type": "checkbox",
@@ -1178,98 +1103,38 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
-        "content": "Padding - Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_image_pt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Right",
-        "id": "header_image_pr",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_image_pb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   2,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Left",
-        "id": "header_image_pl",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin - Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_image_mt",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Right",
-        "id": "header_image_mr",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_image_mb",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   2,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Left",
-        "id": "header_image_ml",
-        "min":       0,
-        "max":       5,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Padding - Medium & Up Devices",
+        "content": "Medium & Up Devices",
         "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Layout",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_lg",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Medium & Up Devices",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_lg_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Medium & Up Devices",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Margin",
+        "info": "These settings apply to the header image only."
       },
       {
         "type":   "range",
@@ -1313,8 +1178,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
-        "content": "Margin - Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"
+        "content": "Header Image - Padding",
+        "info": "These settings apply to the header image only."
       },
       {
         "type":   "range",
@@ -1358,7 +1223,13 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
-        "content": "Layout"
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Layout",
+        "info": "These settings apply to the header image only."
       },
       {
         "type": "range",
@@ -1381,24 +1252,94 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "default": 0
       },
       {
-        "type": "range",
-        "id": "header_image_col_lg",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns - Medium & Up Devices",
-        "default": 4
+        "type": "header",
+        "content": "Header Image - Padding",
+        "info": "These settings apply to the header image only."
       },
       {
-        "type": "range",
-        "id": "header_image_col_lg_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns - Medium & Up Devices",
-        "default": 0
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_pt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_pr",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_pb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_pl",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Margin",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_mt",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_mr",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_mb",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_ml",
+        "min":       0,
+        "max":       5,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
       },
       {
         "type": "header",
@@ -1407,28 +1348,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {
         "type": "text",
         "id": "header_eyebrow_text",
-        "label": "Eyebrow"
-      },
-      {
-        "type": "text",
-        "id": "header_heading_text",
-        "label": "Heading Text",
-        "default": "Master Section"
-      },
-      {
-        "type": "richtext",
-        "id": "header_paragraph_text",
-        "label": "Paragraph"
-      },
-      {
-        "type": "text",
-        "id": "header_link_text",
-        "label": "Link Text"
-      },
-      {
-        "type": "url",
-        "id": "header_link_url",
-        "label": "Link Destination"
+        "label": "Eyebrow",
+        "default": "Eyebrow Text"
       },
       {
         "type": "select",
@@ -1447,68 +1368,74 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "default": "badge-dark"
       },
       {
+        "type": "text",
+        "id": "header_heading_text",
+        "label": "Heading Text",
+        "default": "Hello, World."
+      },
+      {
         "type": "select",
         "id": "header_heading_style",
         "label": "Heading Text Style",
         "options": [
-          { "value": "display-1", "label": "Display 1"},
-          { "value": "display-2", "label": "Display 2"},
-          { "value": "display-3", "label": "Display 3"},
-          { "value": "display-4", "label": "Display 4"},
-          { "value": "h1", "label": "H1"},
-          { "value": "h2", "label": "H2"},
-          { "value": "h3", "label": "H3"},
-          { "value": "h4", "label": "H4"},
-          { "value": "h5", "label": "H5"},
-          { "value": "h6", "label": "H6"}
+          {
+            "group": "Display",
+            "value": "display-1",
+            "label": "Display 1"
+          },
+          { "group": "Display",
+            "value": "display-2",
+            "label": "Display 2"
+          },
+          { "group": "Display",
+            "value": "display-3",
+            "label": "Display 3"
+          },
+          { "group": "Display",
+            "value": "display-4",
+            "label": "Display 4"
+          },
+          { "group": "Heading",
+            "value": "h1",
+            "label": "H1"
+          },
+          { "group": "Heading",
+            "value": "h2",
+            "label": "H2"
+          },
+          { "group": "Heading",
+            "value": "h3",
+            "label": "H3"
+          },
+          { "group": "Heading",
+            "value": "h4",
+            "label": "H4"
+          },
+          { "group": "Heading",
+            "value": "h5",
+            "label": "H5"
+          },
+          { "group": "Heading",
+            "value": "h6",
+            "label": "H6"
+          }
         ],
-        "default": "display-4",
-        "info": "Default: Display 4"
+        "default": "display-4"
       },
       {
-        "type": "select",
-        "id": "header_content_color",
-        "label": "Content Color",
-        "options": [
-          { "value": "text-primary", "label": "Primary"},
-          { "value": "text-secondary", "label": "Secondary"},
-          { "value": "text-success", "label": "Success"},
-          { "value": "text-danger", "label": "Danger"},
-          { "value": "text-warning", "label": "Warning"},
-          { "value": "text-info", "label": "Info"},
-          { "value": "text-light", "label": "Light"},
-          { "value": "text-dark", "label": "Dark"},
-          { "value": "text-body", "label": "Body"},
-          { "value": "text-muted", "label": "Muted"},
-          { "value": "text-white", "label": "White"},
-          { "value": "text-black-50", "label": "Black 50"},
-          { "value": "text-white-50", "label": "White 50"}
-        ],
-        "default": "text-body"
+        "type": "richtext",
+        "id": "header_paragraph_text",
+        "label": "Paragraph"
       },
       {
-        "type": "select",
-        "id": "header_content_align",
-        "label": "Text Alignment - Small",
-        "options": [
-          { "value": "text-left", "label": "Left"},
-          { "value": "text-center", "label": "Center"},
-          { "value": "text-right", "label": "Right"}
-        ],
-        "default":   "text-center",
-        "info":      "Default: Center"
+        "type": "text",
+        "id": "header_link_text",
+        "label": "Link Text"
       },
       {
-        "type": "select",
-        "id": "header_content_align_lg",
-        "label": "Text Alignment - Medium & Up Devices",
-        "options": [
-          { "value": "text-md-left", "label": "Left"},
-          { "value": "text-md-center", "label": "Center"},
-          { "value": "text-md-right", "label": "Right"}
-        ],
-        "default":   "text-md-center",
-        "info":      "Default: Center"
+        "type": "url",
+        "id": "header_link_url",
+        "label": "Link Destination"
       },
       {
         "type": "select",
@@ -1563,42 +1490,42 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "group": "Outline Buttons",
             "value": "btn-outline-primary",
-            "label": "Primary - Outline"
+            "label": "Primary"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-secondary",
-            "label": "Secondary - Outline"
+            "label": "Secondary"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-success",
-            "label": "Success - Outline"
+            "label": "Success"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-danger",
-            "label": "Danger - Outline"
+            "label": "Danger"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-warning",
-            "label": "Warning - Outline"
+            "label": "Warning"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-info",
-            "label": "Info - Outline"
+            "label": "Info"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-light",
-            "label": "Light - Outline"
+            "label": "Light"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-dark",
-            "label": "Dark - Outline"
+            "label": "Dark"
           }
         ],
         "default": "btn-outline-dark"
@@ -1608,21 +1535,12 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "header_link_size",
         "label": "Link Size",
         "options": [
-          {
-            "value": "btn-lg",
-            "label": "Large"
-          },
-          {
-            "value": "",
-            "label": "Default"
-          },
-          {
-            "value": "btn-sm",
-            "label": "Small"
-          }
+          { "value": "btn-lg", "label": "Large" },
+          { "value": "", "label": "Default" },
+          { "value": "btn-sm", "label": "Small" }
         ],
         "default": "",
-        "info": "Default: None"
+        "info": "Select from Small, Default, & Large button sizes."
       },
       {
         "type": "checkbox",
@@ -1630,6 +1548,51 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Enable block button",
         "default": false,
         "info": "If enabled button will span entire parent container"
+      },
+      {
+        "type": "select",
+        "id": "header_content_color",
+        "label": "Content Color",
+        "options": [
+          { "value": "text-primary", "label": "Primary"},
+          { "value": "text-secondary", "label": "Secondary"},
+          { "value": "text-success", "label": "Success"},
+          { "value": "text-danger", "label": "Danger"},
+          { "value": "text-warning", "label": "Warning"},
+          { "value": "text-info", "label": "Info"},
+          { "value": "text-light", "label": "Light"},
+          { "value": "text-dark", "label": "Dark"},
+          { "value": "text-body", "label": "Body"},
+          { "value": "text-muted", "label": "Muted"},
+          { "value": "text-white", "label": "White"},
+          { "value": "text-black-50", "label": "Black 50"},
+          { "value": "text-white-50", "label": "White 50"}
+        ],
+        "default": "text-body"
+      },
+      {
+        "type": "select",
+        "id": "header_content_align",
+        "label": "Content Alignment - Small",
+        "options": [
+          { "value": "text-left", "label": "Left"},
+          { "value": "text-center", "label": "Center"},
+          { "value": "text-right", "label": "Right"}
+        ],
+        "default":   "text-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "header_content_align_lg",
+        "label": "Content Alignment - Medium & Up Devices",
+        "options": [
+          { "value": "text-md-left", "label": "Left"},
+          { "value": "text-md-center", "label": "Center"},
+          { "value": "text-md-right", "label": "Right"}
+        ],
+        "default":   "text-md-center",
+        "info":      "Default: Center"
       },
       {
         "type": "select",
@@ -1675,7 +1638,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
-        "content": "----------- Content Settings ----------"
+        "content": "----------- Content Settings ----------",
+        "info": "Applies to content between the section header and footer. Content is added as a section block at the top of the section."
       },
       {
         "type": "header",
@@ -1784,6 +1748,10 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "unit": "%"
       },
       {
+        "type": "header",
+        "content": "-------- Content Background ---------"
+      },
+      {
         "type": "color",
         "id": "content_container_bg_color",
         "label": "Background Color"
@@ -1816,22 +1784,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "FF", "label": "100%" }
         ],
         "default": "FF",
-        "info": "Default: 100%"
-      },
-      {
-        "type": "select",
-        "id": "content_container",
-        "label": "Container",
-        "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "default": "container-xl"
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
       },
       {
         "type": "select",
@@ -1852,6 +1805,30 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "type": "header",
         "content": "Medium & Up Devices",
         "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "footer_col_lg",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns ",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "footer_col_offset_lg",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns",
+        "default": 0
       },
       {
         "type": "header",
@@ -1903,44 +1880,32 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
         "content": "Layout"
       },
       {
         "type": "range",
-        "id": "footer_col_lg",
+        "id": "footer_col",
         "min": 1,
         "max": 12,
         "step": 1,
         "unit": "col",
-        "label": "Container Columns ",
+        "label": "Container Columns",
         "default": 12
       },
       {
         "type": "range",
-        "id": "footer_col_offset_lg",
+        "id": "footer_col_offset",
         "min": 0,
         "max": 12,
         "step": 1,
         "unit": "col",
-        "label": "Container Offset Columns",
+        "label": "Container Offset Columns - Small Devices",
         "default": 0
-      },
-      {
-        "type": "select",
-        "id": "footer_content_align_lg",
-        "label": "Text alignment",
-        "options": [
-          { "value": "text-md-left", "label": "Left"},
-          { "value": "text-md-center", "label": "Center"},
-          { "value": "text-md-right", "label": "Right"}
-        ],
-        "default":   "text-md-center",
-        "info":      "Default: Center"
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
       },
       {
         "type": "header",
@@ -1991,40 +1956,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "unit": "%"
       },
       {
-        "type": "select",
-        "id": "footer_content_align",
-        "label": "Text alignment",
-        "options": [
-          { "value": "text-left", "label": "Left"},
-          { "value": "text-center", "label": "Center"},
-          { "value": "text-right", "label": "Right"}
-        ],
-        "default":   "text-center",
-        "info":      "Default: Center"
-      },
-      {
         "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "footer_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "footer_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns - Small Devices",
-        "default": 0
+        "content": "-------- Footer Background ---------"
       },
       {
         "type": "color",
@@ -2059,7 +1992,11 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "FF", "label": "100%" }
         ],
         "default": "FF",
-        "info": "Default: 100%"
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
+      },
+      {
+        "type": "header",
+        "content": "---------- Footer Container -----------"
       },
       {
         "type": "select",
@@ -2074,7 +2011,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
-        "default": "container-xl"
+        "default": "container-xl",
+        "info": "Determines the width of container that the footer content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths."
       },
       {
         "type": "header",
@@ -2098,8 +2036,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           { "value": "badge-info", "label": "Info"},
           { "value": "badge-light", "label": "Light"},
           { "value": "badge-dark", "label": "Dark"}
-        ],
-        "default": "badge-dark"
+        ]
       },
       {
         "type": "text",
@@ -2111,40 +2048,49 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "footer_heading_style",
         "label": "Heading Text Style",
         "options": [
-          { "value": "display-1", "label": "Display 1"},
-          { "value": "display-2", "label": "Display 2"},
-          { "value": "display-3", "label": "Display 3"},
-          { "value": "display-4", "label": "Display 4"},
-          { "value": "h1", "label": "H1"},
-          { "value": "h2", "label": "H2"},
-          { "value": "h3", "label": "H3"},
-          { "value": "h4", "label": "H4"},
-          { "value": "h5", "label": "H5"},
-          { "value": "h6", "label": "H6"}
+          {
+            "group": "Display",
+            "value": "display-1",
+            "label": "Display 1"
+          },
+          { "group": "Display",
+            "value": "display-2",
+            "label": "Display 2"
+          },
+          { "group": "Display",
+            "value": "display-3",
+            "label": "Display 3"
+          },
+          { "group": "Display",
+            "value": "display-4",
+            "label": "Display 4"
+          },
+          { "group": "Heading",
+            "value": "h1",
+            "label": "H1"
+          },
+          { "group": "Heading",
+            "value": "h2",
+            "label": "H2"
+          },
+          { "group": "Heading",
+            "value": "h3",
+            "label": "H3"
+          },
+          { "group": "Heading",
+            "value": "h4",
+            "label": "H4"
+          },
+          { "group": "Heading",
+            "value": "h5",
+            "label": "H5"
+          },
+          { "group": "Heading",
+            "value": "h6",
+            "label": "H6"
+          }
         ],
-        "default": "display-4",
-        "info": "Default: Display 4"
-      },
-      {
-        "type": "select",
-        "id": "footer_content_color",
-        "label": "Content color",
-        "options": [
-          { "value": "text-primary", "label": "Primary"},
-          { "value": "text-secondary", "label": "Secondary"},
-          { "value": "text-success", "label": "Success"},
-          { "value": "text-danger", "label": "Danger"},
-          { "value": "text-warning", "label": "Warning"},
-          { "value": "text-info", "label": "Info"},
-          { "value": "text-light", "label": "Light"},
-          { "value": "text-dark", "label": "Dark"},
-          { "value": "text-body", "label": "Body"},
-          { "value": "text-muted", "label": "Muted"},
-          { "value": "text-white", "label": "White"},
-          { "value": "text-black-50", "label": "Black 50"},
-          { "value": "text-white-50", "label": "White 50"}
-        ],
-        "default": "text-body"
+        "default": "display-4"
       },
       {
         "type": "richtext",
@@ -2214,42 +2160,42 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "group": "Outline Buttons",
             "value": "btn-outline-primary",
-            "label": "Primary - Outline"
+            "label": "Primary"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-secondary",
-            "label": "Secondary - Outline"
+            "label": "Secondary"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-success",
-            "label": "Success - Outline"
+            "label": "Success"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-danger",
-            "label": "Danger - Outline"
+            "label": "Danger"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-warning",
-            "label": "Warning - Outline"
+            "label": "Warning"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-info",
-            "label": "Info - Outline"
+            "label": "Info"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-light",
-            "label": "Light - Outline"
+            "label": "Light"
           },
           {
             "group": "Outline Buttons",
             "value": "btn-outline-dark",
-            "label": "Dark - Outline"
+            "label": "Dark"
           }
         ],
         "default": "btn-outline-dark"
@@ -2259,21 +2205,12 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "footer_link_size",
         "label": "Link Size",
         "options": [
-          {
-            "value": "btn-lg",
-            "label": "Large"
-          },
-          {
-            "value": "",
-            "label": "Default"
-          },
-          {
-            "value": "btn-sm",
-            "label": "Small"
-          }
+          { "value": "btn-lg", "label": "Large" },
+          { "value": "", "label": "Default" },
+          { "value": "btn-sm", "label": "Small" }
         ],
         "default": "",
-        "info": "Default: None"
+        "info": "Select from Small, Default, & Large button sizes."
       },
       {
         "type": "checkbox",
@@ -2281,144 +2218,73 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Enable block button",
         "default": false,
         "info": "If enabled button will span entire parent container"
+      },
+      {
+        "type": "select",
+        "id": "footer_content_color",
+        "label": "Content color",
+        "options": [
+          { "value": "text-primary", "label": "Primary"},
+          { "value": "text-secondary", "label": "Secondary"},
+          { "value": "text-success", "label": "Success"},
+          { "value": "text-danger", "label": "Danger"},
+          { "value": "text-warning", "label": "Warning"},
+          { "value": "text-info", "label": "Info"},
+          { "value": "text-light", "label": "Light"},
+          { "value": "text-dark", "label": "Dark"},
+          { "value": "text-body", "label": "Body"},
+          { "value": "text-muted", "label": "Muted"},
+          { "value": "text-white", "label": "White"},
+          { "value": "text-black-50", "label": "Black 50"},
+          { "value": "text-white-50", "label": "White 50"}
+        ],
+        "default": "text-body"
+      },
+      {
+        "type": "select",
+        "id": "footer_content_align",
+        "label": "Content Alignment",
+        "options": [
+          { "value": "text-left", "label": "Left"},
+          { "value": "text-center", "label": "Center"},
+          { "value": "text-right", "label": "Right"}
+        ],
+        "default":   "text-center",
+        "info":      "Default: Center"
+      },
+      {
+        "type": "select",
+        "id": "footer_content_align_lg",
+        "label": "Content Alignment",
+        "options": [
+          { "value": "text-md-left", "label": "Left"},
+          { "value": "text-md-center", "label": "Center"},
+          { "value": "text-md-right", "label": "Right"}
+        ],
+        "default":   "text-md-center",
+        "info":      "Default: Center"
       }
     ],
     "blocks":[
-      {
-        "type": "article-grid-item",
-        "name": "Article Card",
-        "settings":[
-          {
-            "type": "header",
-            "content": "Content"
-          },
-          {
-            "type": "article",
-            "id": "article",
-            "label": "Article"
-          },
-          {
-            "type": "header",
-            "content": "Block Column Layout"
-          },
-          {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
-          },
-          {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
-          },
-          {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
-          },
-          {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
-          }
-        ]
-      },
-      {
-        "type": "product-grid-item",
-        "name": "Product Card",
-        "settings":[
-          {
-            "type": "header",
-            "content": "Content"
-          },
-          {
-            "type": "product",
-            "id": "product",
-            "label": "Product"
-          },
-          {
-            "type": "header",
-            "content": "Block Column Layout"
-          },
-          {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
-          },
-          {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
-          },
-          {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
-          },
-          {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
-          }
-        ]
-      },
       {
         "type": "content-card",
         "name": "Content Card",
         "settings":[
           {
             "type": "header",
-            "content": "Content"
+            "content": "Main Image"
           },
           {
             "type": "image_picker",
             "id": "image",
-            "label": "Image - Small Devices"
+            "label": "Small Devices",
+            "info": "Screen sizes smaller than 768px"
           },
           {
             "type": "image_picker",
             "id": "image_lg",
-            "label": "Image - Medium & Up Devices"
+            "label": "Medium & Up Devices",
+            "info": "Screen sizes larger than 768px"
           },
           {
             "type": "select",
@@ -2448,54 +2314,13 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
           },
           {
+            "type": "header",
+            "content": "Content"
+          },
+          {
             "type": "text",
             "id": "eyebrow_text",
             "label": "Eyebrow"
-          },
-          {
-            "type": "text",
-            "id": "heading_text",
-            "label": "Heading Text",
-            "default": "Section Block"
-          },
-          {
-            "type": "select",
-            "id": "heading_style",
-            "label": "Heading Text Style",
-            "options": [
-              { "value": "display-1", "label": "Display 1"},
-              { "value": "display-2", "label": "Display 2"},
-              { "value": "display-3", "label": "Display 3"},
-              { "value": "display-4", "label": "Display 4"},
-              { "value": "h1", "label": "H1"},
-              { "value": "h2", "label": "H2"},
-              { "value": "h3", "label": "H3"},
-              { "value": "h4", "label": "H4"},
-              { "value": "h5", "label": "H5"},
-              { "value": "h6", "label": "H6"}
-            ],
-            "default": "h3",
-            "info": "Default: H3"
-          },
-          {
-            "type": "richtext",
-            "id": "paragraph_text",
-            "label": "Paragraph"
-          },
-          {
-            "type": "text",
-            "id": "link_text",
-            "label": "Link Text"
-          },
-          {
-            "type": "url",
-            "id": "link_url",
-            "label": "Link Destination"
-          },
-          {
-            "type": "header",
-            "content": "Block Content Settings",
-            "info": "These settings only apply to the content"
           },
           {
             "type": "select",
@@ -2514,25 +2339,74 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "default": "badge-dark"
           },
           {
+            "type": "text",
+            "id": "heading_text",
+            "label": "Heading Text",
+            "default": "Section Block"
+          },
+          {
             "type": "select",
-            "id": "content_color",
-            "label": "Content color",
+            "id": "heading_style",
+            "label": "Heading Text Style",
             "options": [
-              { "value": "text-primary", "label": "Primary"},
-              { "value": "text-secondary", "label": "Secondary"},
-              { "value": "text-success", "label": "Success"},
-              { "value": "text-danger", "label": "Danger"},
-              { "value": "text-warning", "label": "Warning"},
-              { "value": "text-info", "label": "Info"},
-              { "value": "text-light", "label": "Light"},
-              { "value": "text-dark", "label": "Dark"},
-              { "value": "text-body", "label": "Body"},
-              { "value": "text-muted", "label": "Muted"},
-              { "value": "text-white", "label": "White"},
-              { "value": "text-black-50", "label": "Black 50"},
-              { "value": "text-white-50", "label": "White 50"}
+              {
+                "group": "Display",
+                "value": "display-1",
+                "label": "Display 1"
+              },
+              { "group": "Display",
+                "value": "display-2",
+                "label": "Display 2"
+              },
+              { "group": "Display",
+                "value": "display-3",
+                "label": "Display 3"
+              },
+              { "group": "Display",
+                "value": "display-4",
+                "label": "Display 4"
+              },
+              { "group": "Heading",
+                "value": "h1",
+                "label": "H1"
+              },
+              { "group": "Heading",
+                "value": "h2",
+                "label": "H2"
+              },
+              { "group": "Heading",
+                "value": "h3",
+                "label": "H3"
+              },
+              { "group": "Heading",
+                "value": "h4",
+                "label": "H4"
+              },
+              { "group": "Heading",
+                "value": "h5",
+                "label": "H5"
+              },
+              { "group": "Heading",
+                "value": "h6",
+                "label": "H6"
+              }
             ],
-            "default": "text-body"
+            "default": "h3"
+          },
+          {
+            "type": "richtext",
+            "id": "paragraph_text",
+            "label": "Paragraph"
+          },
+          {
+            "type": "text",
+            "id": "link_text",
+            "label": "Link Text"
+          },
+          {
+            "type": "url",
+            "id": "link_url",
+            "label": "Link Destination"
           },
           {
             "type": "select",
@@ -2632,104 +2506,46 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "id": "link_size",
             "label": "Link Size",
             "options": [
-              {
-              "group": "Test",
-              "value": "btn-block",
-              "label": "Block"
-              },
-              {
-              "group": "Test II",
-              "value": "btn-lg",
-              "label": "Large"
-              },
-              {
-              "group": "Test III",
-              "value": "",
-              "label": "Default"
-              },
-              {
-              "group": "Test III",
-              "value": "btn-sm",
-              "label": "Small"
-              }
+              { "value": "btn-block", "label": "Block" },
+              { "value": "btn-lg", "label": "Large" },
+              { "value": "", "label": "Default" },
+              { "value": "btn-sm", "label": "Small" }
             ],
             "default": "",
-            "info": "Default: None"
-          },
-          {
-            "type": "select",
-            "id": "content_aspect_ratio",
-            "label": "Content Aspect Ratio",
-            "options": [
-              { "value": "21by9", "label": "21x9"},
-              { "value": "1by1", "label": "1x1"},
-              { "value": "4by3", "label": "4x3"},
-              { "value": "16by9", "label": "16x9"},
-              { "value": "none", "label": "None"}
-            ],
-            "default": "none"
+            "info": "Select from Small, Default, & Large button sizes."
           },
           {
             "type": "checkbox",
-            "id": "content_embed_forced",
-            "label": "Force content to embedded ratio",
+            "id": "link_block",
+            "label": "Enable block button",
             "default": false,
-            "info": "If you would like the content to be confined to to an aspect ratio rather than an unconfined block. Useful for alinging a text grid perfectly. Can cause issues if you have an unexpected volume of content."
+            "info": "If enabled button will span entire parent container"
           },
           {
             "type": "select",
-            "id": "content_position",
-            "label": "Content position - Small devices",
+            "id": "content_color",
+            "label": "Content color",
             "options": [
-              { "value": "top", "label": "Top"},
-              { "value": "right", "label": "Right"},
-              { "value": "bottom", "label": "Bottom"},
-              { "value": "left", "label": "Left"}
+              { "value": "text-primary", "label": "Primary"},
+              { "value": "text-secondary", "label": "Secondary"},
+              { "value": "text-success", "label": "Success"},
+              { "value": "text-danger", "label": "Danger"},
+              { "value": "text-warning", "label": "Warning"},
+              { "value": "text-info", "label": "Info"},
+              { "value": "text-light", "label": "Light"},
+              { "value": "text-dark", "label": "Dark"},
+              { "value": "text-body", "label": "Body"},
+              { "value": "text-muted", "label": "Muted"},
+              { "value": "text-white", "label": "White"},
+              { "value": "text-black-50", "label": "Black 50"},
+              { "value": "text-white-50", "label": "White 50"}
             ],
-            "default":   "bottom",
-            "info":      "Default: Bottom"
-          },
-          {
-            "type": "select",
-            "id": "content_position_lg",
-            "label": "Content position - Large devices",
-            "options": [
-              { "value": "top", "label": "Top"},
-              { "value": "right", "label": "Right"},
-              { "value": "bottom", "label": "Bottom"},
-              { "value": "left", "label": "Left"}
-            ],
-            "default":   "bottom",
-            "info":      "Default: Bottom"
-          },
-          {
-            "type": "select",
-            "id": "content_align_items",
-            "label": "Content alignment - Small devices",
-            "options": [
-              { "value": "start", "label": "Top"},
-              { "value": "center", "label": "Center"},
-              { "value": "end", "label": "Bottom"}
-            ],
-            "default":   "center",
-            "info":      "Default: Center"
-          },
-          {
-            "type": "select",
-            "id": "content_align_items_lg",
-            "label": "Content alignment - Large devices",
-            "options": [
-              { "value": "start", "label": "Top"},
-              { "value": "center", "label": "Center"},
-              { "value": "end", "label": "Bottom"}
-            ],
-            "default":   "center",
-            "info":      "Default: Center"
+            "default": "text-body"
           },
           {
             "type": "select",
             "id": "content_align",
-            "label": "Text alignment - Small devices",
+            "label": "Content Alignment - Small devices",
             "options": [
               { "value": "text-left", "label": "Left"},
               { "value": "text-center", "label": "Center"},
@@ -2741,7 +2557,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "type": "select",
             "id": "content_align_lg",
-            "label": "Text alignment - Medium & up devices",
+            "label": "Content Alignment - Medium & up devices",
             "options": [
               { "value": "text-md-left", "label": "Left"},
               { "value": "text-md-center", "label": "Center"},
@@ -2750,15 +2566,266 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "default":   "text-md-left",
             "info":      "Default: Left"
           },
+{
+            "type": "header",
+            "content": "----------- Block Settings ----------",
+            "info": "Block settings are global to the block."
+          },
+          {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "info": "These settings apply just to the content."
+          },
+          {
+            "type": "header",
+            "content": "Small Devices",
+            "info": "Screen sizes smaller than 768px"
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "col",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns",
+            "default": 12
+          },
+          {
+            "type": "range",
+            "id": "col_offset",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Offset Columns",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Padding"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "pt",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "pr",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "pb",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "pl",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Margin"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "mt",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "mr",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "mb",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "ml",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Medium & Up Devices",
+            "info": "Screen sizes larger than 768px"
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "col_lg",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns",
+            "default": 4
+          },
+          {
+            "type": "range",
+            "id": "col_lg_offset",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Offset Columns",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Padding"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "pt_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "pr_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "pb_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "pl_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Margin"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "mt_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "mr_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "mb_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "ml_md_up",
+            "min":       0,
+            "max":       5,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Content Background"
+          },
           {
             "type": "image_picker",
             "id": "content_bg_image",
-            "label": "Background Image"
+            "label": "Small Devices",
+            "info": "Screen sizes smaller than 768px"
           },
           {
             "type": "image_picker",
             "id": "content_bg_image_lg",
-            "label": "Background Image - Large"
+            "label": "Large Devices",
+            "info": "Screen sizes larger than 768px"
           },
           {
             "type": "color",
@@ -2793,107 +2860,75 @@ we need to figure out what to do. Either get rid of the box or make it overflow
               { "value": "FF", "label": "100%" }
             ],
             "default": "FF",
-            "info": "Default: Transparency Disabled"
+            "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
           },
           {
             "type": "header",
-            "content": "Block Content Layout",
+            "content": "----------- Content Layout ----------",
             "info": "These settings apply just to the content."
           },
           {
             "type": "header",
-            "content": "Padding - Small Devices",
-            "info": "Screen sizes smaller than 768px"
+            "content": "Embed Content",
+            "info": "Embed content to a fixed ratio. Use this with caution as content will overflow and cause issues (especially on mobile). This layout creates completely centered text blocks confined to a specific ratio."
           },
           {
-            "type":   "range",
-            "label": "Top",
-            "id": "content_pt",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
+            "type": "checkbox",
+            "id": "content_embed_forced",
+            "label": "Force content to embedded ratio",
+            "default": false,
+            "info": "If you would like the content to be confined to to an aspect ratio rather than an unconfined block. Useful for alinging a text grid perfectly. Can cause issues if you have an unexpected volume of content."
           },
           {
-            "type":   "range",
-            "label": "Right",
-            "id": "content_pr",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "content_pb",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "content_pl",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
+            "type": "select",
+            "id": "content_aspect_ratio",
+            "label": "Content Aspect Ratio",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "16by9", "label": "16x9"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "none"
           },
           {
             "type": "header",
-            "content": "Margin - Small Devices",
-            "info": "Screen sizes smaller than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "content_mt",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "content_mr",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "content_mb",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "content_ml",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
+            "content": "Medium & Up Devices",
+            "info": "Screen sizes larger than 768px. These settings apply just to the content."
           },
           {
             "type": "header",
-            "content": "Padding - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"
+            "content": "Layout"
+          },
+          {
+            "type": "select",
+            "id": "content_align_items_lg",
+            "label": "Content alignment",
+            "options": [
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
+            ],
+            "default":   "center",
+            "info":      "Default: Center"
+          },
+          {
+            "type": "select",
+            "id": "content_position_lg",
+            "label": "Content position",
+            "options": [
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
+            ],
+            "default":   "bottom",
+            "info":      "Default: Bottom"
+          },
+          {
+            "type": "header",
+            "content": "Padding"
           },
           {
             "type":   "range",
@@ -2937,8 +2972,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "header",
-            "content": "Margin - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"
+            "content": "Margin"
           },
           {
             "type":   "range",
@@ -2982,469 +3016,30 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "header",
-            "content": "Block Container Settings",
-            "info": "These settings apply to the entire content card (image & content together)"
-          },
-          {
-            "type": "color",
-            "id": "bg_color",
-            "label": "Background Color"
+            "content": "Small Devices",
+            "info": "Screen sizes smaller than 768px. These settings apply just to the content."
           },
           {
             "type": "header",
             "content": "Layout"
           },
           {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
-          },
-          {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
-          },
-          {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
-          },
-          {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
-          },
-          {
-            "type": "header",
-            "content": "Padding - Small Devices",
-            "info": "Screen sizes smaller than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "pt",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "pr",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "pb",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "pl",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type": "header",
-            "content": "Margin - Small Devices",
-            "info": "Screen sizes smaller than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "mt",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "mr",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "mb",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "ml",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type": "header",
-            "content": "Padding - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "pt_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "pr_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "pb_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "pl_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type": "header",
-            "content": "Margin - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "mt_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "mr_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "mb_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "ml_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          }
-        ]
-      },
-      {
-        "type": "content-object",
-        "name": "Content",
-        "settings":[
-          {
-            "type": "header",
-            "content": "Content"
-          },
-          {
-            "type": "text",
-            "id": "eyebrow_text",
-            "label": "Eyebrow"
-          },
-          {
             "type": "select",
-            "id": "eyebrow_style",
-            "label": "Eyebrow style",
+            "id": "content_position",
+            "label": "Content position",
             "options": [
-              { "value": "badge-primary", "label": "Primary"},
-              { "value": "badge-secondary", "label": "Secondary"},
-              { "value": "badge-success", "label": "Success"},
-              { "value": "badge-danger", "label": "Danger"},
-              { "value": "badge-warning", "label": "Warning"},
-              { "value": "badge-info", "label": "Info"},
-              { "value": "badge-light", "label": "Light"},
-              { "value": "badge-dark", "label": "Dark"}
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
             ],
-            "default": "badge-dark"
-          },
-          {
-            "type": "text",
-            "id": "heading_text",
-            "label": "Heading Text",
-            "default": "Section Block"
+            "default":   "bottom",
+            "info":      "Default: Bottom"
           },
           {
             "type": "select",
-            "id": "heading_style",
-            "label": "Heading Text Style",
-            "options": [
-              { "value": "display-1", "label": "Display 1"},
-              { "value": "display-2", "label": "Display 2"},
-              { "value": "display-3", "label": "Display 3"},
-              { "value": "display-4", "label": "Display 4"},
-              { "value": "h1", "label": "H1"},
-              { "value": "h2", "label": "H2"},
-              { "value": "h3", "label": "H3"},
-              { "value": "h4", "label": "H4"},
-              { "value": "h5", "label": "H5"},
-              { "value": "h6", "label": "H6"}
-            ],
-            "default": "display-4",
-            "info": "Default: Display 4"
-          },
-          {
-            "type": "select",
-            "id": "content_color",
-            "label": "Content color",
-            "options": [
-              { "value": "text-primary", "label": "Primary"},
-              { "value": "text-secondary", "label": "Secondary"},
-              { "value": "text-success", "label": "Success"},
-              { "value": "text-danger", "label": "Danger"},
-              { "value": "text-warning", "label": "Warning"},
-              { "value": "text-info", "label": "Info"},
-              { "value": "text-light", "label": "Light"},
-              { "value": "text-dark", "label": "Dark"},
-              { "value": "text-body", "label": "Body"},
-              { "value": "text-muted", "label": "Muted"},
-              { "value": "text-white", "label": "White"},
-              { "value": "text-black-50", "label": "Black 50"},
-              { "value": "text-white-50", "label": "White 50"}
-            ],
-            "default": "text-body"
-          },
-          {
-            "type": "richtext",
-            "id": "paragraph_text",
-            "label": "Paragraph"
-          },
-          {
-            "type": "text",
-            "id": "link_text",
-            "label": "Link Text"
-          },
-          {
-            "type": "url",
-            "id": "link_url",
-            "label": "Link Destination"
-          },
-          {
-            "type": "select",
-            "id": "link_style",
-            "label": "Link Type",
-            "options": [
-              { "value": "btn-primary", "label": "Primary"},
-              { "value": "btn-secondary", "label": "Secondary"},
-              { "value": "btn-success", "label": "Success"},
-              { "value": "btn-danger", "label": "Danger"},
-              { "value": "btn-warning", "label": "Warning"},
-              { "value": "btn-info", "label": "Info"},
-              { "value": "btn-light", "label": "Light"},
-              { "value": "btn-dark", "label": "Dark"},
-              { "value": "btn-link", "label": "Link"},
-              { "value": "btn-outline-primary", "label": "Primary - Outline"},
-              { "value": "btn-outline-secondary", "label": "Secondary - Outline"},
-              { "value": "btn-outline-success", "label": "Success - Outline"},
-              { "value": "btn-outline-danger", "label": "Danger - Outline"},
-              { "value": "btn-outline-warning", "label": "Warning - Outline"},
-              { "value": "btn-outline-info", "label": "Info - Outline"},
-              { "value": "btn-outline-light", "label": "Light - Outline"},
-              { "value": "btn-outline-dark", "label": "Dark - Outline"}
-            ],
-            "default": "btn-outline-dark"
-          },
-          {
-            "type": "header",
-            "content": "Layout"
-          },
-          {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
-          },
-          {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
-          },
-          {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
-          },
-          {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
-          },
-          {
-            "type": "header",
-            "content": "Block Background Settings"
-          },
-          {
-            "type": "color",
-            "id": "bg_color",
-            "label": "Background Color"
-          },
-          {
-            "type": "select",
-            "id": "bg_color_alpha",
-            "label": "Background Color Transparency",
-            "options": [
-              { "value": "00", "label": "0%" },
-              { "value": "0D", "label": "5%" },
-              { "value": "1A", "label": "10%" },
-              { "value": "26", "label": "15%" },
-              { "value": "33", "label": "20%" },
-              { "value": "40", "label": "25%" },
-              { "value": "4D", "label": "30%" },
-              { "value": "59", "label": "35%" },
-              { "value": "66", "label": "40%" },
-              { "value": "73", "label": "45%" },
-              { "value": "80", "label": "50%" },
-              { "value": "8C", "label": "55%" },
-              { "value": "99", "label": "60%" },
-              { "value": "A6", "label": "65%" },
-              { "value": "B3", "label": "70%" },
-              { "value": "BF", "label": "75%" },
-              { "value": "CC", "label": "80%" },
-              { "value": "D9", "label": "85%" },
-              { "value": "E6", "label": "90%" },
-              { "value": "F2", "label": "95%" },
-              { "value": "FF", "label": "100%" }
-            ],
-            "default": "FF",
-            "info": "Default: 100%"
-          },
-          {
-            "type": "image_picker",
-            "id": "bg_image",
-            "label": "Background Image - Small Devices"
-          },
-          {
-            "type": "image_picker",
-            "id": "bg_image_lg",
-            "label": "Background Image - Medium & Up Devices"
-          },
-          {
-            "type": "header",
-            "content": "Block Content Settings"
-          },
-          {
-            "type": "select",
-            "id": "aspect_ratio",
-            "label": "Aspect Ratio",
-            "options": [
-              { "value": "21by9", "label": "21x9"},
-              { "value": "1by1", "label": "1x1"},
-              { "value": "4by3", "label": "4x3"},
-              { "value": "16by9", "label": "16x9"},
-              { "value": "none", "label": "None"}
-            ],
-            "default": "1by1"
-          },
-          {
-            "type": "select",
-            "id": "align_items",
-            "label": "Vertical alignment",
+            "id": "content_align_items",
+            "label": "Content alignment",
             "options": [
               { "value": "start", "label": "Top"},
               { "value": "center", "label": "Center"},
@@ -3454,83 +3049,13 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "info":      "Default: Center"
           },
           {
-            "type": "select",
-            "id": "content_align",
-            "label": "Text alignment - Small devices",
-            "options": [
-              { "value": "text-left", "label": "Left"},
-              { "value": "text-center", "label": "Center"},
-              { "value": "text-right", "label": "Right"}
-            ],
-            "default":   "text-left",
-            "info":      "Default: Left"
-          },
-          {
-            "type": "select",
-            "id": "content_align_lg",
-            "label": "Text alignment - Medium & up devices",
-            "options": [
-              { "value": "text-md-left", "label": "Left"},
-              { "value": "text-md-center", "label": "Center"},
-              { "value": "text-md-right", "label": "Right"}
-            ],
-            "default":   "text-md-left",
-            "info":      "Default: Left"
-          },
-          {
             "type": "header",
-            "content": "Padding - Small Devices",
-            "info": "Screen sizes smaller than 768px"
+            "content": "Padding"
           },
           {
             "type":   "range",
             "label": "Top",
-            "id": "pt",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "pr",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "pb",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "pl",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type": "header",
-            "content": "Margin - Small Devices",
-            "info": "Screen sizes smaller than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "mt",
+            "id": "content_pt",
             "min":       0,
             "max":       5,
             "step":      1,
@@ -3540,7 +3065,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "type":   "range",
             "label": "Right",
-            "id": "mr",
+            "id": "content_pr",
             "min":       0,
             "max":       5,
             "step":      1,
@@ -3550,17 +3075,17 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "type":   "range",
             "label": "Bottom",
-            "id": "mb",
+            "id": "content_pb",
             "min":       0,
             "max":       5,
             "step":      1,
-            "default":   0,
+            "default":   2,
             "unit": "%"
           },
           {
             "type":   "range",
             "label": "Left",
-            "id": "ml",
+            "id": "content_pl",
             "min":       0,
             "max":       5,
             "step":      1,
@@ -3569,58 +3094,12 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "header",
-            "content": "Padding - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"
+            "content": "Margin"
           },
           {
             "type":   "range",
             "label": "Top",
-            "id": "pt_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "pr_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "pb_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "pl_md_up",
-            "min":       0,
-            "max":       5,
-            "step":      1,
-            "default":   4,
-            "unit": "%"
-          },
-          {
-            "type": "header",
-            "content": "Margin - Medium & Up Devices",
-            "info": "Screen sizes larger than 768px"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "mt_md_up",
+            "id": "content_mt",
             "min":       0,
             "max":       5,
             "step":      1,
@@ -3630,7 +3109,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "type":   "range",
             "label": "Right",
-            "id": "mr_md_up",
+            "id": "content_mr",
             "min":       0,
             "max":       5,
             "step":      1,
@@ -3640,185 +3119,22 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           {
             "type":   "range",
             "label": "Bottom",
-            "id": "mb_md_up",
+            "id": "content_mb",
             "min":       0,
             "max":       5,
             "step":      1,
-            "default":   0,
+            "default":   2,
             "unit": "%"
           },
           {
             "type":   "range",
             "label": "Left",
-            "id": "ml_md_up",
+            "id": "content_ml",
             "min":       0,
             "max":       5,
             "step":      1,
             "default":   0,
             "unit": "%"
-          }
-        ]
-      },
-      {
-        "type": "image-grid-item",
-        "name": "Image",
-        "settings":[
-          {
-            "type": "header",
-            "content": "Content"
-          },
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image - Small Devices"
-          },
-          {
-            "type": "image_picker",
-            "id": "image_lg",
-            "label": "Image - Medium & Up Devices"
-          },
-          {
-            "type": "select",
-            "id": "image_aspect_ratio",
-            "label": "Image aspect ratio",
-            "options": [
-              { "value": "21by9", "label": "21x9"},
-              { "value": "1by1", "label": "1x1"},
-              { "value": "4by3", "label": "4x3"},
-              { "value": "16by9", "label": "16x9"}
-            ],
-            "default": "1by1"
-          },
-          {
-            "type": "select",
-            "id": "image_object_fit",
-            "label": "Image Object Fit",
-            "options": [
-              { "value": "fill", "label": "Fill"},
-              { "value": "contain", "label": "Contain"},
-              { "value": "cover", "label": "Cover"},
-              { "value": "scale-down", "label": "Scale Down"},
-              { "value": "none", "label": "None"}
-            ],
-            "default": "cover",
-            "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
-          },
-          {
-            "type": "header",
-            "content": "Block Column Layout"
-          },
-          {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
-          },
-          {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
-          },
-          {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
-          },
-          {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
-          }
-        ]
-      },
-      {
-        "type": "video-grid-item",
-        "name": "Video",
-        "settings":[
-          {
-            "type": "header",
-            "content": "Content"
-          },
-          {
-            "id": "video_url",
-            "type": "video_url",
-            "label": "Video URL",
-            "accept": ["youtube", "vimeo"],
-            "default": "https://www.youtube.com/watch?v=nmLHu3B37Ug"
-          },
-          {
-            "type": "select",
-            "id": "video_aspect_ratio",
-            "label": "Video aspect ratio",
-            "options": [
-              { "value": "21by9", "label": "21x9"},
-              { "value": "1by1", "label": "1x1"},
-              { "value": "4by3", "label": "4x3"},
-              { "value": "16by9", "label": "16x9"}
-            ],
-            "default": "16by9"
-          },
-          {
-            "type": "header",
-            "content": "Block Column Layout"
-          },
-          {
-            "type": "range",
-            "id": "col",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Small Devices",
-            "default": 12
-          },
-          {
-            "type": "range",
-            "id": "col_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Small Devices",
-            "default": 0
-          },
-          {
-            "type": "range",
-            "id": "col_lg",
-            "min": 1,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Columns - Medium & Up Devices",
-            "default": 4
-          },
-          {
-            "type": "range",
-            "id": "col_lg_offset",
-            "min": 0,
-            "max": 12,
-            "step": 1,
-            "unit": "col",
-            "label": "Container Offset Columns - Medium & Up Devices",
-            "default": 0
           }
         ]
       }

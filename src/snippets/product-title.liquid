@@ -5,5 +5,20 @@
   -----------------------------------------------------------------------------
 
 {% endcomment %}
+{% for tag in product.tags %}
+  {% if tag contains '__featured_tag_1' %}
+    {% assign first_featured_tag = tag | split: ':' | last %}
+    {% assign has_unique_tab_1 = true %}
+  {% endif %}
+{% endfor %}
 
+{% if has_unique_tab_1 %}
+{% comment %} Somewhat temporary inline styles until refactor of build
+  process.
+{% endcomment %}
+<div style="display: flex;">
+  <svg viewBox="0 0 16.81 34.5" style="width: .75rem; fill: #C84D19;"><path d="M3.3 31.27l1.76-14.1H.83L2.6.75H13L9.46 12.08h6z"></path></svg><span style="color: #C84D19;">{{  first_featured_tag }}</span>
+</div>
+{% endif %}
+<span class="badge badge-dark">{{ product.vendor }}</span>
 <h1>{{ product.title }}</h1>
