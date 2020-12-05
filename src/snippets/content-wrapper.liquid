@@ -72,6 +72,7 @@
 {% else %}
   {% assign border_color = false %}
 {% endif %}
+{% comment %} Todo - move border- from schema to here {% endcomment %}
 
 {% if pt != blank %}
   {% assign pt = pt %}
@@ -305,7 +306,9 @@
 {% endcapture %}
 
 {% assign style_tag = 'style="' %}
-{% assign style_tag = style_tag | append: 'background-color: ' | append: bg_color_computed %}
+{% assign style_tag = style_tag
+  | append: 'background-color: '
+  | append: bg_color_computed %}
 {% assign style_tag = style_tag | append: '"' %}
 
 {% if content != blank %}

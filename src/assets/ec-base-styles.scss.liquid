@@ -1,0 +1,1178 @@
+// Variables
+//
+// Variables should follow the `$component-state-property-size` formula for
+// consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+$ec-prefix: 'ec-' !default;
+
+// Color system
+
+$white: #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black: #000 !default;
+
+$blue: #0d6efd !default;
+$indigo: #6610f2 !default;
+$purple: #6f42c1 !default;
+$pink: #d63384 !default;
+$red: #dc3545 !default;
+$orange: #fd7e14 !default;
+$yellow: #ffc107 !default;
+$green: #198754 !default;
+$teal: #20c997 !default;
+$cyan: #0dcaf0 !default;
+
+$primary: $blue !default;
+$secondary: $gray-600 !default;
+$success: $green !default;
+$info: $cyan !default;
+$warning: $yellow !default;
+$danger: $red !default;
+$light: $gray-100 !default;
+$dark: $gray-800 !default;
+
+// Spacing
+//
+// Control the default styling of most Bootstrap elements by modifying these
+// variables. Mostly focused on spacing.
+// You can add more entries to the $spacers map, should you need more variation.
+
+$spacer: 1rem !default;
+$spacer-0: 0 !default;
+$spacer-1: $spacer / 4 !default;
+$spacer-2: $spacer / 2 !default;
+$spacer-3: $spacer !default;
+$spacer-4: $spacer * 1.5 !default;
+$spacer-5: $spacer * 3 !default;
+
+// Links
+//
+// Style anchor elements.
+
+$link-color: $primary !default;
+$link-decoration: underline !default;
+$link-hover-color: darken($link-color, 15%) !default;
+$link-hover-decoration: null !default;
+
+// Darken percentage for links with `.text-*` class (e.g. `.text-success`)
+$emphasized-link-hover-darken-percentage: 15% !default;
+
+$stretched-link-pseudo-element: after !default;
+$stretched-link-z-index: 1 !default;
+
+// Paragraphs
+//
+// Style p element.
+
+$paragraph-margin-bottom: 1rem !default;
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+$grid-breakpoint-xs: 0;
+$grid-breakpoint-sm: 576px;
+$grid-breakpoint-md: 768px;
+$grid-breakpoint-lg: 992px;
+$grid-breakpoint-xl: 1200px;
+$grid-breakpoint-xxl: 1400px;
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+$container-max-width-sm: 540px;
+$container-max-width-md: 720px;
+$container-max-width-lg: 960px;
+$container-max-width-xl: 1140px;
+$container-max-width-xxl: 1320px;
+
+// Grid columns
+//
+// Set the number of columns and specify the width of the gutters.
+
+$grid-columns:                12 !default;
+$grid-gutter-width:           1.5rem !default;
+$grid-row-columns:            6 !default;
+
+{% comment %} TODO whats this$gutters: $spacers !default; {% endcomment %}
+
+// Container padding
+
+$container-padding-x: 1rem !default;
+
+// Components
+//
+// Define common padding and border radius sizes and more.
+
+$border-width:                1px !default;
+$border-color:                $gray-300 !default;
+
+$border-radius:               .25rem !default;
+$border-radius-sm:            .2rem !default;
+$border-radius-lg:            .3rem !default;
+
+$rounded-pill:                50rem !default;
+
+{% comment %}TODO This section is suspect if we need {% endcomment %}
+$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+$box-shadow-inset:            inset 0 1px 2px rgba($black, .075) !default;
+
+$component-active-color:      $white !default;
+$component-active-bg:         $primary !default;
+
+$caret-width:                 .3em !default;
+$caret-vertical-align:        $caret-width * .85 !default;
+$caret-spacing:               $caret-width * .85 !default;
+
+$transition-base:             all .2s ease-in-out !default;
+$transition-fade:             opacity .15s linear !default;
+$transition-collapse:         height .35s ease !default;
+
+// scss-docs-start embed-responsive-aspect-ratios
+{% comment %} $embed-responsive-aspect-ratio {% endcomment %}
+{% comment %} TODO -import embed {% endcomment %}
+{% comment %} $embed-responsive-aspect-ratios: (
+  "21by9": (
+    x: 21,
+    y: 9
+  ),
+  "16by9": (
+    x: 16,
+    y: 9
+  ),
+  "4by3": (
+    x: 4,
+    y: 3
+  ),
+  "1by1": (
+    x: 1,
+    y: 1
+  )
+) !default; {% endcomment %}
+// scss-docs-end embed-responsive-aspect-ratios
+
+// Typography
+//
+// Font, line-height, and color for body text, headings, and more.
+
+// $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
+// $font-size-base effects the font size of the body text
+$font-size-root:              null !default;
+$font-size-base:              1rem !default; // Assumes the browser default, typically `16px`
+$font-size-sm:                $font-size-base * .875 !default;
+$font-size-lg:                $font-size-base * 1.25 !default;
+
+$font-weight-lighter:         lighter !default;
+$font-weight-light:           300 !default;
+$font-weight-normal:          400 !default;
+$font-weight-bold:            700 !default;
+$font-weight-bolder:          bolder !default;
+
+$font-weight-base:            $font-weight-normal !default;
+
+$line-height-base:            1.5 !default;
+$line-height-sm:              1.25 !default;
+$line-height-lg:              2 !default;
+
+$h1-font-size:                $font-size-base * 2.5 !default;
+$h2-font-size:                $font-size-base * 2 !default;
+$h3-font-size:                $font-size-base * 1.75 !default;
+$h4-font-size:                $font-size-base * 1.5 !default;
+$h5-font-size:                $font-size-base * 1.25 !default;
+$h6-font-size:                $font-size-base !default;
+
+$headings-margin-bottom:      $spacer / 2 !default;
+$headings-font-family:        null !default;
+$headings-font-style:         null !default;
+$headings-font-weight:        500 !default;
+$headings-line-height:        1.2 !default;
+$headings-color:              null !default;
+
+// scss-docs-start display-headings
+$display-font-size-1: 5rem !default;
+$display-font-size-2: 4.5rem !default;
+$display-font-size-3: 4rem !default;
+$display-font-size-4: 3.5rem !default;
+$display-font-size-5: 3rem !default;
+$display-font-size-6: 2.5rem !default;
+
+$display-font-weight: 300 !default;
+$display-line-height: $headings-line-height !default;
+// scss-docs-end display-headings
+
+$lead-font-size:              $font-size-base * 1.25 !default;
+$lead-font-weight:            300 !default;
+
+$small-font-size:             .875em !default;
+
+$sub-sup-font-size:           .75em !default;
+
+$text-muted:                  $gray-600 !default;
+
+
+// Buttons + Forms
+//
+// Shared variables that are reassigned to `$input-` and `$btn-` specific variables.
+
+$input-btn-padding-y:         .375rem !default;
+$input-btn-padding-x:         .75rem !default;
+$input-btn-font-family:       null !default;
+$input-btn-font-size:         $font-size-base !default;
+$input-btn-line-height:       $line-height-base !default;
+
+$input-btn-focus-width:         .2rem !default;
+$input-btn-focus-color-opacity: .25 !default;
+$input-btn-focus-color:         rgba($component-active-bg, $input-btn-focus-color-opacity) !default;
+$input-btn-focus-box-shadow:    0 0 0 $input-btn-focus-width $input-btn-focus-color !default;
+
+$input-btn-padding-y-sm:      .25rem !default;
+$input-btn-padding-x-sm:      .5rem !default;
+$input-btn-font-size-sm:      $font-size-sm !default;
+
+$input-btn-padding-y-lg:      .5rem !default;
+$input-btn-padding-x-lg:      1rem !default;
+$input-btn-font-size-lg:      $font-size-lg !default;
+
+$input-btn-border-width:      $border-width !default;
+
+// Buttons
+//
+// For each of Bootstrap's buttons, define text, background, and border color.
+
+$btn-padding-y:               $input-btn-padding-y !default;
+$btn-padding-x:               $input-btn-padding-x !default;
+$btn-font-family:             $input-btn-font-family !default;
+$btn-font-size:               $input-btn-font-size !default;
+$btn-line-height:             $input-btn-line-height !default;
+$btn-white-space:             null !default; // Set to `nowrap` to prevent text wrapping
+
+$btn-padding-y-sm:            $input-btn-padding-y-sm !default;
+$btn-padding-x-sm:            $input-btn-padding-x-sm !default;
+$btn-font-size-sm:            $input-btn-font-size-sm !default;
+
+$btn-padding-y-lg:            $input-btn-padding-y-lg !default;
+$btn-padding-x-lg:            $input-btn-padding-x-lg !default;
+$btn-font-size-lg:            $input-btn-font-size-lg !default;
+
+$btn-border-width:            $input-btn-border-width !default;
+
+$btn-font-weight:             $font-weight-normal !default;
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$btn-focus-width:             $input-btn-focus-width !default;
+$btn-focus-box-shadow:        $input-btn-focus-box-shadow !default;
+$btn-disabled-opacity:        .65 !default;
+$btn-active-box-shadow:       inset 0 3px 5px rgba($black, .125) !default;
+
+$btn-link-color:              $link-color !default;
+$btn-link-hover-color:        $link-hover-color !default;
+$btn-link-disabled-color:     $gray-600 !default;
+
+$btn-block-spacing-y:         .5rem !default;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius:           $border-radius !default;
+$btn-border-radius-sm:        $border-radius-sm !default;
+$btn-border-radius-lg:        $border-radius-lg !default;
+
+$btn-transition:              color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out !default;
+
+// Badges
+
+$badge-font-size:                   .75em !default;
+$badge-font-weight:                 $font-weight-bold !default;
+$badge-color:                       $white !default;
+$badge-padding-y:                   .35em !default;
+$badge-padding-x:                   .65em !default;
+$badge-border-radius:               $border-radius !default;
+
+
+// Misc - TODO sort these
+$gutter-x: 1.5rem;
+$gutter-y: 0;
+
+// Columns
+.#{$ec-prefix}col {
+  flex: 1 0 0%;
+}
+.#{$ec-prefix}col-1 {
+  flex: 0 0 auto;
+  width: 8.333333%;
+}
+.#{$ec-prefix}col-2 {
+  flex: 0 0 auto;
+  width: 16.666667%;
+}
+.#{$ec-prefix}col-3 {
+  flex: 0 0 auto;
+  width: 25%;
+}
+.#{$ec-prefix}col-4 {
+  flex: 0 0 auto;
+  width: 33.333333%;
+}
+.#{$ec-prefix}col-5 {
+  flex: 0 0 auto;
+  width: 41.666667%;
+}
+.#{$ec-prefix}col-6 {
+  flex: 0 0 auto;
+  width: 50%;
+}
+.#{$ec-prefix}col-7 {
+  flex: 0 0 auto;
+  width: 58.333333%;
+}
+.#{$ec-prefix}col-8 {
+  flex: 0 0 auto;
+  width: 66.666667%;
+}
+.#{$ec-prefix}col-9 {
+  flex: 0 0 auto;
+  width: 75%;
+}
+.#{$ec-prefix}col-10 {
+  flex: 0 0 auto;
+  width: 83.333333%;
+}
+.#{$ec-prefix}col-11 {
+  flex: 0 0 auto;
+  width: 91.666667%;
+}
+.#{$ec-prefix}col-12 {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+.#{$ec-prefix}offset-0 { margin-left: 0; }
+.#{$ec-prefix}offset-1 { margin-left: 8.333333%; }
+.#{$ec-prefix}offset-2 { margin-left: 16.666667%; }
+.#{$ec-prefix}offset-3 { margin-left: 25%; }
+.#{$ec-prefix}offset-4 { margin-left: 33.333333%; }
+.#{$ec-prefix}offset-5 { margin-left: 41.666667%; }
+.#{$ec-prefix}offset-6 { margin-left: 50%; }
+.#{$ec-prefix}offset-7 { margin-left: 58.333333%; }
+.#{$ec-prefix}offset-8 { margin-left: 66.666667%; }
+.#{$ec-prefix}offset-9 { margin-left: 75%; }
+.#{$ec-prefix}offset-10 { margin-left: 83.333333%; }
+.#{$ec-prefix}offset-11 { margin-left: 91.666667%; }
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}col-md-1 {
+    flex: 0 0 auto;
+    width: 8.333333%;
+  }
+  .#{$ec-prefix}col-md-2 {
+    flex: 0 0 auto;
+    width: 16.666667%;
+  }
+  .#{$ec-prefix}col-md-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+  .#{$ec-prefix}col-md-4 {
+    flex: 0 0 auto;
+    width: 33.333333%;
+  }
+  .#{$ec-prefix}col-md-5 {
+    flex: 0 0 auto;
+    width: 41.666667%;
+  }
+  .#{$ec-prefix}col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+  .#{$ec-prefix}col-md-7 {
+    flex: 0 0 auto;
+    width: 58.333333%;
+  }
+  .#{$ec-prefix}col-md-8 {
+    flex: 0 0 auto;
+    width: 66.666667%;
+  }
+  .#{$ec-prefix}col-md-9 {
+    flex: 0 0 auto;
+    width: 75%;
+  }
+  .#{$ec-prefix}col-md-10 {
+    flex: 0 0 auto;
+    width: 83.333333%;
+  }
+  .#{$ec-prefix}col-md-11 {
+    flex: 0 0 auto;
+    width: 91.666667%;
+  }
+  .#{$ec-prefix}col-md-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .#{$ec-prefix}offset-md-1 { margin-left: 0; }
+  .#{$ec-prefix}offset-md-1 { margin-left: 8.333333%; }
+  .#{$ec-prefix}offset-md-2 { margin-left: 16.666667%; }
+  .#{$ec-prefix}offset-md-3 { margin-left: 25%; }
+  .#{$ec-prefix}offset-md-4 { margin-left: 33.333333%; }
+  .#{$ec-prefix}offset-md-5 { margin-left: 41.666667%; }
+  .#{$ec-prefix}offset-md-6 { margin-left: 50%; }
+  .#{$ec-prefix}offset-md-7 { margin-left: 58.333333%; }
+  .#{$ec-prefix}offset-md-8 { margin-left: 66.666667%; }
+  .#{$ec-prefix}offset-md-9 { margin-left: 75%; }
+  .#{$ec-prefix}offset-md-10 { margin-left: 83.333333%; }
+  .#{$ec-prefix}offset-md-11 { margin-left: 91.666667%; }
+}
+
+// Container
+.#{$ec-prefix}row {
+  display: flex;
+  flex: 1 0 100%;
+  flex-wrap: wrap;
+  margin-top: $gutter-y * -1;
+  margin-right: $gutter-x / -2;
+  margin-left: $gutter-x / -2;
+}
+
+.#{$ec-prefix}row > * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 100%;
+  padding-right: $gutter-x / 2;
+  padding-left: $gutter-x / 2;
+  margin-top: $gutter-y;
+}
+
+// TODO
+.#{$ec-prefix}no-gutters {}
+
+.#{$ec-prefix}container,
+.#{$ec-prefix}container-fluid,
+.#{$ec-prefix}container-sm,
+.#{$ec-prefix}container-md,
+.#{$ec-prefix}container-lg,
+.#{$ec-prefix}container-xl,
+.#{$ec-prefix}container-xxl {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: $grid-breakpoint-sm) {
+  .#{$ec-prefix}container,
+  .#{$ec-prefix}container-sm {
+    max-width: $container-max-width-sm;
+  }
+}
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}container,
+  .#{$ec-prefix}container-sm,
+  .#{$ec-prefix}container-md {
+    max-width: $container-max-width-md;
+  }
+}
+
+@media (min-width: $grid-breakpoint-lg) {
+  .#{$ec-prefix}container,
+  .#{$ec-prefix}container-sm,
+  .#{$ec-prefix}container-md,
+  .#{$ec-prefix}container-lg {
+    max-width: $container-max-width-lg;
+  }
+}
+
+@media (min-width: $grid-breakpoint-xl) {
+  .#{$ec-prefix}container,
+  .#{$ec-prefix}container-sm,
+  .#{$ec-prefix}container-md,
+  .#{$ec-prefix}container-lg,
+  .#{$ec-prefix}container-xl {
+    max-width: $container-max-width-xl;
+  }
+}
+
+@media (min-width: $grid-breakpoint-xxl) {
+  .#{$ec-prefix}container,
+  .#{$ec-prefix}container-sm,
+  .#{$ec-prefix}container-md,
+  .#{$ec-prefix}container-lg,
+  .#{$ec-prefix}container-xl,
+  .#{$ec-prefix}container-xxl {
+    max-width: $container-max-width-xxl;
+  }
+}
+
+// Margin & Padding
+.#{$ec-prefix}m-0 { margin: 0 !important; }
+.#{$ec-prefix}m-1 { margin: 0.25rem !important; }
+.#{$ec-prefix}m-2 { margin: 0.5rem !important; }
+.#{$ec-prefix}m-3 { margin: 1rem !important; }
+.#{$ec-prefix}m-4 { margin: 1.5rem !important; }
+.#{$ec-prefix}m-5 { margin: 3rem !important; }
+
+.#{$ec-prefix}mt-0 { margin-top: 0 !important; }
+.#{$ec-prefix}mt-1 { margin-top: 0.25rem !important; }
+.#{$ec-prefix}mt-2 { margin-top: 0.5rem !important; }
+.#{$ec-prefix}mt-3 { margin-top: 1rem !important; }
+.#{$ec-prefix}mt-4 { margin-top: 1.5rem !important; }
+.#{$ec-prefix}mt-5 { margin-top: 3rem !important; }
+
+.#{$ec-prefix}mr-0 { margin-right: 0 !important; }
+.#{$ec-prefix}mr-1 { margin-right: 0.25rem !important; }
+.#{$ec-prefix}mr-2 { margin-right: 0.5rem !important; }
+.#{$ec-prefix}mr-3 { margin-right: 0.5rem !important; }
+.#{$ec-prefix}mr-4 { margin-right: 1.5rem !important; }
+.#{$ec-prefix}mr-5 { margin-right: 3rem !important; }
+
+.#{$ec-prefix}mb-0 { margin-bottom: 0 !important; }
+.#{$ec-prefix}mb-1 { margin-bottom: 0.25rem !important; }
+.#{$ec-prefix}mb-2 { margin-bottom: 0.5rem !important; }
+.#{$ec-prefix}mb-3 { margin-bottom: 1rem !important; }
+.#{$ec-prefix}mb-4 { margin-bottom: 1.5rem !important; }
+.#{$ec-prefix}mb-5 { margin-bottom: 3rem !important; }
+
+.#{$ec-prefix}ml-0 { margin-left: 0 !important; }
+.#{$ec-prefix}ml-1 { margin-left: 0.25rem !important; }
+.#{$ec-prefix}ml-2 { margin-left: 0.5rem !important; }
+.#{$ec-prefix}ml-3 { margin-left: 1rem !important; }
+.#{$ec-prefix}ml-4 { margin-left: 1.5rem !important; }
+.#{$ec-prefix}ml-5 { margin-left: 3rem !important; }
+
+.#{$ec-prefix}mx-0 {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+.#{$ec-prefix}mx-1 {
+  margin-right: 0.25rem !important;
+  margin-left: 0.25rem !important;
+}
+.#{$ec-prefix}mx-2 {
+  margin-right: 0.5rem !important;
+  margin-left: 0.5rem !important;
+}
+.#{$ec-prefix}mx-3 {
+  margin-right: 1rem !important;
+  margin-left: 1rem !important;
+}
+.#{$ec-prefix}mx-4 {
+  margin-right: 1.5rem !important;
+  margin-left: 1.5rem !important;
+}
+.#{$ec-prefix}mx-5 {
+  margin-right: 3rem !important;
+  margin-left: 3rem !important;
+}
+
+.#{$ec-prefix}my-0 {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+.#{$ec-prefix}my-1 {
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
+}
+.#{$ec-prefix}my-2 {
+  margin-top: 0.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+.#{$ec-prefix}my-3 {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+.#{$ec-prefix}my-4 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+.#{$ec-prefix}my-5 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
+}
+
+.#{$ec-prefix}p-0 { padding: 0 !important; }
+.#{$ec-prefix}p-1 { padding: 0.25rem !important; }
+.#{$ec-prefix}p-2 { padding: 0.5rem !important; }
+.#{$ec-prefix}p-3 { padding: 1rem !important; }
+.#{$ec-prefix}p-4 { padding: 1.5rem !important; }
+.#{$ec-prefix}p-5 { padding: 3rem !important;}
+
+.#{$ec-prefix}px-0 {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+.#{$ec-prefix}px-1 {
+  padding-right: 0.25rem !important;
+  padding-left: 0.25rem !important;
+}
+.#{$ec-prefix}px-2 {
+  padding-right: 0.5rem !important;
+  padding-left: 0.5rem !important;
+}
+.#{$ec-prefix}px-3 {
+  padding-right: 1rem !important;
+  padding-left: 1rem !important;
+}
+.#{$ec-prefix}px-4 {
+  padding-right: 1.5rem !important;
+  padding-left: 1.5rem !important;
+}
+.#{$ec-prefix}px-5 {
+  padding-right: 3rem !important;
+  padding-left: 3rem !important;
+}
+
+.#{$ec-prefix}py-0 {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.#{$ec-prefix}py-1 {
+  padding-top: 0.25rem !important;
+  padding-bottom: 0.25rem !important;
+}
+.#{$ec-prefix}py-2 {
+  padding-top: 0.5rem !important;
+  padding-bottom: 0.5rem !important;
+}
+.#{$ec-prefix}py-3 {
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
+}
+.#{$ec-prefix}py-4 {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.#{$ec-prefix}py-5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.#{$ec-prefix}pt-0 { padding-top: 0 !important; }
+.#{$ec-prefix}pt-1 { padding-top: 0.25rem !important; }
+.#{$ec-prefix}pt-2 { padding-top: 0.5rem !important; }
+.#{$ec-prefix}pt-3 { padding-top: 1rem !important; }
+.#{$ec-prefix}pt-4 { padding-top: 1.5rem !important; }
+.#{$ec-prefix}pt-5 { padding-top: 3rem !important; }
+
+.#{$ec-prefix}pr-0 { padding-right: 0 !important; }
+.#{$ec-prefix}pr-1 { padding-right: 0.25rem !important; }
+.#{$ec-prefix}pr-2 { padding-right: 0.5rem !important; }
+.#{$ec-prefix}pr-3 { padding-right: 1rem !important; }
+.#{$ec-prefix}pr-4 { padding-right: 1.5rem !important; }
+.#{$ec-prefix}pr-5 { padding-right: 3rem !important; }
+
+.#{$ec-prefix}pb-0 { padding-bottom: 0 !important; }
+.#{$ec-prefix}pb-1 { padding-bottom: 0.25rem !important; }
+.#{$ec-prefix}pb-2 { padding-bottom: 0.5rem !important; }
+.#{$ec-prefix}pb-3 { padding-bottom: 1rem !important; }
+.#{$ec-prefix}pb-4 { padding-bottom: 1.5rem !important; }
+.#{$ec-prefix}pb-5 { padding-bottom: 3rem !important; }
+
+.#{$ec-prefix}pl-0 { padding-left: 0 !important; }
+.#{$ec-prefix}pl-1 { padding-left: 0.25rem !important; }
+.#{$ec-prefix}pl-2 { padding-left: 0.5rem !important; }
+.#{$ec-prefix}pl-3 { padding-left: 1rem !important; }
+.#{$ec-prefix}pl-4 { padding-left: 1.5rem !important; }
+.#{$ec-prefix}pl-5 { padding-left: 3rem !important; }
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}m-md-0 { margin: 0 !important; }
+  .#{$ec-prefix}m-md-1 { margin: 0.25rem !important; }
+  .#{$ec-prefix}m-md-2 { margin: 0.5rem !important; }
+  .#{$ec-prefix}m-md-3 { margin: 1rem !important; }
+  .#{$ec-prefix}m-md-4 { margin: 1.5rem !important; }
+  .#{$ec-prefix}m-md-5 { margin: 3rem !important; }
+
+  .#{$ec-prefix}mt-md-0 { margin-top: 0 !important; }
+  .#{$ec-prefix}mt-md-1 { margin-top: 0.25rem !important; }
+  .#{$ec-prefix}mt-md-2 { margin-top: 0.5rem !important; }
+  .#{$ec-prefix}mt-md-3 { margin-top: 1rem !important; }
+  .#{$ec-prefix}mt-md-4 { margin-top: 1.5rem !important; }
+  .#{$ec-prefix}mt-md-5 { margin-top: 3rem !important; }
+
+  .#{$ec-prefix}mr-md-0 { margin-right: 0 !important; }
+  .#{$ec-prefix}mr-md-1 { margin-right: 0.25rem !important; }
+  .#{$ec-prefix}mr-md-2 { margin-right: 0.5rem !important; }
+  .#{$ec-prefix}mr-md-3 { margin-right: 0.5rem !important; }
+  .#{$ec-prefix}mr-md-4 { margin-right: 1.5rem !important; }
+  .#{$ec-prefix}mr-md-5 { margin-right: 3rem !important; }
+
+  .#{$ec-prefix}mb-md-0 { margin-bottom: 0 !important; }
+  .#{$ec-prefix}mb-md-1 { margin-bottom: 0.25rem !important; }
+  .#{$ec-prefix}mb-md-2 { margin-bottom: 0.5rem !important; }
+  .#{$ec-prefix}mb-md-3 { margin-bottom: 1rem !important; }
+  .#{$ec-prefix}mb-md-4 { margin-bottom: 1.5rem !important; }
+  .#{$ec-prefix}mb-md-5 { margin-bottom: 3rem !important; }
+
+  .#{$ec-prefix}ml-md-0 { margin-left: 0 !important; }
+  .#{$ec-prefix}ml-md-1 { margin-left: 0.25rem !important; }
+  .#{$ec-prefix}ml-md-2 { margin-left: 0.5rem !important; }
+  .#{$ec-prefix}ml-md-3 { margin-left: 1rem !important; }
+  .#{$ec-prefix}ml-md-4 { margin-left: 1.5rem !important; }
+  .#{$ec-prefix}ml-md-5 { margin-left: 3rem !important; }
+
+  .#{$ec-prefix}mx-md-0 {
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+  }
+  .#{$ec-prefix}mx-md-1 {
+    margin-right: 0.25rem !important;
+    margin-left: 0.25rem !important;
+  }
+  .#{$ec-prefix}mx-md-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0.5rem !important;
+  }
+  .#{$ec-prefix}mx-md-3 {
+    margin-right: 1rem !important;
+    margin-left: 1rem !important;
+  }
+  .#{$ec-prefix}mx-md-4 {
+    margin-right: 1.5rem !important;
+    margin-left: 1.5rem !important;
+  }
+  .#{$ec-prefix}mx-md-5 {
+    margin-right: 3rem !important;
+    margin-left: 3rem !important;
+  }
+
+  .#{$ec-prefix}my-md-0 {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  .#{$ec-prefix}my-md-1 {
+    margin-top: 0.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+  .#{$ec-prefix}my-md-2 {
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  .#{$ec-prefix}my-md-3 {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+  .#{$ec-prefix}my-md-4 {
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .#{$ec-prefix}my-md-5 {
+    margin-top: 3rem !important;
+    margin-bottom: 3rem !important;
+  }
+
+  .#{$ec-prefix}p-md-0 { padding: 0 !important; }
+  .#{$ec-prefix}p-md-1 { padding: 0.25rem !important; }
+  .#{$ec-prefix}p-md-2 { padding: 0.5rem !important; }
+  .#{$ec-prefix}p-md-3 { padding: 1rem !important; }
+  .#{$ec-prefix}p-md-4 { padding: 1.5rem !important; }
+  .#{$ec-prefix}p-md-5 { padding: 3rem !important;}
+
+  .#{$ec-prefix}px-md-0 {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+  }
+  .#{$ec-prefix}px-md-1 {
+    padding-right: 0.25rem !important;
+    padding-left: 0.25rem !important;
+  }
+  .#{$ec-prefix}px-md-2 {
+    padding-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+  }
+  .#{$ec-prefix}px-md-3 {
+    padding-right: 1rem !important;
+    padding-left: 1rem !important;
+  }
+  .#{$ec-prefix}px-md-4 {
+    padding-right: 1.5rem !important;
+    padding-left: 1.5rem !important;
+  }
+  .#{$ec-prefix}px-md-5 {
+    padding-right: 3rem !important;
+    padding-left: 3rem !important;
+  }
+
+  .#{$ec-prefix}py-md-0 {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .#{$ec-prefix}py-md-1 {
+    padding-top: 0.25rem !important;
+    padding-bottom: 0.25rem !important;
+  }
+  .#{$ec-prefix}py-md-2 {
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+  .#{$ec-prefix}py-md-3 {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+  .#{$ec-prefix}py-md-4 {
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  .#{$ec-prefix}py-md-5 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .#{$ec-prefix}pt-md-0 { padding-top: 0 !important; }
+  .#{$ec-prefix}pt-md-1 { padding-top: 0.25rem !important; }
+  .#{$ec-prefix}pt-md-2 { padding-top: 0.5rem !important; }
+  .#{$ec-prefix}pt-md-3 { padding-top: 1rem !important; }
+  .#{$ec-prefix}pt-md-4 { padding-top: 1.5rem !important; }
+  .#{$ec-prefix}pt-md-5 { padding-top: 3rem !important; }
+
+  .#{$ec-prefix}pr-md-0 { padding-right: 0 !important; }
+  .#{$ec-prefix}pr-md-1 { padding-right: 0.25rem !important; }
+  .#{$ec-prefix}pr-md-2 { padding-right: 0.5rem !important; }
+  .#{$ec-prefix}pr-md-3 { padding-right: 1rem !important; }
+  .#{$ec-prefix}pr-md-4 { padding-right: 1.5rem !important; }
+  .#{$ec-prefix}pr-md-5 { padding-right: 3rem !important; }
+
+  .#{$ec-prefix}pb-md-0 { padding-bottom: 0 !important; }
+  .#{$ec-prefix}pb-md-1 { padding-bottom: 0.25rem !important; }
+  .#{$ec-prefix}pb-md-2 { padding-bottom: 0.5rem !important; }
+  .#{$ec-prefix}pb-md-3 { padding-bottom: 1rem !important; }
+  .#{$ec-prefix}pb-md-4 { padding-bottom: 1.5rem !important; }
+  .#{$ec-prefix}pb-md-5 { padding-bottom: 3rem !important; }
+
+  .#{$ec-prefix}pl-md-0 { padding-left: 0 !important; }
+  .#{$ec-prefix}pl-md-1 { padding-left: 0.25rem !important; }
+  .#{$ec-prefix}pl-md-2 { padding-left: 0.5rem !important; }
+  .#{$ec-prefix}pl-md-3 { padding-left: 1rem !important; }
+  .#{$ec-prefix}pl-md-4 { padding-left: 1.5rem !important; }
+  .#{$ec-prefix}pl-md-5 { padding-left: 3rem !important; }
+}
+
+// Display
+.#{$ec-prefix}d-flex { display: flex !important; }
+.#{$ec-prefix}d-none { display: none !important; }
+
+.#{$ec-prefix}flex-row { flex-direction: row !important; }
+.#{$ec-prefix}flex-row-reverse { flex-direction: row-reverse !important; }
+
+.#{$ec-prefix}align-items-start { align-items: flex-start !important; }
+.#{$ec-prefix}align-items-center { align-items: center !important; }
+.#{$ec-prefix}align-items-end { align-items: flex-end !important; }
+
+.#{$ec-prefix}flex-column { flex-direction: column !important; }
+.#{$ec-prefix}flex-column-reverse { flex-direction: column-reverse !important; }
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}flex-md-row { flex-direction: row !important; }
+  .#{$ec-prefix}flex-md-row-reverse { flex-direction: row-reverse !important; }
+
+  .#{$ec-prefix}flex-md-column { flex-direction: column !important }
+  .#{$ec-prefix}flex-md-column-reverse { flex-direction: column-reverse !important; }
+
+  .#{$ec-prefix}align-items-md-start { align-items: flex-start !important; }
+  .#{$ec-prefix}align-items-md-center { align-items: center !important; }
+  .#{$ec-prefix}align-items-md-end { align-items: flex-end !important; }
+}
+
+// Buttons
+// TODO
+.#{$ec-prefix}btn {}
+
+.#{$ec-prefix}btn-primary {}
+.#{$ec-prefix}btn-secondary {}
+.#{$ec-prefix}btn-success {}
+.#{$ec-prefix}btn-danger {}
+.#{$ec-prefix}btn-warning {}
+.#{$ec-prefix}btn-info {}
+.#{$ec-prefix}btn-light {}
+.#{$ec-prefix}btn-dark {}
+.#{$ec-prefix}btn-link {}
+.#{$ec-prefix}btn-outline-primary {}
+.#{$ec-prefix}btn-outline-secondary {}
+.#{$ec-prefix}btn-outline-success {}
+.#{$ec-prefix}btn-outline-danger {}
+.#{$ec-prefix}btn-outline-warning {}
+.#{$ec-prefix}btn-outline-info {}
+.#{$ec-prefix}btn-outline-info {}
+.#{$ec-prefix}btn-outline-dark {}
+
+.#{$ec-prefix}link-underline {}
+
+.#{$ec-prefix}btn-lg {}
+.#{$ec-prefix}btn-sm {}
+
+.#{$ec-prefix}btn-block {}
+
+// Typography
+// TODO
+.#{$ec-prefix}h1 {}
+.#{$ec-prefix}h2 {}
+.#{$ec-prefix}h3 {}
+.#{$ec-prefix}h4 {}
+.#{$ec-prefix}h5 {}
+.#{$ec-prefix}h6 {}
+
+.#{$ec-prefix}display-1 {}
+.#{$ec-prefix}display-2 {}
+.#{$ec-prefix}display-3 {}
+.#{$ec-prefix}display-4 {}
+.#{$ec-prefix}display-5 {}
+
+// Badge
+// TODO
+.#{$ec-prefix}badge {
+  display: inline-block;
+  padding: $badge-padding-y $badge-padding-x;
+  font-size: $badge-font-size;
+  font-weight: $badge-font-weight;
+  line-height: 1;
+  color: $badge-color;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: $badge-border-radius;
+
+  // Empty badges collapse automatically
+  &:empty {
+    display: none;
+  }
+}
+
+// Quick fix for badges in buttons
+.#{$ec-prefix}btn .#{$ec-prefix}badge {
+  position: relative;
+  top: -1px;
+}
+
+.#{$ec-prefix}badge-primary {}
+.#{$ec-prefix}badge-secondary {}
+.#{$ec-prefix}badge-success {}
+.#{$ec-prefix}badge-danger {}
+.#{$ec-prefix}badge-warning {}
+.#{$ec-prefix}badge-info {}
+.#{$ec-prefix}badge-light {}
+.#{$ec-prefix}badge-dark {}
+
+// Text Color
+// TODO
+.#{$ec-prefix}text-primary {}
+.#{$ec-prefix}text-secondary {}
+.#{$ec-prefix}text-success {}
+.#{$ec-prefix}text-danger {}
+.#{$ec-prefix}text-warning {}
+.#{$ec-prefix}text-info {}
+.#{$ec-prefix}text-light {}
+.#{$ec-prefix}text-dark {}
+.#{$ec-prefix}text-body {}
+.#{$ec-prefix}text-muted {}
+.#{$ec-prefix}text-white {}
+.#{$ec-prefix}text-black-50 {}
+.#{$ec-prefix}text-white-50 {}
+
+// Text Align
+.#{$ec-prefix}text-left { text-align: left !important; }
+.#{$ec-prefix}text-center { text-align: center !important; }
+.#{$ec-prefix}text-right { text-align: right !important; }
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}text-md-left { text-align: left !important; }
+  .#{$ec-prefix}text-md-center { text-align: center !important; }
+  .#{$ec-prefix}text-md-right { text-align: right !important; }
+}
+
+// Embed
+// TODO
+.#{$ec-prefix}embed-responsive-item {}
+
+.#{$ec-prefix}embed-responsive-4by3 {}
+.#{$ec-prefix}embed-responsive-1by1 {}
+.#{$ec-prefix}embed-responsive-16by9 {}
+.#{$ec-prefix}embed-responsive-21by9 {}
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}embed-responsive-md-4by3 {}
+  .#{$ec-prefix}embed-responsive-md-1by1 {}
+  .#{$ec-prefix}embed-responsive-md-16by9 {}
+  .#{$ec-prefix}embed-responsive-md-21by9 {}
+}
+
+// Background Color
+// TODO
+// Border
+.#{$ec-prefix}border-top {}
+.#{$ec-prefix}border-right {}
+.#{$ec-prefix}border-bottom {}
+.#{$ec-prefix}border-left {}
+
+.#{$ec-prefix}border-primary {}
+.#{$ec-prefix}border-secondary {}
+.#{$ec-prefix}border-success {}
+.#{$ec-prefix}border-danger {}
+.#{$ec-prefix}border-warning {}
+.#{$ec-prefix}border-info {}
+.#{$ec-prefix}border-light {}
+.#{$ec-prefix}border-dark {}
+.#{$ec-prefix}border-white {}
+
+
+.border {
+  border: 1px solid #dee2e6 !important;
+}
+
+.border-0 {
+  border: 0 !important;
+}
+
+.border-top {
+  border-top: 1px solid #dee2e6 !important;
+}
+
+.border-top-0 {
+  border-top: 0 !important;
+}
+
+.border-right {
+  border-right: 1px solid #dee2e6 !important;
+}
+
+.border-right-0 {
+  border-right: 0 !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #dee2e6 !important;
+}
+
+.border-bottom-0 {
+  border-bottom: 0 !important;
+}
+
+.border-left {
+  border-left: 1px solid #dee2e6 !important;
+}
+
+.border-left-0 {
+  border-left: 0 !important;
+}
+
+.border-primary {
+  border-color: #0d6efd !important;
+}
+
+.border-secondary {
+  border-color: #6c757d !important;
+}
+
+.border-success {
+  border-color: #28a745 !important;
+}
+
+.border-info {
+  border-color: #17a2b8 !important;
+}
+
+.border-warning {
+  border-color: #ffc107 !important;
+}
+
+.border-danger {
+  border-color: #dc3545 !important;
+}
+
+.border-light {
+  border-color: #f8f9fa !important;
+}
+
+.border-dark {
+  border-color: #343a40 !important;
+}
+
+.border-white {
+  border-color: #fff !important;
+}
+
+
+// Sizing
+.#{$ec-prefix}w-10 { width: 10% !important; }
+.#{$ec-prefix}w-20 { width: 20% !important; }
+.#{$ec-prefix}w-25 { width: 25% !important; }
+.#{$ec-prefix}w-30 { width: 30% !important;}
+.#{$ec-prefix}w-33 { width: 33.33333% !important; }
+.#{$ec-prefix}w-40 { width: 40% !important; }
+.#{$ec-prefix}w-50 { width: 50% !important; }
+.#{$ec-prefix}w-60 { width: 60% !important; }
+.#{$ec-prefix}w-66 { width: 66.6666% !important; }
+.#{$ec-prefix}w-70 { width: 70% !important; }
+.#{$ec-prefix}w-75 { width: 75% !important; }
+.#{$ec-prefix}w-80 { width: 80% !important; }
+.#{$ec-prefix}w-90 { width: 90% !important; }
+.#{$ec-prefix}w-100 { width: 100% !important; }
+
+.#{$ec-prefix}h-10 { height: 10% !important; }
+.#{$ec-prefix}h-20 { height: 20% !important; }
+.#{$ec-prefix}h-25 { height: 25% !important; }
+.#{$ec-prefix}h-30 { height: 30% !important; }
+.#{$ec-prefix}h-33 { height: 33.33333% !important; }
+.#{$ec-prefix}h-40 { height: 40% !important; }
+.#{$ec-prefix}h-50 { height: 50% !important; }
+.#{$ec-prefix}h-60 { height: 60% !important; }
+.#{$ec-prefix}h-66 { height: 66.6666% !important; }
+.#{$ec-prefix}h-70 { height: 70% !important; }
+.#{$ec-prefix}h-75 { height: 75% !important; }
+.#{$ec-prefix}h-80 { height: 80% !important; }
+.#{$ec-prefix}h-90 { height: 90% !important; }
+.#{$ec-prefix}h-100 { height: 100% !important; }
+
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}w-md-10 { width: 10% !important; }
+  .#{$ec-prefix}w-md-20 { width: 20% !important; }
+  .#{$ec-prefix}w-md-25 { width: 25% !important; }
+  .#{$ec-prefix}w-md-30 { width: 30% !important;}
+  .#{$ec-prefix}w-md-33 { width: 33.33333% !important; }
+  .#{$ec-prefix}w-md-40 { width: 40% !important; }
+  .#{$ec-prefix}w-md-50 { width: 50% !important; }
+  .#{$ec-prefix}w-md-60 { width: 60% !important; }
+  .#{$ec-prefix}w-md-66 { width: 66.6666% !important; }
+  .#{$ec-prefix}w-md-70 { width: 70% !important; }
+  .#{$ec-prefix}w-md-75 { width: 75% !important; }
+  .#{$ec-prefix}w-md-80 { width: 80% !important; }
+  .#{$ec-prefix}w-md-90 { width: 90% !important; }
+  .#{$ec-prefix}w-md-100 { width: 100% !important; }
+
+  .#{$ec-prefix}h-md-10 { height: 10% !important; }
+  .#{$ec-prefix}h-md-20 { height: 20% !important; }
+  .#{$ec-prefix}h-md-25 { height: 25% !important; }
+  .#{$ec-prefix}h-md-30 { height: 30% !important; }
+  .#{$ec-prefix}h-md-33 { height: 33.33333% !important; }
+  .#{$ec-prefix}h-md-40 { height: 40% !important; }
+  .#{$ec-prefix}h-md-50 { height: 50% !important; }
+  .#{$ec-prefix}h-md-60 { height: 60% !important; }
+  .#{$ec-prefix}h-md-66 { height: 66.6666% !important; }
+  .#{$ec-prefix}h-md-70 { height: 70% !important; }
+  .#{$ec-prefix}h-md-75 { height: 75% !important; }
+  .#{$ec-prefix}h-md-80 { height: 80% !important; }
+  .#{$ec-prefix}h-md-90 { height: 90% !important; }
+  .#{$ec-prefix}h-md-100 { height: 100% !important; }
+}
+
+// Utility
+.#{$ec-prefix}bg-size-cover { background-size: cover !important; }
+.#{$ec-prefix}bg-size-contain { background-size: contain !important; }
+
+@media (min-width: $grid-breakpoint-md) {
+  .#{$ec-prefix}bg-size-md-cover { background-size: cover !important; }
+  .#{$ec-prefix}bg-size-md-contain { background-size: contain !important; }
+}
+
+{% comment %} body { background-color: yellow !important;} {% endcomment %}

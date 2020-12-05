@@ -119,7 +119,8 @@
 
 {% comment %} Content Container Classes {% endcomment %}
 {% assign container_classes = container %}
-
+{% comment %} TODO - make a default for this {% endcomment %}
+{% comment %} TODO - remove container- from the schema {% endcomment %}
 {% if pt != 0 %}
   {% assign container_classes = container_classes
     | append: ' pt-'

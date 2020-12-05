@@ -22,7 +22,7 @@
 {% endif %}
 
 {% if eyebrow_style != blank %}
-  {% assign eyebrow_style = eyebrow_style %}
+  {% assign eyebrow_style = 'badge-' | append: eyebrow_style %}
 {% else %}
   {% assign eyebrow_style = 'badge-secondary' %}
 {% endif %}
