@@ -12,18 +12,18 @@
 {% if bg_image_url contains 'no-image' %}
   {% assign bg_image_url = blank %}
 {% endif %}
-{% assign bg_image_url_lg = section.settings.bg_image_lg | img_url: '1000x' %}
-{% if bg_image_url_lg contains 'no-image' %}
-  {% assign bg_image_url_lg = blank %}
+{% assign bg_image_url_md_up = section.settings.bg_image_md_up | img_url: '1000x' %}
+{% if bg_image_url_md_up contains 'no-image' %}
+  {% assign bg_image_url_md_up = blank %}
 {% endif %}
 
 {% comment %} Header Settings {% endcomment %}
 {% assign header_container_col = section.settings.header_container_col %}
-{% assign header_container_col_lg = section.settings.header_container_col_lg  %}
+{% assign header_container_col_md_up = section.settings.header_container_col_md_up  %}
 {% assign header_container_justify_container = section.settings.header_container_justify_container %}
-{% assign header_container_justify_container_lg = section.settings.header_container_justify_container_lg %}
+{% assign header_container_justify_container_md_up = section.settings.header_container_justify_container_md_up %}
 {% assign header_container_text_align = section.settings.header_container_text_align %}
-{% assign header_container_text_align_lg = section.settings.header_container_text_align_lg %}
+{% assign header_container_text_align_md_up = section.settings.header_container_text_align_md_up %}
 
 {% comment %} Content Container Settings {% endcomment %}
 {% assign eyebrow_style = section.settings.eyebrow_style %}
@@ -40,11 +40,11 @@
 {% assign video_url = section.settings.video_url %}
 {% assign video_aspect_ratio = section.settings.video_aspect_ratio %}
 {% assign video_container_col = section.settings.header_container_col %}
-{% assign video_container_col_lg = section.settings.video_container_col_lg  %}
+{% assign video_container_col_md_up = section.settings.video_container_col_md_up  %}
 {% assign video_container_justify_container = section.settings.video_container_justify_container %}
-{% assign video_container_justify_container_lg = section.settings.video_container_justify_container_lg %}
+{% assign video_container_justify_container_md_up = section.settings.video_container_justify_container_md_up %}
 {% assign video_container_text_align = section.settings.video_container_text_align %}
-{% assign video_container_text_align_lg = section.settings.video_container_text_align_lg %}
+{% assign video_container_text_align_md_up = section.settings.video_container_text_align_md_up %}
 
 {% comment %} Content Container Classes {% endcomment %}
 {% assign content_classes = 'col-12' %}
@@ -118,20 +118,20 @@
           background-size: cover;
         }
       </style>
-    {% elsif bg_image_url_lg != blank %}
+    {% elsif bg_image_url_md_up != blank %}
       <style>
         [data-section-id="{{ section.id }}"] {
-          background-image: url({{ bg_image_url_lg }});
+          background-image: url({{ bg_image_url_md_up }});
           background-size: cover;
         }
       </style>
     {% endif %}
 
-    {% if bg_image_url_lg != blank %}
+    {% if bg_image_url_md_up != blank %}
       <style>
         @media (min-width: 992px) {
           [data-section-id="{{ section.id }}"] {
-            background-image: url({{ bg_image_url_lg }});
+            background-image: url({{ bg_image_url_md_up }});
             background-size: cover;
           }
         }
@@ -158,11 +158,11 @@
             heading_style: heading_style,
             paragraph_text: paragraph_text,
             col: header_container_col,
-            col_lg: header_container_col_lg,
+            col_md_up: header_container_col_md_up,
             justify_container: header_container_justify_container,
-            justify_container_lg: header_container_justify_container_lg,
+            justify_container_md_up: header_container_justify_container_md_up,
             text_align: header_container_text_align,
-            text_align_lg: header_container_text_align_lg %}
+            text_align_md_up: header_container_text_align_md_up %}
         </div>
       </div>
       <div class="{{ row_classes }}">
@@ -171,11 +171,11 @@
             video_url: video_url,
             video_aspect_ratio: video_aspect_ratio,
             col: video_container_col,
-            col_lg: video_container_col_lg,
+            col_md_up: video_container_col_md_up,
             justify_container: video_container_justify_container,
-            justify_container_lg: video_container_justify_container_lg,
+            justify_container_md_up: video_container_justify_container_md_up,
             text_align: video_container_text_align,
-            text_align_lg: video_container_text_align_lg %}
+            text_align_md_up: video_container_text_align_md_up %}
         </div>
       </div>
       <div class="{{ row_classes }}">

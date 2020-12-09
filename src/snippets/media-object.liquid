@@ -13,7 +13,7 @@
     video_url: { obj } - expects video object from theme settings
     video_aspect_ratio: { string } - i.e. 1by1
     image_url: { string } - expects url
-    image_url_lg: { string } - expects url
+    image_url_md_up: { string } - expects url
     image_aspect_ratio: { string } - utility class
     image_alt_text: { string }
     responsive_item_bg_color: { string } - expects utility class %}
@@ -27,7 +27,7 @@
 {% elsif media_type == 'image' %}
   {% render 'image-object',
     image_url: image_url
-    image_url_lg: image_url_lg
+    image_url_md_up: image_url_md_up
     image_aspect_ratio: image_aspect_ratio
     image_alt_text: image_alt_text
     responsive_item_bg_color: responsive_item_bg_color %}

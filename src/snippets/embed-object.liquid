@@ -12,10 +12,9 @@
     align_items: { string } - optional
     content: { string } - optional
     bg_image_url
-    bg_image_url_lg
+    bg_image_url_md_up
     bg_color
-    bg_color_alpha
-     %}
+    bg_color_alpha %}
 
 {% endcomment %}
 
@@ -23,25 +22,45 @@
   {% render 'bg-image-tag'
     id: id,
     bg_image_url: bg_image_url,
-    bg_image_url_lg: bg_image_url_lg,
+    bg_image_url_md_up: bg_image_url_md_up,
     bg_color: bg_color,
     bg_color_alpha: bg_color_alpha %}
 {% endcapture %}
 
-{% assign embed_wrapper_classes = 'embed-responsive' %}
+{% assign embed_wrapper_classes =
+  settings.ec_prefix
+  | append: 'embed-responsive' %}
 
 {% if aspect_ratio != blank %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
-    | append: ' embed-responsive-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'embed-responsive-'
     | append: aspect_ratio %}
 {% else %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' '
+    | append: settings.ec_prefix
     | append: 'embed-responsive-4by3' %}
 {% endif %}
 
+{% if aspect_ratio_md_up != blank %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'embed-responsive-md-'
+    | append: aspect_ratio_md_up %}
+{% else %}
+  {% assign embed_wrapper_classes = embed_wrapper_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'embed-responsive-md-4by3' %}
+{% endif %}
+
 {% comment %} Embeded Responsive Item Classes {% endcomment %}
-{% assign embed_responsive_item_classes = 'embed-responsive-item' %}
+{% assign embed_responsive_item_classes =
+  settings.ec_prefix
+  | append: 'embed-responsive-item' %}
 
 {% assign embed_responsive_item_classes = embed_responsive_item_classes
   | append: ' '
@@ -57,10 +76,10 @@
     | append: 'align-items-center' %}
 {% endif %}
 
-{% if align_items_lg != blank %}
+{% if align_items_md_up != blank %}
   {% assign embed_responsive_item_classes = embed_responsive_item_classes
     | append: ' align-items-md-'
-    | append: align_items_lg %}
+    | append: align_items_md_up %}
 {% endif %}
 
 {% if id != blank %}

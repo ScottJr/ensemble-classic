@@ -9,26 +9,55 @@
   {% render 'paragraph-element',
     text: { string } - expects richtext
     text_color: { string } expects text-color class
-    text_align: { string } 'text-center', 'text-left' %}
+    text_align: { string } 'center', 'left' 
+    text_align_md_up: { string } 'center', 'left' %}
 
 {% endcomment %}
 
-{% comment %} Class defaults {% endcomment %}
+{% comment %} Defaults {% endcomment %}
 {% assign classes = blank %}
 
 {% if text_color != blank %}
-  {% assign classes = classes | append: text_color %}
+  {% assign classes = classes
+    | append: settings.ec_prefix
+    | append: 'text-'
+    | append: text_color %}
 {% else %}
-  {% assign classes = classes | append: 'text-primary' %}
+  {% assign classes = classes
+    | append: settings.ec_prefix
+    | append: 'text-primary' %}
 {% endif %}
 
 {% if text_align != blank %}
-  {% assign classes = classes | append: ' ' | append: text_align %}
+  {% assign text_align = settings.ec_prefix
+    | append: 'text-'
+    | append: text_align %}
 {% else %}
-  {% assign classes = classes | append: ' ' | append: 'text-left' %}
+  {% assign text_align =  settings.ec_prefix | append: 'text-left' %}
 {% endif %}
 
-{% comment %} HTML content {% endcomment %}
+{% if text_align_md_up != blank %}
+  {% assign text_align_md_up = settings.ec_prefix
+    | append: 'text-md-'
+    | append: text_align_md_up %}
+{% else %}
+  {% assign text_align_md_up = settings.ec_prefix | append: 'text-md-center' %}
+{% endif %}
+
+{% assign text_align_classes = text_align
+  | append: ' '
+  | append: text_align_md_up %}
+
+{% if text_align_classes != blank %}
+  {% assign classes = classes | append: ' ' | append: text_align_classes %}
+{% else %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'text-left' %}
+{% endif %}
+
+{% comment %} Content {% endcomment %}
 {% capture 'html_content' %}
   {% if text != blank %}
     <div class="{{ classes }}">{{ text }}</div>

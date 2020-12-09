@@ -12,13 +12,14 @@
   Usage:
 
   {% render 'content-wrapper'
+    id: { string } - required for background image/color
     content: { string } - required
     bg_image_url: { string } - optional
-    bg_image_url_lg: { string } - optional
+    bg_image_url_md_up: { string } - optional
     bg_color: { string } - optional
     bg_color_alpha: { string } - optional
     pt : { string } - optional
-    pr: { string } - optional
+    pr: { string } - optional - expects numerical value from 0-5
     pb: { string } - optional
     pl: { string } - optional
     mt: { string } - optional
@@ -34,12 +35,22 @@
     mb_md_up: { string } - optional
     ml_md_up: { string } - optional
     border_top: { string } - optional
+    border_right: { string } - optional
     border_bottom: { string } - optional
+    border_left: { string } - optional
+    border_color: { string } - optional
   %}
 
 {% endcomment %}
 
 {% comment %} Defaults {% endcomment %}
+{% if id != blank %}
+  {% assign content_id = 'content-wrapper-'
+    | append:  id %}
+{% else %}
+  {% assign content_id = false %}
+{% endif %}
+
 {% if border_top != blank or border_top != 'none' %}
   {% assign border_top = border_top %}
 {% else %}
@@ -68,7 +79,7 @@
   or border_bottom
   or border_left
   or border_right  %}
-  {% assign border_color = border_color %}
+  {% assign border_color = 'border-' | append: border_color %}
 {% else %}
   {% assign border_color = false %}
 {% endif %}
@@ -171,74 +182,140 @@
 {% endif %}
 
 {% comment %} Object Classes {% endcomment %}
-{% assign el_classes = 'w-100' %}
+{% assign el_classes = settings.ec_prefix | append: 'w-100' %}
 
 {% if pt != 0 %}
-  {% assign el_classes = el_classes | append: ' pt-' | append: pt %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pt-'
+    | append: pt %}
 {% endif %}
 
 {% if pr != 0 %}
-  {% assign el_classes = el_classes | append: ' pr-' | append: pr %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pr-'
+    | append: pr %}
 {% endif %}
 
 {% if pb != 0 %}
-  {% assign el_classes = el_classes | append: ' pb-' | append: pb %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pb-'
+    | append: pb %}
 {% endif %}
 
 {% if pl != 0 %}
-  {% assign el_classes = el_classes | append: ' pl-' | append: pl %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pl-'
+    | append: pl %}
 {% endif %}
 
 {% if mt != 0 %}
-  {% assign el_classes = el_classes | append: ' mt-' | append: mt %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mt-'
+    | append: mt %}
 {% endif %}
 
 {% if mr != 0 %}
-  {% assign el_classes = el_classes | append: ' mr-' | append: mr %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mr-'
+    | append: mr %}
 {% endif %}
 
 {% if mb != 0 %}
-  {% assign el_classes = el_classes | append: ' mb-' | append: mb %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mb-'
+    | append: mb %}
 {% endif %}
 
 {% if ml != 0 %}
-  {% assign el_classes = el_classes | append: ' ml-' | append: ml %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'ml-'
+    | append: ml %}
 {% endif %}
 
 {% if pt_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' pt-md-' | append: pt_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pt-md-'
+    | append: pt_md_up %}
 {% endif %}
 
 {% if pr_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' pr-md-' | append: pr_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pr-md-'
+    | append: pr_md_up %}
 {% endif %}
 
 {% if pb_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' pb-md-' | append: pb_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pb-md-'
+    | append: pb_md_up %}
 {% endif %}
 
 {% if pl_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' pl-md-' | append: pl_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pl-md-'
+    | append: pl_md_up %}
 {% endif %}
 
 {% if mt_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' mt-md-' | append: mt_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mt-md-'
+    | append: mt_md_up %}
 {% endif %}
 
 {% if mr_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' mr-md-' | append: mr_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mr-md-'
+    | append: mr_md_up %}
 {% endif %}
 
 {% if mb_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' mb-md-' | append: mb_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mb-md-'
+    | append: mb_md_up %}
 {% endif %}
 
 {% if ml_md_up != 0 %}
-  {% assign el_classes = el_classes | append: ' ml-md-' | append: ml_md_up %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'ml-md-'
+    | append: ml_md_up %}
 {% endif %}
 
 {% if border_color %}
-  {% assign el_classes = el_classes | append: ' ' | append: border_color %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: border_color %}
 {% endif %}
 
 {% if border_top %}
@@ -267,54 +344,29 @@
   {% assign el_classes = el_classes | append: ' border-left' %}
 {% endif %}
 
-{% assign bg_color_computed = bg_color | remove: '#'%}
+{% if content_id != blank %}
+  {% assign el_classes = el_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'bg-content-wrapper'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'bg-image-'
+    | append: content_id %}
 
-{% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
-
-{% assign bg_color_computed = bg_color_computed | prepend: '#' %}
-
-{% capture background_image %}
-  {% unless bg_image_url contains 'no-image' %}
-      {% if bg_image_url != blank %}
-        {% assign bg_image_url = bg_image_url %}
-      {% elsif bg_image_url_lg != blank %}
-        {% assign bg_image_url = bg_image_url_lg %}
-      {% endif %}
-      <style>
-        #embed-object-{{ id }} {
-          background-image: url({{ bg_image_url }});
-          background-size: cover;
-        }
-      </style>
-  {% endunless %}
-
-  {% unless bg_image_url_lg contains 'no-image' %}
-    {% if bg_image_url_lg != blank %}
-      {% assign bg_image_url_lg = bg_image_url_lg %}
-    {% elsif bg_image_url != blank %}
-      {% assign bg_image_url_lg = bg_image_url %}
-    {% endif %}
-    <style>
-      @media (min-width: 992px) {
-        #embed-object-{{ id }} {
-          background-image: url({{ bg_image_url_lg }});
-          background-size: cover;
-        }
-      }
-    </style>
-  {% endunless %}
-{% endcapture %}
-
-{% assign style_tag = 'style="' %}
-{% assign style_tag = style_tag
-  | append: 'background-color: '
-  | append: bg_color_computed %}
-{% assign style_tag = style_tag | append: '"' %}
+  {% capture bg_image_style_tag %}
+    {% render 'bg-image-tag'
+      id: content_id,
+      bg_image_url: bg_image_url,
+      bg_image_url_md_up: bg_image_url_md_up,
+      bg_color: bg_color,
+      bg_color_alpha: bg_color_alpha %}
+  {% endcapture %}
+{% endif %}
 
 {% if content != blank %}
-  <div {%if el_classes %}class="{{ el_classes }}"{% endif %} {{ style_tag }}>
-    {{ background_image }}
-
+  <div class="{{ el_classes }}">
+    {{ bg_image_style_tag }}
     {{ content }}
   </div>
 {% endif %}

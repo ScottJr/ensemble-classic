@@ -12,9 +12,9 @@
 {% if image_url contains 'no-image' %}
   {% assign image_url = blank %}
 {% endif %}
-{% assign image_url_lg = section.settings.image_lg | img_url: '1000x' %}
-{% if image_url_lg contains 'no-image' %}
-  {% assign image_url_lg = blank %}
+{% assign image_url_md_up = section.settings.image_md_up | img_url: '1000x' %}
+{% if image_url_md_up contains 'no-image' %}
+  {% assign image_url_md_up = blank %}
 {% endif %}
 
 {% comment %} Content Object Data {% endcomment %}
@@ -28,7 +28,7 @@
 {% comment %} Render HTML Content? {% endcomment %}
 {% if image_url != blank %}
   {% assign show_rendered_content = true %}
-{% elsif image_url_lg != blank %}
+{% elsif image_url_md_up != blank %}
   {% assign show_rendered_content = true %}
 {% elsif eyebrow_text != blank %}
   {% assign show_rendered_content = true %}
@@ -49,7 +49,7 @@
 {% if show_rendered_content == true %}
   {% render 'section-image-content',
     image_url: image_url,
-    image_url_lg: image_url_lg,
+    image_url_md_up: image_url_md_up,
     eyebrow_text: eyebrow_text,
     heading_text: heading_text,
     paragraph_text: paragraph_text,
@@ -74,7 +74,7 @@
       },
       {
         "type": "select",
-        "id": "content_order_lg",
+        "id": "content_order_md_up",
         "label": "Content position",
         "info": "Large devices only. On small devices, image stacks first and is followed by the content.",
         "options": [
@@ -183,7 +183,7 @@
       },
       {
         "type": "image_picker",
-        "id": "bg_image_lg",
+        "id": "bg_image_md_up",
         "label": "Background Image - Medium & Up Devices"
       },
       {
@@ -218,7 +218,7 @@
       },
       {
         "type": "range",
-        "id": "header_container_col_lg",
+        "id": "header_container_col_md_up",
         "min": 1,
         "max": 12,
         "step": 1,
@@ -240,7 +240,7 @@
       },
       {
         "type": "select",
-        "id": "header_container_justify_container_lg",
+        "id": "header_container_justify_container_md_up",
         "label": "Justify content container - Medium & Large devices",
         "options": [
           { "value": "justify-content-md-start", "label": "Left"},
@@ -264,7 +264,7 @@
       },
       {
         "type": "select",
-        "id": "header_container_text_align_lg",
+        "id": "header_container_text_align_md_up",
         "label": "Text alignment - Medium & Large devices",
         "options": [
           { "value": "text-md-left", "label": "Left"},
@@ -285,7 +285,7 @@
       },
       {
         "type": "image_picker",
-        "id": "image_lg",
+        "id": "image_md_up",
         "label": "Image - Medium & Up devices"
       },
       {

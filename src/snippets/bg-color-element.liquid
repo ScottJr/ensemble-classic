@@ -10,11 +10,23 @@
   Usage:
 
   {% render 'bg-color-element'
-    bg_style_tag: { string } - required - expects hex code %}
+    bg_color_computed: { string } - required - expects hex code %}
 
 {% endcomment %}
 
 {% assign psuedo_style_tag = 'style="' %}
-{% assign psuedo_style_tag = psuedo_style_tag | append: bg_style_tag %}
-{% assign psuedo_style_tag = psuedo_style_tag | append: ' top: 0; right:0; bottom: 0; left: 0;"' %}
-<div class="position-absolute h-100 w-100" {{ psuedo_style_tag }}></div>
+{% assign psuedo_style_tag = psuedo_style_tag | append: 'background-color: ' %}
+{% assign psuedo_style_tag = psuedo_style_tag | append: bg_color_computed %}
+{% assign psuedo_style_tag = psuedo_style_tag
+  | append: ';"' %}
+
+{% assign psuedo_el_classes =  settings.ec_prefix
+  | append: 'position-absolute'
+  | append: ' '
+  | append: settings.ec_prefix
+  | append: 'h-100'
+  | append: ' '
+  | append: settings.ec_prefix
+  | append: 'w-100' %}
+
+<div class="{{ psuedo_el_classes }}" {{ psuedo_style_tag }}></div>

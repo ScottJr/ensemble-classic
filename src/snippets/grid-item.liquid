@@ -9,8 +9,8 @@
   {% render 'grid-item',
     col: { string} -
     col_offset: { string} -
-    col_lg: { string} -
-    col_lg_offset: { string} -
+    col_md_up: { string} -
+    col_md_up_offset: { string} -
     gutters: { boolean } -
     content: { string} - %}
 
@@ -29,27 +29,38 @@
   {% assign col = 12 %}
 {% endif %}
 
-{% if col_lg != blank %}
-  {% assign col_lg = col_lg %}
+{% if col_md_up != blank %}
+  {% assign col_md_up = col_md_up %}
 {% else %}
-  {% assign col_lg = 4 %}
+  {% assign col_md_up = 4 %}
 {% endif %}
 
 {% comment %} Block Layout Classes {% endcomment %}
-{% assign grid_item_classes =  'col-' | append: col %}
+{% assign grid_item_classes = settings.ec_prefix
+  | append: 'col-'
+  | append: col %}
 {% assign grid_item_classes =  grid_item_classes
-  | append: ' offset-'
+  | append: ' '
+  | append: settings.ec_prefix
+  | append: 'offset-'
   | append: col_offset %}
 {% assign grid_item_classes =  grid_item_classes
-  | append: ' col-md-'
-  | append: col_lg %}
+  | append: ' '
+  | append: settings.ec_prefix
+  | append: 'col-md-'
+  | append: col_md_up %}
 {% assign grid_item_classes =  grid_item_classes
-  | append: ' offset-md-'
-  | append: col_lg_offset %}
+  | append: ' '
+  | append: settings.ec_prefix
+  | append: 'offset-md-'
+  | append: col_md_up_offset %}
 
 {% comment %} Add margin bottom for gutter-enabled grids {% endcomment %}
 {% if gutters %}
-  {% assign grid_item_classes =  grid_item_classes | append: ' mb-4' %}
+  {% assign grid_item_classes =  grid_item_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mb-4' %}
 {% endif %}
 
 {% if content %}

@@ -7,10 +7,11 @@
   Usage:
 
   {% render 'heading-element',
-    text_color: { string } 'text-primary', 'text-secondary' %}
-    text_align: { string } 'text-center', 'text-left'
+    text_color: { string } 'primary', 'secondary' %}
+    text_align: { string } 'center', 'left'
+    text_align_md_up: { string } 'center', 'left'
     text: { string }
-    heading_size: { string } - h1,h2,h3,h4,h5,h6
+    heading_size: { string } - h1, h2, h3, h4, h5, h6
     heading_style: { string } expects display-1,2,3,4
 
 {% endcomment %}
@@ -19,21 +20,50 @@
 {% assign classes = blank %}
 
 {% if text_color != blank %}
-  {% assign classes = classes | append: text_color %}
+  {% assign classes = classes
+    | append: settings.ec_prefix
+    | append: 'text-'
+    | append: text_color %}
 {% else %}
   {% assign classes = classes | append: 'text-primary' %}
 {% endif %}
 
 {% if text_align != blank %}
-  {% assign classes = classes | append: ' ' | append: text_align %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'text-'
+    | append: text_align %}
 {% else %}
-  {% assign classes = classes | append: ' ' | append: 'text-left' %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'text-left' %}
+{% endif %}
+
+{% if text_align_md_up != blank %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'text-md-'
+    | append: text_align_md_up %}
+{% else %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'text-md-left' %}
 {% endif %}
 
 {% if heading_style != blank %}
-  {% assign classes = classes | append: ' ' | append: heading_style %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: heading_style %}
 {% else %}
-  {% assign classes = classes | append: ' ' | append: 'display-2' %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'display-2' %}
 {% endif %}
 
 {% if heading_size != blank %}

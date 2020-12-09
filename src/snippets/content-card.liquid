@@ -19,7 +19,7 @@
 
   Styling:
 
-  - Bootstrap
+  - `ec-base-styles.scss.liquid`
 
   JavaScript:
 
@@ -31,9 +31,9 @@
     id: { string } - required for background image & color
     content_color: { string } - optional
     content_align: { string } - optional
-    content_align_lg: { string } - optional
+    content_align_md_up: { string } - optional
     image_url: { string } - optional
-    image_url_lg: { string } - optional
+    image_url_md_up: { string } - optional
     image_alt_text: { string } - optional
     image_aspect_ratio: { string } - optional
     image_object_fit: { string} - optional
@@ -46,6 +46,7 @@
     link_style: { string } - optional
     link_url: { string } - optional
     link_text: { string } - optional
+    link_block: { boolean } - optional
     pt: { string } - optional
     pr: { string } - optional
     pb: { string } - optional
@@ -83,7 +84,7 @@
     content_mb_md_up: { string } - optional
     content_ml_md_up: { string } - optional
     content_bg_image_url: { string } - optional
-    content_bg_image_url_lg: { string } - optional
+    content_bg_image_url_md_up: { string } - optional
     content_bg_color: { string } - optional
     content_bg_color_alpha: { string } - optional
     content_embed: { boolean } - optional
@@ -91,14 +92,12 @@
     content_embed_forced: { string } - optional - If you would like to force
     the content block to always be enabled
     content_position: { string } - optional
-    content_position_lg: { string } - optional
+    content_position_md_up: { string } - optional
     content_align_items: { string } - optional
-    content_align_items_lg: { string } - optional
+    content_align_items_md_up: { string } - optional
   %}
 
 {% endcomment -%}
-{% comment %} Stopped at figuring out the margin of the content wrapper not working {% endcomment %}
-
 
 {% if content_pt != blank %}
   {% assign content_pt = content_pt %}
@@ -195,117 +194,141 @@
 {% else%}
   {% assign content_ml_md_up= 0 %}
 {% endif %}
-{% comment %} Stopped at figuring out why content card images & blocks dont' respect aspect ratio settings {% endcomment %}
+
 {% comment %} Also need to copy border settings to content card where applicapble {% endcomment %}
-{% comment %} Copy border settings to section footer {% endcomment %}
-{% comment %} Organize content card settings to be the same as the master section schema {% endcomment %}
-{% comment %} Still can't figure out why image object shows empty image {% endcomment %}
-{% comment %} Add the tag feature to content card {% endcomment %}
 
 {% comment %} Position the card based upon content_position {% endcomment %}
 {% comment %} Small Devices {% endcomment %}
 {% if content_position == 'top' %}
-  {% assign flex_classes = 'flex-column-reverse' %}
-  {% assign img_col = 'col-12' %}
-  {% assign content_col = 'col-12' %}
+  {% assign flex_classes =  settings.ec_prefix | append: 'flex-column-reverse' %}
+  {% assign img_col = settings.ec_prefix | append: 'col-12' %}
+  {% assign content_col = settings.ec_prefix | append: 'col-12' %}
   {% assign embed_content = true %}
 {% elsif content_position == 'right' %}
-  {% assign flex_classes = 'flex-row' %}
-  {% assign img_col = 'col-6' %}
-  {% assign content_col = 'col-6' %}
+  {% assign flex_classes =  settings.ec_prefix | append: 'flex-row' %}
+  {% assign img_col =  settings.ec_prefix | append: 'col-6' %}
+  {% assign content_col =  settings.ec_prefix | append: 'col-6' %}
   {% assign embed_content = true %}
 {% elsif content_position == 'bottom' %}
-  {% assign flex_classes = 'flex-column' %}
-  {% assign img_col = 'col-12' %}
-  {% assign content_col = 'col-12' %}
+  {% assign flex_classes =  settings.ec_prefix | append: 'flex-column' %}
+  {% assign img_col =  settings.ec_prefix | append: 'col-12' %}
+  {% assign content_col =  settings.ec_prefix | append: 'col-12' %}
   {% if embed_content != blank or embed_content != 'none' %}
     {% assign embed_content = embed_content %}
   {% else %}
     {% assign embed_content = false %}
   {% endif %}
 {% elsif content_position == 'left' %}
-  {% assign flex_classes = 'flex-row-reverse' %}
-  {% assign img_col = 'col-6' %}
-  {% assign content_col = 'col-6' %}
+  {% assign flex_classes =  settings.ec_prefix | append: 'flex-row-reverse' %}
+  {% assign img_col =  settings.ec_prefix | append: 'col-6' %}
+  {% assign content_col =  settings.ec_prefix | append: 'col-6' %}
   {% assign embed_content = true %}
 {% endif %}
 
 {% comment %} Large Devices {% endcomment %}
-{% if content_position_lg == 'top' %}
-  {% assign flex_classes_lg = 'flex-md-column-reverse' %}
-  {% assign img_col_lg = 'col-md-12' %}
-  {% assign content_col_lg = 'col-md-12' %}
-{% elsif content_position_lg == 'right' %}
-  {% assign flex_classes_lg = 'flex-md-row' %}
-  {% assign img_col_lg = 'col-md-6' %}
-  {% assign content_col_lg = 'col-md-6' %}
-{% elsif content_position_lg == 'bottom' %}
-  {% assign flex_classes_lg = 'flex-md-column' %}
-  {% assign img_col_lg = 'col-md-12' %}
-  {% assign content_col_lg = 'col-md-12' %}
-{% elsif content_position_lg == 'left' %}
-  {% assign flex_classes_lg = 'flex-md-row-reverse' %}
-  {% assign img_col_lg = 'col-md-6' %}
-  {% assign content_col_lg = 'col-md-6' %}
+{% if content_position_md_up == 'top' %}
+  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-column-reverse' %}
+  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
+  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
+{% elsif content_position_md_up == 'right' %}
+  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-row' %}
+  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
+  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
+{% elsif content_position_md_up == 'bottom' %}
+  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-column' %}
+  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
+  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
+{% elsif content_position_md_up == 'left' %}
+  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-row-reverse' %}
+  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
+  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
 {% endif %}
 
 {% if content_embed_forced == true %}
   {% assign embed_content = true %}
 {% endif %}
 
-{% assign content_classes = 'd-flex' %}
+{% assign content_classes =  settings.ec_prefix | append: 'd-flex' %}
 {% assign content_classes = content_classes
   | append: ' '
   | append: flex_classes %}
 
 {% assign content_classes = content_classes
   | append: ' '
-  | append: flex_classes_lg %}
+  | append: flex_classes_md_up %}
 
 {% assign img_col_classes = img_col %}
 {% assign img_col_classes = img_col_classes
   | append: ' '
-  | append: img_col_lg %}
+  | append: img_col_md_up %}
 
 {% assign content_col_classes = content_col %}
 {% assign content_col_classes = content_col_classes
   | append: ' '
-  | append: content_col_lg %}
+  | append: content_col_md_up %}
 
 {% if content_position == 'bottom' %}
   {% assign img_col_classes = img_col_classes
-    | append: ' mb-3 px-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append:  'mb-3'
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'px-0' %}
   {% assign content_col_classes = content_col_classes
-      | append: ' px-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: ' px-0' %}
 {% elsif content_position == 'top' %}
   {% assign content_col_classes = content_col_classes
-      | append: ' mb-3 mb-md-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append:  'mb-3'
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'mb-md-0' %}
 {% else %}
   {% assign img_col_classes = img_col_classes
-  | append: ' mb-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'mb-0' %}
 {% endif %}
 
-{% if content_position_lg == 'bottom' %}
+{% if content_position_md_up == 'bottom' %}
   {% assign img_col_classes = img_col_classes
-    | append: ' mb-md-3 px-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append:  'mb-md-3'
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'px-0' %}
   {% assign content_col_classes = content_col_classes
-    | append: ' px-md-0' %}
-{% elsif content_position_lg == 'top' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'px-md-0' %}
+{% elsif content_position_md_up == 'top' %}
   {% assign img_col_classes = img_col_classes
-    | append: ' mb-md-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'mb-md-0' %}
   {% assign content_col_classes = content_col_classes
-    | append: ' mb-md-3' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'mb-md-3' %}
 {% else %}
   {% assign img_col_classes = img_col_classes
-    | append: ' mb-md-0' %}
+    | append: ' '
+    | append:  settings.ec_prefix
+    | append: 'mb-md-0' %}
 {% endif %}
 
 {% capture image_object %}
   {% render 'image-object'
     image_url: image_url,
-    image_url_lg: image_url_lg,
+    image_url_md_up: image_url_md_up,
     image_alt_text: image_alt_text,
     aspect_ratio: image_aspect_ratio,
+    aspect_ratio_md_up: image_aspect_ratio_md_up,
     object_fit: image_object_fit %}
 {% endcapture %}
 
@@ -314,7 +337,7 @@
     {% render 'content-object'
       content_color: content_color,
       content_align: content_align,
-      content_align_lg: content_align_lg,
+      content_align_md_up: content_align_md_up,
       eyebrow_style: eyebrow_style,
       eyebrow_text: eyebrow_text,
       heading_text: heading_text,
@@ -324,7 +347,8 @@
       link_style: link_style,
       link_size: link_size,
       link_url: link_url,
-      link_text: link_text
+      link_text: link_text,
+      link_block: link_block
     %}
   {% endcapture %}
   {% render 'content-wrapper'
@@ -354,9 +378,9 @@
       aspect_ratio: content_aspect_ratio,
       content: content_object,
       align_items: content_align_items
-      align_items_lg: content_align_items_lg,
+      align_items_md_up: content_align_items_md_up,
       bg_image_url: content_bg_image_url,
-      bg_image_url_lg: content_bg_image_url_lg,
+      bg_image_url_md_up: content_bg_image_url_md_up,
       bg_color: content_bg_color,
       bg_color_alpha: content_bg_color_alpha %}
   {% else %}
@@ -381,6 +405,7 @@
 
 {% if content != blank or image_object != blank %}
   {% render 'content-wrapper'
+    id: id,
     content: composed_content,
     pt: pt,
     pr: pr,
@@ -399,7 +424,7 @@
     mb_md_up: mb_md_up,
     ml_md_up: ml_md_up,
     bg_image_url: bg_image_url,
-    bg_image_url_lg: bg_image_url_lg,
+    bg_image_url_md_up: bg_image_url_md_up,
     bg_color: bg_color,
     bg_color_alpha: bg_color_alpha %}
 {% endif %}

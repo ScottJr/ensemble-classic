@@ -8,6 +8,138 @@
     "theme_support_url": "https://github.com/ScottJr/ensemble-classic/issues"
   },
   {
+    "name": "Ensemble Classic Settings",
+    "settings": [
+      {
+        "type": "color",
+        "id": "primary_color",
+        "label": "Primary Color"
+      },
+      {
+        "type": "color",
+        "id": "secondary_color",
+        "label": "Secondary Color"
+      },
+      {
+        "type": "color",
+        "id": "success_color",
+        "label": "Success Color"
+      },
+      {
+        "type": "color",
+        "id": "info_color",
+        "label": "Info Color"
+      },
+      {
+        "type": "color",
+        "id": "warning_color",
+        "label": "Warning Color"
+      },
+      {
+        "type": "color",
+        "id": "danger_color",
+        "label": "Danger Color"
+      },
+      {
+        "type": "color",
+        "id": "light_gray_color",
+        "label": "Light Gray Color"
+      },
+      {
+        "type": "color",
+        "id": "dark_gray_color",
+        "label": "Dark Gray Color"
+      },
+      {
+        "type": "color",
+        "id": "body_color",
+        "label": "Body Color"
+      },
+      {
+        "type": "color",
+        "id": "text_muted_color",
+        "label": "Text Muted Color"
+      },
+      {
+        "type": "range",
+        "label": "Border Radius",
+        "id": "ec_border_radius",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "default": 2,
+        "unit": "px"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_width_sm",
+        "label": "Container Width - Small",
+        "default": "576"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_width_md",
+        "label": "Container Width - Medium",
+        "default": "768"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_width_lg",
+        "label": "Container Width - Large",
+        "default": "992"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_width_xl",
+        "label": "Container Width - X-Large",
+        "default": "1200"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_width_xxl",
+        "label": "Container Width - XX-Large",
+        "default": "1400"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_max_width_sm",
+        "label": "Container Width - Small",
+        "default": "540"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_max_width_md",
+        "label": "Container Width - Medium",
+        "default": "720"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_max_width_lg",
+        "label": "Container Width - Large",
+        "default": "960"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_max_width_xl",
+        "label": "Container Width - X-Large",
+        "default": "1140"
+      },
+      {
+        "type": "text",
+        "id": "ec_container_max_width_xxl",
+        "label": "Container Width - XX-Large",
+        "default": "1320"
+      },
+      {
+        "type": "text",
+        "id": "ec_prefix",
+        "label": "Class Prefix",
+        "default": "ec-",
+        "info": "Default setting is `ec-` this prefixes all styling and markup  with a class prefix to ensure syling does not conflict with the rest of the store. If you use an out-of-the box implementation of Bootstrap >=5.0 you can set this to blank."
+      }
+    ]
+  },
+  {
     "name": "Design",
     "settings": [
       {

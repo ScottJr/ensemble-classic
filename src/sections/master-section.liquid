@@ -32,17 +32,6 @@
 
   Usage:
 
-{% endcomment %}
-{% comment %} TODO - You can add zero as a value for padding and margin,
-this creates a situation where mobile settings overrride desktop and create
-a weird editor feel. i.e. mobile first settings get set and appear to be for desktop
- {% endcomment %}
-
-{% comment %} TODO - for content that is contained to an aspect ratio, if it breaks it
-we need to figure out what to do. Either get rid of the box or make it overflow
- {% endcomment %}
-
-
 {% comment %} START - Section Settings {% endcomment %}
 {% assign section_type = 'master-section' %}
 
@@ -62,7 +51,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 {% assign section_bg_image_url = section.settings.section_bg_image
   | img_url: '800x' %}
 
-{% assign section_bg_image_url_lg = section.settings.section_bg_image_lg
+{% assign section_bg_image_url_md_up = section.settings.section_bg_image_md_up
 | img_url: '1400x' %}
 
 {% comment %} END - Section Settings {% endcomment %}
@@ -79,8 +68,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 
 {% assign header_col = section.settings.header_col %}
 {% assign header_col_offset = section.settings.header_col_offset %}
-{% assign header_col_lg = section.settings.header_col_lg  %}
-{% assign header_col_offset_lg = section.settings.header_col_offset_lg  %}
+{% assign header_col_md_up = section.settings.header_col_md_up  %}
+{% assign header_col_offset_md_up = section.settings.header_col_offset_md_up  %}
 
 {% assign header_pt = section.settings.header_pt %}
 {% assign header_pb = section.settings.header_pb %}
@@ -98,7 +87,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 {% assign header_content_color = section.settings.header_content_color %}
 
 {% assign header_content_align = section.settings.header_content_align %}
-{% assign header_content_align_lg = section.settings.header_content_align_lg %}
+{% assign header_content_align_md_up = section.settings.header_content_align_md_up %}
 
 {% assign header_eyebrow_style = section.settings.header_eyebrow_style %}
 {% assign header_eyebrow_text = section.settings.header_eyebrow_text %}
@@ -111,8 +100,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 
 {% assign header_image_col = section.settings.header_image_col %}
 {% assign header_image_col_offset = section.settings.header_image_col_offset %}
-{% assign header_image_col_lg = section.settings.header_image_col_lg %}
-{% assign header_image_col_lg_offset = section.settings.header_image_col_lg_offset %}
+{% assign header_image_col_md_up = section.settings.header_image_col_md_up %}
+{% assign header_image_col_md_up_offset = section.settings.header_image_col_md_up_offset %}
 
 {% assign header_image_pt = section.settings.header_image_pt %}
 {% assign header_image_pr = section.settings.header_image_pr %}
@@ -157,8 +146,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     container: header_container,
     col: header_col,
     col_offset: header_col_offset,
-    col_lg: header_col_lg,
-    col_offset_lg: header_col_offset_lg
+    col_md_up: header_col_md_up,
+    col_offset_md_up: header_col_offset_md_up
     pt: header_pt,
     pb: header_pb,
     mt: header_mt,
@@ -171,7 +160,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     bg_color_alpha: header_bg_color_alpha,
     content_color: header_content_color,
     content_align: header_content_align,
-    content_align_lg: header_content_align_lg,
+    content_align_md_up: header_content_align_md_up,
     eyebrow_style: header_eyebrow_style,
     image_url: header_image_url,
     image_object_fit: header_image_object_fit,
@@ -180,8 +169,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     image_bg_color_alpha: header_image_bg_color_alpha,
     image_col: header_image_col,
     image_col_offset: header_image_col_offset,
-    image_col_lg: header_image_col_lg,
-    image_col_lg_offset: header_image_col_lg_offset,
+    image_col_md_up: header_image_col_md_up,
+    image_col_md_up_offset: header_image_col_md_up_offset,
     image_pt: header_image_pt,
     image_pl: header_image_pl,
     image_pb: header_image_pb,
@@ -223,6 +212,9 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 {% comment %} START - Content {% endcomment %}
 {% comment %} Content Settings {% endcomment %}
 {% assign content_container = section.settings.content_container %}
+{% assign content_container_id = settings.ec_prefix
+  | append: 'content-container-'
+  | append: section.id %}
 
 {% assign content_row_no_gutters = section.settings.no_gutters %}
 
@@ -254,14 +246,14 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     {% comment %} Global Block Settings {% endcomment %}
     {% assign col = block.settings.col %}
     {% assign col_offset = block.settings.col_offset %}
-    {% assign col_lg = block.settings.col_lg  %}
-    {% assign col_lg_offset = block.settings.col_lg_offset  %}
+    {% assign col_md_up = block.settings.col_md_up  %}
+    {% assign col_md_up_offset = block.settings.col_md_up_offset  %}
 
     {% if block.type == 'content-card' %}
       {% assign block_id = block.id %}
       {% comment %} START - Content Card Grid Item {% endcomment %}
       {% assign content_align = block.settings.content_align %}
-      {% assign content_align_lg = block.settings.content_align_lg %}
+      {% assign content_align_md_up = block.settings.content_align_md_up %}
       {% assign content_color = block.settings.content_color %}
 
       {% assign eyebrow_text = block.settings.eyebrow_text %}
@@ -277,12 +269,14 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {% assign link_url = block.settings.link_url %}
       {% assign link_style = block.settings.link_style %}
       {% assign link_size = block.settings.link_size %}
+      {% assign link_block = block.settings.link_block %}
 
       {% assign image_url = block.settings.image.src
         | img_url: '600x' %}
-      {% assign image_url_lg = block.settings.image_lg.src
+      {% assign image_url_md_up = block.settings.image_md_up.src
         | img_url: '1000x' %}
       {% assign image_aspect_ratio = block.settings.aspect_ratio %}
+      {% assign image_aspect_ratio_md_up = block.settings.aspect_ratio_md_up %}
       {% assign image_alt_text = block.settings.image_alt_text %}
       {% assign image_object_fit = block.settings.image_object_fit %}
 
@@ -310,17 +304,18 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {% assign content_bg_image_url = block.settings.content_bg_image
         | img_url: '600x' %}
       {% assign content_bg_image_id = block.settings.content_bg_image.id %}
-      {% assign content_bg_image_url_lg = block.settings.content_bg_image_lg
+      {% assign content_bg_image_url_md_up = block.settings.content_bg_image_md_up
         | img_url: '1000x' %}
       {% assign content_bg_color = block.settings.content_bg_color %}
       {% assign content_bg_color_alpha = block.settings.content_bg_color_alpha %}
 
       {% assign content_aspect_ratio = block.settings.content_aspect_ratio %}
+      {% assign content_aspect_ratio_md_up = block.settings.content_aspect_ratio_md_up %}
       {% assign content_embed_forced = block.settings.content_embed_forced %}
       {% assign content_position = block.settings.content_position %}
-      {% assign content_position_lg = block.settings.content_position_lg %}
+      {% assign content_position_md_up = block.settings.content_position_md_up %}
       {% assign content_align_items = block.settings.content_align_items %}
-      {% assign content_align_items_lg = block.settings.content_align_items_lg %}
+      {% assign content_align_items_md_up = block.settings.content_align_items_md_up %}
 
       {% comment %} Block Layout Settings {% endcomment %}
       {% assign pt = block.settings.pt %}
@@ -347,14 +342,14 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {% assign bg_color_alpha = block.settings.bg_color_alpha %}
 
       {% assign bg_image_url = block.settings.bg_image_url %}
-      {% assign bg_image_url_lg = block.settings.bg_image_url_lg %}
+      {% assign bg_image_url_md_up = block.settings.bg_image_url_md_up %}
 
       {% capture content %}
         {% render 'content-card'
           id: block_id,
           content_color: content_color,
           content_align: content_align,
-          content_align_lg: content_align_lg,
+          content_align_md_up: content_align_md_up,
           eyebrow_style: eyebrow_style,
           eyebrow_text: eyebrow_text,
           heading_text: heading_text,
@@ -362,14 +357,16 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           heading_style: heading_style,
           paragraph_text: paragraph_text,
           image_url: image_url,
-          image_url_lg: image_url_lg,
+          image_url_md_up: image_url_md_up,
           image_alt_text: image_alt_text,
           image_aspect_ratio: image_aspect_ratio,
+          image_aspect_ratio_md_up: image_aspect_ratio_md_up,
           image_object_fit: image_object_fit,
           link_style: link_style,
           link_url: link_url,
           link_text: link_text,
           link_size: link_size,
+          link_block: link_block,
           pt: pt,
           pr: pr,
           pb: pb,
@@ -387,7 +384,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           mb_md_up: mb_md_up,
           ml_md_up: ml_md_up,
           bg_image_url: bg_image_url,
-          bg_image_url_lg: bg_image_url_lg,
+          bg_image_url_md_up: bg_image_url_md_up,
           bg_color: bg_color,
           bg_color_alpha: bg_color_alpha,
           content_pt: content_pt,
@@ -408,15 +405,15 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           content_ml_md_up: content_ml_md_up,
           content_bg_image_url: content_bg_image_url,
           content_bg_image_id: content_bg_image_id,
-          content_bg_image_url_lg: content_bg_image_url_lg,
+          content_bg_image_url_md_up: content_bg_image_url_md_up,
           content_bg_color: content_bg_color,
           content_bg_color_alpha: content_bg_color_alpha,
           content_aspect_ratio: content_aspect_ratio,
           content_embed_forced: content_embed_forced
           content_position: content_position,
-          content_position_lg: content_position_lg,
+          content_position_md_up: content_position_md_up,
           content_align_items: content_align_items,
-          content_align_items_lg: content_align_items_lg %}
+          content_align_items_md_up: content_align_items_md_up %}
       {% endcapture %}
 
       {% comment %} END - Content Card Grid Item {% endcomment %}
@@ -427,8 +424,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       {% render 'grid-item',
         col: col,
         col_offset: col_offset,
-        col_lg: col_lg,
-        col_lg_offset: col_lg_offset,
+        col_md_up: col_md_up,
+        col_md_up_offset: col_md_up_offset,
         gutters: content_row_no_gutters,
         content: content %}
     {% endif %}
@@ -437,6 +434,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 
 {% capture content %}
   {% render 'content-container',
+    id: content_container_id,
     content: section_blocks,
     container: content_container,
     row_no_gutters: content_row_no_gutters,
@@ -460,8 +458,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 {% assign footer_col = section.settings.footer_col %}
 {% assign footer_col_offset = section.settings.footer_col_offset %}
 
-{% assign footer_col_lg = section.settings.footer_col_lg  %}
-{% assign footer_col_offset_lg = section.settings.footer_col_offset_lg %}
+{% assign footer_col_md_up = section.settings.footer_col_md_up  %}
+{% assign footer_col_offset_md_up = section.settings.footer_col_offset_md_up %}
 
 {% assign footer_pt = section.settings.footer_pt %}
 {% assign footer_pb = section.settings.footer_pb %}
@@ -479,7 +477,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
 {% assign footer_content_color = section.settings.footer_content_color %}
 
 {% assign footer_content_align = section.settings.footer_content_align %}
-{% assign footer_content_align_lg = section.settings.footer_content_align_lg %}
+{% assign footer_content_align_md_up = section.settings.footer_content_align_md_up %}
 
 {% assign footer_eyebrow_style = section.settings.footer_eyebrow_style %}
 {% assign footer_eyebrow_text = section.settings.footer_eyebrow_text %}
@@ -501,8 +499,8 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     container: footer_container,
     col: footer_col,
     col_offset: footer_col_offset,
-    col_lg: footer_col_lg,
-    col_offset_lg: footer_col_offset_lg,
+    col_md_up: footer_col_md_up,
+    col_offset_md_up: footer_col_offset_md_up,
     pt: footer_pt,
     pb: footer_pb,
     mt: footer_mt,
@@ -515,7 +513,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
     bg_color_alpha: footer_bg_color_alpha,
     content_color: footer_content_color,
     content_align: footer_content_align,
-    content_align_lg: footer_content_align_lg,
+    content_align_md_up: footer_content_align_md_up,
     eyebrow_style: footer_eyebrow_style,
     eyebrow_text: footer_eyebrow_text,
     heading_style: footer_heading_style,
@@ -538,7 +536,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
   bg_color: section_bg_color,
   bg_color_alpha: section_bg_color_alpha,
   bg_image_url: section_bg_image_url,
-  bg_image_url_lg: section_bg_image_url_lg,
+  bg_image_url_md_up: section_bg_image_url_md_up,
   section_type: section_type,
   section_id: section.id,
   pt: section_pt,
@@ -564,12 +562,30 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "content_container",
         "label": "Content Container",
         "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          {
+            "value": "container",
+            "label": "Contained at all breakpoints"
+          },
+          {
+            "value": "container-sm",
+            "label": "95% wide with 2.5% padding until small breakpoint"
+          },
+          {
+            "value": "container-md",
+            "label": "95% wide with 2.5% padding until medium breakpoint"
+          },
+          {
+            "value": "container-lg",
+            "label": "95% wide with 2.5% padding until large breakpoint"
+          },
+          {
+            "value": "container-xl",
+            "label": "95% wide with 2.5% padding until xlarge breakpoint"
+          },
+          {
+            "value": "container-fluid",
+            "label": "95% wide with 2.5% padding at all breakpoints"
+          },
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl",
@@ -589,7 +605,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "section_pt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   4,
         "unit": "%"
@@ -599,7 +615,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "section_pb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   4,
         "unit": "%"
@@ -613,7 +629,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "section_mt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -623,7 +639,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "section_mb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -642,7 +658,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "section_pt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   4,
         "unit": "%"
@@ -652,7 +668,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "section_pb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   4,
         "unit": "%"
@@ -666,7 +682,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "section_mt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -676,7 +692,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "section_mb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -687,7 +703,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "image_picker",
-        "id": "section_bg_image_lg",
+        "id": "section_bg_image_md_up",
         "label": "Large Devices",
         "info": "Screen sizes larger than 768px"
       },
@@ -789,12 +805,30 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "header_container",
         "label": "Container",
         "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          {
+            "value": "container",
+            "label": "Contained at all breakpoints"
+          },
+          {
+            "value": "container-sm",
+            "label": "95% wide with 2.5% padding until small breakpoint"
+          },
+          {
+            "value": "container-md",
+            "label": "95% wide with 2.5% padding until medium breakpoint"
+          },
+          {
+            "value": "container-lg",
+            "label": "95% wide with 2.5% padding until large breakpoint"
+          },
+          {
+            "value": "container-xl",
+            "label": "95% wide with 2.5% padding until xlarge breakpoint"
+          },
+          {
+            "value": "container-fluid",
+            "label": "95% wide with 2.5% padding at all breakpoints"
+          },
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "info": "Determines the width of container that the header content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths.",
@@ -812,7 +846,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "range",
-        "id": "header_col_lg",
+        "id": "header_col_md_up",
         "min": 1,
         "max": 12,
         "step": 1,
@@ -822,7 +856,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "range",
-        "id": "header_col_offset_lg",
+        "id": "header_col_offset_md_up",
         "min": 0,
         "max": 12,
         "step": 1,
@@ -844,7 +878,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_pt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -854,7 +888,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_pb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -868,7 +902,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_mt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -878,7 +912,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_mb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -917,7 +951,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_pt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -927,7 +961,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_pb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -941,7 +975,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_mt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -951,7 +985,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_mb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -972,7 +1006,26 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "options": [
           { "value": "21by9", "label": "21x9"},
           { "value": "1by1", "label": "1x1"},
+          { "value": "2by1", "label": "2x1"},
+          { "value": "3by1", "label": "3x1"},
           { "value": "4by3", "label": "4x3"},
+          { "value": "5by4", "label": "5x4"},
+          { "value": "16by9", "label": "16x9"},
+          { "value": "none", "label": "None"}
+        ],
+        "default": "21by9"
+      },
+      {
+        "type": "select",
+        "id": "header_image_aspect_ratio_md_up",
+        "label": "Aspect Ratio",
+        "options": [
+          { "value": "21by9", "label": "21x9"},
+          { "value": "1by1", "label": "1x1"},
+          { "value": "2by1", "label": "2x1"},
+          { "value": "3by1", "label": "3x1"},
+          { "value": "4by3", "label": "4x3"},
+          { "value": "5by4", "label": "5x4"},
           { "value": "16by9", "label": "16x9"},
           { "value": "none", "label": "None"}
         ],
@@ -1012,17 +1065,17 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "header_image_border_color",
         "label": "Border Color",
         "options": [
-          { "value": "border-primary", "label": "Primary"},
-          { "value": "border-secondary", "label": "Secondary"},
-          { "value": "border-success", "label": "Success"},
-          { "value": "border-danger", "label": "Danger"},
-          { "value": "border-warning", "label": "Warning"},
-          { "value": "border-info", "label": "Info"},
-          { "value": "border-light", "label": "Light"},
-          { "value": "border-dark", "label": "Dark"},
-          { "value": "border-white", "label": "White"}
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "white", "label": "White"}
         ],
-        "default": "border-dark"
+        "default": "dark"
       },
       {
         "type": "checkbox",
@@ -1060,7 +1113,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "range",
-        "id": "header_image_col_lg",
+        "id": "header_image_col_md_up",
         "min": 1,
         "max": 12,
         "step": 1,
@@ -1070,7 +1123,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "range",
-        "id": "header_image_col_lg_offset",
+        "id": "header_image_col_md_up_offset",
         "min": 0,
         "max": 12,
         "step": 1,
@@ -1088,7 +1141,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_image_pt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1098,7 +1151,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Right",
         "id": "header_image_pr_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1108,7 +1161,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_image_pb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   2,
         "unit": "%"
@@ -1118,7 +1171,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Left",
         "id": "header_image_pl_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1133,7 +1186,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_image_mt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1143,7 +1196,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Right",
         "id": "header_image_mr_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   2,
         "unit": "%"
@@ -1153,7 +1206,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_image_mb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1163,7 +1216,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Left",
         "id": "header_image_ml_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1208,7 +1261,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_image_pt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1218,7 +1271,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Right",
         "id": "header_image_pr",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1228,7 +1281,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_image_pb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   2,
         "unit": "%"
@@ -1238,7 +1291,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Left",
         "id": "header_image_pl",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1253,7 +1306,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "header_image_mt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1263,7 +1316,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Right",
         "id": "header_image_mr",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1273,7 +1326,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "header_image_mb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   2,
         "unit": "%"
@@ -1283,7 +1336,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Left",
         "id": "header_image_ml",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1391,100 +1444,100 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "options": [
           {
             "group": "Filled Buttons",
-            "value": "btn-primary",
+            "value": "primary",
             "label": "Primary"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-secondary",
+            "value": "secondary",
             "label": "Secondary"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-success",
+            "value": "success",
             "label": "Success"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-danger",
+            "value": "danger",
             "label": "Danger"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-warning",
+            "value": "warning",
             "label": "Warning"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-info",
+            "value": "info",
             "label": "Info"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-light",
+            "value": "light",
             "label": "Light"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-dark",
+            "value": "dark",
             "label": "Dark"
           },
           {
             "group": "Links",
-            "value": "btn-link",
+            "value": "link",
             "label": "Link"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-primary",
-            "label": "Primary"
+            "value": "outline-primary",
+            "label": "Primary - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-secondary",
-            "label": "Secondary"
+            "value": "outline-secondary",
+            "label": "Secondary - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-success",
-            "label": "Success"
+            "value": "outline-success",
+            "label": "Success - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-danger",
-            "label": "Danger"
+            "value": "outline-danger",
+            "label": "Danger - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-warning",
-            "label": "Warning"
+            "value": "outline-warning",
+            "label": "Warning - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-info",
-            "label": "Info"
+            "value": "outline-info",
+            "label": "Info - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-light",
-            "label": "Light"
+            "value": "outline-light",
+            "label": "Light - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-dark",
-            "label": "Dark"
+            "value": "outline-dark",
+            "label": "Dark - Outline"
           }
         ],
-        "default": "btn-outline-dark"
+        "default": "outline-dark"
       },
       {
         "type": "select",
         "id": "header_link_size",
         "label": "Link Size",
         "options": [
-          { "value": "btn-lg", "label": "Large" },
+          { "value": "lg", "label": "Large" },
           { "value": "", "label": "Default" },
-          { "value": "btn-sm", "label": "Small" }
+          { "value": "sm", "label": "Small" }
         ],
         "default": "",
         "info": "Select from Small, Default, & Large button sizes."
@@ -1501,44 +1554,44 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "header_content_color",
         "label": "Content Color",
         "options": [
-          { "value": "text-primary", "label": "Primary"},
-          { "value": "text-secondary", "label": "Secondary"},
-          { "value": "text-success", "label": "Success"},
-          { "value": "text-danger", "label": "Danger"},
-          { "value": "text-warning", "label": "Warning"},
-          { "value": "text-info", "label": "Info"},
-          { "value": "text-light", "label": "Light"},
-          { "value": "text-dark", "label": "Dark"},
-          { "value": "text-body", "label": "Body"},
-          { "value": "text-muted", "label": "Muted"},
-          { "value": "text-white", "label": "White"},
-          { "value": "text-black-50", "label": "Black 50"},
-          { "value": "text-white-50", "label": "White 50"}
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "body", "label": "Body"},
+          { "value": "muted", "label": "Muted"},
+          { "value": "white", "label": "White"},
+          { "value": "black-50", "label": "Black 50"},
+          { "value": "white-50", "label": "White 50"}
         ],
-        "default": "text-body"
+        "default": "body"
       },
       {
         "type": "select",
         "id": "header_content_align",
         "label": "Content Alignment - Small",
         "options": [
-          { "value": "text-left", "label": "Left"},
-          { "value": "text-center", "label": "Center"},
-          { "value": "text-right", "label": "Right"}
+          { "value": "left", "label": "Left"},
+          { "value": "center", "label": "Center"},
+          { "value": "right", "label": "Right"}
         ],
-        "default":   "text-center",
+        "default":   "center",
         "info":      "Default: Center"
       },
       {
         "type": "select",
-        "id": "header_content_align_lg",
+        "id": "header_content_align_md_up",
         "label": "Content Alignment - Medium & Up Devices",
         "options": [
-          { "value": "text-md-left", "label": "Left"},
-          { "value": "text-md-center", "label": "Center"},
-          { "value": "text-md-right", "label": "Right"}
+          { "value": "left", "label": "Left"},
+          { "value": "center", "label": "Center"},
+          { "value": "right", "label": "Right"}
         ],
-        "default":   "text-md-center",
+        "default":   "center",
         "info":      "Default: Center"
       },
       {
@@ -1546,17 +1599,17 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "header_border_color",
         "label": "Border Color",
         "options": [
-          { "value": "border-primary", "label": "Primary"},
-          { "value": "border-secondary", "label": "Secondary"},
-          { "value": "border-success", "label": "Success"},
-          { "value": "border-danger", "label": "Danger"},
-          { "value": "border-warning", "label": "Warning"},
-          { "value": "border-info", "label": "Info"},
-          { "value": "border-light", "label": "Light"},
-          { "value": "border-dark", "label": "Dark"},
-          { "value": "border-white", "label": "White"}
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "white", "label": "White"}
         ],
-        "default": "border-dark",
+        "default": "dark",
         "info": "Default: Dark"
       },
       {
@@ -1602,7 +1655,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "content_container_pt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1612,7 +1665,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "content_container_pb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1626,7 +1679,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "content_container_mt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1636,7 +1689,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "content_container_mb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1655,7 +1708,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "content_container_pt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1665,7 +1718,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "content_container_pb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1679,7 +1732,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "content_container_mt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1689,7 +1742,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "content_container_mb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1759,7 +1812,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "range",
-        "id": "footer_col_lg",
+        "id": "footer_col_md_up",
         "min": 1,
         "max": 12,
         "step": 1,
@@ -1769,7 +1822,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
       },
       {
         "type": "range",
-        "id": "footer_col_offset_lg",
+        "id": "footer_col_offset_md_up",
         "min": 0,
         "max": 12,
         "step": 1,
@@ -1786,7 +1839,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "footer_pt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   3,
         "unit": "%"
@@ -1796,7 +1849,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "footer_pb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   3,
         "unit": "%"
@@ -1810,7 +1863,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "footer_mt_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1820,7 +1873,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "footer_mb_md_up",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1863,7 +1916,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "footer_pt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   3,
         "unit": "%"
@@ -1873,7 +1926,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "footer_pb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   3,
         "unit": "%"
@@ -1887,7 +1940,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Top",
         "id": "footer_mt",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1897,7 +1950,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "label": "Bottom",
         "id": "footer_mb",
         "min":       0,
-        "max":       5,
+        "max":       10,
         "step":      1,
         "default":   0,
         "unit": "%"
@@ -1950,12 +2003,30 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "footer_container",
         "label": "Container",
         "options": [
-          { "value": "container", "label": "Contained at all breakpoints"},
-          { "value": "container-sm", "label": "95% wide with 2.5% padding until small breakpoint"},
-          { "value": "container-md", "label": "95% wide with 2.5% padding until medium breakpoint"},
-          { "value": "container-lg", "label": "95% wide with 2.5% padding until large breakpoint"},
-          { "value": "container-xl", "label": "95% wide with 2.5% padding until xlarge breakpoint"},
-          { "value": "container-fluid", "label": "95% wide with 2.5% padding at all breakpoints"},
+          {
+            "value": "container",
+            "label": "Contained at all breakpoints"
+          },
+          {
+            "value": "container-sm",
+            "label": "95% wide with 2.5% padding until small breakpoint"
+          },
+          {
+            "value": "container-md",
+            "label": "95% wide with 2.5% padding until medium breakpoint"
+          },
+          {
+            "value": "container-lg",
+            "label": "95% wide with 2.5% padding until large breakpoint"
+          },
+          {
+            "value": "container-xl",
+            "label": "95% wide with 2.5% padding until xlarge breakpoint"
+          },
+          {
+            "value": "container-fluid",
+            "label": "95% wide with 2.5% padding at all breakpoints"
+          },
           { "value": "", "label": "100% wide at all breakpoints"}
         ],
         "default": "container-xl",
@@ -2062,100 +2133,100 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "options": [
           {
             "group": "Filled Buttons",
-            "value": "btn-primary",
+            "value": "primary",
             "label": "Primary"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-secondary",
+            "value": "secondary",
             "label": "Secondary"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-success",
+            "value": "success",
             "label": "Success"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-danger",
+            "value": "danger",
             "label": "Danger"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-warning",
+            "value": "warning",
             "label": "Warning"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-info",
+            "value": "info",
             "label": "Info"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-light",
+            "value": "light",
             "label": "Light"
           },
           {
             "group": "Filled Buttons",
-            "value": "btn-dark",
+            "value": "dark",
             "label": "Dark"
           },
           {
             "group": "Links",
-            "value": "btn-link",
+            "value": "link",
             "label": "Link"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-primary",
-            "label": "Primary"
+            "value": "outline-primary",
+            "label": "Primary - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-secondary",
-            "label": "Secondary"
+            "value": "outline-secondary",
+            "label": "Secondary - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-success",
-            "label": "Success"
+            "value": "outline-success",
+            "label": "Success - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-danger",
-            "label": "Danger"
+            "value": "outline-danger",
+            "label": "Danger - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-warning",
-            "label": "Warning"
+            "value": "outline-warning",
+            "label": "Warning - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-info",
-            "label": "Info"
+            "value": "outline-info",
+            "label": "Info - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-light",
-            "label": "Light"
+            "value": "outline-light",
+            "label": "Light - Outline"
           },
           {
             "group": "Outline Buttons",
-            "value": "btn-outline-dark",
-            "label": "Dark"
+            "value": "outline-dark",
+            "label": "Dark - Outline"
           }
         ],
-        "default": "btn-outline-dark"
+        "default": "outline-dark"
       },
       {
         "type": "select",
         "id": "footer_link_size",
         "label": "Link Size",
         "options": [
-          { "value": "btn-lg", "label": "Large" },
+          { "value": "lg", "label": "Large" },
           { "value": "", "label": "Default" },
-          { "value": "btn-sm", "label": "Small" }
+          { "value": "sm", "label": "Small" }
         ],
         "default": "",
         "info": "Select from Small, Default, & Large button sizes."
@@ -2172,44 +2243,44 @@ we need to figure out what to do. Either get rid of the box or make it overflow
         "id": "footer_content_color",
         "label": "Content color",
         "options": [
-          { "value": "text-primary", "label": "Primary"},
-          { "value": "text-secondary", "label": "Secondary"},
-          { "value": "text-success", "label": "Success"},
-          { "value": "text-danger", "label": "Danger"},
-          { "value": "text-warning", "label": "Warning"},
-          { "value": "text-info", "label": "Info"},
-          { "value": "text-light", "label": "Light"},
-          { "value": "text-dark", "label": "Dark"},
-          { "value": "text-body", "label": "Body"},
-          { "value": "text-muted", "label": "Muted"},
-          { "value": "text-white", "label": "White"},
-          { "value": "text-black-50", "label": "Black 50"},
-          { "value": "text-white-50", "label": "White 50"}
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "body", "label": "Body"},
+          { "value": "muted", "label": "Muted"},
+          { "value": "white", "label": "White"},
+          { "value": "black-50", "label": "Black 50"},
+          { "value": "white-50", "label": "White 50"}
         ],
-        "default": "text-body"
+        "default": "body"
       },
       {
         "type": "select",
         "id": "footer_content_align",
         "label": "Content Alignment",
         "options": [
-          { "value": "text-left", "label": "Left"},
-          { "value": "text-center", "label": "Center"},
-          { "value": "text-right", "label": "Right"}
+          { "value": "left", "label": "Left"},
+          { "value": "center", "label": "Center"},
+          { "value": "right", "label": "Right"}
         ],
-        "default":   "text-center",
+        "default":   "center",
         "info":      "Default: Center"
       },
       {
         "type": "select",
-        "id": "footer_content_align_lg",
+        "id": "footer_content_align_md_up",
         "label": "Content Alignment",
         "options": [
-          { "value": "text-md-left", "label": "Left"},
-          { "value": "text-md-center", "label": "Center"},
-          { "value": "text-md-right", "label": "Right"}
+          { "value": "left", "label": "Left"},
+          { "value": "center", "label": "Center"},
+          { "value": "right", "label": "Right"}
         ],
-        "default":   "text-md-center",
+        "default":   "center",
         "info":      "Default: Center"
       }
     ],
@@ -2230,7 +2301,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "image_picker",
-            "id": "image_lg",
+            "id": "image_md_up",
             "label": "Medium & Up Devices",
             "info": "Screen sizes larger than 768px"
           },
@@ -2241,7 +2312,26 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "options": [
               { "value": "21by9", "label": "21x9"},
               { "value": "1by1", "label": "1x1"},
+              { "value": "2by1", "label": "2x1"},
+              { "value": "3by1", "label": "3x1"},
               { "value": "4by3", "label": "4x3"},
+              { "value": "5by4", "label": "5x4"},
+              { "value": "16by9", "label": "16x9"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "1by1"
+          },
+          {
+            "type": "select",
+            "id": "aspect_ratio_md_up",
+            "label": "Image Aspect Ratio - Large devices",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "2by1", "label": "2x1"},
+              { "value": "3by1", "label": "3x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "5by4", "label": "5x4"},
               { "value": "16by9", "label": "16x9"},
               { "value": "none", "label": "None"}
             ],
@@ -2363,101 +2453,100 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "options": [
               {
                 "group": "Filled Buttons",
-                "value": "btn-primary",
+                "value": "primary",
                 "label": "Primary"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-secondary",
+                "value": "secondary",
                 "label": "Secondary"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-success",
+                "value": "success",
                 "label": "Success"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-danger",
+                "value": "danger",
                 "label": "Danger"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-warning",
+                "value": "warning",
                 "label": "Warning"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-info",
+                "value": "info",
                 "label": "Info"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-light",
+                "value": "light",
                 "label": "Light"
               },
               {
                 "group": "Filled Buttons",
-                "value": "btn-dark",
+                "value": "dark",
                 "label": "Dark"
               },
               {
                 "group": "Links",
-                "value": "btn-link",
+                "value": "link",
                 "label": "Link"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-primary",
+                "value": "outline-primary",
                 "label": "Primary - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-secondary",
+                "value": "outline-secondary",
                 "label": "Secondary - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-success",
+                "value": "outline-success",
                 "label": "Success - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-danger",
+                "value": "outline-danger",
                 "label": "Danger - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-warning",
+                "value": "outline-warning",
                 "label": "Warning - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-info",
+                "value": "outline-info",
                 "label": "Info - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-light",
+                "value": "outline-light",
                 "label": "Light - Outline"
               },
               {
                 "group": "Outline Buttons",
-                "value": "btn-outline-dark",
+                "value": "outline-dark",
                 "label": "Dark - Outline"
               }
             ],
-            "default": "btn-outline-dark"
+            "default": "outline-dark"
           },
           {
             "type": "select",
             "id": "link_size",
             "label": "Link Size",
             "options": [
-              { "value": "btn-block", "label": "Block" },
-              { "value": "btn-lg", "label": "Large" },
+              { "value": "lg", "label": "Large" },
               { "value": "", "label": "Default" },
-              { "value": "btn-sm", "label": "Small" }
+              { "value": "sm", "label": "Small" }
             ],
             "default": "",
             "info": "Select from Small, Default, & Large button sizes."
@@ -2474,44 +2563,44 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "id": "content_color",
             "label": "Content color",
             "options": [
-              { "value": "text-primary", "label": "Primary"},
-              { "value": "text-secondary", "label": "Secondary"},
-              { "value": "text-success", "label": "Success"},
-              { "value": "text-danger", "label": "Danger"},
-              { "value": "text-warning", "label": "Warning"},
-              { "value": "text-info", "label": "Info"},
-              { "value": "text-light", "label": "Light"},
-              { "value": "text-dark", "label": "Dark"},
-              { "value": "text-body", "label": "Body"},
-              { "value": "text-muted", "label": "Muted"},
-              { "value": "text-white", "label": "White"},
-              { "value": "text-black-50", "label": "Black 50"},
-              { "value": "text-white-50", "label": "White 50"}
+              { "value": "primary", "label": "Primary"},
+              { "value": "secondary", "label": "Secondary"},
+              { "value": "success", "label": "Success"},
+              { "value": "danger", "label": "Danger"},
+              { "value": "warning", "label": "Warning"},
+              { "value": "info", "label": "Info"},
+              { "value": "light", "label": "Light"},
+              { "value": "dark", "label": "Dark"},
+              { "value": "body", "label": "Body"},
+              { "value": "muted", "label": "Muted"},
+              { "value": "white", "label": "White"},
+              { "value": "black-50", "label": "Black 50"},
+              { "value": "white-50", "label": "White 50"}
             ],
-            "default": "text-body"
+            "default": "body"
           },
           {
             "type": "select",
             "id": "content_align",
             "label": "Content Alignment - Small devices",
             "options": [
-              { "value": "text-left", "label": "Left"},
-              { "value": "text-center", "label": "Center"},
-              { "value": "text-right", "label": "Right"}
+              { "value": "left", "label": "Left"},
+              { "value": "center", "label": "Center"},
+              { "value": "right", "label": "Right"}
             ],
-            "default":   "text-left",
+            "default":   "left",
             "info":      "Default: Left"
           },
           {
             "type": "select",
-            "id": "content_align_lg",
+            "id": "content_align_md_up",
             "label": "Content Alignment - Medium & up devices",
             "options": [
-              { "value": "text-md-left", "label": "Left"},
-              { "value": "text-md-center", "label": "Center"},
-              { "value": "text-md-right", "label": "Right"}
+              { "value": "left", "label": "Left"},
+              { "value": "center", "label": "Center"},
+              { "value": "right", "label": "Right"}
             ],
-            "default":   "text-md-left",
+            "default":   "left",
             "info":      "Default: Left"
           },
           {
@@ -2563,7 +2652,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "pt",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2573,7 +2662,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "pr",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2583,7 +2672,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "pb",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -2593,7 +2682,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "pl",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2607,7 +2696,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "mt",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2617,7 +2706,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "mr",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2627,7 +2716,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "mb",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -2637,7 +2726,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "ml",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2653,7 +2742,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "range",
-            "id": "col_lg",
+            "id": "col_md_up",
             "min": 1,
             "max": 12,
             "step": 1,
@@ -2663,7 +2752,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "range",
-            "id": "col_lg_offset",
+            "id": "col_md_up_offset",
             "min": 0,
             "max": 12,
             "step": 1,
@@ -2680,7 +2769,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "pt_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2690,7 +2779,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "pr_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2700,7 +2789,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "pb_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -2710,7 +2799,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "pl_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2724,7 +2813,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "mt_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2734,7 +2823,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "mr_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -2744,7 +2833,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "mb_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2754,7 +2843,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "ml_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2771,7 +2860,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "image_picker",
-            "id": "content_bg_image_lg",
+            "id": "content_bg_image_md_up",
             "label": "Large Devices",
             "info": "Screen sizes larger than 768px"
           },
@@ -2834,7 +2923,26 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "options": [
               { "value": "21by9", "label": "21x9"},
               { "value": "1by1", "label": "1x1"},
+              { "value": "2by1", "label": "2x1"},
+              { "value": "3by1", "label": "3x1"},
               { "value": "4by3", "label": "4x3"},
+              { "value": "5by4", "label": "5x4"},
+              { "value": "16by9", "label": "16x9"},
+              { "value": "none", "label": "None"}
+            ],
+            "default": "none"
+          },
+          {
+            "type": "select",
+            "id": "content_aspect_ratio_md_up",
+            "label": "Content Aspect Ratio - Large devices",
+            "options": [
+              { "value": "21by9", "label": "21x9"},
+              { "value": "1by1", "label": "1x1"},
+              { "value": "2by1", "label": "2x1"},
+              { "value": "3by1", "label": "3x1"},
+              { "value": "4by3", "label": "4x3"},
+              { "value": "5by4", "label": "5x4"},
               { "value": "16by9", "label": "16x9"},
               { "value": "none", "label": "None"}
             ],
@@ -2851,7 +2959,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "select",
-            "id": "content_align_items_lg",
+            "id": "content_align_items_md_up",
             "label": "Content alignment",
             "options": [
               { "value": "start", "label": "Top"},
@@ -2863,7 +2971,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
           },
           {
             "type": "select",
-            "id": "content_position_lg",
+            "id": "content_position_md_up",
             "label": "Content position",
             "options": [
               { "value": "top", "label": "Top"},
@@ -2883,7 +2991,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "content_pt_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2893,7 +3001,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "content_pr_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2903,7 +3011,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "content_pb_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -2913,7 +3021,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "content_pl_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2927,7 +3035,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "content_mt_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2937,7 +3045,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "content_mr_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -2947,7 +3055,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "content_mb_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -2957,7 +3065,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "content_ml_md_up",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -3005,7 +3113,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "content_pt",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -3015,7 +3123,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "content_pr",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -3025,7 +3133,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "content_pb",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -3035,7 +3143,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "content_pl",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -3049,7 +3157,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Top",
             "id": "content_mt",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -3059,7 +3167,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Right",
             "id": "content_mr",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"
@@ -3069,7 +3177,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Bottom",
             "id": "content_mb",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   2,
             "unit": "%"
@@ -3079,7 +3187,7 @@ we need to figure out what to do. Either get rid of the box or make it overflow
             "label": "Left",
             "id": "content_ml",
             "min":       0,
-            "max":       5,
+            "max":       10,
             "step":      1,
             "default":   0,
             "unit": "%"

@@ -57,7 +57,7 @@ image_border_left
   {% capture image_object %}
     {% render 'image-object',
       image_url: image_url,
-      image_url_lg: image_url,
+      image_url_md_up: image_url,
       object_fit: image_object_fit,
       aspect_ratio: aspect_ratio %}
   {% endcapture %}
@@ -93,8 +93,8 @@ image_border_left
     {% render 'grid-item'
       col: image_col,
       col_offset: image_col_offset,
-      col_lg: image_col_lg,
-      col_lg_offset: image_col_lg_offset,
+      col_md_up: image_col_md_up,
+      col_md_up_offset: image_col_md_up_offset,
       content: masthead_image_object %}
   {% endcapture %}
 
@@ -114,7 +114,7 @@ image_border_left
       link_size: link_size,
       link_block: link_block,
       content_align: content_align,
-      content_align_lg: content_align_lg  %}
+      content_align_md_up: content_align_md_up  %}
   {% endcapture %}
 
   {% render 'content-wrapper'
@@ -142,17 +142,18 @@ image_border_left
     {% render 'grid-item'
       col: col,
       col_offset: col_offset,
-      col_lg: col_lg,
-      col_lg_offset: col_offset_lg,
+      col_md_up: col_md_up,
+      col_md_up_offset: col_offset_md_up,
       content: content %}
   {% endcapture %}
 {% endif %}
 
-{% comment %} Content Container {% endcomment %}
-
+{% comment %} Render {% endcomment %}
+{% if masthead_image_grid_item != blank %}
   {% render 'content-container'
     container: container,
     content: masthead_image_grid_item %}
+{% endif %}
 {% if grid_item != blank %}
   {% render 'content-container'
     container: container,

@@ -28,28 +28,13 @@
   {% render 'content-object',
     content: { string } - required
     content_align: { string } - optional
-    content_align_lg: { string } - optional
+    content_align_md_up: { string } - optional
     link_style: { string } - optional
     link_url: { string } - optional
-    link_text: { string } - optional %}
+    link_text: { string } - optional
+    link_block: { boolean } - optional %}
 
 {% endcomment %}
-
-{% if content_align != blank %}
-  {% assign content_align = content_align %}
-{% else %}
-  {% assign content_align = 'text-center' %}
-{% endif %}
-
-{% if content_align_lg != blank %}
-  {% assign content_align_lg = content_align_lg %}
-{% else %}
-  {% assign content_align_lg = 'text-md-center' %}
-{% endif %}
-
-{% assign content_align_classes = content_align
-  | append: ' '
-  | append: content_align_lg %}
 
 {% comment %} Render {% endcomment %}
 {% if link_text != blank %}
@@ -64,27 +49,34 @@
   {% assign render_content = false %}
 {% endif %}
 
+{% assign content_wrapper_classes = settings.ec_prefix | append: 'w-100' %}
+
 {% if render_content == true %}
-  <div class="w-100">
+  <div class="{{ content_wrapper_classes }}">
     {% render 'eyebrow-element',
       text: eyebrow_text,
-      text_align: content_align_classes,
+      text_align: content_align,
+      text_align_md_up: content_align_md_up,
       eyebrow_style: eyebrow_style %}
 
     {% render 'heading-element',
       text: heading_text,
       text_color: content_color,
-      text_align: content_align_classes,
+      text_align: content_align,
+      text_align_md_up: content_align_md_up,
       heading_style: heading_style %}
 
     {% render 'paragraph-element',
       text: paragraph_text,
       text_color: content_color,
-      text_align: content_align_classes %}
+      text_align: content_align,
+      text_align_md_up: content_align_md_up %}
 
     {% render 'link-element',
       text_align: content_align_classes,
       link_text: link_text,
+      link_align: content_align,
+      link_align_md_up: content_align_md_up,
       link_url: link_url,
       link_style: link_style,
       link_size: link_size,

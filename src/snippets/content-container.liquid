@@ -3,17 +3,31 @@
   -----------------------------------------------------------------------------
   Content Container
   -----------------------------------------------------------------------------
-
+  id: { string } - Required for background image or color
   container: { string }
   row_no_gutters: { string }
-
+  bg_color: { string } - optional
+  bg_color_alpha: { string } - optional
+  pt: { string } - optional
+  pr: { string } - optional
+  pb: { string } - optional
+  pl: { string } - optional
+  mt: { string } - optional
+  mr: { string } - optional
+  mb: { string } - optional
+  ml: { string } - optional
+  pt_md_up: { string } - optional
+  pr_md_up: { string } - optional
+  pb_md_up: { string } - optional
+  pl_md_up: { string } - optional
+  mt_md_up: { string } - optional
+  mr_md_up: { string } - optional
+  mb_md_up: { string } - optional
+  ml_md_up: { string } - optional
 {% endcomment %}
-{% comment %} Defaults {% endcomment %}
-{% assign row_classes = 'row' %}
 
-{% assign bg_color_computed = bg_color | remove: '#'%}
-{% assign bg_color_computed = bg_color_computed | append: bg_color_alpha %}
-{% assign bg_color_computed = bg_color_computed | prepend: '#' %}
+{% comment %} Defaults {% endcomment %}
+{% assign row_classes = settings.ec_prefix | append: 'row' %}
 
 {% if pt != blank %}
   {% assign pt = pt %}
@@ -114,66 +128,104 @@
 {% if row_no_gutters == 'no-gutters'%}
   {% assign row_classes = row_classes
   | append: ' '
+  | append: settings.ec_prefix
   | append: row_no_gutters %}
 {% endif %}
 
-{% comment %} Content Container Classes {% endcomment %}
-{% assign container_classes = container %}
-{% comment %} TODO - make a default for this {% endcomment %}
-{% comment %} TODO - remove container- from the schema {% endcomment %}
+{% if container != blank %}
+{% assign container_classes = settings.ec_prefix
+  | append: container %}
+{% else %}
+  {% assign container_classes = settings.ec_prefix
+    | append: 'container' %}
+{% endif %}
+
 {% if pt != 0 %}
   {% assign container_classes = container_classes
-    | append: ' pt-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pt-'
     | append: pt %}
 {% endif %}
 
 {% if pb != 0 %}
   {% assign container_classes = container_classes
-    | append: ' pb-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pb-'
     | append: pb %}
 {% endif %}
 
 {% if pt_md_up != 0 %}
   {% assign container_classes = container_classes
-    | append: ' pt-md-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pt-md-'
     | append: pt_md_up %}
 {% endif %}
 
 {% if pb_md_up != 0 %}
   {% assign container_classes = container_classes
-    | append: ' pb-md-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'pb-md-'
     | append: pb_md_up %}
 {% endif %}
 
 {% if mt != 0 %}
   {% assign container_classes = container_classes
-    | append: ' mt-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mt-'
     | append: mt %}
 {% endif %}
 
 {% if mb != 0 %}
   {% assign container_classes = container_classes
-    | append: ' mb-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mb-'
     | append: mb %}
 {% endif %}
 
 {% if mt_md_up != 0 %}
   {% assign container_classes = container_classes
-    | append: ' mt-md-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mt-md-'
     | append: mt_md_up %}
 {% endif %}
 
 {% if mb_md_up != 0 %}
   {% assign container_classes = container_classes
-    | append: ' mb-md-'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'mb-md-'
     | append: mb_md_up %}
 {% endif %}
 
-{% assign style_tag = 'style="' %}
-{% assign style_tag = style_tag | append: 'background-color: ' | append: bg_color_computed %}
-{% assign style_tag = style_tag | append: '"' %}
+{% if id != blank %}
+  {% assign container_classes = container_classes
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'bg-content-wrapper'
+    | append: ' '
+    | append: settings.ec_prefix
+    | append: 'bg-image-'
+    | append: id %}
 
-<div class="{{ container_classes }}" {{ style_tag }}>
+  {% capture bg_image_style_tag %}
+    {% render 'bg-image-tag'
+      id: id,
+      bg_image_url: bg_image_url,
+      bg_image_url_md_up: bg_image_url_md_up,
+      bg_color: bg_color,
+      bg_color_alpha: bg_color_alpha %}
+  {% endcapture %}
+{% endif %}
+
+<div class="{{ container_classes }}">
+  {{ bg_image_style_tag }}
   <div class="{{ row_classes }}">
     {{ content }}
   </div>

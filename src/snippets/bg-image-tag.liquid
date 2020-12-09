@@ -14,13 +14,15 @@
   {% render 'bg-image-tag'
     id: { string } - required,
     bg_image_url: { string } - required,
-    bg_image_url_lg: { string } - required,
+    bg_image_url_md_up: { string } - required,
     bg_color: { string } - optional,
     bg_color_alpha: { string } - optional %}
 
-  Parent element requires a class to target the element:
+  Parent element requires the following classes to target the element:
 
-  - `.bg-image-{{ id }}`
+  - `.bg-image-{{ id }}` - Unique ID to apply color/image
+  - `.ec-bg-content-wrapper` - Positions background element inside
+    parent container.
 
 {% endcomment %}
 {% if bg_color_alpha == blank %}
@@ -37,71 +39,57 @@
   {% assign bg_color_computed = bg_color %}
 {% endif %}
 
-{% if bg_image_url != blank or bg_image_url_lg != blank %}
+{% if bg_image_url != blank or bg_image_url_md_up != blank %}
   {% unless bg_image_url contains 'no-image'%}
     {% assign bg_image_url = bg_image_url %}
   {% else %}
     {% assign bg_image_url = false %}
   {% endunless %}
-  {% unless bg_image_url_lg contains 'no-image'%}
-    {% assign bg_image_url_lg = bg_image_url_lg %}
+  {% unless bg_image_url_md_up contains 'no-image'%}
+    {% assign bg_image_url_md_up = bg_image_url_md_up %}
   {% else %}
-    {% assign bg_image_url_lg = false %}
+    {% assign bg_image_url_md_up = false %}
   {% endunless %}
 
-  {% if bg_image_url != false and bg_image_url_lg != false %}
+  {% if bg_image_url != false and bg_image_url_md_up != false %}
     {% assign bg_image = true %}
   {% else %}
     {% assign bg_image = false %}
   {% endif %}
 {% endif %}
 
-{% if bg_color_has_alpha == true and bg_image == true %}
-  {% assign section_classes = 'position-relative' %}
-{% endif %}
 
-{% assign bg_style_tag = 'background-color: ' | append: bg_color_computed | append: ';' %}
+  {% comment %} Background Image {% endcomment %}
 
-  {% if bg_image == true %}
-    {% comment %} Background Image {% endcomment %}
+    {% if bg_image_url != blank %}
+      {% assign bg_image_url = bg_image_url %}
+    {% elsif bg_image_url_md_up != blank %}
+      {% assign bg_image_url = bg_image_url_md_up %}
+    {% endif %}
 
-      {% if bg_image_url != blank %}
-        {% assign bg_image_url = bg_image_url %}
-      {% elsif bg_image_url_lg != blank %}
-        {% assign bg_image_url = bg_image_url_lg %}
-      {% endif %}
-
-      {% if bg_image_url_lg != blank %}
-        {% assign bg_image_url_lg = bg_image_url_lg %}
-      {% elsif bg_image_url != blank %}
-        {% assign bg_image_url_lg = bg_image_url %}
-      {% endif %}
-
+    {% if bg_image_url_md_up != blank %}
+      {% assign bg_image_url_md_up = bg_image_url_md_up %}
+    {% elsif bg_image_url != blank %}
+      {% assign bg_image_url_md_up = bg_image_url %}
+    {% endif %}
+    {% if bg_image_url != blank %}
       <style>
-        .bg-image-{{ id }} {
+        .{{ settings.ec_prefix }}bg-image-{{ id }} {
           background-image: url({{ bg_image_url }});
-          background-size: cover;
-          background-position: center;
         }
       </style>
+    {% endif %}
+    {% if bg_image_url_md_up != blank %}
       <style>
-        @media (min-width: 992px) {
-          .bg-image-{{ id }} {
-            background-image: url({{ bg_image_url_lg }});
-            background-size: cover;
-            background-position: center;
+        @media (min-width: {{ settings.container_width_md | append: 'px' }}) {
+          .{{ settings.ec_prefix }}bg-image-{{ id }} {
+            background-image: url({{ bg_image_url_md_up }});
           }
         }
       </style>
-
-    {% if bg_color_has_alpha == true %}
-      {% render 'bg-color-element' bg_style_tag: bg_style_tag %}
     {% endif %}
-  {% else %}
-    {% comment %} Only show background color & alpha {% endcomment %}
-    <style>
-      .bg-image-{{ id }} {
-        {{ bg_style_tag }}
-      }
-    </style>
+
+  {% if bg_color_has_alpha == true %}
+    {% render 'bg-color-element' bg_color_computed: bg_color_computed %}
   {% endif %}
+

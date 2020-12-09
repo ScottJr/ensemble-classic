@@ -8,7 +8,7 @@
 
   {% render 'image-object',
     image_url: { string } - expects image url
-    image_url_lg: { string } - expects image url
+    image_url_md_up: { string } - expects image url
     image_alt_text: { string }
     object_fit: { string } - optional
     aspect_ratio: { string } - utility class %}
@@ -24,16 +24,21 @@
   {% assign image_url = false %}
 {% endif %}
 
-{% if image_url_lg contains 'no-image' %}
-  {% assign image_url_lg = false %}
+{% if image_url_md_up contains 'no-image' %}
+  {% assign image_url_md_up = false %}
 {% endif %}
+{% assign image_classes = settings.ec_prefix
+  | append: 'w-100'
+  | append: ' '
+  | append: settings.ec_prefix
+  | append: 'h-100' %}
 
 {% capture content %}
-  <picture class="w-100 h-100">
+  <picture class="{{ image_classes }}">
     <source
-      srcset="{{ image_url_lg }} 200w,
+      srcset="{{ image_url_md_up }} 200w,
               {{ image_url }} 100w"
-      sizes="(max-width: 768px) 800px,
+      sizes="(max-width: {{settings.container_width_md | append: 'px' }}) 800px,
       1120px"
     />
     <img
@@ -49,6 +54,7 @@
 {% if image_url != false %}
   {% render 'embed-object'
     content: content,
-    aspect_ratio: aspect_ratio %}
+    aspect_ratio: aspect_ratio
+    aspect_ratio_md_up: aspect_ratio_md_up %}
 {% endif %}
 
