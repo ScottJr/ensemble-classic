@@ -132,7 +132,7 @@
       },
       {
         "type": "text",
-        "id": "ec_prefix",
+        "id": "lightly_prefix",
         "label": "Class Prefix",
         "default": "ec-",
         "info": "Default setting is `ec-` this prefixes all styling and markup  with a class prefix to ensure syling does not conflict with the rest of the store. If you use an out-of-the box implementation of Bootstrap >=5.0 you can set this to blank."

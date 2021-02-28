@@ -2,11 +2,14 @@
 
   -----------------------------------------------------------------------------
   Grid Item
+  More info: https://lightly-digital/docs/grid-item
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Usage:
 
-  {% render 'grid-item',
+  {% render 'grid-item'
     col: { string} -
     col_offset: { string} -
     col_md_up: { string} -
@@ -36,22 +39,22 @@
 {% endif %}
 
 {% comment %} Block Layout Classes {% endcomment %}
-{% assign grid_item_classes = settings.ec_prefix
+{% assign grid_item_classes = settings.lightly_prefix
   | append: 'col-'
   | append: col %}
 {% assign grid_item_classes =  grid_item_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'offset-'
   | append: col_offset %}
 {% assign grid_item_classes =  grid_item_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'col-md-'
   | append: col_md_up %}
 {% assign grid_item_classes =  grid_item_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'offset-md-'
   | append: col_md_up_offset %}
 
@@ -59,7 +62,7 @@
 {% if gutters %}
   {% assign grid_item_classes =  grid_item_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-4' %}
 {% endif %}
 

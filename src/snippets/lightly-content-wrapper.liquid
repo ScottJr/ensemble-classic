@@ -1,7 +1,10 @@
 {% comment %}
-  -----------------------------------------------------------------------------
+  
+  ------------------------------------------------------------------------------
   Content Wrapper
-  -----------------------------------------------------------------------------
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
 
   - Sets a background image
   - Sets a background color
@@ -11,7 +14,7 @@
 
   Usage:
 
-  {% render 'content-wrapper'
+  {% render 'lightly-content-wrapper'
     id: { string } - required for background image/color
     content: { string } - required
     bg_image_url: { string } - optional
@@ -182,12 +185,12 @@
 {% endif %}
 
 {% comment %} Object Classes {% endcomment %}
-{% assign el_classes = settings.ec_prefix | append: 'w-100' %}
+{% assign el_classes = settings.lightly_prefix | append: 'w-100' %}
 
 {% if pt != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pt-'
     | append: pt %}
 {% endif %}
@@ -195,7 +198,7 @@
 {% if pr != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pr-'
     | append: pr %}
 {% endif %}
@@ -203,7 +206,7 @@
 {% if pb != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pb-'
     | append: pb %}
 {% endif %}
@@ -211,7 +214,7 @@
 {% if pl != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pl-'
     | append: pl %}
 {% endif %}
@@ -219,7 +222,7 @@
 {% if mt != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mt-'
     | append: mt %}
 {% endif %}
@@ -227,7 +230,7 @@
 {% if mr != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mr-'
     | append: mr %}
 {% endif %}
@@ -235,7 +238,7 @@
 {% if mb != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-'
     | append: mb %}
 {% endif %}
@@ -243,7 +246,7 @@
 {% if ml != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'ml-'
     | append: ml %}
 {% endif %}
@@ -251,7 +254,7 @@
 {% if pt_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pt-md-'
     | append: pt_md_up %}
 {% endif %}
@@ -259,7 +262,7 @@
 {% if pr_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pr-md-'
     | append: pr_md_up %}
 {% endif %}
@@ -267,7 +270,7 @@
 {% if pb_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pb-md-'
     | append: pb_md_up %}
 {% endif %}
@@ -275,7 +278,7 @@
 {% if pl_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pl-md-'
     | append: pl_md_up %}
 {% endif %}
@@ -283,7 +286,7 @@
 {% if mt_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mt-md-'
     | append: mt_md_up %}
 {% endif %}
@@ -291,7 +294,7 @@
 {% if mr_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mr-md-'
     | append: mr_md_up %}
 {% endif %}
@@ -299,7 +302,7 @@
 {% if mb_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-md-'
     | append: mb_md_up %}
 {% endif %}
@@ -307,7 +310,7 @@
 {% if ml_md_up != 0 %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'ml-md-'
     | append: ml_md_up %}
 {% endif %}
@@ -347,15 +350,15 @@
 {% if content_id != blank %}
   {% assign el_classes = el_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'bg-content-wrapper'
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'bg-image-'
     | append: content_id %}
 
   {% capture bg_image_style_tag %}
-    {% render 'bg-image-tag'
+    {% render 'lightly-bg-image-element'
       id: content_id,
       bg_image_url: bg_image_url,
       bg_image_url_md_up: bg_image_url_md_up,

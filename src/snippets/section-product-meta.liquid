@@ -31,9 +31,9 @@
 {% assign eyebrow_style = section.settings.eyebrow_style %}
 
 {% assign heading_style = section.settings.heading_style %}
+{% assign heading_type = 'h1' %}
 
 {% assign content_color = section.settings.content_color %}
-
 
 {% comment %} Video Container Settings {% endcomment %}
 {% assign video_url = section.settings.video_url %}
@@ -151,12 +151,13 @@
   <div class="{{ container_classes }}">
     <div class="{{ row_classes }}">
       <div class="{{ content_classes }}">
-        {% render 'content-object'
+        {% render 'content-object' 
           eyebrow_text: eyebrow_text,
           eyebrow_style: eyebrow_style,
           content_color: content_color,
           heading_text: heading_text,
           heading_style: heading_style,
+          heading_type: heading_type,
           paragraph_text: paragraph_text,
           col: header_container_col,
           col_md_up: header_container_col_md_up,

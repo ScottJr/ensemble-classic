@@ -1,8 +1,11 @@
 {% comment %}
 
-  -----------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
   Content Header
-  -----------------------------------------------------------------------------
+  More info: https://lightly-digital/docs/content-header
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
 
   Dependencies:
 
@@ -55,14 +58,14 @@ image_border_left
 
 {% capture masthead_image_object %}
   {% capture image_object %}
-    {% render 'image-object',
+    {% render 'lightly-image-object',
       image_url: image_url,
       image_url_md_up: image_url,
       object_fit: image_object_fit,
       aspect_ratio: aspect_ratio %}
   {% endcapture %}
 
-  {% render 'content-wrapper'
+  {% render 'lightly-content-wrapper'
     content: image_object,
     bg_color: image_bg_color,
     bg_color_alpha: image_bg_color_alpha,
@@ -89,46 +92,59 @@ image_border_left
     border_left: image_border_left %}
 {% endcapture %}
 
-  {% capture masthead_image_grid_item %}
-    {% render 'grid-item'
-      col: image_col,
-      col_offset: image_col_offset,
-      col_md_up: image_col_md_up,
-      col_md_up_offset: image_col_md_up_offset,
-      content: masthead_image_object %}
-  {% endcapture %}
+{% capture masthead_image_grid_item %}
+  {% render 'lightly-grid-item'
+    col: image_col,
+    col_offset: image_col_offset,
+    col_md_up: image_col_md_up,
+    col_md_up_offset: image_col_md_up_offset,
+    content: masthead_image_object %}
+{% endcapture %}
 
 {% comment %} Content {% endcomment %}
 {% capture content %}
   {% capture content_object %}
-    {% render 'content-object'
+    {% render 'lightly-content-object'
       content_color: content_color,
       eyebrow_style: eyebrow_style,
       eyebrow_text: eyebrow_text,
       heading_style: heading_style,
+      heading_type: heading_type,
       heading_text: heading_text,
+      heading_text_color: heading_text_color,      
       paragraph_text: paragraph_text,
+      paragraph_text_font_weight_base: paragraph_text_font_weight_base,
+      paragraph_text_style: paragraph_text_style,
+      paragraph_text_margin_bottom_none: paragraph_text_margin_bottom_none,      
       link_text: link_text,
       link_url: link_url,
       link_style: link_style,
       link_size: link_size,
       link_block: link_block,
       content_align: content_align,
-      content_align_md_up: content_align_md_up  %}
+      content_align_md_up: content_align_md_up %}
   {% endcapture %}
 
-  {% render 'content-wrapper'
+  {% render 'lightly-content-wrapper'
     content: content_object,
     bg_color: bg_color,
     bg_color_alpha: bg_color_alpha,
     pt: pt,
+    pr: pr,
     pb: pb,
+    pl: pl,
     mt: mt,
+    mr: mr,
     mb: mb,
+    ml: ml,
     pt_md_up: pt_md_up,
+    pr_md_up: pr_md_up,
     pb_md_up: pb_md_up,
+    pl_md_up: pl_md_up,
     mt_md_up: mt_md_up,
+    mr_md_up: mr_md_up,
     mb_md_up: mb_md_up,
+    ml_md_up: ml_md_up,
     border_color: border_color,
     border_top: border_top,
     border_right: border_right,
@@ -139,7 +155,7 @@ image_border_left
 {% comment %} Grid Item {% endcomment %}
 {% if content != blank %}
   {% capture grid_item %}
-    {% render 'grid-item'
+    {% render 'lightly-grid-item'
       col: col,
       col_offset: col_offset,
       col_md_up: col_md_up,
@@ -150,12 +166,12 @@ image_border_left
 
 {% comment %} Render {% endcomment %}
 {% if masthead_image_grid_item != blank %}
-  {% render 'content-container'
+  {% render 'lightly-content-container'
     container: container,
     content: masthead_image_grid_item %}
 {% endif %}
 {% if grid_item != blank %}
-  {% render 'content-container'
+  {% render 'lightly-content-container'
     container: container,
     content: grid_item %}
 {% endif %}

@@ -2,47 +2,45 @@
 
   -----------------------------------------------------------------------------
   Link Element
+  More info: https://lightly-digital/docs/link-element
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Usage:
 
   {% render 'link-element',
+    link_url: { string } - required
+    link_text: { string } - required
     link_align: { string } - optional
     link_align_md_up: { string } - optional
     link_style: { string } - optional
-    link_url: { string } - optional
     link_size: { string } - optional
-    link_text: { string } - optional %}
+    link_block: { string } - optional %}
 
 {% endcomment %}
 
 {% comment %} Element Settings {% endcomment %}
 
 {% if link_align != blank %}
-  {% assign link_align = settings.ec_prefix
-    | append: 'text-'
-    | append: link_align %}
+  {% assign link_align = settings.lightly_prefix | append: 'text-' | append: link_align %}
 {% else %}
-  {% assign link_align =  settings.ec_prefix | append: 'text-left' %}
+  {% assign link_align =  settings.lightly_prefix | append: 'text-left' %}
 {% endif %}
 
 {% if link_align_md_up != blank %}
-  {% assign link_align_md_up = settings.ec_prefix
-    | append: 'text-md-'
-    | append: link_align_md_up %}
+  {% assign link_align_md_up = settings.lightly_prefix | append: 'text-md-' | append: link_align_md_up %}
 {% else %}
-  {% assign link_align_md_up = settings.ec_prefix | append: 'text-md-center' %}
+  {% assign link_align_md_up = settings.lightly_prefix | append: 'text-md-center' %}
 {% endif %}
 
-{% assign link_align_classes = link_align
-  | append: ' '
-  | append: link_align_md_up %}
+{% assign link_align_classes = link_align | append: ' ' | append: link_align_md_up %}
 
 {% comment %} Element Wrapper Classes {% endcomment %}
 {% assign el_wrapper_classes = link_align_classes %}
 
 {% comment %} Link Classes {% endcomment %}
-{% assign link_classes = blank %}
+{% assign link_classes = 'link-element' %}
 
 {% if link_style != blank %}
   {% if link_style == 'link-underline' %}
@@ -50,20 +48,21 @@
       | append: ' '
       | append: link_style %}
   {% else %}
-    {% assign link_classes = link_classes
-      | append: settings.ec_prefix
+    {% assign link_classes = link_classes | append: ' '
+      | append: settings.lightly_prefix
       | append: 'btn'
       | append: ' '
-      | append: settings.ec_prefix
+      | append: settings.lightly_prefix
       | append: 'btn-'
       | append: link_style %}
   {% endif %}
 {% else %}
   {% assign link_classes = link_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'btn-primary' %}
 {% endif %}
+
 {% if link_class != blank %}
   {% assign link_classes = link_classes
     | append: ' '
@@ -73,7 +72,7 @@
 {% if link_size != blank %}
   {% assign link_classes = link_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'btn-'
     | append: link_size %}
 {% endif %}
@@ -81,13 +80,13 @@
 {% if link_block == true %}
   {% assign link_classes = link_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'btn-block' %}
 {% endif %}
 
 {% assign link_classes = link_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'mb-2' %}
 
 {% comment %} Link Element {% endcomment %}

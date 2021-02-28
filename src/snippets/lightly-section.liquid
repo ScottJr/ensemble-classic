@@ -2,6 +2,9 @@
 
   -----------------------------------------------------------------------------
   Section Wrapper
+  More info: https://lightly-digital/docs/section
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Requires:
@@ -12,7 +15,7 @@
 {% endcomment %}
 
 {% capture bg_image_style_tag %}
-  {% render 'bg-image-tag'
+  {% render 'lightly-bg-image-element'
     id: section_id,
     bg_image_url: bg_image_url,
     bg_image_url_md_up: bg_image_url_md_up,
@@ -23,7 +26,7 @@
 {% comment %} Section Classes {% endcomment %}
 {% if pt != 0 %}
   {% assign section_classes = section_classes
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pt-'
     | append: pt %}
 {% endif %}
@@ -31,7 +34,7 @@
 {% if pb != 0 %}
   {% assign section_classes = section_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pb-'
     | append: pb %}
 {% endif %}
@@ -39,7 +42,7 @@
 {% if pt_md_up != 0 %}
   {% assign section_classes = section_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pt-md-'
     | append: pt_md_up %}
 {% endif %}
@@ -47,7 +50,7 @@
 {% if pb_md_up != 0 %}
   {% assign section_classes = section_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'pb-md-'
   | append: pb_md_up %}
 {% endif %}
@@ -55,7 +58,7 @@
 {% if mt != 0 %}
   {% assign section_classes = section_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mt-'
     | append: mt %}
 {% endif %}
@@ -63,7 +66,7 @@
 {% if mb != 0 %}
   {% assign section_classes = section_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-'
     | append: mb %}
 {% endif %}
@@ -71,7 +74,7 @@
 {% if mt_md_up != 0 %}
   {% assign section_classes = section_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mt-md-'
     | append: mt_md_up %}
 {% endif %}
@@ -79,7 +82,7 @@
 {% if mb_md_up != 0 %}
   {% assign section_classes = section_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-md-'
     | append: mb_md_up %}
 {% endif %}
@@ -87,10 +90,10 @@
 {% if section_id != blank %}
   {% assign section_classes = section_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'bg-content-wrapper'
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'bg-image-'
   | append: section_id %}
 {% endif %}

@@ -2,6 +2,9 @@
 
   -----------------------------------------------------------------------------
   Product Card
+  More info: https://lightly-digital/docs/product-card
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Usage:
@@ -10,8 +13,7 @@
 
 {% endcomment %}
 
-{% assign product_featured_image =
-  product.featured_image.src | img_url: '600x' %}
+{% assign product_featured_image = product.featured_image.src | img_url: '600x' %}
 {% assign product_excerpt = product.metafields.custom_fields["excerpt"] %}
 {% assign product_variants = product.variants %}
 {% assign product_images = product.images %}
@@ -23,13 +25,13 @@
 
 {% comment %} Single Variant Swatch Images {% endcomment %}
 {% capture swatch_items %}
-  {% render 'single-variant-product-images' product: product%}
+  {% render 'lightly-single-variant-product-images' product: product %}
 {% endcapture %}
 
 <div class="mb-4 mb-md-5">
   <div class="mb-3">
     <a href="{{ product_url | within: collection }}">
-      {% render 'image-object',
+      {% render 'lightly-image-object',
                   image_url: product_featured_image,
                   image_url_md_up: product_featured_image,
                   image_alt_text: product_title,

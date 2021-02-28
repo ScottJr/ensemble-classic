@@ -1,8 +1,12 @@
 {% comment %}
 
-  -----------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
   Content Container
-  -----------------------------------------------------------------------------
+  More info: https://lightly-digital/docs/content-container
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
+  
   id: { string } - Required for background image or color
   container: { string }
   row_no_gutters: { string }
@@ -27,7 +31,7 @@
 {% endcomment %}
 
 {% comment %} Defaults {% endcomment %}
-{% assign row_classes = settings.ec_prefix | append: 'row' %}
+{% assign row_classes = settings.lightly_prefix | append: 'row' %}
 
 {% if pt != blank %}
   {% assign pt = pt %}
@@ -128,22 +132,22 @@
 {% if row_no_gutters == 'no-gutters'%}
   {% assign row_classes = row_classes
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: row_no_gutters %}
 {% endif %}
 
 {% if container != blank %}
-{% assign container_classes = settings.ec_prefix
+{% assign container_classes = settings.lightly_prefix
   | append: container %}
 {% else %}
-  {% assign container_classes = settings.ec_prefix
+  {% assign container_classes = settings.lightly_prefix
     | append: 'container' %}
 {% endif %}
 
 {% if pt != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pt-'
     | append: pt %}
 {% endif %}
@@ -151,7 +155,7 @@
 {% if pb != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pb-'
     | append: pb %}
 {% endif %}
@@ -159,7 +163,7 @@
 {% if pt_md_up != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pt-md-'
     | append: pt_md_up %}
 {% endif %}
@@ -167,7 +171,7 @@
 {% if pb_md_up != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'pb-md-'
     | append: pb_md_up %}
 {% endif %}
@@ -175,7 +179,7 @@
 {% if mt != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mt-'
     | append: mt %}
 {% endif %}
@@ -183,7 +187,7 @@
 {% if mb != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-'
     | append: mb %}
 {% endif %}
@@ -191,7 +195,7 @@
 {% if mt_md_up != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mt-md-'
     | append: mt_md_up %}
 {% endif %}
@@ -199,7 +203,7 @@
 {% if mb_md_up != 0 %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'mb-md-'
     | append: mb_md_up %}
 {% endif %}
@@ -207,15 +211,15 @@
 {% if id != blank %}
   {% assign container_classes = container_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'bg-content-wrapper'
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'bg-image-'
     | append: id %}
 
   {% capture bg_image_style_tag %}
-    {% render 'bg-image-tag'
+    {% render 'lightly-bg-image-element'
       id: id,
       bg_image_url: bg_image_url,
       bg_image_url_md_up: bg_image_url_md_up,

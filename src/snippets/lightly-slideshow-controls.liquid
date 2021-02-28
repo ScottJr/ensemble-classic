@@ -2,7 +2,12 @@
 
   -----------------------------------------------------------------------------
   Slideshow Controls
+  More info: https://lightly-digital/docs/slideshow-controls
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
+
+  TODO: Import all Lightly classes
 
 {% endcomment %}
 
@@ -38,17 +43,17 @@
 {% comment %} Icon Sizes {% endcomment %}
 {% if layout == 'inline' %}
   {% capture left_icon %}
-    {% render 'icon-left-carat-primary' %}
+    {% render 'lightly-icon-left-carat-primary' %}
   {% endcapture %}
   {% capture right_icon %}
-    {% render 'icon-right-carat-primary' %}
+    {% render 'lightly-icon-right-carat-primary' %}
   {% endcapture %}
 {% else %}
   {% capture left_icon %}
-    {% render 'icon-left-arrow-lg' %}
+    {% render 'lightly-icon-left-arrow-lg' %}
   {% endcapture %}
   {% capture right_icon %}
-    {% render 'icon-right-arrow-lg' %}
+    {% render 'lightly-icon-right-arrow-lg' %}
   {% endcapture %}
 {% endif %}
 

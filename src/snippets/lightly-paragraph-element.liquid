@@ -1,0 +1,97 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Paragraph Element
+  More info: https://lightly-digital/docs/paragraph-element
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'paragraph-element',
+    text: { string } - expects richtext - required
+    text_color: { string } expects text-color class - optional
+    text_margin_bottom_none: { string } - optional
+    text_font_weight_base: { string } - optional
+    text_font_style: { string } - 'lead' - optional
+    text_align: { string } 'center', 'left' - optional
+    text_align_md_up: { string } 'center', 'left' - optional %}
+
+{% endcomment %}
+
+{% comment %} Defaults {% endcomment %}
+{% assign classes = 'paragraph-element' %}
+
+{% if text_margin_bottom_none == 'mb-0' %}
+  {% assign classes = classes | append: ' mb-0' %}
+{% endif %}
+
+{% if text_color != blank %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.lightly_prefix
+    | append: 'text-'
+    | append: text_color %}
+{% else %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.lightly_prefix
+    | append: 'text-primary' %}
+{% endif %}
+
+{% if text_font_weight_base == 'light' or text_font_weight_base == 'bold' %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.lightly_prefix
+    | append: 'font-weight-'
+    | append: text_font_weight_base %}
+{% endif %}
+
+{% if text_font_style == 'lead'%}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.lightly_prefix
+    | append: text_font_style %}
+{% endif %}
+
+{% if text_align != blank %}
+  {% assign text_align = settings.lightly_prefix
+    | append: 'text-'
+    | append: text_align %}
+{% else %}
+  {% assign text_align =  settings.lightly_prefix | append: 'text-left' %}
+{% endif %}
+
+{% if text_align_md_up != blank %}
+  {% assign text_align_md_up = settings.lightly_prefix
+    | append: 'text-md-'
+    | append: text_align_md_up %}
+{% else %}
+  {% assign text_align_md_up = settings.lightly_prefix | append: 'text-md-center' %}
+{% endif %}
+
+{% assign text_align_classes = text_align
+  | append: ' '
+  | append: text_align_md_up %}
+
+{% if text_align_classes != blank %}
+  {% assign classes = classes | append: ' ' | append: text_align_classes %}
+{% else %}
+  {% assign classes = classes
+    | append: ' '
+    | append: settings.lightly_prefix
+    | append: 'text-left' %}
+{% endif %}
+
+{% comment %} Content {% endcomment %}
+{% capture 'html_content' %}
+  {% if text != blank %}
+    <div class="{{ classes }}">{{ text }}</div>
+  {% endif %}
+{% endcapture %}
+
+{% comment %} Render {% endcomment %}
+{% if html_content != blank %}
+  {{ html_content }}
+{% endif %}

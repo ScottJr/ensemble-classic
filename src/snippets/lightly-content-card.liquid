@@ -2,32 +2,18 @@
 
   -----------------------------------------------------------------------------
   Content Card
-  -----------------------------------------------------------------------------
-
+  
   Used to display an image over text content on a grid. Useful for content
   other than blog articles or products.
 
-  Dependencies:
+  More info: https://lightly-digital/docs/content-card
 
-  Liquid:
-
-  - Image Object - `snippets/image-object.liquid`
-  - Eyebrow Element - `snippets/eyebrow-element.liquid`
-  - Heading Element - `snippets/heading-element`
-  - Paragraph Element - `snippets/paragraph-element`
-  - Link Element - `snippets/link-element`
-
-  Styling:
-
-  - `ec-base-styles.scss.liquid`
-
-  JavaScript:
-
-  - None
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  -----------------------------------------------------------------------------
 
   Usage:
 
-  {% render 'content-card',
+  {% render 'lightly-content-card',
     id: { string } - required for background image & color
     content_color: { string } - optional
     content_align: { string } - optional
@@ -89,16 +75,23 @@
     content_bg_color_alpha: { string } - optional
     content_embed: { boolean } - optional
     content_aspect_ratio: { string } - optional
-    content_embed_forced: { string } - optional - If you would like to force
-    the content block to always be enabled
+    content_embed_forced: { string } - optional - If you would like to force the content block to always be enabled
     content_position: { string } - optional
     content_position_md_up: { string } - optional
     content_align_items: { string } - optional
-    content_align_items_md_up: { string } - optional
-  %}
+    content_align_items_md_up: { string } - optional %}
+
+  Required Snippets:
+
+  - Image Object - `snippets/lightly-image-object.liquid`
+  - Eyebrow Element - `snippets/lightly-eyebrow-element.liquid`
+  - Heading Element - `snippets/lightly-heading-element`
+  - Paragraph Element - `snippets/lightly-paragraph-element`
+  - Link Element - `snippets/lightly-link-element`
 
 {% endcomment -%}
 
+{% comment %} Content Layout {% endcomment %}
 {% if content_pt != blank %}
   {% assign content_pt = content_pt %}
 {% else %}
@@ -195,136 +188,135 @@
   {% assign content_ml_md_up= 0 %}
 {% endif %}
 
-{% comment %} Also need to copy border settings to content card where applicapble {% endcomment %}
-
-{% comment %} Position the card based upon content_position {% endcomment %}
-{% comment %} Small Devices {% endcomment %}
+{% comment %} Content Position - Small Devices {% endcomment %}
 {% if content_position == 'top' %}
-  {% assign flex_classes =  settings.ec_prefix | append: 'flex-column-reverse' %}
-  {% assign img_col = settings.ec_prefix | append: 'col-12' %}
-  {% assign content_col = settings.ec_prefix | append: 'col-12' %}
+  {% assign flex_classes =  settings.lightly_prefix | append: 'flex-column-reverse' %}
+  {% assign img_col = settings.lightly_prefix | append: 'col-12' %}
+  {% assign content_col = settings.lightly_prefix | append: 'col-12' %}
   {% assign embed_content = true %}
 {% elsif content_position == 'right' %}
-  {% assign flex_classes =  settings.ec_prefix | append: 'flex-row' %}
-  {% assign img_col =  settings.ec_prefix | append: 'col-6' %}
-  {% assign content_col =  settings.ec_prefix | append: 'col-6' %}
+  {% assign flex_classes =  settings.lightly_prefix | append: 'flex-row' %}
+  {% assign img_col =  settings.lightly_prefix | append: 'col-6' %}
+  {% assign content_col =  settings.lightly_prefix | append: 'col-6' %}
   {% assign embed_content = true %}
 {% elsif content_position == 'bottom' %}
-  {% assign flex_classes =  settings.ec_prefix | append: 'flex-column' %}
-  {% assign img_col =  settings.ec_prefix | append: 'col-12' %}
-  {% assign content_col =  settings.ec_prefix | append: 'col-12' %}
+  {% assign flex_classes =  settings.lightly_prefix | append: 'flex-column' %}
+  {% assign img_col =  settings.lightly_prefix | append: 'col-12' %}
+  {% assign content_col =  settings.lightly_prefix | append: 'col-12' %}
   {% if embed_content != blank or embed_content != 'none' %}
     {% assign embed_content = embed_content %}
   {% else %}
     {% assign embed_content = false %}
   {% endif %}
 {% elsif content_position == 'left' %}
-  {% assign flex_classes =  settings.ec_prefix | append: 'flex-row-reverse' %}
-  {% assign img_col =  settings.ec_prefix | append: 'col-6' %}
-  {% assign content_col =  settings.ec_prefix | append: 'col-6' %}
+  {% assign flex_classes =  settings.lightly_prefix | append: 'flex-row-reverse' %}
+  {% assign img_col =  settings.lightly_prefix | append: 'col-6' %}
+  {% assign content_col =  settings.lightly_prefix | append: 'col-6' %}
   {% assign embed_content = true %}
 {% endif %}
 
-{% comment %} Large Devices {% endcomment %}
+{% comment %} Content Position - Medium & Up Devices {% endcomment %}
 {% if content_position_md_up == 'top' %}
-  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-column-reverse' %}
-  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
-  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
+  {% assign flex_classes_md_up =  settings.lightly_prefix | append: 'flex-md-column-reverse' %}
+  {% assign img_col_md_up =  settings.lightly_prefix | append: 'col-md-12' %}
+  {% assign content_col_md_up =  settings.lightly_prefix | append: 'col-md-12' %}
 {% elsif content_position_md_up == 'right' %}
-  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-row' %}
-  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
-  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
+  {% assign flex_classes_md_up =  settings.lightly_prefix | append: 'flex-md-row align-items-md-center' %}
+  {% assign img_col_md_up =  settings.lightly_prefix | append: 'col-md-3 px-md-3' %}
+  {% assign content_col_md_up =  settings.lightly_prefix | append: 'col-md-9' %}
 {% elsif content_position_md_up == 'bottom' %}
-  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-column' %}
-  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
-  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-12' %}
+  {% assign flex_classes_md_up =  settings.lightly_prefix | append: 'flex-md-column' %}
+  {% assign img_col_md_up =  settings.lightly_prefix | append: 'col-md-12' %}
+  {% assign content_col_md_up =  settings.lightly_prefix | append: 'col-md-12' %}
 {% elsif content_position_md_up == 'left' %}
-  {% assign flex_classes_md_up =  settings.ec_prefix | append: 'flex-md-row-reverse' %}
-  {% assign img_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
-  {% assign content_col_md_up =  settings.ec_prefix | append: 'col-md-6' %}
+  {% assign flex_classes_md_up =  settings.lightly_prefix | append: 'flex-md-row-reverse' %}
+  {% assign img_col_md_up =  settings.lightly_prefix | append: 'col-md-6' %}
+  {% assign content_col_md_up =  settings.lightly_prefix | append: 'col-md-6' %}
 {% endif %}
 
+{% comment %} Embed Content {% endcomment %}
 {% if content_embed_forced == true %}
   {% assign embed_content = true %}
 {% endif %}
 
-{% assign content_classes =  settings.ec_prefix | append: 'd-flex' %}
-{% assign content_classes = content_classes
-  | append: ' '
-  | append: flex_classes %}
+{% comment %} Content Alignment Classes {% endcomment %}
+{% assign content_classes =  settings.lightly_prefix | append: 'content-card d-flex' %}
+{% assign content_classes = content_classes | append: ' ' | append: flex_classes %}
+{% assign content_classes = content_classes | append: ' ' | append: flex_classes_md_up %}
 
-{% assign content_classes = content_classes
-  | append: ' '
-  | append: flex_classes_md_up %}
-
+{% comment %} Image Classes {% endcomment %}
 {% assign img_col_classes = img_col %}
-{% assign img_col_classes = img_col_classes
-  | append: ' '
-  | append: img_col_md_up %}
+{% assign img_col_classes = img_col_classes | append: ' ' | append: img_col_md_up %}
 
+{% if img_col_padding_x_md_up != blank %}
+  {% assign img_col_classes = img_col_classes | append: ' ' | append: img_col_padding_x_md_up %}
+{% endif %}
+
+{% comment %} Content Layout Classes {% endcomment %}
 {% assign content_col_classes = content_col %}
-{% assign content_col_classes = content_col_classes
-  | append: ' '
-  | append: content_col_md_up %}
+{% assign content_col_classes = content_col_classes | append: ' ' | append: content_col_md_up %}
 
+{% comment %} Content Padding & Margin Depending On Layout Options {% endcomment %}
 {% if content_position == 'bottom' %}
   {% assign img_col_classes = img_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append:  'mb-3'
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'px-0' %}
   {% assign content_col_classes = content_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: ' px-0' %}
 {% elsif content_position == 'top' %}
   {% assign content_col_classes = content_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append:  'mb-3'
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'mb-md-0' %}
 {% else %}
   {% assign img_col_classes = img_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'mb-0' %}
 {% endif %}
 
 {% if content_position_md_up == 'bottom' %}
   {% assign img_col_classes = img_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append:  'mb-md-3'
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'px-0' %}
   {% assign content_col_classes = content_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'px-md-0' %}
 {% elsif content_position_md_up == 'top' %}
   {% assign img_col_classes = img_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'mb-md-0' %}
   {% assign content_col_classes = content_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'mb-md-3' %}
 {% else %}
   {% assign img_col_classes = img_col_classes
     | append: ' '
-    | append:  settings.ec_prefix
+    | append:  settings.lightly_prefix
     | append: 'mb-md-0' %}
 {% endif %}
 
+{% comment %} Capture the Image {% endcomment %}
 {% capture image_object %}
-  {% render 'image-object'
+  {% render 'lightly-image-object'
     image_url: image_url,
+    link_url: link_url,
     image_url_md_up: image_url_md_up,
     image_alt_text: image_alt_text,
     aspect_ratio: image_aspect_ratio,
@@ -332,18 +324,24 @@
     object_fit: image_object_fit %}
 {% endcapture %}
 
+{% comment %} Capture the Content {% endcomment %}
 {% capture content_object %}
+  {% comment %} Render the Content {% endcomment %}
   {% capture raw_content_object %}
-    {% render 'content-object'
+    {% render 'lightly-content-object'
       content_color: content_color,
       content_align: content_align,
       content_align_md_up: content_align_md_up,
       eyebrow_style: eyebrow_style,
       eyebrow_text: eyebrow_text,
       heading_text: heading_text,
-      heading_size: heading_size,
+      heading_text_color: heading_text_color,
+      heading_type: heading_type,
       heading_style: heading_style,
       paragraph_text: paragraph_text,
+      paragraph_text_font_weight_base: paragraph_text_font_weight_base,
+      paragraph_text_style: paragraph_text_style,
+      paragraph_text_margin_bottom_none: paragraph_text_margin_bottom_none,
       link_style: link_style,
       link_size: link_size,
       link_url: link_url,
@@ -351,7 +349,8 @@
       link_block: link_block
     %}
   {% endcapture %}
-  {% render 'content-wrapper'
+  {% comment %} Wrap the Content {% endcomment %}
+  {% render 'lightly-content-wrapper'
     content: raw_content_object,
     pt: content_pt,
     pr: content_pr,
@@ -371,9 +370,11 @@
     ml_md_up: content_ml_md_up,
  %}
 {% endcapture %}
+
+{% comment %} Embed the Content to a Ratio {% endcomment %}
 {% capture content %}
   {% if embed_content == true and content_aspect_ratio != 'none' %}
-    {% render 'embed-object',
+    {% render 'lightly-embed-object',
       id: id,
       aspect_ratio: content_aspect_ratio,
       content: content_object,
@@ -388,8 +389,11 @@
   {% endif %}
 {% endcapture %}
 
+{% assign aos_delay = block_index | times: 200 %}
+
+{% comment %} Compose the Image & Content {% endcomment %}
 {% capture composed_content %}
-  <div class="{{ content_classes }}">
+  <div class="{{ content_classes }}" data-aos="fade-in" data-aos-delay="{{ aos_delay }}">
     {% if image_object != blank %}
       <div class="{{ img_col_classes }}">
         {{ image_object }}
@@ -403,8 +407,9 @@
   </div>
 {% endcapture %}
 
+{% comment %} Wrap the Composed Image & Content in a Content Wrapper {% endcomment %}
 {% if content != blank or image_object != blank %}
-  {% render 'content-wrapper'
+  {% render 'lightly-content-wrapper'
     id: id,
     content: composed_content,
     pt: pt,

@@ -1,8 +1,11 @@
 {% comment %}
 
-  -----------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
   Background Image Style Tag
-  -----------------------------------------------------------------------------
+  More info: https://lightly-digital/docs/background-element
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
 
   Supports responsive background images including an overlay background filter
   with transparency
@@ -11,7 +14,7 @@
 
   Render the contents of this snippet inside the container to have a background
 
-  {% render 'bg-image-tag'
+  {% render 'lightly-bg-image-element'
     id: { string } - required,
     bg_image_url: { string } - required,
     bg_image_url_md_up: { string } - required,
@@ -74,7 +77,7 @@
     {% endif %}
     {% if bg_image_url != blank %}
       <style>
-        .{{ settings.ec_prefix }}bg-image-{{ id }} {
+        .{{ settings.lightly_prefix }}bg-image-{{ id }} {
           background-image: url({{ bg_image_url }});
         }
       </style>
@@ -82,7 +85,7 @@
     {% if bg_image_url_md_up != blank %}
       <style>
         @media (min-width: {{ settings.container_width_md | append: 'px' }}) {
-          .{{ settings.ec_prefix }}bg-image-{{ id }} {
+          .{{ settings.lightly_prefix }}bg-image-{{ id }} {
             background-image: url({{ bg_image_url_md_up }});
           }
         }
@@ -90,6 +93,6 @@
     {% endif %}
 
   {% if bg_color_has_alpha == true %}
-    {% render 'bg-color-element' bg_color_computed: bg_color_computed %}
+    {% render 'lightly-bg-color-element' bg_color_computed: bg_color_computed %}
   {% endif %}
 

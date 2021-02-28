@@ -1,8 +1,11 @@
 {% comment %}
 
-  -----------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
   Content Footer
-  -----------------------------------------------------------------------------
+  More info: https://lightly-digital/docs/content-footer
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
 
   Liquid:
   - Content Object - `snippets/content-object.liquid`
@@ -23,7 +26,7 @@
 {% comment %} Content {% endcomment %}
 {% capture content %}
   {% capture content_object %}
-    {% render 'content-object'
+    {% render 'lightly-content-object'
       content_color: content_color,
       eyebrow_style: eyebrow_style,
       eyebrow_text: eyebrow_text,
@@ -39,7 +42,7 @@
       content_align_md_up: content_align_md_up %}
   {% endcapture %}
 
-  {% render 'content-wrapper'
+  {% render 'lightly-content-wrapper'
     content: content_object,
     bg_color: bg_color,
     bg_color_alpha: bg_color_alpha,
@@ -56,7 +59,7 @@
 {% comment %} Layout {% endcomment %}
 {% if content != blank %}
   {% capture grid_item %}
-    {% render 'grid-item'
+    {% render 'lightly-grid-item'
       col: col,
       col_offset: col_offset,
       col_md_up: col_md_up,
@@ -67,7 +70,7 @@
 
 {% comment %} Render {% endcomment %}
 {% if grid_item != blank %}
-  {% render 'content-container'
+  {% render 'lightly-content-container'
     container: container,
     content: grid_item %}
 {% endif %}

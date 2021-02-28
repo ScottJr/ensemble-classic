@@ -2,26 +2,30 @@
 
   -----------------------------------------------------------------------------
   Heading Element
+  More info: https://lightly-digital/docs/heading-element
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Usage:
 
   {% render 'heading-element',
-    text_color: { string } 'primary', 'secondary' %}
+    text: { string } - required
+    text_color: { string } 'primary', 'secondary' 
     text_align: { string } 'center', 'left'
     text_align_md_up: { string } 'center', 'left'
-    text: { string }
-    heading_size: { string } - h1, h2, h3, h4, h5, h6
-    heading_style: { string } expects display-1,2,3,4
+    heading_type: { string } - h1, h2, h3, h4, h5, h6
+    heading_style: { string } expects display-1,2,3,4 %}
 
 {% endcomment %}
 
 {% comment %} Class defaults {% endcomment %}
-{% assign classes = blank %}
+{% assign classes = 'heading-element' %}
 
 {% if text_color != blank %}
   {% assign classes = classes
-    | append: settings.ec_prefix
+    | append: ' '
+    | append: settings.lightly_prefix
     | append: 'text-'
     | append: text_color %}
 {% else %}
@@ -31,51 +35,61 @@
 {% if text_align != blank %}
   {% assign classes = classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'text-'
     | append: text_align %}
 {% else %}
   {% assign classes = classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'text-left' %}
 {% endif %}
 
 {% if text_align_md_up != blank %}
   {% assign classes = classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'text-md-'
     | append: text_align_md_up %}
 {% else %}
   {% assign classes = classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'text-md-left' %}
 {% endif %}
 
 {% if heading_style != blank %}
   {% assign classes = classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: heading_style %}
 {% else %}
   {% assign classes = classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'display-2' %}
 {% endif %}
 
-{% if heading_size != blank %}
-  {% assign heading_size = heading_size %}
+{% if heading_type != blank %}
+  {% assign heading_type = heading_type %}
 {% else %}
-  {% assign heading_size = 'h2' %}
+  {% assign heading_type = 'h2' %}
+{% endif %}
+
+{% if text_color != blank %}
+  {% assign text_color = 'text-' | append: text_color %}
+{% else %}
+  {% assign text_color = 'text-secondary' %}
+{% endif %}
+
+{% if text != blank %}
+  {% assign content = '<span class="' | append:  text_color | append:  '">' | append: text | append: '</span>'%}
 {% endif %}
 
 {% comment %} HTML content {% endcomment %}
 {% capture 'html_content' %}
-  {% if text != blank %}
-    <{{ heading_size }} class="{{ classes }}">{{ text }}</{{ heading_size }}>
+  {% if content != blank %}
+    <{{ heading_type }} class="{{ classes }}">{{ content }}</{{ heading_type }}>
   {% endif %}
 {% endcapture %}
 

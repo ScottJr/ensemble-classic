@@ -1,40 +1,13 @@
-
 {% comment %}
 
   -----------------------------------------------------------------------------
-  Master Section
+  Banner
   -----------------------------------------------------------------------------
 
-  Liquid:
-  - Eyebrow Element - `snippets/eyebrow-element.liquid`
-  - Heading Element - `snippets/heading-element`
-  - Paragraph Element - `snippets/paragraph-element`
-  - Link Element - `snippets/link-element`
-  - Image Object - `snippets/image-object.liquid`
-  - Video Object - `snippets/video-object.liquid`
-  - Embed Object - `snippets/embed-object.liquid`
-  - Content Object - `snippets/content-object.liquid`
-  - Content Container `snippets/content-container.liquid`
-  - Grid Item - `snippets/grid-item.liquid`
-  - Section - `snippets/section.liquid`
-  - Content Wrapper - `snippets/content-wrapper.liquid`
-  - Content Header - `snippets/content-header.liquid`
-  - Content Footer - `snippets/content-footer.liquid`
-  - Content Card - `snippets/content-card.liquid`
-
-  Styling:
-
-  - Bootstrap
-
-  JavaScript:
-
-  - None
-
-  Usage:
 {% endcomment %}
 
 {% comment %} START - Section Settings {% endcomment %}
-{% assign section_type = 'master-section' %}
+{% assign section_type = 'banner' %}
 
 {% assign section_pt = section.settings.section_pt %}
 {% assign section_pb = section.settings.section_pb %}
@@ -49,11 +22,9 @@
 {% assign section_bg_color = section.settings.section_bg_color %}
 {% assign section_bg_color_alpha = section.settings.section_bg_color_alpha %}
 
-{% assign section_bg_image_url = section.settings.section_bg_image
-  | img_url: '800x' %}
+{% assign section_bg_image_url = section.settings.section_bg_image | img_url: '800x' %}
 
-{% assign section_bg_image_url_md_up = section.settings.section_bg_image_md_up
-| img_url: '1400x' %}
+{% assign section_bg_image_url_md_up = section.settings.section_bg_image_md_up | img_url: '1800x' %}
 
 {% comment %} END - Section Settings {% endcomment %}
 
@@ -131,9 +102,14 @@
 {% assign header_image_border_left = section.settings.header_image_border_left %}
 
 {% assign header_heading_style = section.settings.header_heading_style %}
-{% assign header_heading_text = section.settings.header_heading_text %}
+{% assign header_heading_type = section.settings.header_heading_type %}
+{% assign header_heading_text = section.settings.header_heading_text | remove: "<p>" | remove: "</p>" %}
+{% assign header_heading_text_color = section.settings.header_heading_text_color %}
 
 {% assign header_paragraph_text = section.settings.header_paragraph_text %}
+{% assign header_paragraph_text_font_weight_base = block.settings.header_paragraph_text_font_weight_base %}
+{% assign header_paragraph_text_style = block.settings.header_paragraph_text_style %}
+{% assign header_paragraph_text_margin_bottom_none = block.settings.header_paragraph_text_margin_bottom_none %}
 
 {% assign header_link_text  = section.settings.header_link_text %}
 {% assign header_link_url = section.settings.header_link_url %}
@@ -185,7 +161,7 @@
     image_pb_md_up: header_image_pb_md_up,
     image_pr_md_up: header_image_pr_md_up
     image_mt_md_up: header_image_mt_md_up,
-    image_ml_md_up: header_image_ml_md_up,
+    image_ml_md_up: header_image_ml_md_up, 
     image_mb_md_up: header_image_mb_md_up,
     image_mr_md_up: header_image_mr_md_up,
     image_border_color: header_image_border_color,
@@ -195,13 +171,23 @@
     image_border_left: header_image_border_left,
     eyebrow_text: header_eyebrow_text,
     heading_style: header_heading_style,
+    heading_type: header_heading_type,
     heading_text: header_heading_text,
+    heading_text_color: header_heading_text_color,
     paragraph_text: header_paragraph_text,
+    paragraph_text_font_weight_base: header_paragraph_text_font_weight_base,
+    paragraph_text_style: header_paragraph_text_style,
+    paragraph_text_margin_bottom_none: header_paragraph_text_margin_bottom_none,    
     link_text: header_link_text,
     link_url: header_link_url,
     link_style: header_link_style,
     link_size: header_link_size,
     link_block: header_link_block,
+    secondary_link_text: header_secondary_link_text,
+    secondary_link_url: header_secondary_link_url,
+    secondary_link_style: header_secondary_link_style,
+    secondary_link_size: header_secondary_link_size,
+    secondary_link_block: header_secondary_link_block,    
     border_top: header_border_top,
     border_left: header_border_left,
     border_bottom: header_border_bottom,
@@ -221,22 +207,16 @@
 
 {% assign content_container_pt = section.settings.content_container_pt %}
 {% assign content_container_pb = section.settings.content_container_pb %}
-{% assign content_container_pt_md_up =
-  section.settings.content_container_pt_md_up %}
-{% assign content_container_pb_md_up =
-  section.settings.content_container_pb_md_up %}
+{% assign content_container_pt_md_up = section.settings.content_container_pt_md_up %}
+{% assign content_container_pb_md_up = section.settings.content_container_pb_md_up %}
 
 {% assign content_container_mt = section.settings.content_container_mt %}
 {% assign content_container_mb = section.settings.content_container_mb %}
-{% assign content_container_mt_md_up =
-  section.settings.content_container_mt_md_up %}
-{% assign content_container_mb_md_up =
-  section.settings.content_container_mb_md_up %}
+{% assign content_container_mt_md_up = section.settings.content_container_mt_md_up %}
+{% assign content_container_mb_md_up = section.settings.content_container_mb_md_up %}
 
-{% assign content_container_bg_color =
-  section.settings.content_container_bg_color %}
-{% assign content_container_bg_color_alpha =
-  section.settings.content_container_bg_color_alpha %}
+{% assign content_container_bg_color = section.settings.content_container_bg_color %}
+{% assign content_container_bg_color_alpha = section.settings.content_container_bg_color_alpha %}
 
 {% comment %} Content {% endcomment %}
 {% capture section_blocks %}
@@ -252,6 +232,8 @@
 
     {% if block.type == 'content-card' %}
       {% assign block_id = block.id %}
+      {% assign block_index = forloop.index %}
+      {% assign blocks_length = forloop.length %}
       {% comment %} START - Content Card Grid Item {% endcomment %}
       {% assign content_align = block.settings.content_align %}
       {% assign content_align_md_up = block.settings.content_align_md_up %}
@@ -260,11 +242,15 @@
       {% assign eyebrow_text = block.settings.eyebrow_text %}
       {% assign eyebrow_style = block.settings.eyebrow_style %}
 
-      {% assign heading_text = block.settings.heading_text %}
+      {% assign heading_text = block.settings.heading_text | remove: "<p>" | remove: "</p>" %}
+      {% assign heading_text_color = block.settings.heading_text_color %}
       {% assign heading_style = block.settings.heading_style %}
-      {% assign heading_size = 'h3' %}
+      {% assign heading_type = block.settings.heading_type %}
 
       {% assign paragraph_text = block.settings.paragraph_text %}
+      {% assign paragraph_text_font_weight_base = block.settings.paragraph_text_font_weight_base %}
+      {% assign paragraph_text_style = block.settings.paragraph_text_style %}
+      {% assign paragraph_text_margin_bottom_none = block.settings.paragraph_text_margin_bottom_none %}
 
       {% assign link_text = block.settings.link_text %}
       {% assign link_url = block.settings.link_url %}
@@ -272,10 +258,8 @@
       {% assign link_size = block.settings.link_size %}
       {% assign link_block = block.settings.link_block %}
 
-      {% assign image_url = block.settings.image.src
-        | img_url: '600x' %}
-      {% assign image_url_md_up = block.settings.image_md_up.src
-        | img_url: '1000x' %}
+      {% assign image_url = block.settings.image.src | img_url: '600x' %}
+      {% assign image_url_md_up = block.settings.image_md_up.src | img_url: '1000x' %}
       {% assign image_aspect_ratio = block.settings.aspect_ratio %}
       {% assign image_aspect_ratio_md_up = block.settings.aspect_ratio_md_up %}
       {% assign image_alt_text = block.settings.image_alt_text %}
@@ -302,11 +286,9 @@
       {% assign content_mb_md_up = block.settings.content_mb_md_up %}
       {% assign content_ml_md_up = block.settings.content_ml_md_up %}
 
-      {% assign content_bg_image_url = block.settings.content_bg_image
-        | img_url: '600x' %}
+      {% assign content_bg_image_url = block.settings.content_bg_image | img_url: '600x' %}
       {% assign content_bg_image_id = block.settings.content_bg_image.id %}
-      {% assign content_bg_image_url_md_up = block.settings.content_bg_image_md_up
-        | img_url: '1000x' %}
+      {% assign content_bg_image_url_md_up = block.settings.content_bg_image_md_up | img_url: '1000x' %}
       {% assign content_bg_color = block.settings.content_bg_color %}
       {% assign content_bg_color_alpha = block.settings.content_bg_color_alpha %}
 
@@ -348,15 +330,21 @@
       {% capture content %}
         {% render 'lightly-content-card'
           id: block_id,
+          block_index: block_index,
+          blocks_length: blocks_length, 
           content_color: content_color,
           content_align: content_align,
           content_align_md_up: content_align_md_up,
           eyebrow_style: eyebrow_style,
           eyebrow_text: eyebrow_text,
           heading_text: heading_text,
-          heading_size: heading_size,
+          heading_text_color: heading_text_color,
           heading_style: heading_style,
+          heading_type: heading_type,
           paragraph_text: paragraph_text,
+          paragraph_text_font_weight_base: paragraph_text_font_weight_base,
+          paragraph_text_style: paragraph_text_style,
+          paragraph_text_margin_bottom_none: paragraph_text_margin_bottom_none,
           image_url: image_url,
           image_url_md_up: image_url_md_up,
           image_alt_text: image_alt_text,
@@ -418,6 +406,13 @@
       {% endcapture %}
 
       {% comment %} END - Content Card Grid Item {% endcomment %}
+    {% elsif block.type == 'article-card'%}
+      {% capture content %}
+        {% assign article = articles[block.settings.article] %}
+        {% render 'lightly-article-card'
+          article: article,
+          show_excerpt: true %}
+      {% endcapture %} 
     {% endif %}
 
     {% comment %} Render Grid Item With Embedded Content {% endcomment %}
@@ -484,9 +479,13 @@
 {% assign footer_eyebrow_text = section.settings.footer_eyebrow_text %}
 
 {% assign footer_heading_style = section.settings.footer_heading_style %}
+{% assign footer_heading_type = 'h2' %}
 {% assign footer_heading_text = section.settings.footer_heading_text %}
 
 {% assign footer_paragraph_text = section.settings.footer_paragraph_text %}
+{% assign footer_paragraph_text_font_weight_base = block.settings.footer_paragraph_text_font_weight_base %}
+{% assign footer_paragraph_text_style = block.settings.footer_paragraph_text_style %}
+{% assign footer_paragraph_text_margin_bottom_none = block.settings.footer_paragraph_text_margin_bottom_none %}
 
 {% assign footer_link_text  = section.settings.footer_link_text %}
 {% assign footer_link_url = section.settings.footer_link_url %}
@@ -518,8 +517,12 @@
     eyebrow_style: footer_eyebrow_style,
     eyebrow_text: footer_eyebrow_text,
     heading_style: footer_heading_style,
+    heading_type: footer_heading_type,
     heading_text: footer_heading_text,
     paragraph_text: footer_paragraph_text,
+    paragraph_text_font_weight_base: footer_paragraph_text_font_weight_base,
+    paragraph_text_style: footer_paragraph_text_style,
+    paragraph_text_margin_bottom_none: footer_paragraph_text_margin_bottom_none,
     link_text: footer_link_text,
     link_url: footer_link_url,
     link_style: footer_link_style,
@@ -551,800 +554,11 @@
 
 {% schema %}
   {
-    "name": "Master Section",
+    "name": "Banner",
     "settings": [
       {
         "type": "header",
-        "content": "------------ Section Layout ------------",
-        "info": "Settings defined here are global for the section and will effect the header, content, and footer."
-      },
-      {
-        "type": "select",
-        "id": "content_container",
-        "label": "Content Container",
-        "options": [
-          {
-            "value": "container",
-            "label": "Contained at all breakpoints"
-          },
-          {
-            "value": "container-sm",
-            "label": "95% wide with 2.5% padding until small breakpoint"
-          },
-          {
-            "value": "container-md",
-            "label": "95% wide with 2.5% padding until medium breakpoint"
-          },
-          {
-            "value": "container-lg",
-            "label": "95% wide with 2.5% padding until large breakpoint"
-          },
-          {
-            "value": "container-xl",
-            "label": "95% wide with 2.5% padding until xlarge breakpoint"
-          },
-          {
-            "value": "container-fluid",
-            "label": "95% wide with 2.5% padding at all breakpoints"
-          },
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "default": "container-xl",
-        "info": "Determines the width of container that the main content of the section will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths."
-      },
-      {
-        "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "section_pt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   4,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "section_pb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   4,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "section_mt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "section_mb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "section_pt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   4,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "section_pb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   4,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "section_mt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "section_mb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "----- Section Background Image -----"
-      },
-      {
-        "type": "image_picker",
-        "id": "section_bg_image_md_up",
-        "label": "Large Devices",
-        "info": "Screen sizes larger than 768px"
-      },
-      {
-        "type": "image_picker",
-        "id": "section_bg_image",
-        "label": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "color",
-        "id": "section_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "select",
-        "id": "section_bg_color_alpha",
-        "label": "Background Color Transparency",
-        "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
-        ],
-        "default": "FF",
-        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
-      },
-      {
-        "type": "header",
-        "content": "----------- Section Header ----------",
-        "info": "The section header is located at the top of the section, above the content and footer. The header can display an image, title text, paragraph text, and call-to-action buttons."
-      },
-      {
-        "type": "header",
-        "content": "Layout Settings"
-      },
-      {
-        "type": "header",
-        "content": "-------- Header Background ---------"
-      },
-      {
-        "type": "color",
-        "id": "header_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "select",
-        "id": "header_bg_color_alpha",
-        "label": "Background Color Transparency",
-        "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
-        ],
-        "default": "FF",
-        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
-      },
-      {
-        "type": "header",
-        "content": "---------- Header Container -----------"
-      },
-      {
-        "type": "select",
-        "id": "header_container",
-        "label": "Container",
-        "options": [
-          {
-            "value": "container",
-            "label": "Contained at all breakpoints"
-          },
-          {
-            "value": "container-sm",
-            "label": "95% wide with 2.5% padding until small breakpoint"
-          },
-          {
-            "value": "container-md",
-            "label": "95% wide with 2.5% padding until medium breakpoint"
-          },
-          {
-            "value": "container-lg",
-            "label": "95% wide with 2.5% padding until large breakpoint"
-          },
-          {
-            "value": "container-xl",
-            "label": "95% wide with 2.5% padding until xlarge breakpoint"
-          },
-          {
-            "value": "container-fluid",
-            "label": "95% wide with 2.5% padding at all breakpoints"
-          },
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "info": "Determines the width of container that the header content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths.",
-        "default": "container-xl"
-      },
-      {
-        "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Content Columns",
-        "info": "Defines the width of the content columns on devices larger than 768px. Utilize offsets to align content horizontally. For example: if you want a 6 column container to be centered, offset the column by 3 columns."
-      },
-      {
-        "type": "range",
-        "id": "header_col_md_up",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Columns",
-        "default": 8
-      },
-      {
-        "type": "range",
-        "id": "header_col_offset_md_up",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Offset Columns",
-        "default": 2
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_pt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_pb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_mt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_mb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Content Columns",
-        "info": "Defines the width of the content columns on smaller than 768px. Utilize offsets to align content horizontally. For example: if you want a 6 column container to be centered, offset the column by 3 columns."
-      },
-      {
-        "type": "range",
-        "id": "header_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Columns",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "header_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Offset Columns",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_pt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_pb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_mt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_mb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "------------- Header Image -------------"
-      },
-      {
-        "type": "image_picker",
-        "id": "header_image",
-        "label": "Image"
-      },
-      {
-        "type": "select",
-        "id": "header_image_aspect_ratio",
-        "label": "Aspect Ratio",
-        "options": [
-          { "value": "21by9", "label": "21x9"},
-          { "value": "1by1", "label": "1x1"},
-          { "value": "2by1", "label": "2x1"},
-          { "value": "3by1", "label": "3x1"},
-          { "value": "4by3", "label": "4x3"},
-          { "value": "5by4", "label": "5x4"},
-          { "value": "16by9", "label": "16x9"},
-          { "value": "none", "label": "None"}
-        ],
-        "default": "21by9"
-      },
-      {
-        "type": "select",
-        "id": "header_image_aspect_ratio_md_up",
-        "label": "Aspect Ratio",
-        "options": [
-          { "value": "21by9", "label": "21x9"},
-          { "value": "1by1", "label": "1x1"},
-          { "value": "2by1", "label": "2x1"},
-          { "value": "3by1", "label": "3x1"},
-          { "value": "4by3", "label": "4x3"},
-          { "value": "5by4", "label": "5x4"},
-          { "value": "16by9", "label": "16x9"},
-          { "value": "none", "label": "None"}
-        ],
-        "default": "21by9"
-      },
-      {
-        "type": "select",
-        "id": "header_image_object_fit",
-        "label": "Object Fit",
-        "options": [
-          { "value": "fill", "label": "Fill"},
-          { "value": "contain", "label": "Contain"},
-          { "value": "cover", "label": "Cover"},
-          { "value": "scale-down", "label": "Scale Down"},
-          { "value": "none", "label": "None"}
-        ],
-        "default": "cover",
-        "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Background",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type": "color",
-        "id": "header_image_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Border",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type": "select",
-        "id": "header_image_border_color",
-        "label": "Border Color",
-        "options": [
-          { "value": "primary", "label": "Primary"},
-          { "value": "secondary", "label": "Secondary"},
-          { "value": "success", "label": "Success"},
-          { "value": "danger", "label": "Danger"},
-          { "value": "warning", "label": "Warning"},
-          { "value": "info", "label": "Info"},
-          { "value": "light", "label": "Light"},
-          { "value": "dark", "label": "Dark"},
-          { "value": "white", "label": "White"}
-        ],
-        "default": "dark"
-      },
-      {
-        "type": "checkbox",
-        "id": "header_image_border_top",
-        "label": "Border Top",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "header_image_border_right",
-        "label": "Border Right",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "header_image_border_bottom",
-        "label": "Border Bottom",
-        "default": false
-      },
-      {
-        "type": "checkbox",
-        "id": "header_image_border_left",
-        "label": "Border Left",
-        "default": false
-      },
-      {
-        "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Layout",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type": "range",
-        "id": "header_image_col_md_up",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns - Medium & Up Devices",
-        "default": 4
-      },
-      {
-        "type": "range",
-        "id": "header_image_col_md_up_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns - Medium & Up Devices",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Margin",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_image_pt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Right",
-        "id": "header_image_pr_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_image_pb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   2,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Left",
-        "id": "header_image_pl_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Padding",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_image_mt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Right",
-        "id": "header_image_mr_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   2,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_image_mb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Left",
-        "id": "header_image_ml_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Layout",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type": "range",
-        "id": "header_image_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns - Small Devices",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "header_image_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns - Small Devices",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Padding",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_image_pt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Right",
-        "id": "header_image_pr",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_image_pb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   2,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Left",
-        "id": "header_image_pl",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Header Image - Margin",
-        "info": "These settings apply to the header image only."
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "header_image_mt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Right",
-        "id": "header_image_mr",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "header_image_mb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   2,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Left",
-        "id": "header_image_ml",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "----------- Header Content ----------"
+        "content": "------------ Header Content -----------"
       },
       {
         "type": "text",
@@ -1367,13 +581,37 @@
           { "value": "dark", "label": "Dark"}
         ],
         "default": "dark"
-      },
+      }, 
       {
-        "type": "text",
+        "type": "richtext",
         "id": "header_heading_text",
         "label": "Heading Text",
-        "default": "Hello, World."
+        "default": "<p>Header Content</p>"
       },
+      {
+        "type": "select",
+        "id": "header_heading_text_color",
+        "label": "Heading Text Color",
+        "options": [
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "deepsea", "label": "Deep Sea"},
+          { "value": "seafoam", "label": "Sea Foam"},
+          { "value": "thyme", "label": "Thyme"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "body", "label": "Body"},
+          { "value": "muted", "label": "Muted"},
+          { "value": "white", "label": "White"},
+          { "value": "black-50", "label": "Black 50"},
+          { "value": "white-50", "label": "White 50"}
+        ],
+        "default": "body"
+      },             
       {
         "type": "select",
         "id": "header_heading_style",
@@ -1424,9 +662,98 @@
         "default": "display-4"
       },
       {
+        "type": "select",
+        "id": "header_heading_type",
+        "label": "Heading Text Type",
+        "info": "For SEO purposes their should only be on H1 element per page.",
+        "options": [
+          { "group": "Heading",
+            "value": "h1",
+            "label": "H1"
+          },
+          { "group": "Heading",
+            "value": "h2",
+            "label": "H2"
+          },
+          { "group": "Heading",
+            "value": "h3",
+            "label": "H3"
+          },
+          { "group": "Heading",
+            "value": "h4",
+            "label": "H4"
+          },
+          { "group": "Heading",
+            "value": "h5",
+            "label": "H5"
+          },
+          { "group": "Heading",
+            "value": "h6",
+            "label": "H6"
+          }
+        ],
+        "default": "h2"
+      }, 
+      {
         "type": "richtext",
         "id": "header_paragraph_text",
-        "label": "Paragraph"
+        "label": "Paragraph",
+        "default": "<p>Suspendisse maximus risus vel eros congue imperdiet. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque lobortis risus ut nisl pretium, </p>"
+      },
+      {
+        "type": "select",
+        "id": "header_content_color",
+        "label": "Paragraph Color",
+        "options": [
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "deepsea", "label": "Deep Sea"},
+          { "value": "seafoam", "label": "Sea Foam"},
+          { "value": "thyme", "label": "Thyme"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "body", "label": "Body"},
+          { "value": "muted", "label": "Muted"},
+          { "value": "white", "label": "White"},
+          { "value": "black-50", "label": "Black 50"},
+          { "value": "white-50", "label": "White 50"}
+        ],
+        "default": "body"
+      },      
+      {
+        "type": "select",
+        "id": "header_paragraph_text_font_weight_base",
+        "label": "Paragraph Text Base Weight",
+        "options": [
+          { "value": "light", "label": "Light - 300"},
+          { "value": "normal", "label": "Normal - 600"},
+          { "value": "bold", "label": "Bold - 700"}
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "select",
+        "id": "header_paragraph_text_style",
+        "label": "Paragraph Text Style",
+        "options": [
+          { "value": "normal", "label": "Normal - 14px"},
+          { "value": "lead", "label": "Lead - 18px"}
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "select",
+        "id": "header_paragraph_text_margin_bottom_none",
+        "label": "Disable margin bottom on paragraph",
+        "options": [
+          { "value": "margin", "label": "Margin"},
+          { "value": "mb-0", "label": "No Margin"}
+        ],
+        "default": "margin"
       },
       {
         "type": "text",
@@ -1549,28 +876,7 @@
         "label": "Enable block button",
         "default": false,
         "info": "If enabled button will span entire parent container"
-      },
-      {
-        "type": "select",
-        "id": "header_content_color",
-        "label": "Content Color",
-        "options": [
-          { "value": "primary", "label": "Primary"},
-          { "value": "secondary", "label": "Secondary"},
-          { "value": "success", "label": "Success"},
-          { "value": "danger", "label": "Danger"},
-          { "value": "warning", "label": "Warning"},
-          { "value": "info", "label": "Info"},
-          { "value": "light", "label": "Light"},
-          { "value": "dark", "label": "Dark"},
-          { "value": "body", "label": "Body"},
-          { "value": "muted", "label": "Muted"},
-          { "value": "white", "label": "White"},
-          { "value": "black-50", "label": "Black 50"},
-          { "value": "white-50", "label": "White 50"}
-        ],
-        "default": "body"
-      },
+      },     
       {
         "type": "select",
         "id": "header_content_align",
@@ -1636,406 +942,10 @@
         "id": "header_border_left",
         "label": "Border Left",
         "default": false
-      },
+      },  
       {
         "type": "header",
-        "content": "----------- Content Settings ----------",
-        "info": "Applies to content between the section header and footer. Content is added as a section block at the top of the section."
-      },
-      {
-        "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes larger than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "content_container_pt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "content_container_pb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "content_container_mt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "content_container_mb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "content_container_pt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "content_container_pb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "content_container_mt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "content_container_mb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "-------- Content Background ---------"
-      },
-      {
-        "type": "color",
-        "id": "content_container_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "select",
-        "id": "content_container_bg_color_alpha",
-        "label": "Background Color Transparency",
-        "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
-        ],
-        "default": "FF",
-        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
-      },
-      {
-        "type": "select",
-        "id": "no_gutters",
-        "label": "Gutter on Row Columns",
-        "options": [
-          { "value": "", "label": "Gutters" },
-          { "value": "no-gutters", "label": "No Gutters" }
-        ],
-        "default": "",
-        "info": "Will row columns have gutters on all screen sizes?"
-      },
-      {
-        "type": "header",
-        "content": "----------- Footer Settings -----------"
-      },
-      {
-        "type": "header",
-        "content": "Medium & Up Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "footer_col_md_up",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns ",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "footer_col_offset_md_up",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_pt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_pb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_mt_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_mb_md_up",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Small Devices",
-        "info": "Screen sizes smaller than 768px"
-      },
-      {
-        "type": "header",
-        "content": "Layout"
-      },
-      {
-        "type": "range",
-        "id": "footer_col",
-        "min": 1,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Columns",
-        "default": 12
-      },
-      {
-        "type": "range",
-        "id": "footer_col_offset",
-        "min": 0,
-        "max": 12,
-        "step": 1,
-        "unit": "col",
-        "label": "Container Offset Columns - Small Devices",
-        "default": 0
-      },
-      {
-        "type": "header",
-        "content": "Padding"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_pt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_pb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   3,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "Margin"
-      },
-      {
-        "type":   "range",
-        "label": "Top",
-        "id": "footer_mt",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type":   "range",
-        "label": "Bottom",
-        "id": "footer_mb",
-        "min":       0,
-        "max":       10,
-        "step":      1,
-        "default":   0,
-        "unit": "%"
-      },
-      {
-        "type": "header",
-        "content": "-------- Footer Background ---------"
-      },
-      {
-        "type": "color",
-        "id": "footer_bg_color",
-        "label": "Background Color"
-      },
-      {
-        "type": "select",
-        "id": "footer_bg_color_alpha",
-        "label": "Background Color Transparency",
-        "options": [
-          { "value": "00", "label": "0%" },
-          { "value": "0D", "label": "5%" },
-          { "value": "1A", "label": "10%" },
-          { "value": "26", "label": "15%" },
-          { "value": "33", "label": "20%" },
-          { "value": "40", "label": "25%" },
-          { "value": "4D", "label": "30%" },
-          { "value": "59", "label": "35%" },
-          { "value": "66", "label": "40%" },
-          { "value": "73", "label": "45%" },
-          { "value": "80", "label": "50%" },
-          { "value": "8C", "label": "55%" },
-          { "value": "99", "label": "60%" },
-          { "value": "A6", "label": "65%" },
-          { "value": "B3", "label": "70%" },
-          { "value": "BF", "label": "75%" },
-          { "value": "CC", "label": "80%" },
-          { "value": "D9", "label": "85%" },
-          { "value": "E6", "label": "90%" },
-          { "value": "F2", "label": "95%" },
-          { "value": "FF", "label": "100%" }
-        ],
-        "default": "FF",
-        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
-      },
-      {
-        "type": "header",
-        "content": "---------- Footer Container -----------"
-      },
-      {
-        "type": "select",
-        "id": "footer_container",
-        "label": "Container",
-        "options": [
-          {
-            "value": "container",
-            "label": "Contained at all breakpoints"
-          },
-          {
-            "value": "container-sm",
-            "label": "95% wide with 2.5% padding until small breakpoint"
-          },
-          {
-            "value": "container-md",
-            "label": "95% wide with 2.5% padding until medium breakpoint"
-          },
-          {
-            "value": "container-lg",
-            "label": "95% wide with 2.5% padding until large breakpoint"
-          },
-          {
-            "value": "container-xl",
-            "label": "95% wide with 2.5% padding until xlarge breakpoint"
-          },
-          {
-            "value": "container-fluid",
-            "label": "95% wide with 2.5% padding at all breakpoints"
-          },
-          { "value": "", "label": "100% wide at all breakpoints"}
-        ],
-        "default": "container-xl",
-        "info": "Determines the width of container that the footer content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths."
-      },
-      {
-        "type": "header",
-        "content": "----------- Footer Content ----------"
+        "content": "----------- Footer Content -----------"
       },
       {
         "type": "text",
@@ -2118,14 +1028,68 @@
         "label": "Paragraph"
       },
       {
+        "type": "select",
+        "id": "footer_content_color",
+        "label": "Paragraph color",
+        "options": [
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "body", "label": "Body"},
+          { "value": "muted", "label": "Muted"},
+          { "value": "white", "label": "White"},
+          { "value": "black-50", "label": "Black 50"},
+          { "value": "white-50", "label": "White 50"}
+        ],
+        "default": "body"
+      },      
+      {
+        "type": "select",
+        "id": "footer_paragraph_text_font_weight_base",
+        "label": "Paragraph Text Base Weight",
+        "options": [
+          { "value": "light", "label": "Light - 300"},
+          { "value": "normal", "label": "Normal - 600"},
+          { "value": "bold", "label": "Bold - 700"}
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "select",
+        "id": "footer_paragraph_text_style",
+        "label": "Paragraph Text Style",
+        "options": [
+          { "value": "normal", "label": "Normal - 14px"},
+          { "value": "lead", "label": "Lead - 18px"}
+        ],
+        "default": "normal"
+      },
+      {
+        "type": "select",
+        "id": "footer_paragraph_text_margin_bottom_none",
+        "label": "Disable margin bottom on paragraph",
+        "options": [
+          { "value": "margin", "label": "Margin"},
+          { "value": "mb-0", "label": "No Margin"}
+        ],
+        "default": "margin"
+      },         
+      {
         "type": "text",
         "id": "footer_link_text",
-        "label": "Link Text"
-      },
+        "label": "Link Text",
+        "default": "Learn More"
+      }, 
       {
         "type": "url",
         "id": "footer_link_url",
-        "label": "Link Destination"
+        "label": "Link Destination",
+        "default": "/"
       },
       {
         "type": "select",
@@ -2238,28 +1202,7 @@
         "label": "Enable block button",
         "default": false,
         "info": "If enabled button will span entire parent container"
-      },
-      {
-        "type": "select",
-        "id": "footer_content_color",
-        "label": "Content color",
-        "options": [
-          { "value": "primary", "label": "Primary"},
-          { "value": "secondary", "label": "Secondary"},
-          { "value": "success", "label": "Success"},
-          { "value": "danger", "label": "Danger"},
-          { "value": "warning", "label": "Warning"},
-          { "value": "info", "label": "Info"},
-          { "value": "light", "label": "Light"},
-          { "value": "dark", "label": "Dark"},
-          { "value": "body", "label": "Body"},
-          { "value": "muted", "label": "Muted"},
-          { "value": "white", "label": "White"},
-          { "value": "black-50", "label": "Black 50"},
-          { "value": "white-50", "label": "White 50"}
-        ],
-        "default": "body"
-      },
+      },        
       {
         "type": "select",
         "id": "footer_content_align",
@@ -2283,6 +1226,1193 @@
         ],
         "default":   "center",
         "info":      "Default: Center"
+      },       
+      {
+        "type": "header",
+        "content": "------------ Section Layout ------------",
+        "info": "Settings defined here are global for the section and will effect the header, content, and footer."
+      },
+      {
+        "type": "select",
+        "id": "content_container",
+        "label": "Content Container",
+        "options": [
+          {
+            "value": "container",
+            "label": "Contained at all breakpoints"
+          },
+          {
+            "value": "container-sm",
+            "label": "95% wide with 2.5% padding until small breakpoint"
+          },
+          {
+            "value": "container-md",
+            "label": "95% wide with 2.5% padding until medium breakpoint"
+          },
+          {
+            "value": "container-lg",
+            "label": "95% wide with 2.5% padding until large breakpoint"
+          },
+          {
+            "value": "container-xl",
+            "label": "95% wide with 2.5% padding until xlarge breakpoint"
+          },
+          {
+            "value": "container-fluid",
+            "label": "95% wide with 2.5% padding at all breakpoints"
+          },
+          { "value": "w-100", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "container-xl",
+        "info": "Determines the width of container that the main content of the section will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths."
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "section_pt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   7,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "section_pb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   6,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "section_mt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "section_mb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "section_pt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   8,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "section_pb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   7,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "section_mt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "section_mb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },      
+      {
+        "type": "header",
+        "content": "----- Section Background Image -----"
+      },
+      {
+        "type": "image_picker",
+        "id": "section_bg_image",
+        "label": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "image_picker",
+        "id": "section_bg_image_md_up",
+        "label": "Large Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "color",
+        "id": "section_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "section_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
+      },
+      {
+        "type": "header",
+        "content": "----------- Section Header -----------",
+        "info": "The section header is located at the top of the section, above the content and footer. The header can display an image, title text, paragraph text, and call-to-action buttons."
+      },
+      {
+        "type": "header",
+        "content": "Layout Settings"
+      },
+      {
+        "type": "header",
+        "content": "-------- Header Background ---------"
+      },
+      {
+        "type": "color",
+        "id": "header_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "header_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
+      },
+      {
+        "type": "header",
+        "content": "---------- Header Container -----------"
+      },
+      {
+        "type": "select",
+        "id": "header_container",
+        "label": "Container",
+        "options": [
+          {
+            "value": "container",
+            "label": "Contained at all breakpoints"
+          },
+          {
+            "value": "container-sm",
+            "label": "95% wide with 2.5% padding until small breakpoint"
+          },
+          {
+            "value": "container-md",
+            "label": "95% wide with 2.5% padding until medium breakpoint"
+          },
+          {
+            "value": "container-lg",
+            "label": "95% wide with 2.5% padding until large breakpoint"
+          },
+          {
+            "value": "container-xl",
+            "label": "95% wide with 2.5% padding until xlarge breakpoint"
+          },
+          {
+            "value": "container-fluid",
+            "label": "95% wide with 2.5% padding at all breakpoints"
+          },
+          { "value": "w-100", "label": "100% wide at all breakpoints"}
+        ],
+        "info": "Determines the width of container that the header content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths.",
+        "default": "container-xl"
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Content Columns",
+        "info": "Defines the width of the content columns on smaller than 768px. Utilize offsets to align content horizontally. For example: if you want a 6 column container to be centered, offset the column by 3 columns."
+      },
+      {
+        "type": "range",
+        "id": "header_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Columns",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "header_col_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Offset Columns",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_pt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_pb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_mt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_mb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },      
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Content Columns",
+        "info": "Defines the width of the content columns on devices larger than 768px. Utilize offsets to align content horizontally. For example: if you want a 6 column container to be centered, offset the column by 3 columns."
+      },
+      {
+        "type": "range",
+        "id": "header_col_md_up",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Columns",
+        "default": 8
+      },
+      {
+        "type": "range",
+        "id": "header_col_offset_md_up",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Offset Columns",
+        "default": 2
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_pt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_pb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_mt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_mb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },      
+      {
+        "type": "header",
+        "content": "------------- Header Image -------------"
+      },
+      {
+        "type": "image_picker",
+        "id": "header_image",
+        "label": "Image"
+      },
+      {
+        "type": "select",
+        "id": "header_image_aspect_ratio",
+        "label": "Image Aspect Ratio - Small Devices",
+        "options": [
+          { "value": "21by9", "label": "21x9"},
+          { "value": "1by1", "label": "1x1"},
+          { "value": "2by1", "label": "2x1"},
+          { "value": "3by1", "label": "3x1"},
+          { "value": "4by3", "label": "4x3"},
+          { "value": "5by4", "label": "5x4"},
+          { "value": "16by9", "label": "16x9"},
+          { "value": "437by40", "label": "437x40"},
+          { "value": "none", "label": "None"}
+        ],
+        "default": "21by9"
+      },
+      {
+        "type": "select",
+        "id": "header_image_aspect_ratio_md_up",
+        "label": "Image Aspect Ratio - Large Devices",
+        "options": [
+          { "value": "21by9", "label": "21x9"},
+          { "value": "1by1", "label": "1x1"},
+          { "value": "2by1", "label": "2x1"},
+          { "value": "3by1", "label": "3x1"},
+          { "value": "4by3", "label": "4x3"},
+          { "value": "5by4", "label": "5x4"},
+          { "value": "16by9", "label": "16x9"},
+          { "value": "437by40", "label": "437x40"},
+          { "value": "none", "label": "None"}
+        ],
+        "default": "21by9"
+      },
+      {
+        "type": "select",
+        "id": "header_image_object_fit",
+        "label": "Object Fit",
+        "options": [
+          { "value": "fill", "label": "Fill"},
+          { "value": "contain", "label": "Contain"},
+          { "value": "cover", "label": "Cover"},
+          { "value": "scale-down", "label": "Scale Down"},
+          { "value": "none", "label": "None"}
+        ],
+        "default": "cover",
+        "info": "Some images may require adjustments to the cover to appear correctly. Often these are smaller icon type assets"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Background",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type": "color",
+        "id": "header_image_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Border",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type": "select",
+        "id": "header_image_border_color",
+        "label": "Border Color",
+        "options": [
+          { "value": "primary", "label": "Primary"},
+          { "value": "secondary", "label": "Secondary"},
+          { "value": "success", "label": "Success"},
+          { "value": "danger", "label": "Danger"},
+          { "value": "warning", "label": "Warning"},
+          { "value": "info", "label": "Info"},
+          { "value": "light", "label": "Light"},
+          { "value": "dark", "label": "Dark"},
+          { "value": "white", "label": "White"}
+        ],
+        "default": "dark"
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_top",
+        "label": "Border Top",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_right",
+        "label": "Border Right",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_bottom",
+        "label": "Border Bottom",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "header_image_border_left",
+        "label": "Border Left",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Layout",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type": "range",
+        "id": "header_image_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Small Devices",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Small Devices",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Padding",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_pt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_pr",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_pb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_pl",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Margin",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_mt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_mr",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_mb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_ml",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },      
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Layout",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_md_up",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns - Medium & Up Devices",
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "header_image_col_md_up_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Medium & Up Devices",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Margin",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_pt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_pr_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_pb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_pl_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Header Image - Padding",
+        "info": "These settings apply to the header image only."
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "header_image_mt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Right",
+        "id": "header_image_mr_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   2,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "header_image_mb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Left",
+        "id": "header_image_ml_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },       
+      {
+        "type": "header",
+        "content": "----------- Content Settings ----------",
+        "info": "Applies to content between the section header and footer. Content is added as a section block at the top of the section."
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "content_container_pt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "content_container_pb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "content_container_mt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "content_container_mb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes larger than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "content_container_pt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "content_container_pb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "content_container_mt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "content_container_mb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },      
+      {
+        "type": "header",
+        "content": "-------- Content Background ---------"
+      },
+      {
+        "type": "color",
+        "id": "content_container_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "content_container_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
+      },
+      {
+        "type": "select",
+        "id": "no_gutters",
+        "label": "Gutter on Row Columns",
+        "options": [
+          { "value": "", "label": "Gutters" },
+          { "value": "no-gutters", "label": "No Gutters" }
+        ],
+        "default": "",
+        "info": "Will row columns have gutters on all screen sizes?"
+      },
+      {
+        "type": "header",
+        "content": "----------- Footer Settings -----------"
+      },
+      {
+        "type": "header",
+        "content": "Small Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "footer_col",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "footer_col_offset",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns - Small Devices",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "footer_pt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   3,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "footer_pb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   3,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "footer_mt",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "footer_mb",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },      
+      {
+        "type": "header",
+        "content": "Medium & Up Devices",
+        "info": "Screen sizes smaller than 768px"
+      },
+      {
+        "type": "header",
+        "content": "Layout"
+      },
+      {
+        "type": "range",
+        "id": "footer_col_md_up",
+        "min": 1,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Columns ",
+        "default": 12
+      },
+      {
+        "type": "range",
+        "id": "footer_col_offset_md_up",
+        "min": 0,
+        "max": 12,
+        "step": 1,
+        "unit": "col",
+        "label": "Container Offset Columns",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "footer_pt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   3,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "footer_pb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   3,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Margin"
+      },
+      {
+        "type":   "range",
+        "label": "Top",
+        "id": "footer_mt_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type":   "range",
+        "label": "Bottom",
+        "id": "footer_mb_md_up",
+        "min":       0,
+        "max":       10,
+        "step":      1,
+        "default":   0,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "-------- Footer Background ---------"
+      },
+      {
+        "type": "color",
+        "id": "footer_bg_color",
+        "label": "Background Color"
+      },
+      {
+        "type": "select",
+        "id": "footer_bg_color_alpha",
+        "label": "Background Color Transparency",
+        "options": [
+          { "value": "00", "label": "0%" },
+          { "value": "0D", "label": "5%" },
+          { "value": "1A", "label": "10%" },
+          { "value": "26", "label": "15%" },
+          { "value": "33", "label": "20%" },
+          { "value": "40", "label": "25%" },
+          { "value": "4D", "label": "30%" },
+          { "value": "59", "label": "35%" },
+          { "value": "66", "label": "40%" },
+          { "value": "73", "label": "45%" },
+          { "value": "80", "label": "50%" },
+          { "value": "8C", "label": "55%" },
+          { "value": "99", "label": "60%" },
+          { "value": "A6", "label": "65%" },
+          { "value": "B3", "label": "70%" },
+          { "value": "BF", "label": "75%" },
+          { "value": "CC", "label": "80%" },
+          { "value": "D9", "label": "85%" },
+          { "value": "E6", "label": "90%" },
+          { "value": "F2", "label": "95%" },
+          { "value": "FF", "label": "100%" }
+        ],
+        "default": "FF",
+        "info": "Transparency is applied to background color and can be combined with the background image to create unique overlays with opacity."
+      },
+      {
+        "type": "header",
+        "content": "---------- Footer Container -----------"
+      },
+      {
+        "type": "select",
+        "id": "footer_container",
+        "label": "Container",
+        "options": [
+          {
+            "value": "container",
+            "label": "Contained at all breakpoints"
+          },
+          {
+            "value": "container-sm",
+            "label": "95% wide with 2.5% padding until small breakpoint"
+          },
+          {
+            "value": "container-md",
+            "label": "95% wide with 2.5% padding until medium breakpoint"
+          },
+          {
+            "value": "container-lg",
+            "label": "95% wide with 2.5% padding until large breakpoint"
+          },
+          {
+            "value": "container-xl",
+            "label": "95% wide with 2.5% padding until xlarge breakpoint"
+          },
+          {
+            "value": "container-fluid",
+            "label": "95% wide with 2.5% padding at all breakpoints"
+          },
+          { "value": "w-100", "label": "100% wide at all breakpoints"}
+        ],
+        "default": "container-xl",
+        "info": "Determines the width of container that the footer content column will be contained to. Options are full width, contained, or 95% of the screen width at all or specified screen widths."
       }
     ],
     "blocks":[
@@ -2309,14 +2439,14 @@
           {
             "type": "select",
             "id": "aspect_ratio",
-            "label": "Image Aspect Ratio",
+            "label": "Image Aspect Ratio - Small devices",
             "options": [
               { "value": "21by9", "label": "21x9"},
               { "value": "1by1", "label": "1x1"},
               { "value": "2by1", "label": "2x1"},
               { "value": "3by1", "label": "3x1"},
               { "value": "4by3", "label": "4x3"},
-              { "value": "5by4", "label": "5x4"},
+              { "value": "75by241", "label": "75x241 - Pill"},
               { "value": "16by9", "label": "16x9"},
               { "value": "none", "label": "None"}
             ],
@@ -2332,7 +2462,7 @@
               { "value": "2by1", "label": "2x1"},
               { "value": "3by1", "label": "3x1"},
               { "value": "4by3", "label": "4x3"},
-              { "value": "5by4", "label": "5x4"},
+              { "value": "75by241", "label": "75x241 - Pill"},
               { "value": "16by9", "label": "16x9"},
               { "value": "none", "label": "None"}
             ],
@@ -2359,7 +2489,8 @@
           {
             "type": "text",
             "id": "eyebrow_text",
-            "label": "Eyebrow"
+            "label": "Eyebrow",
+            "default": "Block Eyebrow"
           },
           {
             "type": "select",
@@ -2376,13 +2507,37 @@
               { "value": "dark", "label": "Dark"}
             ],
             "default": "dark"
-          },
+          },          
           {
-            "type": "text",
+            "type": "richtext",
             "id": "heading_text",
             "label": "Heading Text",
-            "default": "Section Block"
+            "default": "<p>Content Card</p>"
           },
+          {
+            "type": "select",
+            "id": "heading_text_color",
+            "label": "Heading Text Append Color",
+            "options": [
+              { "value": "primary", "label": "Primary"},
+              { "value": "secondary", "label": "Secondary"},
+              { "value": "deepsea", "label": "Deep Sea"},
+              { "value": "seafoam", "label": "Sea Foam"},
+              { "value": "thyme", "label": "Thyme"},
+              { "value": "success", "label": "Success"},
+              { "value": "danger", "label": "Danger"},
+              { "value": "warning", "label": "Warning"},
+              { "value": "info", "label": "Info"},
+              { "value": "light", "label": "Light"},
+              { "value": "dark", "label": "Dark"},
+              { "value": "body", "label": "Body"},
+              { "value": "muted", "label": "Muted"},
+              { "value": "white", "label": "White"},
+              { "value": "black-50", "label": "Black 50"},
+              { "value": "white-50", "label": "White 50"}
+            ],
+            "default": "body"
+          },                
           {
             "type": "select",
             "id": "heading_style",
@@ -2433,10 +2588,96 @@
             "default": "h3"
           },
           {
+            "type": "select",
+            "id": "heading_type",
+            "label": "Heading Text Type",
+             "info": "For SEO purposes their should only be on H1 element per page.",
+            "options": [
+              { "group": "Heading",
+                "value": "h1",
+                "label": "H1"
+              },
+              { "group": "Heading",
+                "value": "h2",
+                "label": "H2"
+              },
+              { "group": "Heading",
+                "value": "h3",
+                "label": "H3"
+              },
+              { "group": "Heading",
+                "value": "h4",
+                "label": "H4"
+              },
+              { "group": "Heading",
+                "value": "h5",
+                "label": "H5"
+              },
+              { "group": "Heading",
+                "value": "h6",
+                "label": "H6"
+              }
+            ],
+            "default": "h2"
+          },              
+          {
             "type": "richtext",
             "id": "paragraph_text",
-            "label": "Paragraph"
+            "label": "Paragraph",
+            "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque justo justo, tempus nec justo ut.</p>"
           },
+          {
+            "type": "select",
+            "id": "content_color",
+            "label": "Content color",
+            "options": [
+              { "value": "primary", "label": "Primary"},
+              { "value": "secondary", "label": "Secondary"},
+              { "value": "success", "label": "Success"},
+              { "value": "danger", "label": "Danger"},
+              { "value": "warning", "label": "Warning"},
+              { "value": "info", "label": "Info"},
+              { "value": "light", "label": "Light"},
+              { "value": "dark", "label": "Dark"},
+              { "value": "body", "label": "Body"},
+              { "value": "muted", "label": "Muted"},
+              { "value": "white", "label": "White"},
+              { "value": "black-50", "label": "Black 50"},
+              { "value": "white-50", "label": "White 50"}
+            ],
+            "default": "body"
+          },          
+          {
+            "type": "select",
+            "id": "paragraph_text_font_weight_base",
+            "label": "Paragraph Text Base Weight",
+            "options": [
+              { "value": "light", "label": "Light - 300"},
+              { "value": "normal", "label": "Normal - 600"},
+              { "value": "bold", "label": "Bold - 700"}
+            ],
+            "default": "normal"
+          },
+          {
+            "type": "select",
+            "id": "paragraph_text_style",
+            "label": "Paragraph Text Style",
+            "options": [
+              { "value": "normal", "label": "Normal - 14px"},
+              { "value": "lead", "label": "Lead - 18px"}
+            ],
+            "default": "normal"
+          },
+          {
+            "type": "select",
+            "id": "paragraph_text_margin_bottom_none",
+            "label": "Disable margin bottom on paragraph",
+            "options": [
+              { "value": "margin", "label": "Margin"},
+              { "value": "mb-0", "label": "No Margin"}
+            ],
+            "default": "margin"
+          },                          
           {
             "type": "text",
             "id": "link_text",
@@ -2561,27 +2802,6 @@
           },
           {
             "type": "select",
-            "id": "content_color",
-            "label": "Content color",
-            "options": [
-              { "value": "primary", "label": "Primary"},
-              { "value": "secondary", "label": "Secondary"},
-              { "value": "success", "label": "Success"},
-              { "value": "danger", "label": "Danger"},
-              { "value": "warning", "label": "Warning"},
-              { "value": "info", "label": "Info"},
-              { "value": "light", "label": "Light"},
-              { "value": "dark", "label": "Dark"},
-              { "value": "body", "label": "Body"},
-              { "value": "muted", "label": "Muted"},
-              { "value": "white", "label": "White"},
-              { "value": "black-50", "label": "Black 50"},
-              { "value": "white-50", "label": "White 50"}
-            ],
-            "default": "body"
-          },
-          {
-            "type": "select",
             "id": "content_align",
             "label": "Content Alignment - Small devices",
             "options": [
@@ -2606,7 +2826,7 @@
           },
           {
             "type": "header",
-            "content": "----------- Block Settings ----------",
+            "content": "----------- Block Settings ------------",
             "info": "Block settings are global to the block."
           },
           {
@@ -2902,7 +3122,7 @@
           },
           {
             "type": "header",
-            "content": "----------- Content Layout ----------",
+            "content": "----------- Content Layout ------------",
             "info": "These settings apply just to the content."
           },
           {
@@ -2948,128 +3168,6 @@
               { "value": "none", "label": "None"}
             ],
             "default": "none"
-          },
-          {
-            "type": "header",
-            "content": "Medium & Up Devices",
-            "info": "Screen sizes larger than 768px. These settings apply just to the content."
-          },
-          {
-            "type": "header",
-            "content": "Layout"
-          },
-          {
-            "type": "select",
-            "id": "content_align_items_md_up",
-            "label": "Content alignment",
-            "options": [
-              { "value": "start", "label": "Top"},
-              { "value": "center", "label": "Center"},
-              { "value": "end", "label": "Bottom"}
-            ],
-            "default":   "center",
-            "info":      "Default: Center"
-          },
-          {
-            "type": "select",
-            "id": "content_position_md_up",
-            "label": "Content position",
-            "options": [
-              { "value": "top", "label": "Top"},
-              { "value": "right", "label": "Right"},
-              { "value": "bottom", "label": "Bottom"},
-              { "value": "left", "label": "Left"}
-            ],
-            "default":   "bottom",
-            "info":      "Default: Bottom"
-          },
-          {
-            "type": "header",
-            "content": "Padding"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "content_pt_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "content_pr_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "content_pb_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "content_pl_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type": "header",
-            "content": "Margin"
-          },
-          {
-            "type":   "range",
-            "label": "Top",
-            "id": "content_mt_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Right",
-            "id": "content_mr_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   2,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Bottom",
-            "id": "content_mb_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
-          },
-          {
-            "type":   "range",
-            "label": "Left",
-            "id": "content_ml_md_up",
-            "min":       0,
-            "max":       10,
-            "step":      1,
-            "default":   0,
-            "unit": "%"
           },
           {
             "type": "header",
@@ -3192,13 +3290,209 @@
             "step":      1,
             "default":   0,
             "unit": "%"
+          },          
+          {
+            "type": "header",
+            "content": "Medium & Up Devices",
+            "info": "Screen sizes larger than 768px. These settings apply just to the content."
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "select",
+            "id": "content_align_items_md_up",
+            "label": "Content alignment",
+            "options": [
+              { "value": "start", "label": "Top"},
+              { "value": "center", "label": "Center"},
+              { "value": "end", "label": "Bottom"}
+            ],
+            "default":   "center",
+            "info":      "Default: Center"
+          },
+          {
+            "type": "select",
+            "id": "content_position_md_up",
+            "label": "Content position",
+            "options": [
+              { "value": "top", "label": "Top"},
+              { "value": "right", "label": "Right"},
+              { "value": "bottom", "label": "Bottom"},
+              { "value": "left", "label": "Left"}
+            ],
+            "default":   "bottom",
+            "info":      "Default: Bottom"
+          },
+          {
+            "type": "header",
+            "content": "Padding"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "content_pt_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "content_pr_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "content_pb_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "content_pl_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type": "header",
+            "content": "Margin"
+          },
+          {
+            "type":   "range",
+            "label": "Top",
+            "id": "content_mt_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Right",
+            "id": "content_mr_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   2,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Bottom",
+            "id": "content_mb_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
+          },
+          {
+            "type":   "range",
+            "label": "Left",
+            "id": "content_ml_md_up",
+            "min":       0,
+            "max":       10,
+            "step":      1,
+            "default":   0,
+            "unit": "%"
           }
         ]
+      },
+      {
+        "type": "article-card",
+        "name": "Article Card",
+        "settings":[
+          {
+            "type": "article",
+            "id": "article",
+            "label": "Grid Item Article"
+          },
+          {
+            "type": "header",
+            "content": "----------- Block Settings -----------",
+            "info": "Block settings are global to the block."
+          },
+          {
+            "type": "header",
+            "content": "Small Devices",
+            "info": "Screen sizes smaller than 768px"
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "col",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns",
+            "default": 12
+          },
+          {
+            "type": "range",
+            "id": "col_offset",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Offset Columns",
+            "default": 0
+          },
+          {
+            "type": "header",
+            "content": "Medium & Up Devices",
+            "info": "Screen sizes larger than 768px"
+          },
+          {
+            "type": "header",
+            "content": "Layout"
+          },
+          {
+            "type": "range",
+            "id": "col_md_up",
+            "min": 1,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Columns",
+            "default": 4
+          },
+          {
+            "type": "range",
+            "id": "col_md_up_offset",
+            "min": 0,
+            "max": 12,
+            "step": 1,
+            "unit": "col",
+            "label": "Container Offset Columns",
+            "default": 0
+          }          
+        ]
       }
-     ],
+    ],
     "presets": [
       {
-        "name": "Master Section",
+        "name": "Banner",
         "category": "Content"
       }
     ]

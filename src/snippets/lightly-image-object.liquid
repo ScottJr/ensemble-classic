@@ -2,6 +2,9 @@
 
   -----------------------------------------------------------------------------
   Image Object
+  More info: https://lightly-digital/docs/image-object
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Usage:
@@ -11,7 +14,11 @@
     image_url_md_up: { string } - expects image url
     image_alt_text: { string }
     object_fit: { string } - optional
-    aspect_ratio: { string } - utility class %}
+    aspect_ratio: { string } - optional
+    aspect_ratio_md_up: { string } - optional %}
+
+  Required Snippets:
+    - Embed Object - `snippets/lightly-embed-object.liquid`  
 
 {% endcomment %}
 {% if object_fit != blank %}
@@ -27,22 +34,35 @@
 {% if image_url_md_up contains 'no-image' %}
   {% assign image_url_md_up = false %}
 {% endif %}
-{% assign image_classes = settings.ec_prefix
+
+{% assign image_classes = 
+  | append 'image-object '
+  | append: settings.lightly_prefix
   | append: 'w-100'
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'h-100' %}
+
+{% if image_url != false %}
+  {% assign default_image_url = image_url %}
+{% elsif image_url_md_up != false %}
+  {% assign default_image_url = image_url_md_up %}
+{% endif %}
+
+{% if image_url != false %}
+  {% assign srcset_classes = image_url | append: ' 720w, ' %}
+{% endif %}
+
+{% if image_url_md_up != false %}
+  {% assign srcset_classes = srcset_classes | append: image_url_md_up | append: ' 1920w' %}
+{% endif %}
 
 {% capture content %}
   <picture class="{{ image_classes }}">
-    <source
-      srcset="{{ image_url_md_up }} 200w,
-              {{ image_url }} 100w"
-      sizes="(max-width: {{settings.container_width_md | append: 'px' }}) 800px,
-      1120px"
-    />
     <img
-      src="{{ 'password-holder.jpg' | asset_url }}"
+      src="{{ default_image_url }}"
+      srcset="{{ srcset_classes }}"
+      sizes="(min-width: 960px) 960px, 360px"
       alt="{{ image_alt_text }}"
       style="object-fit: {{ object_fit }}; height:100%; width:100%;"
       loading="lazy"
@@ -52,7 +72,7 @@
 
 {% comment %} Render Image Object {% endcomment %}
 {% if image_url != false %}
-  {% render 'embed-object'
+  {% render 'lightly-embed-object'
     content: content,
     aspect_ratio: aspect_ratio
     aspect_ratio_md_up: aspect_ratio_md_up %}

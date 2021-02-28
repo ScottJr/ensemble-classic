@@ -1,8 +1,11 @@
 {% comment %}
 
-  -----------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
   Background Color Psuedo Element
-  -----------------------------------------------------------------------------
+  More info: https://lightly-digital/docs/background-color-element
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
 
   Makes it so we can overlay a transparent color background over a background
   image.
@@ -20,13 +23,13 @@
 {% assign psuedo_style_tag = psuedo_style_tag
   | append: ';"' %}
 
-{% assign psuedo_el_classes =  settings.ec_prefix
+{% assign psuedo_el_classes =  settings.lightly_prefix
   | append: 'position-absolute'
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'h-100'
   | append: ' '
-  | append: settings.ec_prefix
+  | append: settings.lightly_prefix
   | append: 'w-100' %}
 
 <div class="{{ psuedo_el_classes }}" {{ psuedo_style_tag }}></div>

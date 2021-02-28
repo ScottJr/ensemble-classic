@@ -1,38 +1,34 @@
-
 {% comment %}
 
-  -----------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
   Content Object
-  -----------------------------------------------------------------------------
+  More info: https://lightly-digital/docs/content-object
 
-  Dependencies:
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  ------------------------------------------------------------------------------
 
-  Liquid:
-
-  Elements:
-  - Eyebrow Element - `snippets/eyebrow-element.liquid`
-  - Heading Element - `snippets/heading-element`
-  - Paragraph Element - `snippets/paragraph-element`
-  - Link Element - `snippets/link-element`
-
-  Styling:
-
-  - Bootstrap
-
-  JavaScript:
-
-  - None
-
-  Usage:
-
-  {% render 'content-object',
-    content: { string } - required
+  {% render 'lightly-content-object',
+    content_color: { string } - optional
     content_align: { string } - optional
     content_align_md_up: { string } - optional
+    eyebrow_text: { string } - optional
+    eyebrow_style: { string } - optional
+    heading_text: { string } - optional
+    heading_text_color: { string } - optional
+    heading_style: { string } - optional
+    heading_type: { string } - optional
+    paragraph_text: { string } - optional
+    paragraph_text_margin_bottom_none: { string } - optional
     link_style: { string } - optional
     link_url: { string } - optional
     link_text: { string } - optional
     link_block: { boolean } - optional %}
+
+  Required Elements:
+  - Eyebrow Element - `snippets/lightly-eyebrow-element.liquid`
+  - Heading Element - `snippets/lightly-heading-element`
+  - Paragraph Element - `snippets/lightly-paragraph-element`
+  - Link Element - `snippets/lightly-link-element`
 
 {% endcomment %}
 
@@ -49,31 +45,34 @@
   {% assign render_content = false %}
 {% endif %}
 
-{% assign content_wrapper_classes = settings.ec_prefix | append: 'w-100' %}
+{% assign content_wrapper_classes = 'content-object' 
+  | append: ' '
+  | append: settings.lightly_prefix
+  | append: 'w-100' %}
 
 {% if render_content == true %}
   <div class="{{ content_wrapper_classes }}">
-    {% render 'eyebrow-element',
+    {% render 'lightly-eyebrow-element',
       text: eyebrow_text,
       text_align: content_align,
       text_align_md_up: content_align_md_up,
       eyebrow_style: eyebrow_style %}
 
-    {% render 'heading-element',
+    {% render 'lightly-heading-element',
       text: heading_text,
-      text_color: content_color,
+      text_color: heading_text_color,
       text_align: content_align,
       text_align_md_up: content_align_md_up,
-      heading_style: heading_style %}
+      heading_style: heading_style,
+      heading_type: heading_type %}
 
-    {% render 'paragraph-element',
+    {% render 'lightly-paragraph-element',
       text: paragraph_text,
       text_color: content_color,
       text_align: content_align,
       text_align_md_up: content_align_md_up %}
 
-    {% render 'link-element',
-      text_align: content_align_classes,
+    {% render 'lightly-link-element',
       link_text: link_text,
       link_align: content_align,
       link_align_md_up: content_align_md_up,

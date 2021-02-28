@@ -2,14 +2,16 @@
 
   -----------------------------------------------------------------------------
   Video Object
+  More info: https://lightly-digital/docs/video-object
+
+  Copyright 2021 Lightly Digital - support@lightly.digital  
   -----------------------------------------------------------------------------
 
   Usage:
 
   {% render 'video-object',
-              video_url: { obj } - required - expects video object
-              video_aspect_ratio: { string } - i.e. 1by1
-  %}
+    video_url: { obj } - required - expects video object
+    aspect_ratio: { string } - i.e. 1by1 %}
 
 {% endcomment %}
 {% if video_url != blank %}
@@ -20,10 +22,10 @@
 
 {% comment %} Video Wrapper Classes {% endcomment %}
 {% assign embed_wrapper_classes = 'embed-responsive' %}
-{% if video_aspect_ratio != blank %}
+{% if aspect_ratio != blank %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' embed-responsive-'
-    | append: video_aspect_ratio %}
+    | append: aspect_ratio %}
 {% else %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' '

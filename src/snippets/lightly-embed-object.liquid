@@ -2,24 +2,32 @@
 
   -----------------------------------------------------------------------------
   Embed Object
+  More info: https://lightly-digital/docs/embed-object
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
   -----------------------------------------------------------------------------
 
   Usage:
 
   {% render 'embed-object',
-    id: { string } - required for background
-    aspect_ratio: { string } - optional - utility class
+    id: { string } - required 
+    content: { string } - required
+    aspect_ratio: { string } - optional
+    aspect_ratio_md_up: { string } - optional
     align_items: { string } - optional
-    content: { string } - optional
-    bg_image_url
-    bg_image_url_md_up
-    bg_color
-    bg_color_alpha %}
+    align_items_md_up: { string } - optional
+    bg_image_url: { string } - optional
+    bg_image_url_md_up: { string } - optional
+    bg_color: { string } - optional
+    bg_color_alpha: { string } - optional %}
+
+  Required Snippets:
+    - Background Image Element - `snippets/lightly-bg-image-element.liquid`
 
 {% endcomment %}
 
 {% capture bg_image_style_tag %}
-  {% render 'bg-image-tag'
+  {% render 'lightly-lightly-bg-image-element'
     id: id,
     bg_image_url: bg_image_url,
     bg_image_url_md_up: bg_image_url_md_up,
@@ -27,40 +35,36 @@
     bg_color_alpha: bg_color_alpha %}
 {% endcapture %}
 
-{% assign embed_wrapper_classes =
-  settings.ec_prefix
-  | append: 'embed-responsive' %}
+{% assign embed_wrapper_classes = settings.lightly_prefix | append: 'embed-responsive' %}
 
 {% if aspect_ratio != blank %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'embed-responsive-'
     | append: aspect_ratio %}
 {% else %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'embed-responsive-4by3' %}
 {% endif %}
 
 {% if aspect_ratio_md_up != blank %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'embed-responsive-md-'
     | append: aspect_ratio_md_up %}
 {% else %}
   {% assign embed_wrapper_classes = embed_wrapper_classes
     | append: ' '
-    | append: settings.ec_prefix
+    | append: settings.lightly_prefix
     | append: 'embed-responsive-md-4by3' %}
 {% endif %}
 
 {% comment %} Embeded Responsive Item Classes {% endcomment %}
-{% assign embed_responsive_item_classes =
-  settings.ec_prefix
-  | append: 'embed-responsive-item' %}
+{% assign embed_responsive_item_classes = settings.lightly_prefix | append: 'embed-responsive-item' %}
 
 {% assign embed_responsive_item_classes = embed_responsive_item_classes
   | append: ' '

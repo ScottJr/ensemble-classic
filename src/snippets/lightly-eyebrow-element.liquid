@@ -1,0 +1,60 @@
+{% comment %}
+
+  -----------------------------------------------------------------------------
+  Eyebrow Text
+  More info: https://lightly-digital/docs/eyebrow-element
+
+  Copyright 2021 Lightly Digital - support@lightly.digital
+  -----------------------------------------------------------------------------
+
+  Usage:
+
+  {% render 'eyebrow-element',
+    text: { string }
+    eyebrow_style: { string } expects badge class
+    text_align: { string } - default 'text-left'
+    text_align_md_up: { string } - optional %} 
+
+{% endcomment %}
+
+{% comment %} Snippet Settings {% endcomment %}
+{% if text_align != blank %}
+  {% assign text_align = settings.lightly_prefix | append: 'text-' | append: text_align %}
+{% else %}
+  {% assign text_align =  settings.lightly_prefix | append: 'text-left' %}
+{% endif %}
+
+{% if text_align_md_up != blank %}
+  {% assign text_align_md_up = settings.lightly_prefix | append: 'text-md-' | append: text_align_md_up %}
+{% else %}
+  {% assign text_align_md_up = settings.lightly_prefix | append: 'text-md-center' %}
+{% endif %}
+
+{% assign text_align_classes = text_align | append: ' ' | append: text_align_md_up %}
+
+{% if eyebrow_style != blank %}
+  {% assign eyebrow_style = settings.lightly_prefix | append: 'badge-' | append: eyebrow_style %}
+{% else %}
+  {% assign eyebrow_style = settings.lightly_prefix | append: 'badge-secondary' %}
+{% endif %}
+
+{% assign classes = settings.lightly_prefix | append: 'mb-1' %}
+{% assign classes = classes | append: ' ' | append: text_align_classes %}
+
+{% comment %} Badge Element Classes {% endcomment %}
+{% assign badge_classes = settings.lightly_prefix | append: 'badge'%}
+{% assign badge_classes = badge_classes | append: ' ' | append: eyebrow_style %}
+
+{% comment %} HTML content {% endcomment %}
+{% capture 'html_content' %}
+  {% if text != blank %}
+  <div class="{{ classes }}">
+    <span class="{{ badge_classes }}">{{ text }}</span>
+  </div>
+  {% endif %}
+{% endcapture %}
+
+{% comment %} Render {% endcomment %}
+{% if html_content != blank %}
+  {{ html_content }}
+{% endif %}
